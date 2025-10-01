@@ -34,7 +34,7 @@ namespace mecanum_hardware
     serial_fd_ = ::open(serial_port_.c_str(), O_RDWR | O_NOCTTY | O_NONBLOCK);
     if (serial_fd_ < 0)
     {
-      RCLCPP_ERROR(rclcpp::get_logger("MecanumSystem"),
+      RCLCPP_ERROR(this->get_logger(),
                    "Errore apertura seriale %s: %s",
                    serial_port_.c_str(), std::strerror(errno));
       return false;
@@ -44,7 +44,7 @@ namespace mecanum_hardware
     struct termios tty;
     if (tcgetattr(serial_fd_, &tty) != 0)
     {
-      RCLCPP_ERROR(rclcpp::get_logger("MecanumSystem"),
+      RCLCPP_ERROR(this->get_logger(),
                    "Errore tcgetattr: %s", std::strerror(errno));
       ::close(serial_fd_);
       serial_fd_ = -1;
@@ -68,7 +68,7 @@ namespace mecanum_hardware
       baud = B115200;
       break;
     default:
-      RCLCPP_WARN(rclcpp::get_logger("MecanumSystem"),
+      RCLCPP_WARN(this->get_logger(),
                   "Baudrate %d non standard, uso 115200", baudrate_);
       baud = B115200;
     }
@@ -95,14 +95,14 @@ namespace mecanum_hardware
     // 7. Applica le impostazioni
     if (tcsetattr(serial_fd_, TCSANOW, &tty) != 0)
     {
-      RCLCPP_ERROR(rclcpp::get_logger("MecanumSystem"),
+      RCLCPP_ERROR(this->get_logger(),
                    "Errore tcsetattr: %s", std::strerror(errno));
       ::close(serial_fd_);
       serial_fd_ = -1;
       return false;
     }
 
-    RCLCPP_INFO(rclcpp::get_logger("MecanumSystem"),
+    RCLCPP_INFO(this->get_logger(),
                 "Porta seriale %s aperta a %d baud",
                 serial_port_.c_str(), baudrate_);
     return true;
@@ -118,13 +118,13 @@ namespace mecanum_hardware
     if (serial_fd_ >= 0)
     {
       ::close(serial_fd_);
-      RCLCPP_INFO(rclcpp::get_logger("MecanumSystem"),
+      RCLCPP_INFO(this->get_logger(),
                   "Porta seriale %s chiusa", serial_port_.c_str());
       serial_fd_ = -1;
     }
     else
     {
-      RCLCPP_WARN(rclcpp::get_logger("MecanumSystem"),
+      RCLCPP_WARN(this->get_logger(),
                   "close_serial chiamato ma la porta non era aperta");
     }
   }
@@ -172,7 +172,7 @@ namespace mecanum_hardware
 
     if (serial_fd_ < 0)
     {
-      RCLCPP_ERROR(rclcpp::get_logger("MecanumSystem"),
+      RCLCPP_ERROR(this->get_logger(),
                    "send_command_: porta seriale non aperta");
       return false;
     }
@@ -212,7 +212,7 @@ namespace mecanum_hardware
           ::usleep(1000); // 1 ms
           continue;
         }
-        RCLCPP_ERROR(rclcpp::get_logger("MecanumSystem"),
+        RCLCPP_ERROR(this->get_logger(),
                      "send_command_: errore write(): %s", std::strerror(errno));
         return false;
       }
@@ -221,7 +221,7 @@ namespace mecanum_hardware
     // Assicura lo svuotamento del buffer di trasmissione prima di proseguire
     if (::tcdrain(serial_fd_) != 0)
     {
-      RCLCPP_WARN(rclcpp::get_logger("MecanumSystem"),
+      RCLCPP_WARN(this->get_logger(),
                   "send_command_: tcdrain ha riportato errore: %s",
                   std::strerror(errno));
       // Non consideriamo questo un errore fatale per default
@@ -284,7 +284,7 @@ namespace mecanum_hardware
     }
     catch (...)
     {
-      RCLCPP_ERROR(rclcpp::get_logger("MecanumSystem"),
+      RCLCPP_ERROR(this->get_logger(),
                    "Errore parsing parametri hardware");
       return hardware_interface::CallbackReturn::ERROR;
     }
@@ -294,7 +294,7 @@ namespace mecanum_hardware
     // Verifica che ci siano esattamente 4 giunti
     if (info_.joints.size() != 4)
     {
-      RCLCPP_ERROR(rclcpp::get_logger("MecanumSystem"),
+      RCLCPP_ERROR(this->get_logger(),
                    "Attesi 4 giunti, trovati %zu", info_.joints.size());
       return hardware_interface::CallbackReturn::ERROR;
     }
@@ -323,14 +323,14 @@ namespace mecanum_hardware
 
       if (!ok_pos || !ok_vel || !ok_cmd)
       {
-        RCLCPP_ERROR(rclcpp::get_logger("MecanumSystem"),
+        RCLCPP_ERROR(this->get_logger(),
                      "Giunto %s: servono state(position,velocity) + command(velocity)",
                      j.name.c_str());
         return hardware_interface::CallbackReturn::ERROR;
       }
     }
 
-    RCLCPP_INFO(rclcpp::get_logger("MecanumSystem"),
+    RCLCPP_INFO(this->get_logger(),
                 "Init OK (mock=%s, serial=%s, baud=%d)",
                 mock_ ? "true" : "false",
                 serial_port_.c_str(), baudrate_);
@@ -394,7 +394,7 @@ namespace mecanum_hardware
     {
       if (!open_serial())
       {
-        RCLCPP_ERROR(rclcpp::get_logger("MecanumSystem"),
+        RCLCPP_ERROR(this->get_logger(),
                      "Impossibile aprire la porta seriale %s", serial_port_.c_str());
         return hardware_interface::CallbackReturn::ERROR;
       }
@@ -424,7 +424,7 @@ namespace mecanum_hardware
     // 1.1) Sanity check: evita divisioni per zero o valori non sensati.
     if (dt <= 0.0)
     {
-      RCLCPP_WARN(rclcpp::get_logger("MecanumSystem"),
+      RCLCPP_WARN(this->get_logger(),
                   "Periodo dt non valido (dt=%.6f).", dt);
     }
 
@@ -432,7 +432,7 @@ namespace mecanum_hardware
     if (mock_)
     {
       apply_mock_dynamics_(dt);
-      RCLCPP_DEBUG(rclcpp::get_logger("MecanumSystem"),
+      RCLCPP_DEBUG(this->get_logger(),
                    "Mock dynamics applied (dt=%.3f)", dt);
       return hardware_interface::return_type::OK;
     }
@@ -451,7 +451,7 @@ namespace mecanum_hardware
     }
 
     // 3.2) Log della riga grezza ricevuta (utile per diagnosi di framing/formato).
-    RCLCPP_DEBUG(rclcpp::get_logger("MecanumSystem"),
+    RCLCPP_DEBUG(this->get_logger(),
                  "Linea seriale ricevuta: %s", line->c_str());
 
     // 4) Dispatch in base al prefisso del pacchetto.
@@ -488,14 +488,14 @@ namespace mecanum_hardware
         }
         else
         {
-          RCLCPP_WARN(rclcpp::get_logger("MecanumSystem"),
+          RCLCPP_WARN(this->get_logger(),
                       "Velocità non aggiornata: dt=%.6f", dt);
         }
 
         // 4.4) Log immediato dei giunti aggiornati (utile in debug).
         for (size_t i = 0; i < joints_.size(); ++i)
         {
-          RCLCPP_INFO(rclcpp::get_logger("MecanumSystem"),
+          RCLCPP_INFO(this->get_logger(),
                       "Joint %s: pos=%.3f rad, vel=%.3f rad/s",
                       joint_names_[i].c_str(),
                       joints_[i].pos_rad,
@@ -505,7 +505,7 @@ namespace mecanum_hardware
       catch (const std::exception &e)
       {
         // 4.5) Pacchetto malformato: scartalo e prosegui senza interrompere il ciclo di controllo.
-        RCLCPP_WARN(rclcpp::get_logger("MecanumSystem"),
+        RCLCPP_WARN(this->get_logger(),
                     "Pacchetto ENC malformato, scartato. Errore: %s | Riga: '%s'",
                     e.what(), line->c_str());
       }
@@ -519,7 +519,8 @@ namespace mecanum_hardware
         parse_imu_packet_(*line);
 
         // 5.1) Log dei valori IMU aggiornati (utile in debug di integrazione).
-        RCLCPP_INFO(rclcpp::get_logger("MecanumSystem"),
+        //RCLCPP_INFO(this->get_logger(),
+        RCLCPP_INFO(this->get_logger(),
                     "IMU orient=(%.3f, %.3f, %.3f, %.3f) "
                     "ang_vel=(%.3f, %.3f, %.3f) "
                     "lin_acc=(%.3f, %.3f, %.3f)",
@@ -533,7 +534,7 @@ namespace mecanum_hardware
       catch (const std::exception &e)
       {
         // 5.2) Pacchetto IMU malformato: scarta e continua.
-        RCLCPP_WARN(rclcpp::get_logger("MecanumSystem"),
+        RCLCPP_WARN(this->get_logger(),
                     "Pacchetto IMU malformato, scartato. Errore: %s | Riga: '%s'",
                     e.what(), line->c_str());
       }
@@ -542,14 +543,14 @@ namespace mecanum_hardware
       // TODO
     }
     else if (line->rfind("LOG", 0) == 0){
-      RCLCPP_WARN(rclcpp::get_logger("MecanumSystem"),
+      RCLCPP_WARN(this->get_logger(),
                   "Pico log: %s", line->c_str());
     }
     else
     {
       // 6) Prefisso sconosciuto: il pacchetto non appartiene ai formati attesi.
       //    Lo segnaliamo ma non è un errore critico (potrebbe essere rumore o debug lato MCU).
-      RCLCPP_WARN(rclcpp::get_logger("MecanumSystem"),
+      RCLCPP_WARN(this->get_logger(),
                   "Pacchetto con prefisso sconosciuto: %s", line->c_str());
     }
 
@@ -583,7 +584,7 @@ namespace mecanum_hardware
     // 3) Invio sempre (la riduzione riguarda solo il logging)
     if (!send_command_(csv + "\n"))
     {
-      RCLCPP_ERROR(rclcpp::get_logger("MecanumSystem"),
+      RCLCPP_ERROR(this->get_logger(),
                    "Errore invio comando seriale");
       return hardware_interface::return_type::ERROR;
     }
@@ -594,7 +595,7 @@ namespace mecanum_hardware
     static std::string last_logged_csv; // vuota al primo giro → farà il primo log
     if (last_logged_csv != csv)
     {
-      RCLCPP_INFO(rclcpp::get_logger("MecanumSystem"),
+      RCLCPP_INFO(this->get_logger(),
                   "write() cmd: FL=%.3f FR=%.3f RL=%.3f RR=%.3f",
                   joints_[0].cmd_vel, joints_[1].cmd_vel,
                   joints_[2].cmd_vel, joints_[3].cmd_vel);
