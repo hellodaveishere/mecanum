@@ -1,0 +1,49 @@
+# Cartelle di build ROS2
+/build/
+/install/
+/log/
+
+# Configurazioni locali di VS Code
+.vscode/
+.vscode-server/
+.vscode-remote/
+.vscode-test/
+
+# Cache e dati .NET
+.dotnet/
+
+# Log e cache locali
+*.log
+.cache/
+
+# Python / MicroPython
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.mpy
+
+# File temporanei ed editor
+*.swp
+*.swo
+*.tmp
+*.bak
+*~
+
+# Dev Container / Docker
+.devcontainer/
+.docker/
+docker-compose.override.yml
+
+# Configurazioni personali Git
+.gitconfig
+.gitignore_global
+.gitattributes
+
+# Build generici / artefatti
+build/
+dist/
+*.egg-info/
+
+# Lock files
+*.lock

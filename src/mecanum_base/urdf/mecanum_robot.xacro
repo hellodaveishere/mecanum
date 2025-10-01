@@ -1,0 +1,165 @@
+<?xml version="1.0"?>
+<robot name="mecanum_robot" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- =========================
+       📌 PARAMETRI DEL ROBOT
+       ========================= -->
+  <!-- Geometria -->
+  <xacro:property name="wheel_radius" value="0.05"/>   <!-- Raggio ruota [m] -->
+  <xacro:property name="L" value="0.15"/>              <!-- Mezzo passo longitudinale [m] -->
+  <xacro:property name="W" value="0.15"/>              <!-- Mezzo passo trasversale [m] -->
+
+  <!-- Hardware -->
+  <xacro:property name="mock" value="false"/>          <!-- true = simulazione, false = hardware reale -->
+  <xacro:property name="accel_limit" value="25.0"/>    <!-- Limite accelerazione [rad/s²] -->
+  <xacro:property name="ticks_per_rev" value="2048"/>  <!-- Tick encoder per giro motore -->
+  <xacro:property name="gear_ratio" value="30.0"/>     <!-- Rapporto di riduzione -->
+
+  <!-- Inversione direzione ruote -->
+  <xacro:property name="invert_fl" value="1"/>
+  <xacro:property name="invert_fr" value="1"/>
+  <xacro:property name="invert_rl" value="1"/>
+  <xacro:property name="invert_rr" value="1"/>
+
+  <!-- =========================
+       📌 LINK DI BASE
+       ========================= -->
+  <!-- Link radice fittizio senza inerzia -->
+  <link name="base_footprint"/>
+
+  <!-- Giunto fisso tra base_footprint e base_link -->
+  <joint name="base_footprint_to_base_link" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Link base del robot -->
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="0.4 0.3 0.1"/>
+      </geometry>
+      <origin xyz="0 0 0.05" rpy="0 0 0"/>
+      <material name="gray">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+      </material>
+    </visual>
+    <inertial>
+      <origin xyz="0 0 0.05" rpy="0 0 0"/>
+      <mass value="10.0"/>
+      <inertia ixx="0.2" ixy="0" ixz="0" iyy="0.2" iyz="0" izz="0.2"/>
+    </inertial>
+  </link>
+
+  <!-- =========================
+       📌 MACRO RUOTA
+       ========================= -->
+  <xacro:macro name="wheel" params="name x y">
+    <link name="${name}_link">
+      <visual>
+        <geometry>
+          <cylinder radius="${wheel_radius}" length="0.05"/>
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 0 1.5708"/>
+        <material name="black">
+          <color rgba="0.1 0.1 0.1 1.0"/>
+        </material>
+      </visual>
+    </link>
+    <joint name="${name}_joint" type="continuous">
+      <parent link="base_link"/>
+      <child link="${name}_link"/>
+      <origin xyz="${x} ${y} 0.05" rpy="0 0 0"/>
+      <axis xyz="0 1 0"/>
+    </joint>
+  </xacro:macro>
+
+  <!-- =========================
+       📌 QUATTRO RUOTE MECANUM
+       ========================= -->
+  <xacro:wheel name="front_left_wheel"  x="${L}"  y="${W}"/>
+  <xacro:wheel name="front_right_wheel" x="${L}"  y="${-W}"/>
+  <xacro:wheel name="rear_left_wheel"   x="${-L}" y="${W}"/>
+  <xacro:wheel name="rear_right_wheel"  x="${-L}" y="${-W}"/>
+
+  <!-- =========================
+       📌 IMU (solo visualizzazione)
+       ========================= -->
+  <link name="imu_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.02 0.02 0.02"/> <!-- Cubo di 2 cm -->
+      </geometry>
+      <material name="gray">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+      </material>
+    </visual>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.01"/>
+      <inertia ixx="0.00001" ixy="0.0" ixz="0.0"
+               iyy="0.00001" iyz="0.0" izz="0.00001"/>
+    </inertial>
+  </link>
+
+  <!-- Giunto fisso tra base_link e imu_link -->
+  <joint name="imu_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="imu_link"/>
+    <origin xyz="0.0 0.0 0.1" rpy="0 0 0"/>
+  </joint>
+
+  <!-- =========================
+       📌 ROS2_CONTROL: HARDWARE MECANUM
+       ========================= -->
+  <ros2_control name="MecanumSystem" type="system">
+    <hardware>
+      <!-- Nome del plugin hardware (corrisponde al file plugin.xml) -->
+      <plugin>mecanum_hardware/MecanumSystem</plugin>
+
+      <!-- Parametri comuni -->
+      <param name="wheel_radius">${wheel_radius}</param>
+      <param name="L">${L}</param>
+      <param name="W">${W}</param>
+      <param name="mock">${mock}</param>
+      <param name="accel_limit">${accel_limit}</param>
+
+      <!-- Parametri hardware -->
+      <param name="ticks_per_rev">${ticks_per_rev}</param>
+      <param name="gear_ratio">${gear_ratio}</param>
+      <param name="invert_fl">${invert_fl}</param>
+      <param name="invert_fr">${invert_fr}</param>
+      <param name="invert_rl">${invert_rl}</param>
+      <param name="invert_rr">${invert_rr}</param>
+
+      <!-- Parametri seriale -->
+      <param name="serial_port">/dev/ttyUSB0</param>
+      <param name="baudrate">115200</param>
+    </hardware>
+
+    <!-- Interfacce per ciascun giunto -->
+    <joint name="front_left_wheel_joint">
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <command_interface name="velocity"/>
+    </joint>
+    <joint name="front_right_wheel_joint">
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <command_interface name="velocity"/>
+    </joint>
+    <joint name="rear_left_wheel_joint">
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <command_interface name="velocity"/>
+    </joint>
+    <joint name="rear_right_wheel_joint">
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+      <command_interface name="velocity"/>
+    </joint>
+  </ros2_control>
+
+</robot>

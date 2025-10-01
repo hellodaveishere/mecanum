@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>mecanum_base</name>
+  <version>0.1.0</version>
+  <description>
+    Plugin hardware_interface per una base Mecanum con comunicazione seriale diretta.
+    Include anche nodi di utilità per inviare comandi e calcolare odometria.
+  </description>
+
+  <maintainer email="tuo.email@example.com">Il Tuo Nome</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <!-- Dipendenze build -->
+  <build_depend>hardware_interface</build_depend>
+  <build_depend>pluginlib</build_depend>
+
+  <build_export_depend>hardware_interface</build_export_depend>
+  <build_export_depend>pluginlib</build_export_depend>
+
+  <!-- Dipendenze runtime -->
+  <exec_depend>rclcpp</exec_depend>
+  <exec_depend>rclcpp_lifecycle</exec_depend>
+  <exec_depend>controller_manager</exec_depend>
+  <exec_depend>pluginlib</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>nav_msgs</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+
+<export>
+  <build_type>ament_cmake</build_type>
+  <pluginlib plugin="${prefix}/share/${PROJECT_NAME}/mecanum_hardware_plugin.xml"/>
+</export>
+
+</package>

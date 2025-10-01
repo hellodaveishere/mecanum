@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+  File di esportazione plugin per ROS 2 Control.
+  Questo file viene letto da pluginlib per caricare dinamicamente
+  la classe C++ che implementa l'interfaccia hardware.
+-->
+<library path="mecanum_system">
+  <!--
+    =========================
+    PLUGIN ROS 2 CONTROL
+    =========================
+    - path: nome della libreria compilata (senza prefisso "lib" e senza estensione).
+      Esempio: se la libreria è libmecanum_system.so → path="mecanum_system"
+    - class: nome univoco del plugin (namespace/nomeClasse).
+      Questo è quello che userai nel file URDF/Xacro come "hardware_plugin".
+    - type: namespace e nome della classe C++ che implementa il plugin.
+    - base_class_type: deve essere hardware_interface::SystemInterface
+  -->
+  <class
+    name="mecanum_hardware/MecanumSystem"
+    type="mecanum_hardware::MecanumSystem"
+    base_class_type="hardware_interface::SystemInterface">
+
+    <description>
+      Interfaccia hardware per base Mecanum.
+      - Gestisce 4 ruote con encoder incrementali.
+      - Legge dati IMU dalla seriale.
+      - Invia comandi motori via seriale.
+      Questo plugin è caricato da ros2_control tramite controller_manager.
+    </description>
+  </class>
+</library>

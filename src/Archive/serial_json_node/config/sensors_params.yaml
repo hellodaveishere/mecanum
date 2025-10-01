@@ -1,0 +1,66 @@
+serial_json_node:
+  ros__parameters:
+    # 🔌 Serial Configuration
+    serial:
+      port: '/dev/ttyUSB0'         # Serial port for the sensor bridge
+      baud_rate: 115200            # Baud rate for the serial connection
+      rx_poll_hz: 20.0             # Poll frequency in Hz (50 ms = 20 Hz)
+      reset_timeout_s: 5.0         # Timeout for serial reset in seconds
+
+    # ⚙️ Wheel Power Topics
+    wheel_power:
+      front_right:  
+        topic: '/bot/wheel/front_right/power'
+      front_left:  
+        topic: '/bot/wheel/front_left/power'
+      back_left:  
+        topic: '/bot/wheel/back_left/power'
+      back_right:  
+        topic: '/bot/wheel/back_right/power'
+
+    # 🎯 Servo Control Topics
+    servo:
+      tilt:  
+        topic: '/bot/servo/tilt/command'
+      pan:   
+        topic: '/bot/servo/pan/command'
+
+    # 🧭 Encoder Topics                 # Encoder topic
+    encoder:
+      front_left:  
+        topic: '/bot/wheel/front_left/encoder'
+        #frame_id: 'wheel_encoder_front_left'
+      front_right:  
+        topic: '/bot/wheel/front_right/encoder'
+        #frame_id: 'wheel_encoder_front_right'
+      back_left:  
+        topic:  '/bot/wheel/back_left/encoder'
+        #frame_id: 'wheel_encoder_back_left'
+      back_right:  
+        topic: '/bot/wheel/back_right/encoder'
+        #frame_id: 'wheel_encoder_back_right'
+
+    # 🛰️ Sensor Topics                  # IMU data topic
+    imu:  
+      topic: '/bot/imu/data_raw'
+      imu_frame_id: 'imu_link'       
+    
+    sonar:
+      radiation_type: 0   # 0 ULTRASOUND
+      field_of_view: 0.5  # meter
+      min_range: 0.02     # meter
+      max_range: 4.0      # meter
+
+      right:
+        topic: '/bot/sonar/right'
+        frame_id: 'sonar_right'
+
+      front:
+        topic: '/bot/sonar/front'
+        frame_id: 'sonar_front'
+
+      left:
+        topic: '/bot/sonar/left'
+        frame_id: 'sonar_left'
+    
+

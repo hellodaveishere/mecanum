@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>serial_sensor_cpp</name>
+  <version>0.1.0</version>
+  <description>
+    A ROS 2 node that reads JSON data from a serial port and publishes
+    encoder, IMU, and sonar topics with diagnostics.
+  </description>
+
+  <maintainer email="you@example.com">Your Name</maintainer>
+  <license>Apache-2.0</license>
+
+  <!-- Buildtool -->
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <!-- ROS dependencies -->
+  <depend>rclcpp</depend>
+  <depend>std_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>diagnostic_updater</depend>
+
+  <!-- External dependencies -->
+  <depend>serial</depend>
+  <exec_depend>nlohmann-json-dev</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

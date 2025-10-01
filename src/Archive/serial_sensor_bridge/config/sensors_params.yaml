@@ -1,0 +1,29 @@
+serial_sensor_node:
+  ros__parameters:
+    serial_port: '/dev/ttyUSB0'  # Serial port for the sensor bridge
+    baud_rate: 115200  # Baud rate for the serial connection
+    loop_hz: 10.0  # Frequency of the UART readings in the main loop in Hz
+    serial_reset_timeout: 5.0  # Timeout for serial reset in seconds (Float)
+
+    wheel_power_front_right_topic: '/bot/wheel/front_right/power'
+    wheel_power_front_left_topic: '/bot/wheel/front_left/power'
+    wheel_power_back_left_topic: '/bot/wheel/back_left/power'
+    wheel_power_back_right_topic: '/bot/wheel/back_right/power'
+    
+    servo_tilt_topic: '/bot/camera/tilt/command'
+    servo_pan_topic: '/bot/camera/pan/command'
+
+    encoder_topic_front_left: '/bot/wheel/front_left/encoder'
+    encoder_topic_front_right: '/bot/wheel/front_right/encoder'
+    encoder_topic_back_left: '/bot/wheel/back_left/encoder'
+    encoder_topic_back_right: '/bot/wheel/back_right/encoder'
+
+    imu_topic: '/bot/imu/data_raw'
+    sonar_topic: '/bot/sonar'
+    sonar_frames:
+      - front
+      - right
+      - left
+
+    encoder_frame_id: 'wheel_encoder'
+    imu_frame_id: 'base_imu'

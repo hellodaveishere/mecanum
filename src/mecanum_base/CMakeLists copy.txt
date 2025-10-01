@@ -1,0 +1,82 @@
+cmake_minimum_required(VERSION 3.8)
+project(mecanum_base)
+
+# Dipendenze
+find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(hardware_interface REQUIRED)
+find_package(pluginlib REQUIRED)
+find_package(tf2_ros REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(nav_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(xacro REQUIRED)
+
+include_directories(include)
+
+# Plugin hardware (SystemInterface)
+add_library(mecanum_system SHARED src/mecanum_system.cpp)
+target_compile_features(mecanum_system PUBLIC cxx_std_17)
+ament_target_dependencies(mecanum_system
+  rclcpp
+  hardware_interface
+  pluginlib
+)
+
+# Nodo: /cmd_vel -> velocità ruote
+add_executable(mecanum_cmd_node src/mecanum_cmd_node.cpp)
+target_compile_features(mecanum_cmd_node PUBLIC cxx_std_17)
+ament_target_dependencies(mecanum_cmd_node
+  rclcpp
+  geometry_msgs
+  std_msgs
+)
+
+# Nodo: /joint_states -> /odom + TF
+add_executable(mecanum_odom_node src/mecanum_odom_node.cpp)
+target_compile_features(mecanum_odom_node PUBLIC cxx_std_17)
+ament_target_dependencies(mecanum_odom_node
+  rclcpp
+  tf2_ros
+  nav_msgs
+  sensor_msgs
+  geometry_msgs
+)
+
+# Nodo per leggere dati da UART in maniera asincrona
+add_executable(uart_reader_node src/uart_reader_node.cpp)
+ament_target_dependencies(uart_reader_node rclcpp)
+
+
+# Descrizione plugin per ros2_control
+pluginlib_export_plugin_description_file(hardware_interface mecanum_hardware_plugin.xml)
+
+# Install
+install(TARGETS
+  mecanum_system
+  mecanum_cmd_node
+  mecanum_odom_node
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
+  RUNTIME DESTINATION lib/${PROJECT_NAME}
+)
+
+install(FILES mecanum_hardware_plugin.xml
+  DESTINATION share/${PROJECT_NAME}
+)
+
+install(DIRECTORY urdf config launch rviz
+  DESTINATION share/${PROJECT_NAME}
+)
+
+install(FILES package.xml
+  DESTINATION share/${PROJECT_NAME}
+)
+
+install(TARGETS uart_reader_node
+  RUNTIME DESTINATION lib/${PROJECT_NAME}
+)
+
+
+ament_package()
