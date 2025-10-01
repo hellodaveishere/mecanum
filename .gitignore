@@ -1,49 +1,87 @@
-# Cartelle di build ROS2
+# 🚀 Cartelle di build ROS2
 /build/
 /install/
 /log/
 
-# Configurazioni locali di VS Code
+# 🧠 Configurazioni locali di VS Code
 .vscode/
 .vscode-server/
 .vscode-remote/
 .vscode-test/
 
-# Cache e dati .NET
+# ⚙️ Cache e dati .NET
 .dotnet/
 
-# Log e cache locali
+# 🗂️ Log e cache locali
 *.log
 .cache/
+*.cache/
 
-# Python / MicroPython
+# 🐍 Python / MicroPython
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 *.mpy
 
-# File temporanei ed editor
+# 📝 File temporanei ed editor
 *.swp
 *.swo
 *.tmp
 *.bak
 *~
 
-# Dev Container / Docker
+# 🐳 Dev Container / Docker
 .devcontainer/
 .docker/
 docker-compose.override.yml
 
-# Configurazioni personali Git
+# 🔐 Dati sensibili e configurazioni personali
+.ssh/
+.gnupg/
+.rviz2/
+.ros/
+.ssh/
+.gnupg/
+*.pem
+*.key
+*.crt
+*.env
+*.secret
+*.credentials
+*.token
+*.p12
+*.pfx
+
+# 🧾 Configurazioni Git personali
 .gitconfig
 .gitignore_global
 .gitattributes
 
-# Build generici / artefatti
+# 🏗️ Build generici / artefatti
 build/
 dist/
 *.egg-info/
+*.out
+*.obj
+*.exe
+*.dll
+*.so
+*.a
+*.o
 
-# Lock files
+# 🔒 Lock files
 *.lock
+package-lock.json
+yarn.lock
+poetry.lock
+
+# 📦 File di dipendenze e workspace
+node_modules/
+.env.local
+.env.development
+.env.production
+.env.test
+
+# 📄 File di progetto generati
+compile_commands.json
