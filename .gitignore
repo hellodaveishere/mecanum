@@ -85,4 +85,5 @@ node_modules/
 
 # 📄 File di progetto generati
 compile_commands.json
-.local/share/CMakeTools/log.txt
+.local/
+.config/

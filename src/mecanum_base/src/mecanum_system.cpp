@@ -67,6 +67,10 @@ namespace mecanum_hardware
     case 115200:
       baud = B115200;
       break;
+    case 1000000:
+      baud = B1000000;
+      break;
+
     default:
       RCLCPP_WARN(this->get_logger(),
                   "Baudrate %d non standard, uso 115200", baudrate_);
@@ -543,7 +547,7 @@ namespace mecanum_hardware
       // TODO
     }
     else if (line->rfind("LOG", 0) == 0){
-      RCLCPP_WARN(this->get_logger(),
+      RCLCPP_INFO(this->get_logger(),
                   "Pico log: %s", line->c_str());
     }
     else

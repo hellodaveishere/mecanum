@@ -136,7 +136,8 @@
 
       <!-- Parametri seriale -->
       <param name="serial_port">/dev/ttyUSB0</param>
-      <param name="baudrate">115200</param>
+      <!-- <param name="baudrate">115200</param> -->
+      <param name="baudrate">1000000</param> 
     </hardware>
 
     <!-- Interfacce per ciascun giunto -->
