@@ -435,33 +435,54 @@ namespace mecanum_hardware
   // ================== LIFECYCLE ==================
 
   hardware_interface::CallbackReturn MecanumSystem::on_activate(const rclcpp_lifecycle::State &)
+{
+  // 🔄 Reset stato dei giunti ruota
+  for (auto &j : joints_)
   {
-    for (auto &j : joints_)
-    {
-      j.pos_rad = 0.0;
-      j.vel_rad_s = 0.0;
-      j.cmd_vel = 0.0;
-    }
-
-    if (!mock_)
-    {
-      if (!open_serial())
-      {
-        RCLCPP_ERROR(this->get_logger(),
-                     "Impossibile aprire la porta seriale %s", serial_port_.c_str());
-        return hardware_interface::CallbackReturn::ERROR;
-      }
-    }
-
-    return hardware_interface::CallbackReturn::SUCCESS;
+    j.pos_rad = 0.0;
+    j.vel_rad_s = 0.0;
+    j.cmd_vel = 0.0;
   }
+
+  // 🔄 Reset stato dei servomotori pan/tilt
+  for (auto &s : servos_)
+  {
+    s.position = 0.0;
+    s.command = 0.0;
+  }
+
+  // 🔄 Reset stato dei sonar (range)
+  for (auto &sonar : sonars_)
+  {
+    sonar.range_m = 0.0;
+  }
+
+  // 🔌 Apertura porta seriale se in modalità hardware reale
+  if (!mock_)
+  {
+    if (!open_serial())
+    {
+      RCLCPP_ERROR(this->get_logger(),
+                   "Impossibile aprire la porta seriale %s", serial_port_.c_str());
+      return hardware_interface::CallbackReturn::ERROR;
+    }
+  }
+
+  RCLCPP_INFO(this->get_logger(), "Hardware attivato correttamente");
+  return hardware_interface::CallbackReturn::SUCCESS;
+}
 
   hardware_interface::CallbackReturn MecanumSystem::on_deactivate(const rclcpp_lifecycle::State &)
+{
+  // 🔌 Chiusura porta seriale se in modalità hardware reale
+  if (!mock_)
   {
-    if (!mock_)
-      close_serial();
-    return hardware_interface::CallbackReturn::SUCCESS;
+    close_serial();
+    RCLCPP_INFO(this->get_logger(), "Porta seriale chiusa");
   }
+
+  return hardware_interface::CallbackReturn::SUCCESS;
+}
 
   // ================== READ ==================
   //
