@@ -373,43 +373,64 @@ namespace mecanum_hardware
   // ================== EXPORT INTERFACES ==================
 
   std::vector<hardware_interface::StateInterface> MecanumSystem::export_state_interfaces()
+{
+  std::vector<hardware_interface::StateInterface> out;
+
+  // 🔩 Stato delle ruote: posizione e velocità
+  out.reserve(joints_.size() * 2);
+  for (size_t i = 0; i < joints_.size(); ++i)
   {
-    std::vector<hardware_interface::StateInterface> out;
-    out.reserve(joints_.size() * 2);
-
-    for (size_t i = 0; i < joints_.size(); ++i)
-    {
-      out.emplace_back(joint_names_[i], hardware_interface::HW_IF_POSITION, &joints_[i].pos_rad);
-      out.emplace_back(joint_names_[i], hardware_interface::HW_IF_VELOCITY, &joints_[i].vel_rad_s);
-    }
-
-    // Stato IMU (orientamento, velocità angolare, accelerazione lineare)
-    out.emplace_back("imu", "orientation.x", &imu_state_.orientation[0]);
-    out.emplace_back("imu", "orientation.y", &imu_state_.orientation[1]);
-    out.emplace_back("imu", "orientation.z", &imu_state_.orientation[2]);
-    out.emplace_back("imu", "orientation.w", &imu_state_.orientation[3]);
-
-    out.emplace_back("imu", "angular_velocity.x", &imu_state_.angular_vel[0]);
-    out.emplace_back("imu", "angular_velocity.y", &imu_state_.angular_vel[1]);
-    out.emplace_back("imu", "angular_velocity.z", &imu_state_.angular_vel[2]);
-
-    out.emplace_back("imu", "linear_acceleration.x", &imu_state_.linear_accel[0]);
-    out.emplace_back("imu", "linear_acceleration.y", &imu_state_.linear_accel[1]);
-    out.emplace_back("imu", "linear_acceleration.z", &imu_state_.linear_accel[2]);
-
-    return out;
+    out.emplace_back(joint_names_[i], hardware_interface::HW_IF_POSITION, &joints_[i].pos_rad);
+    out.emplace_back(joint_names_[i], hardware_interface::HW_IF_VELOCITY, &joints_[i].vel_rad_s);
   }
 
+  // 🎯 Stato dei servomotori: posizione attuale
+  for (size_t i = 0; i < servos_.size(); ++i)
+  {
+    out.emplace_back(servo_names_[i], hardware_interface::HW_IF_POSITION, &servos_[i].position);
+  }
+
+  // 📡 Stato dei sonar: distanza misurata (range)
+  for (size_t i = 0; i < sonars_.size(); ++i)
+  {
+    out.emplace_back(sonar_names_[i], "range", &sonars_[i].range_m);
+  }
+
+  // 📦 Stato IMU: orientamento (quaternion), velocità angolare, accelerazione lineare
+  out.emplace_back("imu", "orientation.x", &imu_state_.orientation[0]);
+  out.emplace_back("imu", "orientation.y", &imu_state_.orientation[1]);
+  out.emplace_back("imu", "orientation.z", &imu_state_.orientation[2]);
+  out.emplace_back("imu", "orientation.w", &imu_state_.orientation[3]);
+
+  out.emplace_back("imu", "angular_velocity.x", &imu_state_.angular_vel[0]);
+  out.emplace_back("imu", "angular_velocity.y", &imu_state_.angular_vel[1]);
+  out.emplace_back("imu", "angular_velocity.z", &imu_state_.angular_vel[2]);
+
+  out.emplace_back("imu", "linear_acceleration.x", &imu_state_.linear_accel[0]);
+  out.emplace_back("imu", "linear_acceleration.y", &imu_state_.linear_accel[1]);
+  out.emplace_back("imu", "linear_acceleration.z", &imu_state_.linear_accel[2]);
+
+  return out;
+}
   std::vector<hardware_interface::CommandInterface> MecanumSystem::export_command_interfaces()
+{
+  std::vector<hardware_interface::CommandInterface> out;
+
+  // 🚗 Comandi alle ruote: velocità
+  out.reserve(joints_.size() + servos_.size());
+  for (size_t i = 0; i < joints_.size(); ++i)
   {
-    std::vector<hardware_interface::CommandInterface> out;
-    out.reserve(joints_.size());
-    for (size_t i = 0; i < joints_.size(); ++i)
-    {
-      out.emplace_back(joint_names_[i], hardware_interface::HW_IF_VELOCITY, &joints_[i].cmd_vel);
-    }
-    return out;
+    out.emplace_back(joint_names_[i], hardware_interface::HW_IF_VELOCITY, &joints_[i].cmd_vel);
   }
+
+  // 🎯 Comandi ai servomotori: posizione desiderata
+  for (size_t i = 0; i < servos_.size(); ++i)
+  {
+    out.emplace_back(servo_names_[i], hardware_interface::HW_IF_POSITION, &servos_[i].command);
+  }
+
+  return out;
+}
 
   // ================== LIFECYCLE ==================
 
