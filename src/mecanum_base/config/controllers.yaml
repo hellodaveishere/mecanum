@@ -1,20 +1,20 @@
 controller_manager:
   ros__parameters:
-    update_rate: 50   # Frequenza di aggiornamento del controller_manager (Hz).
+    update_rate: 50   # Frequenza di aggiornamento del controller_manager (Hz)
 
     # =========================
     # 📤 Joint State Broadcaster
     # =========================
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
-      # Pubblica le interfacce di stato disponibili su /joint_states.
+      # Pubblica tutte le interfacce di stato su /joint_states
 
     # =========================
     # 🚗 Controller di velocità Mecanum
     # =========================
     mecanum_velocity_controller:
       type: velocity_controllers/JointGroupVelocityController
-      # Controller velocity per gruppo di giunti.
+      # Controller velocity per gruppo di giunti ruota
 
     # =========================
     # 📡 IMU Broadcaster
@@ -26,13 +26,31 @@ controller_manager:
       frame_id: imu_link
       topic_name: /data/imu
 
+    # =========================
+    # 🎯 Controller posizione servomotori pan/tilt
+    # =========================
+    pan_controller:
+      type: position_controllers/JointPositionController
+
+    tilt_controller:
+      type: position_controllers/JointPositionController
+
+    # =========================
+    # 📡 Sonar Broadcaster (range)
+    # =========================
+    sonar_front_broadcaster:
+      type: range_sensor_broadcaster/RangeSensorBroadcaster
+    sonar_left_broadcaster:
+      type: range_sensor_broadcaster/RangeSensorBroadcaster
+    sonar_right_broadcaster:
+      type: range_sensor_broadcaster/RangeSensorBroadcaster
+
 # =========================
 # ⚙️ Parametri runtime
 # =========================
 
 joint_state_broadcaster:
   ros__parameters: {}
-  # Nessun parametro richiesto.
 
 mecanum_velocity_controller:
   ros__parameters:
@@ -49,7 +67,42 @@ mecanum_velocity_controller:
 
 imu_broadcaster:
   ros__parameters:
-    sensor_name: imu         # Deve combaciare con export_state_interfaces ("imu").
+    sensor_name: imu         # Deve combaciare con export_state_interfaces ("imu")
     frame_id: imu_link
     publish_rate: 50
     topic_name: /data/imu
+
+pan_controller:
+  ros__parameters:
+    joint: pan_joint         # Nome del giunto nel URDF/Xacro
+
+tilt_controller:
+  ros__parameters:
+    joint: tilt_joint        # Nome del giunto nel URDF/Xacro
+
+sonar_front_broadcaster:
+  ros__parameters:
+    sensor_name: sonar_front
+    frame_id: sonar_front_link
+    topic_name: /data/sonar_front
+    field_of_view: 0.5
+    min_range: 0.02
+    max_range: 4.0
+
+sonar_left_broadcaster:
+  ros__parameters:
+    sensor_name: sonar_left
+    frame_id: sonar_left_link
+    topic_name: /data/sonar_left
+    field_of_view: 0.5
+    min_range: 0.02
+    max_range: 4.0
+
+sonar_right_broadcaster:
+  ros__parameters:
+    sensor_name: sonar_right
+    frame_id: sonar_right_link
+    topic_name: /data/sonar_right
+    field_of_view: 0.5
+    min_range: 0.02
+    max_range: 4.0
