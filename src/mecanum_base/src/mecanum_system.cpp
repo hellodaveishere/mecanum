@@ -486,7 +486,7 @@ namespace mecanum_hardware
 
   // ================== READ ==================
   //
-  // Legge i pacchetti dalla seriale e aggiorna encoder + IMU.
+  // Legge i pacchetti dalla seriale e aggiorna encoder + IMU + 3 sonar + 2 servo motori.
   //
   hardware_interface::return_type MecanumSystem::read(
     const rclcpp::Time &time, const rclcpp::Duration &period)
@@ -643,46 +643,53 @@ namespace mecanum_hardware
   // Invia i comandi motori in formato CSV.
   //
   hardware_interface::return_type MecanumSystem::write(
-      const rclcpp::Time &, const rclcpp::Duration &)
+    const rclcpp::Time &, const rclcpp::Duration &)
+{
+  // 1️⃣ Bypass in modalità simulata (mock)
+  if (mock_)
   {
-    // 1) Bypass in mock
-    if (mock_)
-    {
-      return hardware_interface::return_type::OK;
-    }
-
-    // 2) Costruzione CSV con 4 decimali (stessa formattazione lato log)
-    std::ostringstream ss;
-    ss << "CMD," << std::fixed << std::setprecision(4)
-       << joints_[0].cmd_vel << ","
-       << joints_[1].cmd_vel << ","
-       << joints_[2].cmd_vel << ","
-       << joints_[3].cmd_vel;
-    const std::string csv = ss.str();
-
-    // 3) Invio sempre (la riduzione riguarda solo il logging)
-    if (!send_command_(csv + "\n"))
-    {
-      RCLCPP_ERROR(this->get_logger(),
-                   "Errore invio comando seriale");
-      return hardware_interface::return_type::ERROR;
-    }
-
-    // 4) Log solo se il comando (formattato) è diverso dall’ultimo loggato
-    //    - Stato minimo: una variabile statica locale con l’ultima stringa loggata.
-    //    - Vantaggio: nessuna modifica all'header, nessun array da mantenere.
-    static std::string last_logged_csv; // vuota al primo giro → farà il primo log
-    if (last_logged_csv != csv)
-    {
-      RCLCPP_INFO(this->get_logger(),
-                  "write() cmd: FL=%.3f FR=%.3f RL=%.3f RR=%.3f",
-                  joints_[0].cmd_vel, joints_[1].cmd_vel,
-                  joints_[2].cmd_vel, joints_[3].cmd_vel);
-      last_logged_csv = csv; // aggiorna “istantanea” del comando loggato
-    }
-
     return hardware_interface::return_type::OK;
   }
+
+  // 2️⃣ Costruzione del pacchetto CSV da inviare via seriale
+  //     Formato: "CMD,<vel_fl>,<vel_fr>,<vel_rl>,<vel_rr>,<pan_pos>,<tilt_pos>"
+  std::ostringstream ss;
+  ss << "CMD," << std::fixed << std::setprecision(4)
+     << joints_[0].cmd_vel << ","  // front_left
+     << joints_[1].cmd_vel << ","  // front_right
+     << joints_[2].cmd_vel << ","  // rear_left
+     << joints_[3].cmd_vel;        // rear_right
+
+  // 2.1️⃣ Aggiunta dei comandi servo (se presenti)
+  for (size_t i = 0; i < servos_.size(); ++i)
+  {
+    ss << "," << servos_[i].command;
+  }
+
+  const std::string csv = ss.str();
+
+  // 3️⃣ Invio del comando via seriale
+  if (!send_command_(csv + "\n"))
+  {
+    RCLCPP_ERROR(this->get_logger(), "Errore invio comando seriale");
+    return hardware_interface::return_type::ERROR;
+  }
+
+  // 4️⃣ Log del comando solo se è cambiato rispetto al precedente
+  static std::string last_logged_csv;
+  if (last_logged_csv != csv)
+  {
+    RCLCPP_INFO(this->get_logger(),
+                "write() cmd: FL=%.3f FR=%.3f RL=%.3f RR=%.3f PAN=%.3f TILT=%.3f",
+                joints_[0].cmd_vel, joints_[1].cmd_vel,
+                joints_[2].cmd_vel, joints_[3].cmd_vel,
+                servos_.size() > 0 ? servos_[0].command : 0.0,
+                servos_.size() > 1 ? servos_[1].command : 0.0);
+    last_logged_csv = csv;
+  }
+
+  return hardware_interface::return_type::OK;
+}
 
   // ================== MOCK DYNAMICS ==================
   //
