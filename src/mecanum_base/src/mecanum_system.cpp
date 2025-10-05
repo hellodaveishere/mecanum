@@ -491,16 +491,16 @@ namespace mecanum_hardware
   hardware_interface::return_type MecanumSystem::read(
     const rclcpp::Time &time, const rclcpp::Duration &period)
 {
-  // 1) Calcolo del tempo trascorso tra due cicli di controllo
+  // 1️⃣ Calcolo del tempo trascorso tra due cicli di controllo
   const double dt = period.seconds();
 
-  // 1.1) Verifica che il periodo sia valido
+  // 1.1️⃣ Verifica che il periodo sia valido
   if (dt <= 0.0)
   {
     RCLCPP_WARN(this->get_logger(), "Periodo dt non valido (dt=%.6f).", dt);
   }
 
-  // 2) Modalità simulata: salta la seriale e applica dinamica mock
+  // 2️⃣ Modalità simulata: salta la seriale e applica dinamica mock
   if (mock_)
   {
     apply_mock_dynamics_(dt);
@@ -508,34 +508,34 @@ namespace mecanum_hardware
     return hardware_interface::return_type::OK;
   }
 
-  // 3) Lettura di una riga dalla seriale
+  // 3️⃣ Lettura di una riga dalla seriale
   auto line = read_line_();
 
-  // 3.1) Se non arriva nulla, termina il ciclo senza errori
+  // 3.1️⃣ Se non arriva nulla, termina il ciclo senza errori
   if (!line || line->empty())
   {
     return hardware_interface::return_type::OK;
   }
 
-  // 3.2) Log della riga ricevuta
+  // 3.2️⃣ Log della riga ricevuta
   RCLCPP_DEBUG(this->get_logger(), "Linea seriale ricevuta: %s", line->c_str());
 
-  // 4) Dispatch in base al prefisso
+  // 4️⃣ Dispatch in base al prefisso del pacchetto
   if (line->rfind("ENC", 0) == 0)
   {
-    // 4.1) Salva le posizioni precedenti per calcolare la velocità
+    // 4.1️⃣ Salva le posizioni precedenti per calcolare la velocità
     double prev_pos[4];
     for (int i = 0; i < 4; ++i)
     {
       prev_pos[i] = joints_[i].pos_rad;
     }
 
-    // 4.2) Parsing del pacchetto encoder
+    // 4.2️⃣ Parsing del pacchetto encoder
     try
     {
       parse_encoder_packet_(*line);
 
-      // 4.3) Calcolo della velocità media
+      // 4.3️⃣ Calcolo della velocità media
       if (dt > 0.0)
       {
         for (int i = 0; i < 4; ++i)
@@ -545,7 +545,7 @@ namespace mecanum_hardware
         }
       }
 
-      // 4.4) Log dei giunti aggiornati
+      // 4.4️⃣ Log dei giunti aggiornati
       for (size_t i = 0; i < joints_.size(); ++i)
       {
         RCLCPP_INFO(this->get_logger(),
@@ -564,7 +564,7 @@ namespace mecanum_hardware
   }
   else if (line->rfind("IMU", 0) == 0)
   {
-    // 5) Parsing del pacchetto IMU
+    // 5️⃣ Parsing del pacchetto IMU
     try
     {
       parse_imu_packet_(*line);
@@ -589,10 +589,9 @@ namespace mecanum_hardware
   }
   else if (line->rfind("SON", 0) == 0)
   {
-    // 6) Parsing del pacchetto SONAR
+    // 6️⃣ Parsing del pacchetto SONAR
     try
     {
-      // Esempio: "SON,1.23,0.98,1.10"
       std::stringstream ss(*line);
       std::string token;
       std::getline(ss, token, ','); // salta "SON"
@@ -605,7 +604,6 @@ namespace mecanum_hardware
         sonars_[i].range_m = std::stod(token);
       }
 
-      // Log dei sonar aggiornati
       for (size_t i = 0; i < sonars_.size(); ++i)
       {
         RCLCPP_INFO(this->get_logger(),
@@ -621,22 +619,53 @@ namespace mecanum_hardware
                   e.what(), line->c_str());
     }
   }
+  else if (line->rfind("SER", 0) == 0)
+  {
+    // 7️⃣ Parsing del pacchetto SERVO
+    try
+    {
+      std::stringstream ss(*line);
+      std::string token;
+      std::getline(ss, token, ','); // salta "SER"
+
+      for (size_t i = 0; i < servos_.size(); ++i)
+      {
+        if (!std::getline(ss, token, ','))
+          throw std::runtime_error("Campo servo mancante");
+
+        servos_[i].position = std::stod(token);
+      }
+
+      for (size_t i = 0; i < servos_.size(); ++i)
+      {
+        RCLCPP_INFO(this->get_logger(),
+                    "Servo %s: pos=%.3f rad",
+                    servo_names_[i].c_str(),
+                    servos_[i].position);
+      }
+    }
+    catch (const std::exception &e)
+    {
+      RCLCPP_WARN(this->get_logger(),
+                  "Pacchetto SER malformato, scartato. Errore: %s | Riga: '%s'",
+                  e.what(), line->c_str());
+    }
+  }
   else if (line->rfind("LOG", 0) == 0)
   {
-    // 7) Log generico dal microcontroller
+    // 8️⃣ Log generico dal microcontroller
     RCLCPP_INFO(this->get_logger(), "Pico log: %s", line->c_str());
   }
   else
   {
-    // 8) Prefisso sconosciuto
+    // 9️⃣ Prefisso sconosciuto
     RCLCPP_WARN(this->get_logger(),
                 "Pacchetto con prefisso sconosciuto: %s", line->c_str());
   }
 
-  // 9) Fine ciclo di lettura
+  // 🔚 Fine ciclo di lettura
   return hardware_interface::return_type::OK;
 }
-  }
 
   // ================== WRITE ==================
   //
