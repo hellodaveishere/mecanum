@@ -243,104 +243,132 @@ namespace mecanum_hardware
   // e prepara le strutture dati dei giunti.
   //
   hardware_interface::CallbackReturn MecanumSystem::on_init(
-      const hardware_interface::HardwareInfo &info)
+    const hardware_interface::HardwareInfo &info)
+{
+  info_ = info;
+
+  // 🔧 Helper per leggere parametri hardware dal file URDF/Xacro
+  auto getP = [&](const char *key, auto &var)
   {
-    info_ = info;
-
-    // Helper per leggere parametri dal file URDF
-    auto getP = [&](const char *key, auto &var)
+    auto it = info_.hardware_parameters.find(key);
+    if (it != info_.hardware_parameters.end())
     {
-      auto it = info_.hardware_parameters.find(key);
-      if (it != info_.hardware_parameters.end())
+      using T = std::decay_t<decltype(var)>;
+      const auto &val = it->second;
+      if constexpr (std::is_same_v<T, double>)
+        var = std::stod(val);
+      else if constexpr (std::is_same_v<T, int>)
+        var = std::stoi(val);
+      else if constexpr (std::is_same_v<T, bool>)
       {
-        using T = std::decay_t<decltype(var)>;
-        const auto &val = it->second;
-        if constexpr (std::is_same_v<T, double>)
-          var = std::stod(val);
-        else if constexpr (std::is_same_v<T, int>)
-          var = std::stoi(val);
-        else if constexpr (std::is_same_v<T, bool>)
-        {
-          std::string v = val;
-          std::transform(v.begin(), v.end(), v.begin(), ::tolower);
-          var = (v == "true" || v == "1");
-        }
-        else if constexpr (std::is_same_v<T, std::string>)
-          var = val;
+        std::string v = val;
+        std::transform(v.begin(), v.end(), v.begin(), ::tolower);
+        var = (v == "true" || v == "1");
       }
-    };
-
-    try
-    {
-      getP("wheel_radius", wheel_radius_);
-      getP("L", L_);
-      getP("W", W_);
-      getP("mock", mock_);
-      getP("accel_limit", accel_limit_);
-      getP("ticks_per_rev", ticks_per_rev_);
-      getP("gear_ratio", gear_ratio_);
-      getP("invert_fl", inv_fl_);
-      getP("invert_fr", inv_fr_);
-      getP("invert_rl", inv_rl_);
-      getP("invert_rr", inv_rr_);
-      getP("serial_port", serial_port_);
-      getP("baudrate", baudrate_);
+      else if constexpr (std::is_same_v<T, std::string>)
+        var = val;
     }
-    catch (...)
+  };
+
+  // 🔄 Lettura dei parametri hardware
+  try
+  {
+    getP("wheel_radius", wheel_radius_);
+    getP("L", L_);
+    getP("W", W_);
+    getP("mock", mock_);
+    getP("accel_limit", accel_limit_);
+    getP("ticks_per_rev", ticks_per_rev_);
+    getP("gear_ratio", gear_ratio_);
+    getP("invert_fl", inv_fl_);
+    getP("invert_fr", inv_fr_);
+    getP("invert_rl", inv_rl_);
+    getP("invert_rr", inv_rr_);
+    getP("serial_port", serial_port_);
+    getP("baudrate", baudrate_);
+  }
+  catch (...)
+  {
+    RCLCPP_ERROR(this->get_logger(), "Errore parsing parametri hardware");
+    return hardware_interface::CallbackReturn::ERROR;
+  }
+
+  ticks_per_wheel_rev_ = static_cast<double>(ticks_per_rev_) * gear_ratio_;
+
+  // 🔩 Inizializza giunti ruota e servo
+  joint_names_.clear();
+  joints_.clear();
+  servo_names_.clear();
+  servos_.clear();
+
+  for (const auto &j : info_.joints)
+  {
+    bool has_pos = false, has_vel = false;
+    bool has_cmd_vel = false, has_cmd_pos = false;
+
+    for (const auto &si : j.state_interfaces)
     {
-      RCLCPP_ERROR(this->get_logger(),
-                   "Errore parsing parametri hardware");
-      return hardware_interface::CallbackReturn::ERROR;
+      if (si.name == hardware_interface::HW_IF_POSITION)
+        has_pos = true;
+      if (si.name == hardware_interface::HW_IF_VELOCITY)
+        has_vel = true;
     }
 
-    ticks_per_wheel_rev_ = static_cast<double>(ticks_per_rev_) * gear_ratio_;
-
-    // Verifica che ci siano esattamente 4 giunti
-    if (info_.joints.size() != 4)
+    for (const auto &ci : j.command_interfaces)
     {
-      RCLCPP_ERROR(this->get_logger(),
-                   "Attesi 4 giunti, trovati %zu", info_.joints.size());
-      return hardware_interface::CallbackReturn::ERROR;
+      if (ci.name == hardware_interface::HW_IF_VELOCITY)
+        has_cmd_vel = true;
+      if (ci.name == hardware_interface::HW_IF_POSITION)
+        has_cmd_pos = true;
     }
 
-    // Inizializza i giunti
-    joint_names_.clear();
-    joints_.assign(info_.joints.size(), JointState{});
-
-    for (const auto &j : info_.joints)
+    // 🚗 Giunti ruota: position + velocity + velocity command
+    if (has_pos && has_vel && has_cmd_vel)
     {
       joint_names_.push_back(j.name);
-      bool ok_pos = false, ok_vel = false, ok_cmd = false;
-
-      for (const auto &si : j.state_interfaces)
-      {
-        if (si.name == hardware_interface::HW_IF_POSITION)
-          ok_pos = true;
-        if (si.name == hardware_interface::HW_IF_VELOCITY)
-          ok_vel = true;
-      }
-      for (const auto &ci : j.command_interfaces)
-      {
-        if (ci.name == hardware_interface::HW_IF_VELOCITY)
-          ok_cmd = true;
-      }
-
-      if (!ok_pos || !ok_vel || !ok_cmd)
-      {
-        RCLCPP_ERROR(this->get_logger(),
-                     "Giunto %s: servono state(position,velocity) + command(velocity)",
-                     j.name.c_str());
-        return hardware_interface::CallbackReturn::ERROR;
-      }
+      joints_.emplace_back();
     }
-
-    RCLCPP_INFO(this->get_logger(),
-                "Init OK (mock=%s, serial=%s, baud=%d)",
-                mock_ ? "true" : "false",
-                serial_port_.c_str(), baudrate_);
-
-    return hardware_interface::CallbackReturn::SUCCESS;
+    // 🎯 Giunti servo: position + position command
+    else if (has_pos && has_cmd_pos)
+    {
+      servo_names_.push_back(j.name);
+      servos_.emplace_back();
+    }
+    else
+    {
+      RCLCPP_ERROR(this->get_logger(),
+                   "Giunto %s: interfacce non valide", j.name.c_str());
+      return hardware_interface::CallbackReturn::ERROR;
+    }
   }
+
+  // 📡 Inizializza sensori sonar (definiti come <sensor> nel Xacro)
+  sonar_names_.clear();
+  sonars_.clear();
+
+  for (const auto &s : info_.sensors)
+  {
+    if (s.state_interfaces.size() == 1 && s.state_interfaces[0].name == "range")
+    {
+      sonar_names_.push_back(s.name);
+      sonars_.emplace_back();
+    }
+    else
+    {
+      RCLCPP_ERROR(this->get_logger(),
+                   "Sensore %s: interfaccia 'range' mancante", s.name.c_str());
+      return hardware_interface::CallbackReturn::ERROR;
+    }
+  }
+
+  RCLCPP_INFO(this->get_logger(),
+              "Init OK (mock=%s, serial=%s, baud=%d) — Giunti ruota: %zu, servo: %zu, sonar: %zu",
+              mock_ ? "true" : "false",
+              serial_port_.c_str(), baudrate_,
+              joints_.size(), servos_.size(), sonars_.size());
+
+  return hardware_interface::CallbackReturn::SUCCESS;
+}
 
   // ================== EXPORT INTERFACES ==================
 
