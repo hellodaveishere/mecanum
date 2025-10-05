@@ -5,15 +5,15 @@
        📌 PARAMETRI DEL ROBOT
        ========================= -->
   <!-- Geometria -->
-  <xacro:property name="wheel_radius" value="0.05"/>   <!-- Raggio ruota [m] -->
-  <xacro:property name="L" value="0.15"/>              <!-- Mezzo passo longitudinale [m] -->
-  <xacro:property name="W" value="0.15"/>              <!-- Mezzo passo trasversale [m] -->
+  <xacro:property name="wheel_radius" value="0.05"/>
+  <xacro:property name="L" value="0.15"/>
+  <xacro:property name="W" value="0.15"/>
 
   <!-- Hardware -->
-  <xacro:property name="mock" value="false"/>          <!-- true = simulazione, false = hardware reale -->
-  <xacro:property name="accel_limit" value="25.0"/>    <!-- Limite accelerazione [rad/s²] -->
-  <xacro:property name="ticks_per_rev" value="2048"/>  <!-- Tick encoder per giro motore -->
-  <xacro:property name="gear_ratio" value="30.0"/>     <!-- Rapporto di riduzione -->
+  <xacro:property name="mock" value="false"/>
+  <xacro:property name="accel_limit" value="25.0"/>
+  <xacro:property name="ticks_per_rev" value="2048"/>
+  <xacro:property name="gear_ratio" value="30.0"/>
 
   <!-- Inversione direzione ruote -->
   <xacro:property name="invert_fl" value="1"/>
@@ -24,17 +24,13 @@
   <!-- =========================
        📌 LINK DI BASE
        ========================= -->
-  <!-- Link radice fittizio senza inerzia -->
   <link name="base_footprint"/>
-
-  <!-- Giunto fisso tra base_footprint e base_link -->
   <joint name="base_footprint_to_base_link" type="fixed">
     <parent link="base_footprint"/>
     <child link="base_link"/>
     <origin xyz="0 0 0" rpy="0 0 0"/>
   </joint>
 
-  <!-- Link base del robot -->
   <link name="base_link">
     <visual>
       <geometry>
@@ -84,13 +80,13 @@
   <xacro:wheel name="rear_right_wheel"  x="${-L}" y="${-W}"/>
 
   <!-- =========================
-       📌 IMU (solo visualizzazione)
+       📌 IMU
        ========================= -->
   <link name="imu_link">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <box size="0.02 0.02 0.02"/> <!-- Cubo di 2 cm -->
+        <box size="0.02 0.02 0.02"/>
       </geometry>
       <material name="gray">
         <color rgba="0.5 0.5 0.5 1.0"/>
@@ -103,8 +99,6 @@
                iyy="0.00001" iyz="0.0" izz="0.00001"/>
     </inertial>
   </link>
-
-  <!-- Giunto fisso tra base_link e imu_link -->
   <joint name="imu_joint" type="fixed">
     <parent link="base_link"/>
     <child link="imu_link"/>
@@ -112,35 +106,74 @@
   </joint>
 
   <!-- =========================
-       📌 ROS2_CONTROL: HARDWARE MECANUM
+       📌 PAN/TILT CAMERA
+       ========================= -->
+  <link name="pan_link"/>
+  <joint name="pan_joint" type="revolute">
+    <parent link="base_link"/>
+    <child link="pan_link"/>
+    <origin xyz="0 0 0.15" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1.0" velocity="1.0" lower="-1.57" upper="1.57"/>
+  </joint>
+
+  <link name="tilt_link"/>
+  <joint name="tilt_joint" type="revolute">
+    <parent link="pan_link"/>
+    <child link="tilt_link"/>
+    <origin xyz="0 0 0.05" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="1.0" velocity="1.0" lower="-1.0" upper="1.0"/>
+  </joint>
+
+  <!-- =========================
+       📌 SONAR VISUALI
+       ========================= -->
+  <xacro:macro name="sonar" params="name x y z">
+    <link name="${name}_link">
+      <visual>
+        <geometry>
+          <cylinder radius="0.01" length="0.02"/>
+        </geometry>
+        <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+        <material name="blue">
+          <color rgba="0.2 0.2 1.0 1.0"/>
+        </material>
+      </visual>
+    </link>
+    <joint name="${name}_joint" type="fixed">
+      <parent link="base_link"/>
+      <child link="${name}_link"/>
+      <origin xyz="${x} ${y} ${z}" rpy="0 0 0"/>
+    </joint>
+  </xacro:macro>
+
+  <xacro:sonar name="sonar_front"  x="0.2"  y="0.0"  z="0.05"/>
+  <xacro:sonar name="sonar_left"   x="0.0"  y="0.2"  z="0.05"/>
+  <xacro:sonar name="sonar_right"  x="0.0"  y="-0.2" z="0.05"/>
+
+  <!-- =========================
+       📌 ROS2_CONTROL
        ========================= -->
   <ros2_control name="MecanumSystem" type="system">
     <hardware>
-      <!-- Nome del plugin hardware (corrisponde al file plugin.xml) -->
       <plugin>mecanum_hardware/MecanumSystem</plugin>
-
-      <!-- Parametri comuni -->
       <param name="wheel_radius">${wheel_radius}</param>
       <param name="L">${L}</param>
       <param name="W">${W}</param>
       <param name="mock">${mock}</param>
       <param name="accel_limit">${accel_limit}</param>
-
-      <!-- Parametri hardware -->
       <param name="ticks_per_rev">${ticks_per_rev}</param>
       <param name="gear_ratio">${gear_ratio}</param>
       <param name="invert_fl">${invert_fl}</param>
       <param name="invert_fr">${invert_fr}</param>
       <param name="invert_rl">${invert_rl}</param>
       <param name="invert_rr">${invert_rr}</param>
-
-      <!-- Parametri seriale -->
       <param name="serial_port">/dev/ttyUSB0</param>
-      <!-- <param name="baudrate">115200</param> -->
-      <param name="baudrate">1000000</param> 
+      <param name="baudrate">1000000</param>
     </hardware>
 
-    <!-- Interfacce per ciascun giunto -->
+    <!-- Giunti ruota -->
     <joint name="front_left_wheel_joint">
       <state_interface name="position"/>
       <state_interface name="velocity"/>
@@ -161,6 +194,26 @@
       <state_interface name="velocity"/>
       <command_interface name="velocity"/>
     </joint>
-  </ros2_control>
 
+    <!-- Giunti servo pan/tilt -->
+    <joint name="pan_joint">
+      <state_interface name="position"/>
+      <command_interface name="position"/>
+    </joint>
+    <joint name="tilt_joint">
+      <state_interface name="position"/>
+      <command_interface name="position"/>
+    </joint>
+
+    <!-- Sensori sonar -->
+    <sensor name="sonar_front">
+      <state_interface name="range"/>
+    </sensor>
+    <sensor name="sonar_left">
+      <state_interface name="range"/>
+    </sensor>
+    <sensor name="sonar_right">
+      <state_interface name="range"/>
+    </sensor>
+  </ros2_control>
 </robot>
