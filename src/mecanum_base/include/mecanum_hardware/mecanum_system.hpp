@@ -26,22 +26,34 @@ namespace mecanum_hardware
     // 📦 Stato per ciascuna ruota (posizione, velocità e comando)
     struct JointState
     {
-        double pos_rad = 0.0;   // posizione letta dall’hardware
-        double vel_rad_s = 0.0; // velocità letta dall’hardware
-        double effort = 0.0;    // eventuale sforzo (se presente)
-        double cmd_vel = 0.0;   // comando di velocità da ROS2 Control
+        double pos_rad = 0.0;
+        double vel_rad_s = 0.0;
+        double effort = 0.0;
+        double cmd_vel = 0.0;
     };
 
     // 📦 Stato IMU (orientamento, velocità angolare, accelerazione lineare)
     struct ImuState
     {
-        double orientation[4]{0.0, 0.0, 0.0, 1.0}; // Quaternion [x,y,z,w]
-        double angular_vel[3]{0.0, 0.0, 0.0};      // [rad/s]
-        double linear_accel[3]{0.0, 0.0, 0.0};     // [m/s²]
+        double orientation[4]{0.0, 0.0, 0.0, 1.0};
+        double angular_vel[3]{0.0, 0.0, 0.0};
+        double linear_accel[3]{0.0, 0.0, 0.0};
+    };
+
+    // 📦 Stato dei servomotori pan/tilt
+    struct ServoState
+    {
+        double position = 0.0;  // Posizione attuale [rad]
+        double command = 0.0;   // Comando da ROS 2 Control [rad]
+    };
+
+    // 📦 Stato dei sonar HC-SR04
+    struct SonarState
+    {
+        double range_m = 0.0;   // Distanza misurata [m]
     };
 
     // 🔧 Classe principale del sistema hardware Mecanum
-    //    Implementa l'interfaccia ROS 2 Control e comunica direttamente via seriale
     class MecanumSystem final : public hardware_interface::SystemInterface
     {
     public:
@@ -50,10 +62,10 @@ namespace mecanum_hardware
         // 🔄 Inizializzazione del sistema hardware
         hardware_interface::CallbackReturn on_init(const hardware_interface::HardwareInfo &info) override;
 
-        // 📤 Esportazione delle interfacce di stato (posizione, velocità, imu)
+        // 📤 Esportazione delle interfacce di stato (ruote, imu, servo, sonar)
         std::vector<hardware_interface::StateInterface> export_state_interfaces() override;
 
-        // 📥 Esportazione delle interfacce di comando (cmd_vel)
+        // 📥 Esportazione delle interfacce di comando (ruote, servo)
         std::vector<hardware_interface::CommandInterface> export_command_interfaces() override;
 
         // ⚡ Attivazione del sistema
@@ -62,10 +74,10 @@ namespace mecanum_hardware
         // 💤 Disattivazione del sistema
         hardware_interface::CallbackReturn on_deactivate(const rclcpp_lifecycle::State &prev_state) override;
 
-        // 📡 Lettura da hardware (encoder + imu)
+        // 📡 Lettura da hardware (encoder, imu, servo, sonar)
         hardware_interface::return_type read(const rclcpp::Time &time, const rclcpp::Duration &period) override;
 
-        // 📝 Scrittura su hardware (comandi motori)
+        // 📝 Scrittura su hardware (comandi ruote, servo)
         hardware_interface::return_type write(const rclcpp::Time &time, const rclcpp::Duration &period) override;
 
         // ℹ️ Informazioni hardware (popolate da URDF/XACRO)
@@ -73,35 +85,43 @@ namespace mecanum_hardware
 
     private:
         // ⚙️ Parametri cinematici e logici
-        double wheel_radius_{0.05}; // Raggio ruota [m]
-        double L_{0.15};            // Metà lunghezza telaio [m]
-        double W_{0.15};            // Metà larghezza telaio [m]
-        bool mock_{false};          // true = simulazione, false = hardware reale
-        double accel_limit_{25.0};  // Limite accelerazione [rad/s²] (solo mock)
+        double wheel_radius_{0.05};
+        double L_{0.15};
+        double W_{0.15};
+        bool mock_{false};
+        double accel_limit_{25.0};
 
         // ⚙️ Parametri encoder
-        int ticks_per_rev_{2048};         // Tick per giro encoder (lato motore)
-        double gear_ratio_{30.0};         // Rapporto di trasmissione
-        double ticks_per_wheel_rev_{0.0}; // Tick per giro ruota = encoder * rapporto
+        int ticks_per_rev_{2048};
+        double gear_ratio_{30.0};
+        double ticks_per_wheel_rev_{0.0};
 
-        // 🔁 Inversione direzione ruote (1 o -1)
+        // 🔁 Inversione direzione ruote
         int inv_fl_{1}, inv_fr_{1}, inv_rl_{1}, inv_rr_{1};
 
-        // 🔩 Stato dei giunti (ruote)
-        std::vector<std::string> joint_names_; // Nomi dei giunti
-        std::vector<JointState> joints_;       // Stato di ciascun giunto
+        // 🔩 Stato dei giunti ruota
+        std::vector<std::string> joint_names_;
+        std::vector<JointState> joints_;
 
         // 📦 Stato IMU
         ImuState imu_state_;
 
-        // 🧪 Simulazione mock: dinamica di primo ordine
+        // 🔩 Stato dei servomotori pan/tilt
+        std::vector<std::string> servo_names_;   // es. ["pan_joint", "tilt_joint"]
+        std::vector<ServoState> servos_;
+
+        // 📡 Stato dei sonar HC-SR04
+        std::vector<std::string> sonar_names_;   // es. ["sonar_front", "sonar_left", "sonar_right"]
+        std::vector<SonarState> sonars_;
+
+        // 🧪 Simulazione mock
         void apply_mock_dynamics_(double dt);
 
         // 📡 Gestione seriale diretta
-        std::string serial_port_{"/dev/ttyUSB0"}; // Porta seriale
-        int baudrate_{115200};                    // Baudrate
-        int serial_fd_{-1};                       // File descriptor seriale
-        std::mutex serial_mutex_;                 // Protezione accesso concorrente
+        std::string serial_port_{"/dev/ttyUSB0"};
+        int baudrate_{115200};
+        int serial_fd_{-1};
+        std::mutex serial_mutex_;
 
         // 🔌 Funzioni di supporto per la seriale
         bool open_serial();
@@ -112,6 +132,8 @@ namespace mecanum_hardware
         // 🔄 Parsing dei pacchetti ricevuti
         void parse_encoder_packet_(const std::string &line);
         void parse_imu_packet_(const std::string &line);
+        void parse_servo_packet_(const std::string &line);  // ← da implementare
+        void parse_sonar_packet_(const std::string &line);  // ← da implementare
     };
 
 } // namespace mecanum_hardware
