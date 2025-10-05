@@ -489,148 +489,153 @@ namespace mecanum_hardware
   // Legge i pacchetti dalla seriale e aggiorna encoder + IMU.
   //
   hardware_interface::return_type MecanumSystem::read(
-      const rclcpp::Time &time, const rclcpp::Duration &period)
+    const rclcpp::Time &time, const rclcpp::Duration &period)
+{
+  // 1) Calcolo del tempo trascorso tra due cicli di controllo
+  const double dt = period.seconds();
+
+  // 1.1) Verifica che il periodo sia valido
+  if (dt <= 0.0)
   {
-    // 1) Tempo trascorso dall’ultimo ciclo (fornito da ros2_control).
-    //    Serve per calcolare la velocità media come dpos/dt.
-    const double dt = period.seconds();
+    RCLCPP_WARN(this->get_logger(), "Periodo dt non valido (dt=%.6f).", dt);
+  }
 
-    // 1.1) Sanity check: evita divisioni per zero o valori non sensati.
-    if (dt <= 0.0)
-    {
-      RCLCPP_WARN(this->get_logger(),
-                  "Periodo dt non valido (dt=%.6f).", dt);
-    }
-
-    // 2) Modalità mock: salta la seriale e simula la dinamica.
-    if (mock_)
-    {
-      apply_mock_dynamics_(dt);
-      RCLCPP_DEBUG(this->get_logger(),
-                   "Mock dynamics applied (dt=%.3f)", dt);
-      return hardware_interface::return_type::OK;
-    }
-
-    // 3) Legge UNA riga completa dalla seriale.
-    //    Il formato atteso è CSV con prefisso e terminatore '\n', es.:
-    //    - "ENC,dl_fl,dl_fr,dl_rl,dl_rr\n"
-    //    - "IMU,qx,qy,qz,qw,gx,gy,gz,ax,ay,az\n"
-    auto line = read_line_();
-
-    // 3.1) Se non arriva nulla in questo ciclo, semplicemente ritorna OK.
-    //      (Può capitare per jitter o rate diversi tra MCU e PC)
-    if (!line || line->empty())
-    {
-      return hardware_interface::return_type::OK;
-    }
-
-    // 3.2) Log della riga grezza ricevuta (utile per diagnosi di framing/formato).
-    RCLCPP_DEBUG(this->get_logger(),
-                 "Linea seriale ricevuta: %s", line->c_str());
-
-    // 4) Dispatch in base al prefisso del pacchetto.
-    //    Usiamo rfind(...,0) per verificare che la stringa inizi con il prefisso.
-    if (line->rfind("ENC", 0) == 0)
-    {
-      // 4.1) Salva le posizioni attuali per ricavare il delta di questo ciclo.
-      double prev_pos[4];
-      for (int i = 0; i < 4; ++i)
-      {
-        prev_pos[i] = joints_[i].pos_rad;
-      }
-
-      // 4.2) Parsing robusto del pacchetto ENC.
-      //      - Qualsiasi eccezione (token non numerici, campi mancanti) viene catturata.
-      //      - In caso di errore, si scarta il pacchetto e si continua senza fermare l’hardware.
-      try
-      {
-        // parse_encoder_packet_:
-        // - legge i delta tick (4 valori interi dopo "ENC")
-        // - applica inversioni
-        // - converte i tick in radianti
-        // - incrementa joints_[i].pos_rad (posizione cumulativa)
-        parse_encoder_packet_(*line);
-
-        // 4.3) Calcolo della velocità media del ciclo (solo se dt valido).
-        if (dt > 0.0)
-        {
-          for (int i = 0; i < 4; ++i)
-          {
-            const double dpos = joints_[i].pos_rad - prev_pos[i];
-            joints_[i].vel_rad_s = dpos / dt;
-          }
-        }
-        else
-        {
-          RCLCPP_WARN(this->get_logger(),
-                      "Velocità non aggiornata: dt=%.6f", dt);
-        }
-
-        // 4.4) Log immediato dei giunti aggiornati (utile in debug).
-        for (size_t i = 0; i < joints_.size(); ++i)
-        {
-          RCLCPP_INFO(this->get_logger(),
-                      "Joint %s: pos=%.3f rad, vel=%.3f rad/s",
-                      joint_names_[i].c_str(),
-                      joints_[i].pos_rad,
-                      joints_[i].vel_rad_s);
-        }
-      }
-      catch (const std::exception &e)
-      {
-        // 4.5) Pacchetto malformato: scartalo e prosegui senza interrompere il ciclo di controllo.
-        RCLCPP_WARN(this->get_logger(),
-                    "Pacchetto ENC malformato, scartato. Errore: %s | Riga: '%s'",
-                    e.what(), line->c_str());
-      }
-    }
-    else if (line->rfind("IMU", 0) == 0)
-    {
-      // 5) Pacchetto IMU: parsing robusto con gestione errori.
-      try
-      {
-        // parse_imu_packet_ aggiorna imu_state_ (orientazione, velocità angolare, accelerazione).
-        parse_imu_packet_(*line);
-
-        // 5.1) Log dei valori IMU aggiornati (utile in debug di integrazione).
-        //RCLCPP_INFO(this->get_logger(),
-        RCLCPP_INFO(this->get_logger(),
-                    "IMU orient=(%.3f, %.3f, %.3f, %.3f) "
-                    "ang_vel=(%.3f, %.3f, %.3f) "
-                    "lin_acc=(%.3f, %.3f, %.3f)",
-                    imu_state_.orientation[0], imu_state_.orientation[1],
-                    imu_state_.orientation[2], imu_state_.orientation[3],
-                    imu_state_.angular_vel[0], imu_state_.angular_vel[1],
-                    imu_state_.angular_vel[2],
-                    imu_state_.linear_accel[0], imu_state_.linear_accel[1],
-                    imu_state_.linear_accel[2]);
-      }
-      catch (const std::exception &e)
-      {
-        // 5.2) Pacchetto IMU malformato: scarta e continua.
-        RCLCPP_WARN(this->get_logger(),
-                    "Pacchetto IMU malformato, scartato. Errore: %s | Riga: '%s'",
-                    e.what(), line->c_str());
-      }
-    }
-    else if (line->rfind("SON", 0) == 0){
-      // TODO
-    }
-    else if (line->rfind("LOG", 0) == 0){
-      RCLCPP_INFO(this->get_logger(),
-                  "Pico log: %s", line->c_str());
-    }
-    else
-    {
-      // 6) Prefisso sconosciuto: il pacchetto non appartiene ai formati attesi.
-      //    Lo segnaliamo ma non è un errore critico (potrebbe essere rumore o debug lato MCU).
-      RCLCPP_WARN(this->get_logger(),
-                  "Pacchetto con prefisso sconosciuto: %s", line->c_str());
-    }
-
-    // 7) Concludi regolarmente: anche se non è arrivato nulla o si è scartato un pacchetto,
-    //    il ciclo di controllo continua senza disattivare l'hardware.
+  // 2) Modalità simulata: salta la seriale e applica dinamica mock
+  if (mock_)
+  {
+    apply_mock_dynamics_(dt);
+    RCLCPP_DEBUG(this->get_logger(), "Mock dynamics applied (dt=%.3f)", dt);
     return hardware_interface::return_type::OK;
+  }
+
+  // 3) Lettura di una riga dalla seriale
+  auto line = read_line_();
+
+  // 3.1) Se non arriva nulla, termina il ciclo senza errori
+  if (!line || line->empty())
+  {
+    return hardware_interface::return_type::OK;
+  }
+
+  // 3.2) Log della riga ricevuta
+  RCLCPP_DEBUG(this->get_logger(), "Linea seriale ricevuta: %s", line->c_str());
+
+  // 4) Dispatch in base al prefisso
+  if (line->rfind("ENC", 0) == 0)
+  {
+    // 4.1) Salva le posizioni precedenti per calcolare la velocità
+    double prev_pos[4];
+    for (int i = 0; i < 4; ++i)
+    {
+      prev_pos[i] = joints_[i].pos_rad;
+    }
+
+    // 4.2) Parsing del pacchetto encoder
+    try
+    {
+      parse_encoder_packet_(*line);
+
+      // 4.3) Calcolo della velocità media
+      if (dt > 0.0)
+      {
+        for (int i = 0; i < 4; ++i)
+        {
+          const double dpos = joints_[i].pos_rad - prev_pos[i];
+          joints_[i].vel_rad_s = dpos / dt;
+        }
+      }
+
+      // 4.4) Log dei giunti aggiornati
+      for (size_t i = 0; i < joints_.size(); ++i)
+      {
+        RCLCPP_INFO(this->get_logger(),
+                    "Joint %s: pos=%.3f rad, vel=%.3f rad/s",
+                    joint_names_[i].c_str(),
+                    joints_[i].pos_rad,
+                    joints_[i].vel_rad_s);
+      }
+    }
+    catch (const std::exception &e)
+    {
+      RCLCPP_WARN(this->get_logger(),
+                  "Pacchetto ENC malformato, scartato. Errore: %s | Riga: '%s'",
+                  e.what(), line->c_str());
+    }
+  }
+  else if (line->rfind("IMU", 0) == 0)
+  {
+    // 5) Parsing del pacchetto IMU
+    try
+    {
+      parse_imu_packet_(*line);
+
+      RCLCPP_INFO(this->get_logger(),
+                  "IMU orient=(%.3f, %.3f, %.3f, %.3f) "
+                  "ang_vel=(%.3f, %.3f, %.3f) "
+                  "lin_acc=(%.3f, %.3f, %.3f)",
+                  imu_state_.orientation[0], imu_state_.orientation[1],
+                  imu_state_.orientation[2], imu_state_.orientation[3],
+                  imu_state_.angular_vel[0], imu_state_.angular_vel[1],
+                  imu_state_.angular_vel[2],
+                  imu_state_.linear_accel[0], imu_state_.linear_accel[1],
+                  imu_state_.linear_accel[2]);
+    }
+    catch (const std::exception &e)
+    {
+      RCLCPP_WARN(this->get_logger(),
+                  "Pacchetto IMU malformato, scartato. Errore: %s | Riga: '%s'",
+                  e.what(), line->c_str());
+    }
+  }
+  else if (line->rfind("SON", 0) == 0)
+  {
+    // 6) Parsing del pacchetto SONAR
+    try
+    {
+      // Esempio: "SON,1.23,0.98,1.10"
+      std::stringstream ss(*line);
+      std::string token;
+      std::getline(ss, token, ','); // salta "SON"
+
+      for (size_t i = 0; i < sonars_.size(); ++i)
+      {
+        if (!std::getline(ss, token, ','))
+          throw std::runtime_error("Campo sonar mancante");
+
+        sonars_[i].range_m = std::stod(token);
+      }
+
+      // Log dei sonar aggiornati
+      for (size_t i = 0; i < sonars_.size(); ++i)
+      {
+        RCLCPP_INFO(this->get_logger(),
+                    "Sonar %s: range=%.3f m",
+                    sonar_names_[i].c_str(),
+                    sonars_[i].range_m);
+      }
+    }
+    catch (const std::exception &e)
+    {
+      RCLCPP_WARN(this->get_logger(),
+                  "Pacchetto SON malformato, scartato. Errore: %s | Riga: '%s'",
+                  e.what(), line->c_str());
+    }
+  }
+  else if (line->rfind("LOG", 0) == 0)
+  {
+    // 7) Log generico dal microcontroller
+    RCLCPP_INFO(this->get_logger(), "Pico log: %s", line->c_str());
+  }
+  else
+  {
+    // 8) Prefisso sconosciuto
+    RCLCPP_WARN(this->get_logger(),
+                "Pacchetto con prefisso sconosciuto: %s", line->c_str());
+  }
+
+  // 9) Fine ciclo di lettura
+  return hardware_interface::return_type::OK;
+}
   }
 
   // ================== WRITE ==================
