@@ -1,11 +1,7 @@
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, TimerAction
 from launch.conditions import IfCondition
-from launch.substitutions import (
-    LaunchConfiguration,
-    Command,
-    PathJoinSubstitution,
-)
+from launch.substitutions import LaunchConfiguration, Command, PathJoinSubstitution
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 from launch_ros.parameter_descriptions import ParameterValue
@@ -33,10 +29,10 @@ def generate_launch_description():
     # 🔄 Conversione Xacro → URDF
     # =========================
     robot_description = ParameterValue(
-        Command(['xacro ', urdf_file]),   # messo lo spazio dopo "xacro" altrimenti non funziona
+        Command(['xacro ', urdf_file]),  # spazio dopo "xacro" necessario
         value_type=str
     )
-       
+
     # =========================
     # 📡 Nodi di base
     # =========================
@@ -71,7 +67,6 @@ def generate_launch_description():
         output='screen',
     )
 
-    # 👉 AGGIUNTO: spawner per imu_broadcaster
     spawner_imu = Node(
         package='controller_manager',
         executable='spawner',
@@ -79,10 +74,56 @@ def generate_launch_description():
         output='screen',
     )
 
-    # Ritardo per dare tempo a ros2_control_node di inizializzarsi
+    # 🎯 Spawner per servomotori pan/tilt
+    spawner_pan = Node(
+        package='controller_manager',
+        executable='spawner',
+        arguments=['pan_controller', '--controller-manager-timeout', '10.0'],
+        output='screen',
+    )
+
+    spawner_tilt = Node(
+        package='controller_manager',
+        executable='spawner',
+        arguments=['tilt_controller', '--controller-manager-timeout', '10.0'],
+        output='screen',
+    )
+
+    # 📡 Spawner per sonar
+    spawner_sonar_front = Node(
+        package='controller_manager',
+        executable='spawner',
+        arguments=['sonar_front_broadcaster', '--controller-manager-timeout', '10.0'],
+        output='screen',
+    )
+
+    spawner_sonar_left = Node(
+        package='controller_manager',
+        executable='spawner',
+        arguments=['sonar_left_broadcaster', '--controller-manager-timeout', '10.0'],
+        output='screen',
+    )
+
+    spawner_sonar_right = Node(
+        package='controller_manager',
+        executable='spawner',
+        arguments=['sonar_right_broadcaster', '--controller-manager-timeout', '10.0'],
+        output='screen',
+    )
+
+    # ⏱️ Ritardo per dare tempo a ros2_control_node di inizializzarsi
     delayed_spawners = TimerAction(
         period=3.0,
-        actions=[spawner_joint_state, spawner_mecanum, spawner_imu]
+        actions=[
+            spawner_joint_state,
+            spawner_mecanum,
+            spawner_imu,
+            spawner_pan,
+            spawner_tilt,
+            spawner_sonar_front,
+            spawner_sonar_left,
+            spawner_sonar_right,
+        ]
     )
 
     # =========================
