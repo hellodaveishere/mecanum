@@ -136,3 +136,99 @@ ros2 topic echo /rosot
 ros2 topic echo /rosout
 ros2 topic echo /rosout | grep MecanumSystem
 rqt&
+grep B1000000 /usr/include/asm-generic/termbits.h
+colcon build --packages-select mecanum_base
+source install/setup.bash 
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py
+colcon build --packages-select mecanum_base
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py
+colcon build --packages-select mecanum_base
+source install/setup.bash 
+colcon build --packages-select mecanum_base
+ros2 launch mecanum_base bringup.launch.py
+rqt&
+cd src/
+cd mecanum_base/tests/
+ls
+./test_mecanum.sh 
+./test_mecanum.sh 
+colcon build --packages-select mecanum_base
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py
+ros2 launch mecanum_base bringup.launch.py
+colcon build --packages-select mecanum_base
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py
+sudo apt install ros-noble-ros2-control ros-noble-ros2-controllers
+ros2 pkg prefix ros2_controllers
+ls
+cd install/mecanum_base/share/
+ls
+cd mecanum_base/
+ls
+cd
+ls /opt/ros/jazzy/share/ros2_controllers/
+ls /opt/ros/jazzy/share/ros2_controllers/
+sudo apt install ros-jazzy-position-controllers
+ros2 run controller_manager spawner --help
+clear
+ros2 control list_controller_types
+ros2 launch mecanum_base bringup.launch.py
+colcon build --packages-select mecanum_base
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py
+colcon build --packages-select mecanum_base
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py
+clear
+ros2 launch mecanum_base bringup.launch.py
+ros2 launch mecanum_base bringup.launch.py
+clear
+ros2 launch mecanum_base bringup.launch.py
+clear
+ros2 launch mecanum_base bringup.launch.py
+colcon build --packages-select mecanum_base
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py
+clear
+ros2 launch mecanum_base bringup.launch.py
+ros2 launch mecanum_base bringup.launch.py
+ros2 launch mecanum_base bringup.launch.py
+ros2 launch mecanum_base bringup.launch.py
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py
+rm -rf .git/refs/original/
+git status
+git reflog
+history|grep rm
+rm -rf build/mecanum_base install/mecanum_base log
+colcon build --packages-select mecanum_base
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py
+ros2 launch mecanum_base bringup.launch.py
+ros2 launch mecanum_base bringup.launch.py
+ros2 launch mecanum_base bringup.launch.py
+ros2 control list_controller_types
+ros2 control list_controllers
+ros2 topic list
+cd src/mecanum_base/tests/
+ls
+chmod +x test_ruote_servos_sonar.sh 
+./test_ruote_servos_sonar.sh 
+ros2 topic list
+./test_ruote_servos_sonar.sh 
+./test_ruote_servos_sonar.sh 2
+ros2 control controllers_list
+ros2 control list_controllers
+ros2 control list_controllers
+ros2 control list_controllers
+rqt&
+./test_ruote_servos_sonar.sh 2
+./test_ruote_servos_sonar.sh 2
+ros2 control list_controllers
+ros2 control list_hardware_interfaces
+ros2 control list_controllers
+./test_ruote_servos_sonar.sh 2
+ros2 control list_controllers

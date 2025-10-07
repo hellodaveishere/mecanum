@@ -1,6 +1,6 @@
 controller_manager:
   ros__parameters:
-    update_rate: 50   # Frequenza di aggiornamento del controller_manager (Hz)
+    update_rate: 15   # Frequenza di aggiornamento del controller_manager (Hz)
 
     # =========================
     # 📤 Joint State Broadcaster
@@ -21,7 +21,7 @@ controller_manager:
     # =========================
     imu_broadcaster:
       type: imu_sensor_broadcaster/IMUSensorBroadcaster
-      publish_rate: 50
+      publish_rate: 15
       sensor_name: imu
       frame_id: imu_link
       topic_name: /data/imu
@@ -29,11 +29,8 @@ controller_manager:
     # =========================
     # 🎯 Controller posizione servomotori pan/tilt
     # =========================
-    pan_controller:
-      type: position_controllers/JointPositionController
-
-    tilt_controller:
-      type: position_controllers/JointPositionController
+    pan_tilt_controller:
+      type: position_controllers/JointGroupPositionController
 
     # =========================
     # 📡 Sonar Broadcaster (range)
@@ -69,16 +66,14 @@ imu_broadcaster:
   ros__parameters:
     sensor_name: imu         # Deve combaciare con export_state_interfaces ("imu")
     frame_id: imu_link
-    publish_rate: 50
+    publish_rate: 15
     topic_name: /data/imu
 
-pan_controller:
+pan_tilt_controller:
   ros__parameters:
-    joint: pan_joint         # Nome del giunto nel URDF/Xacro
-
-tilt_controller:
-  ros__parameters:
-    joint: tilt_joint        # Nome del giunto nel URDF/Xacro
+    joints:
+      - pan_joint
+      - tilt_joint
 
 sonar_front_broadcaster:
   ros__parameters:

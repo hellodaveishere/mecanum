@@ -687,9 +687,10 @@ namespace mecanum_hardware
      << joints_[0].cmd_vel << ","  // front_left
      << joints_[1].cmd_vel << ","  // front_right
      << joints_[2].cmd_vel << ","  // rear_left
-     << joints_[3].cmd_vel;        // rear_right
+     << joints_[3].cmd_vel << "\n";        // rear_right
 
   // 2.1️⃣ Aggiunta dei comandi servo (se presenti)
+  ss << "SER";
   for (size_t i = 0; i < servos_.size(); ++i)
   {
     ss << "," << servos_[i].command;

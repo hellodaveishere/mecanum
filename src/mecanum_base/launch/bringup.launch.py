@@ -75,17 +75,10 @@ def generate_launch_description():
     )
 
     # 🎯 Spawner per servomotori pan/tilt
-    spawner_pan = Node(
+    spawner_pan_tilt = Node(
         package='controller_manager',
         executable='spawner',
-        arguments=['pan_controller', '--controller-manager-timeout', '10.0'],
-        output='screen',
-    )
-
-    spawner_tilt = Node(
-        package='controller_manager',
-        executable='spawner',
-        arguments=['tilt_controller', '--controller-manager-timeout', '10.0'],
+        arguments=['pan_tilt_controller', '--controller-manager-timeout', '10.0'],
         output='screen',
     )
 
@@ -118,8 +111,7 @@ def generate_launch_description():
             spawner_joint_state,
             spawner_mecanum,
             spawner_imu,
-            spawner_pan,
-            spawner_tilt,
+            spawner_pan_tilt,
             spawner_sonar_front,
             spawner_sonar_left,
             spawner_sonar_right,
