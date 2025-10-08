@@ -232,3 +232,43 @@ ros2 control list_hardware_interfaces
 ros2 control list_controllers
 ./test_ruote_servos_sonar.sh 2
 ros2 control list_controllers
+ros2 launch mecanum_base bringup.launch.py
+source install/setup.bash >> .bashrc 
+source install/setup.bash
+ros2 launch mecanum_base bringup.launch.py
+colcon build --packages-select mecanum_base
+colcon build --packages-select mecanum_base
+colcon build --packages-select mecanum_base
+source install/setup.bash
+ros2 launch mecanum_base bringup.launch.py
+colcon build --packages-select mecanum_base
+colcon build --packages-select mecanum_base
+source install/setup.bash
+ros2 launch mecanum_base bringup.launch.py
+colcon build --packages-select mecanum_base
+source install/setup.bash
+ros2 launch mecanum_base bringup.launch.py
+rqt&
+cd src/mecanum_base/tests/
+ls
+./test_ruote_servos_sonar.sh 1
+./test_ruote_servos_sonar.sh 
+./test_ruote_servos_sonar.sh 2
+./test_ruote_servos_sonar.sh 2
+./test_ruote_servos_sonar.sh 1
+ls
+./test_mecanum.sh 
+./test_ruote_servos_sonar.sh 2
+./test_ruote_servos_sonar.sh 2
+./test_ruote_servos_sonar.sh 2
+./test_ruote_servos_sonar.sh 2
+./test_ruote_servos_sonar.sh 2
+./test_ruote_servos_sonar.sh 2
+./test_ruote_servos_sonar.sh 2
+./test_ruote_servos_sonar.sh 2
+./test_ruote_servos_sonar.sh 2
+./test_ruote_servos_sonar.sh 2
+ros2 topic list
+cd
+source install/setup.bash 
+ros2 topic list

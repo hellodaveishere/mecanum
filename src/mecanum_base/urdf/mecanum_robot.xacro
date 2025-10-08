@@ -57,7 +57,8 @@
         <geometry>
           <cylinder radius="${wheel_radius}" length="0.05"/>
         </geometry>
-        <origin xyz="0 0 0" rpy="0 0 1.5708"/>
+        <!-- ✅ Rotazione corretta sull'asse X -->
+        <origin xyz="0 0 0" rpy="1.5708 0 0"/>
         <material name="black">
           <color rgba="0.1 0.1 0.1 1.0"/>
         </material>
@@ -108,7 +109,17 @@
   <!-- =========================
        📌 PAN/TILT CAMERA
        ========================= -->
-  <link name="pan_link"/>
+  <link name="pan_link">
+    <visual>
+      <geometry>
+        <box size="0.03 0.03 0.01"/>
+      </geometry>
+      <origin xyz="0 0 0.005" rpy="0 0 0"/>
+      <material name="gray">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+      </material>
+    </visual>
+  </link>
   <joint name="pan_joint" type="revolute">
     <parent link="base_link"/>
     <child link="pan_link"/>
@@ -117,7 +128,17 @@
     <limit effort="1.0" velocity="1.0" lower="-1.57" upper="1.57"/>
   </joint>
 
-  <link name="tilt_link"/>
+  <link name="tilt_link">
+    <visual>
+      <geometry>
+        <box size="0.04 0.04 0.04"/>
+      </geometry>
+      <origin xyz="0 0 0.03" rpy="0 0 0"/>
+      <material name="black">
+        <color rgba="0.0 0.0 0.0 1.0"/>
+      </material>
+    </visual>
+  </link>
   <joint name="tilt_joint" type="revolute">
     <parent link="pan_link"/>
     <child link="tilt_link"/>
@@ -135,7 +156,8 @@
         <geometry>
           <cylinder radius="0.01" length="0.02"/>
         </geometry>
-        <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+        <!-- ✅ Ruota solo la geometria per farla puntare in avanti -->
+        <origin xyz="0 0 0" rpy="0 1.5708 0"/>
         <material name="blue">
           <color rgba="0.2 0.2 1.0 1.0"/>
         </material>
@@ -144,9 +166,11 @@
     <joint name="${name}_joint" type="fixed">
       <parent link="base_link"/>
       <child link="${name}_link"/>
+      <!-- ✅ Nessuna rotazione: frame punta in avanti -->
       <origin xyz="${x} ${y} ${z}" rpy="0 0 0"/>
     </joint>
   </xacro:macro>
+
 
   <xacro:sonar name="sonar_front"  x="0.2"  y="0.0"  z="0.05"/>
   <xacro:sonar name="sonar_left"   x="0.0"  y="0.2"  z="0.05"/>
@@ -173,7 +197,7 @@
       <param name="baudrate">1000000</param>
     </hardware>
 
-    <!-- Giunti ruota -->
+    <!-- ✅ Interfacce di comando e stato per le ruote -->
     <joint name="front_left_wheel_joint">
       <state_interface name="position"/>
       <state_interface name="velocity"/>
@@ -195,7 +219,7 @@
       <command_interface name="velocity"/>
     </joint>
 
-    <!-- Giunti servo pan/tilt -->
+    <!-- ✅ Interfacce per servo pan/tilt -->
     <joint name="pan_joint">
       <state_interface name="position"/>
       <command_interface name="position"/>
@@ -205,7 +229,7 @@
       <command_interface name="position"/>
     </joint>
 
-    <!-- Sensori sonar -->
+    <!-- ✅ Interfacce per sensori sonar -->
     <sensor name="sonar_front">
       <state_interface name="range"/>
     </sensor>
