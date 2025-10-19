@@ -1,0 +1,380 @@
+#https://automaticaddison.com/ros-2-navigation-tuning-guide-nav2/
+
+Menu
+
+ROS 2 Navigation Tuning Guide – Nav2
+ros2-navigation-tuning-guide-parameters-3
+In this tutorial, we will explore the process of fine-tuning the parameters for Nav2 (the ROS 2 Navigation stack), which is essential for achieving optimal navigation performance in your mobile robot. With hundreds of parameters in the yaml file for Nav2, the configuration process can be quite confusing and time-consuming. However, this guide is designed to save you time and effort by leveraging my years of experience in tuning parameters for ROS-based mobile robots.
+
+If you are working with ROS 1, I encourage you to check out this ROS Navigation Tuning Guide by Kaiyu Zheng. Otherwise, if you are working with ROS 2, you have come to the right place.
+
+For my complete ROS 2 Navigation video tutorials, you can start here:
+
+
+Table of Contents
+Prerequisites
+Introduction
+amcl
+Description
+Parameters
+bt_navigator
+Description
+Parameters
+controller_server
+Description
+Parameters
+Model Predictive Path Integral Controller Parameters
+Regulated Pure Pursuit 
+local_costmap
+Description
+Parameters
+obstacle_layer
+voxel_layer
+range_sensor_layer 
+denoise_layer
+inflation_layer
+global_costmap
+Description
+Parameters
+obstacle_layer
+range_sensor_layer
+voxel_layer
+inflation_layer
+map_saver
+Description
+Parameters
+planner_server
+Description
+Parameters
+smoother_server
+Description
+Parameters
+behavior_server
+Description
+Parameters
+waypoint_follower
+Description
+Parameters
+velocity_smoother
+Description
+Parameters
+collision monitor
+Description
+Parameters
+docking server
+Description
+slam_toolbox
+Description
+Final Notes on Navigation Tuning
+Getting Help
+Next Steps
+Prerequisites
+You have a robot that is already setup with Nav2.
+You have completed this tutorial (recommended but not required): Autonomous Navigation for a Mobile Robot Using ROS 2 Jazzy.
+All my code for this project is located here on GitHub. The file we will be going through is located here.
+
+For the purposes of comparison, you can also take a look at these parameters here from the Nav2 GitHub for some other default values.
+
+Introduction
+It is important to understand that the tuning process is more of an art than a science. It involves a significant amount of trial and error and experimentation to find the right balance of parameters that work best for your specific robot and its operating environment. Don’t be discouraged if it takes some time to get the desired results.
+
+In this guide, I will share my insights on which parameters are best left at their default values and which ones are worth investing time in tuning, regardless of the type of mobile robot you are working with. I will also provide my recommended values that have proven to work well for most of my projects.
+
+By following the advice in this guide, you can streamline your Nav2 parameter tuning process and avoid the common pitfalls that many roboticists face when optimizing their navigation stack. Whether you’re a beginner or an experienced roboticist, this guide will help you understand the key concepts and reasoning behind each parameter, enabling you to make informed decisions and achieve the best possible navigation performance for your mobile robot.
+
+amcl
+Description
+Here is the official configuration guide for AMCL.
+
+The AMCL (Adaptive Monte Carlo Localization) package helps the robot understand its location on a map. It uses a particle filter to estimate the robot’s position by matching laser scans from a LIDAR sensor with the existing map. This process allows the robot to navigate more accurately in known environments.
+
+Imagine you’re blindfolded in your house. How would you figure out exactly where you are? You would probably reach out to touch walls and furniture, comparing what you feel to your mental map of your home. This is similar to how AMCL helps a robot understand its position in a known environment.
+
+Let’s break down how AMCL works…
+
+First, think about the name itself. “Adaptive” means it can adjust itself based on circumstances. “Monte Carlo” refers to using random sampling to solve problems (named after the famous casino!), and “Localization” simply means finding out where something is.
+
+AMCL starts by spreading out thousands of virtual “guesses” (we call them particles) across the map. Each particle represents a possible position and direction the robot might be in. Think of it like dropping thousands of pins on a map, with each pin being a “maybe I’m here” guess.
+
+As the robot moves and uses its LIDAR, it does the following:
+
+It looks at what the LIDAR is seeing – walls, corners, furniture, etc.
+It compares these readings to what it would expect to see at each of those guessed positions
+It gives higher “scores” to guesses that match well with what the sensors are actually seeing
+It gradually eliminates unlikely guesses and creates new ones around the more promising positions
+The “Adaptive” part is particularly smart: when the robot is uncertain about its position (like when you first turn it on), it uses more particles to cast a wider net. Once it is pretty sure where it is, it reduces the number of particles to save computing power while maintaining accuracy.
+
+Why is this so important? Think of it this way: if you’re using a GPS navigation app but it shows you on the wrong street, all its directions will be useless! Similarly, a robot needs to know exactly where it is before it can effectively plan paths or navigate to goals.
+
+The AMCL server in Nav2 handles all of this complex math and probability behind the scenes. It:
+
+Can start with either a rough or precise initial guess of the robot’s position
+Constantly updates its position estimate as the robot moves
+Handles situations where the environment has changed somewhat (30% or less in my experience) from the original map
+Shares its position information with other parts of the navigation system
+One of the most fascinating aspects of AMCL is how it mirrors human navigation behaviors. Just as you become more confident about your position when you recognize more landmarks, AMCL becomes more certain as it matches more sensor readings to known map features.
+
+Parameters
+alpha1: (unitless)
+
+Default: 0.2
+My value: 0.2
+Matches the default value in the official guide. This is a reasonable default for the expected process noise in odometry’s rotation estimate from rotation.
+alpha1 controls how much rotation affects the robot’s rotation estimate. Increasing this value makes the system more cautious about rotational movements, assuming more uncertainty when the robot turns. Decreasing it makes the system more confident about its rotation estimates, which can be risky if your robot’s sensors aren’t very accurate.
+
+alpha2: (unitless)
+
+Default: 0.2
+My value: 0.2
+Matches the default value. A suitable default for expected process noise in rotation estimate from translation.
+alpha2 handles how forward motion affects rotation estimates. If you increase this value, the robot becomes more uncertain about its rotation when moving forward, leading to more conservative behavior. Decreasing it means the robot will be more confident that moving forward won’t affect its rotational accuracy, which might be too optimistic for many robots.
+
+alpha3: (unitless)
+
+Default: 0.2
+My value: 0.2
+Matches the default. Appropriate for expected process noise in translation estimate from translation.
+alpha3 determines how forward motion affects position estimates. Increasing this makes the robot more uncertain about its position when moving forward, causing it to rely more on sensor data. Decreasing it means the robot will trust its forward motion more, which can be good for robots with very accurate wheel encoders but risky for others.
+
+alpha4: (unitless)
+
+Default: 0.2
+My value: 0.2
+Same as default. Works well for expected process noise in translation estimate from rotation in most cases.
+alpha4 manages how rotation affects position estimates. When increased, the system assumes more position uncertainty during turns, making it more reliant on sensor data to confirm its location. Decreasing it means the robot will be more confident about maintaining position accuracy during turns, which might not be realistic for many robots.
+
+alpha5: (unitless)
+
+Default: 0.2
+My value: 0.2
+Aligns with default. Good value for translation noise in omni models.
+Specific to omnidirectional robots, this controls translation noise. Increasing this value makes the robot more cautious about its position estimates during omnidirectional movement. Decreasing it makes the robot more confident in its position during sideways motion, which should only be done if you have very accurate encoders.
+
+base_frame_id: (string)
+
+Default: “base_footprint”
+My value: “base_footprint”
+Matches the typical default base frame for many robots.
+beam_skip_distance: (meters)
+
+Default: 0.5
+My value: 0.5
+Same as default. 0.5m is a reasonable max distance to consider skipping beams that don’t match the map.
+This parameter tells AMCL how different a laser reading can be from the expected map reading before being considered for skipping. For example, if a laser beam expects to hit a wall at 3 meters according to the map, but actually hits something at 2.3 meters, the difference is 0.7 meters. If this difference is larger than beam_skip_distance (i.e. 0.5 meters), this reading becomes a candidate for being skipped. 
+
+Increasing the beam_skip_distance means more readings that don’t match the map will be considered for skipping, which helps when your environment changes often but might make localization less precise. Decreasing it means only readings that are very different from expectations will be considered for skipping, making localization more precise but potentially slower in changing environments.
+
+beam_skip_error_threshold: (unitless)
+
+Default: 0.9
+My value: 0.9
+Matches default. 0.9 is a good percentage of beams to skip before forcing a full update due to bad convergence.
+This parameter sets the maximum percentage of beams that can be skipped before AMCL forces a full sensor update due to poor convergence.
+
+Increase it to allow more beams to be skipped, which can help performance in noisy environments but may reduce accuracy.
+Decrease it to make the system more cautious, improving accuracy but increasing computational cost.
+beam_skip_threshold: (unitless)
+
+Default: 0.3
+My value: 0.3
+Aligns with default. 0.3 works well as the percentage of beams required to skip.
+Defines the percentage of beams that must be considered for skipping before beam skipping is even attempted.
+
+Increase it to allow beam skipping to occur more often.
+Decrease it to make beam skipping happen less frequently, resulting in more conservative behavior.
+do_beamskip: (bool)
+
+Default: False
+My value: false
+Same as default. Beam skipping is not necessary in the likelihood field model.
+Enables or disables beam skipping entirely.
+
+Beam skipping is usually unnecessary when using the likelihood_field laser model.
+Set to true only if you have performance issues due to noisy sensor data and can tolerate some localization error.
+global_frame_id: (string)
+
+Default: “map”
+My value: “map”
+Matches the standard global frame name.
+lambda_short: (unitless)
+
+Default: 0.1
+My value: 0.1
+Same as default. A good exponential decay parameter for the z_short part of the model.
+Increasing this value makes the system more sensitive to unexpected short readings, which can help detect obstacles. Decreasing it makes the system more tolerant of short readings, which might help in environments with lots of small objects.
+
+laser_likelihood_max_dist: (meters)
+
+Default: 2.0
+My value: 2.0
+Matches default. 2.0m is a reasonable maximum distance for obstacle inflation in the likelihood field model.
+Increasing this value makes the system consider obstacles further away, which can improve accuracy but increases computation time. Decreasing it makes the system focus on closer obstacles, which can be faster but might miss important features.
+
+laser_max_range: (meters)
+
+Default: 100.0
+My value: 100.0
+Aligns with default. 100m is far enough to cover most laser scanners. -1.0 would use the laser’s reported max range instead.
+Increasing this lets the robot use more distant readings but can slow down processing and might include more noise. Decreasing it means ignoring distant readings, which can be good in cluttered environments but might make localization harder in large open spaces.
+
+laser_min_range: (meters)
+
+Default: -1.0
+My value: -1.0
+Same as default. -1.0 will use the laser’s reported minimum range.
+Increasing this ignores closer readings, which can help if your LIDAR gets a lot of false close readings. Decreasing it (or keeping at -1.0) uses the sensor’s built-in minimum range, which is usually fine.
+
+laser_model_type: (string)
+
+Default: “likelihood_field”
+My value: “likelihood_field”
+Matches the recommended default, which works well for most use cases. Considers the beamskip feature if enabled.
+There are three main options for laser_model_type:
+
+“likelihood_field” (default)
+This is the recommended default
+Most computationally efficient
+Works well for most scenarios
+Creates a pre-computed likelihood field of expected laser readings
+“beam”
+Also known as the ray-cast model
+More computationally intensive
+Can be more accurate in some situations
+Directly simulates individual laser beams
+Better at handling dynamic environments but slower
+“likelihood_field_prob”
+A probabilistic variant of the likelihood field model
+Adds probability calculations to the standard likelihood field
+Can be more accurate than basic likelihood field but more computationally intensive
+Good for environments where you need more precise probability estimates
+max_beams: (unitless)
+
+Default: 60
+My value: 60
+Matches default. 60 is a good number of evenly-spaced beams to use from each scan.
+Increasing this can improve accuracy but slows down processing significantly. Decreasing it speeds up processing but might make localization less accurate.
+
+max_particles: (unitless)
+
+Default: 2000
+My value: 2000
+Same as default. 2000 is the recommended maximum number of particles for the particle filter.
+Increasing this can improve accuracy but uses more computational power. Decreasing it saves processing power but might make localization less reliable, especially in complex environments.
+
+min_particles: (unitless)
+
+Default: 500
+My value: 500
+Matches default. 500 is a good minimum to ensure a sufficient particle distribution.
+Increasing this value ensures more thorough position checking but uses more processing power. Decreasing it saves computation but might make the system less reliable at finding the robot’s position
+
+odom_frame_id: (string)
+
+Default: “odom”
+My value: “odom”
+Same as default. “odom” is the standard frame for odometry data.
+pf_err: (unitless)
+
+Default: 0.05
+My value: 0.05
+Matches default. 0.05 is a reasonable value for the particle filter population error.
+Increasing this value makes the system reduce particles more aggressively, saving computation but potentially reducing accuracy. Decreasing it maintains more particles, using more computation but potentially improving accuracy.
+
+pf_z: (unitless)
+
+Default: 0.99
+My value: 0.99
+Same as default. 0.99 works well for the particle filter population density.
+Increasing this value maintains more particles longer, using more computation but potentially improving accuracy. Decreasing it reduces particles more quickly, saving computation but possibly reducing accuracy.
+
+recovery_alpha_fast: (unitless)
+
+Default: 0.0
+My value: 0.0
+Matches default. 0.0 disables the fast particle filter recovery.
+When set above 0.0, it enables a fast recovery mode that quickly spreads particles to find the robot’s position. Increasing this makes recovery more aggressive but potentially less stable. Keeping it at 0.0 means relying on normal localization methods.
+
+recovery_alpha_slow: (unitless)
+
+Default: 0.0
+My value: 0.0
+Same as default. 0.0 disables the slow particle filter recovery.
+When set above 0.0, it enables a slower, more methodical recovery mode. Increasing this value makes recovery more thorough but slower. Keeping it at 0.0 means relying on normal localization methods.
+
+resample_interval: (unitless)
+
+Default: 1
+My value: 1
+Matches default. Resampling after each filter update is usually appropriate.
+A value of 1 means it updates after every movement. Increasing this number means less frequent updates, which can help maintain diverse position estimates but might make the robot slower to adapt. Decreasing it below 1 isn’t recommended.
+
+robot_model_type: (string)
+
+Default: “nav2_amcl::DifferentialMotionModel”
+My value: “nav2_amcl::OmniMotionModel”
+In my navigation tutorials, I am using an omnidirectional mecanum wheeled robot. If you are using a differential drive robot, use the nav2_amcl::DifferentialMotionModel. Differential drive robots are the most common mobile robots in industry.
+save_pose_rate: (Hz)
+
+Default: 0.5
+My value: 0.5
+Same as default. 0.5Hz is a good rate for saving the estimated pose to the parameter server.
+A value of 0.5 means it saves twice per second. Increasing this saves positions more frequently but uses more system resources. Decreasing it saves less often but is more efficient.
+
+sigma_hit: (meters)
+
+Default: 0.2
+My value: 0.2
+Matches default. 0.2 is a reasonable standard deviation for the Gaussian model in the z_hit part.
+Increasing this value makes the robot more tolerant of small sensor inaccuracies but might reduce precision. Decreasing it makes the robot more strict about matching sensor readings to the map.
+
+tf_broadcast: (bool)
+
+Default: True
+My value: true
+Same as the default example. Broadcasting the map->odom transform is why we use ACML.
+This parameter should almost always be true. The main job of AMCL is to figure out how to connect the map to the robot’s odometry, and this parameter enables that connection.
+
+transform_tolerance: (seconds)
+
+Default: 1.0
+My value: 1.0
+Matches default. 1.0s is a good duration for how long the published transform should be considered valid.
+If set to 1.0, the robot will trust its position data for 1 second. Increasing this helps handle communication delays but might use outdated positions. Decreasing it ensures more current data but might cause jittery behavior.
+
+update_min_a: (radians)
+
+Default: 0.2
+My value: 0.05
+Different from the default of 0.2, but 0.05 requires less rotational movement of the robot before performing a filter update.
+The default 0.2 is about 11.5 degrees. Increasing this value means fewer updates, saving computation. Decreasing it (like to 0.05) makes the robot update more often, which is better for slow or precise movements.
+
+update_min_d: (meters)
+
+Default: 0.25
+My value: 0.05
+Smaller than the default of 0.25, requiring less translational movement before updating. Better for slow-moving robots.
+z_hit: (unitless)
+
+Default: 0.5
+My value: 0.5
+Same as default. A good mixture weight for the z_hit part of the likelihood field model.
+How much to trust sensor readings that match the map perfectly. A weight of 0.5 means 50% importance. Increasing this makes the robot trust perfect matches more. Decreasing it makes the robot more forgiving of small mismatches.
+
+z_max: (unitless)
+
+Default: 0.05
+My value: 0.05
+Matches default. A reasonable mixture weight for the z_max part.
+How much to trust maximum-range readings (when the sensor doesn’t see anything in range). A small value of 0.05 means these readings aren’t very important. Increasing this makes the robot trust empty space more. Decreasing it makes the robot mostly ignore maximum-range readings.
+
+z_rand: (unitless)
+
+Default: 0.5
+My value: 0.5
+Same as default. Works well as the mixture weight for the z_rand part.
+How much to expect random, unexplainable sensor readings. A value of 0.5 means expecting quite a few random readings. Increasing this helps in busy, unpredictable environments. Decreasing it assumes sensor readings should mostly match the map.
+
+z_short: (unitless)
+
+Default: 0.005
+My
