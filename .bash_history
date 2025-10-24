@@ -272,3 +272,13 @@ ros2 topic list
 cd
 source install/setup.bash 
 ros2 topic list
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+source install/setup.bash 
+./test_ruote_servos_sonar.sh 2
+cd src/mecanum_base/tests/
+./test_ruote_servos_sonar.sh 2
+./test_ruote_servos_sonar.sh
+./test_ruote_servos_sonar.sh 1
+./test_mecanum.sh 
+rqt&
