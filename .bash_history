@@ -282,3 +282,98 @@ cd src/mecanum_base/tests/
 ./test_ruote_servos_sonar.sh 1
 ./test_mecanum.sh 
 rqt&
+ls
+cd src/
+ls
+git clone https://github.com/Slamtec/sllidar_ros2.git
+ls
+cd ..
+colcon build --symlink-install
+colcon build --symlink-install --packages-select sllidar_ros2
+colcon build --packages-select sllidar_ros2
+source install/setup.
+source install/setup.bash 
+ls -la /dev | grep USB
+ros2 launch sllidar_ros2 view_sllidar_a1_launch.py
+ls -la /dev | grep USB
+chmod 777 /dev/ttyUSB0 
+sudo chmod 777 /dev/ttyUSB0 
+ros2 launch sllidar_ros2 view_sllidar_a1_launch.py
+ros2 launch sllidar_ros2 view_sllidar_a1_launch.py
+colcon build --packages-select sllidar_ros2
+colcon build --symlink-install
+ros2 launch sllidar_ros2 view_sllidar_a1_launch.py
+ls al /dev/ttyUSB0 
+ls -al /dev/ttyUSB0 
+cd src/rpldiar_ros
+rm -rf build/sllidar_ros2/ install/sllidar_ros2/ log
+colcon build --symlink-install
+colcon build --symlink-install
+ls -al /dev/ttyUSB0 
+sudo chomod 777 /dev/ttyUSB0 
+sudo chmod 777 /dev/ttyUSB0 
+ls -al /dev/ttyUSB0 
+ros2 launch sllidar_ros2 view_sllidar_a1_launch.py
+rm -rf build/sllidar_ros2/ install/sllidar_ros2/ log
+colcon build --symlink-install --packages-select sllidar_ros2
+source install/setup.bash
+ros2 launch sllidar_ros2 sllidar_launch.py
+source install/setup.bash
+rm -rf build/examples_rclcpp_/ install/examples_rclcpp_async_client/ log
+source install/setup.bash
+ros2 launch sllidar_ros2 view_sllidar_a1_launch.py
+ros2 launch sllidar_ros2 view_sllidar_a1_launch.py
+group dave
+groups dave
+ls -l /dev/ttyUSB0
+ros2 launch sllidar_ros2 view_sllidar_a1_launch.py
+ros2 launch sllidar_ros2 view_sllidar_a1_launch.py
+rm -rf build/sllidar_ros2/ install/sllidar_ros2/ log
+colcon build --symlink-install --packages-select sllidar_ros2
+source install/setup.bash 
+ros2 launch sllidar_ros2 view_sllidar_a1_launch.py
+rm -rf build/sllidar_ros2/ install/sllidar_ros2/ log
+colcon build --symlink-install --packages-select sllidar_ros2
+rm -rf build/sllidar_ros2/ install/sllidar_ros2/ log
+colcon build --symlink-install --packages-select sllidar_ros2
+source install/setup.bash 
+ros2 launch sllidar_ros2 view_sllidar_a1_launch.py
+colcon build --symlink-install --packages-select sllidar_ros2
+rm -rf build/sllidar_ros2/ install/sllidar_ros2/ log
+colcon build --symlink-install --packages-select sllidar_ros2
+source install/setup.bash 
+ros2 launch sllidar_ros2 view_sllidar_a1_launch.py
+source install/setup.bash 
+ros2 launch sllidar_ros2 view_sllidar_a1_launch.py
+ls
+cd src/sllidar_ros2/
+ls
+ls -al
+rm .git/
+rm -r .git/
+ls
+ls -al
+cd .git/
+ls
+cd ..
+rm -r .git/
+ls
+ls -al
+source install/setup.bash 
+ros2 topic list
+ros2 topic echo /scan
+ros2 topic echo /scan
+ros2 topic echo /scan
+cd src
+ls
+cd Archive/
+ls
+cd ../examples/
+ls
+touch COLCON_IGNORE
+ls
+cd ..
+ccd
+cd ..
+source install/setup.bash 
+ls src
