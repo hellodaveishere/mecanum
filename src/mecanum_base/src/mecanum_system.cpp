@@ -231,9 +231,9 @@ namespace mecanum_hardware
       // Non consideriamo questo un errore fatale per default
     }
 
-    //RCLCPP_DEGUG(rclcpp::get_logger("MecanumSystem"),
-    //            "send_command_: scritto '%s' (%zd byte)",
-    //            cmd.c_str(), static_cast<ssize_t>(written_total));
+    // RCLCPP_DEGUG(rclcpp::get_logger("MecanumSystem"),
+    //             "send_command_: scritto '%s' (%zd byte)",
+    //             cmd.c_str(), static_cast<ssize_t>(written_total));
     return true;
   }
 
@@ -368,6 +368,11 @@ namespace mecanum_hardware
     out.emplace_back("imu", "linear_acceleration.x", &imu_state_.linear_accel[0]);
     out.emplace_back("imu", "linear_acceleration.y", &imu_state_.linear_accel[1]);
     out.emplace_back("imu", "linear_acceleration.z", &imu_state_.linear_accel[2]);
+
+    // Stato dei sensori IR frontali
+    out.emplace_back("ir_front_left", hardware_interface::HW_IF_POSITION, &ir_state_.ir_front_left);
+    out.emplace_back("ir_front_center", hardware_interface::HW_IF_POSITION, &ir_state_.ir_front_center);
+    out.emplace_back("ir_front_right", hardware_interface::HW_IF_POSITION, &ir_state_.ir_front_right);
 
     return out;
   }
@@ -523,7 +528,7 @@ namespace mecanum_hardware
         parse_imu_packet_(*line);
 
         // 5.1) Log dei valori IMU aggiornati (utile in debug di integrazione).
-        //RCLCPP_INFO(this->get_logger(),
+        // RCLCPP_INFO(this->get_logger(),
         RCLCPP_INFO(this->get_logger(),
                     "IMU orient=(%.3f, %.3f, %.3f, %.3f) "
                     "ang_vel=(%.3f, %.3f, %.3f) "
@@ -543,10 +548,44 @@ namespace mecanum_hardware
                     e.what(), line->c_str());
       }
     }
-    else if (line->rfind("SON", 0) == 0){
-      // TODO
+    else if (line->rfind("IRS", 0) == 0)
+    {
+      // 1) Parsing dei dati IR: formato atteso "IRS,ir_left,ir_center,ir_right"
+      try
+      {
+        std::vector<std::string> tokens;
+        std::stringstream ss(*line); // ✅ dereferenziato
+        std::string item;
+        while (std::getline(ss, item, ','))
+        {
+          tokens.push_back(item);
+        }
+
+        if (tokens.size() != 4)
+        {
+          throw std::runtime_error("Pacchetto IR malformato: numero errato di campi");
+        }
+
+        ir_state_.ir_front_left = std::stod(tokens[1]);
+        ir_state_.ir_front_center = std::stod(tokens[2]);
+        ir_state_.ir_front_right = std::stod(tokens[3]);
+
+        RCLCPP_INFO(rclcpp::get_logger("MecanumSystem"),
+                    "IR sensors: front_left=%.2f front_center=%.2f front_right=%.2f",
+                    ir_state_.ir_front_left,
+                    ir_state_.ir_front_center,
+                    ir_state_.ir_front_right);
+      }
+      catch (const std::exception &e)
+      {
+        RCLCPP_WARN(rclcpp::get_logger("MecanumSystem"), // ✅ coerente
+                    "Pacchetto IR SENSORS malformato, scartato. Errore: %s | Riga: '%s'",
+                    e.what(), line->c_str());
+      }
     }
-    else if (line->rfind("LOG", 0) == 0){
+
+    else if (line->rfind("LOG", 0) == 0)
+    {
       RCLCPP_INFO(this->get_logger(),
                   "Pico log: %s", line->c_str());
     }

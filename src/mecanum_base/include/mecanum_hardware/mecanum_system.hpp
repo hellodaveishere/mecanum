@@ -40,6 +40,16 @@ namespace mecanum_hardware
         double linear_accel[3]{0.0, 0.0, 0.0};     // [m/s²]
     };
 
+    // Struttura per contenere i valori dei tre sensori IR.
+    // Ogni campo rappresenta la lettura di un sensore IR specifico.
+    // Struttura per contenere i valori dei tre sensori IR frontali.
+    struct IRState
+    {
+    double ir_front_left = 0.0;    // Sensore IR frontale sinistro [m]
+    double ir_front_center = 0.0;  // Sensore IR frontale centrale [m]
+    double ir_front_right = 0.0;   // Sensore IR frontale destro [m]
+    };
+
     // 🔧 Classe principale del sistema hardware Mecanum
     //    Implementa l'interfaccia ROS 2 Control e comunica direttamente via seriale
     class MecanumSystem final : public hardware_interface::SystemInterface
@@ -93,6 +103,9 @@ namespace mecanum_hardware
 
         // 📦 Stato IMU
         ImuState imu_state_;
+
+        // Istanza della struttura IRState per memorizzare lo stato corrente dei sensori IR.
+        IRState ir_state_;
 
         // 🧪 Simulazione mock: dinamica di primo ordine
         void apply_mock_dynamics_(double dt);

@@ -136,3 +136,19 @@ ros2 topic echo /rosot
 ros2 topic echo /rosout
 ros2 topic echo /rosout | grep MecanumSystem
 rqt&
+cp -r src/sllidar_ros2 /tmp/sllidar_ros2_backup
+git checkout main
+``>
+#### 4. **Copia la directory nel branch `main`**
+```bash
+cp -r /tmp/sllidar_ros2_backup src/sllidar_ros2
+
+cp -r /tmp/sllidar_ros2_backup src/sllidar_ros2
+git add src/sllidar_ros2
+git commit -m "Aggiungo sllidar_ros2 al branch main"
+git push origin main
+git pull origin main
+git pull origin main --no-rebase
+git commit -m "Merge branch 'origin/main' into main"
+git push origin main
+colcon build --packages-select mecanum_base
