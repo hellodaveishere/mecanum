@@ -1,5 +1,5 @@
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, TimerAction
+from launch.actions import DeclareLaunchArgument, TimerAction, IncludeLaunchDescription
 from launch.conditions import IfCondition
 from launch.substitutions import (
     LaunchConfiguration,
@@ -9,6 +9,7 @@ from launch.substitutions import (
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 from launch_ros.parameter_descriptions import ParameterValue
+from launch.launch_description_sources import PythonLaunchDescriptionSource
 
 
 def generate_launch_description():
@@ -21,7 +22,7 @@ def generate_launch_description():
     rviz_enabled = LaunchConfiguration('rviz')
 
     # =========================
-    # 📂 Percorsi ai file
+    # 📂 Percorsi ai file del robot mecanum
     # =========================
     pkg_share = FindPackageShare('mecanum_base')
     urdf_file = PathJoinSubstitution([pkg_share, 'urdf', 'mecanum_robot.xacro'])
@@ -33,12 +34,12 @@ def generate_launch_description():
     # 🔄 Conversione Xacro → URDF
     # =========================
     robot_description = ParameterValue(
-        Command(['xacro ', urdf_file]),   # messo lo spazio dopo "xacro" altrimenti non funziona
+        Command(['xacro ', urdf_file]),   # ⚠️ spazio dopo "xacro" necessario
         value_type=str
     )
        
     # =========================
-    # 📡 Nodi di base
+    # 📡 Nodi di base per la pubblicazione dello stato del robot
     # =========================
     robot_state_publisher_node = Node(
         package='robot_state_publisher',
@@ -71,7 +72,6 @@ def generate_launch_description():
         output='screen',
     )
 
-    # 👉 AGGIUNTO: spawner per imu_broadcaster
     spawner_imu = Node(
         package='controller_manager',
         executable='spawner',
@@ -79,14 +79,14 @@ def generate_launch_description():
         output='screen',
     )
 
-    # Ritardo per dare tempo a ros2_control_node di inizializzarsi
+    # ⏱️ Ritardo per dare tempo a ros2_control_node di inizializzarsi
     delayed_spawners = TimerAction(
         period=3.0,
         actions=[spawner_joint_state, spawner_mecanum, spawner_imu]
     )
 
     # =========================
-    # 🚗 Nodi applicativi custom
+    # 🚗 Nodi applicativi custom del robot mecanum
     # =========================
     mecanum_cmd_node = Node(
         package='mecanum_base',
@@ -128,6 +128,19 @@ def generate_launch_description():
     )
 
     # =========================
+    # 🌀 Inclusione del launch file del LiDAR SLLidar (Slamtec A1)
+    # =========================
+    sllidar_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            PathJoinSubstitution([
+                FindPackageShare('sllidar_ros2'),
+                'launch',
+                'view_sllidar_a1_launch.py'
+            ])
+        ])
+    )
+
+    # =========================
     # 🚀 Ritorno della LaunchDescription
     # =========================
     return LaunchDescription([
@@ -139,4 +152,5 @@ def generate_launch_description():
         mecanum_odom_node,
         ekf_node,
         rviz_node,
+        #sllidar_launch,  # 👉 aggiunto alla fine per lanciare anche il LiDAR
     ])
