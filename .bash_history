@@ -377,3 +377,18 @@ ccd
 cd ..
 source install/setup.bash 
 ls src
+ls
+git status
+git ls-files | grep sllidar_ros2
+git check-ignore -v src/sllidar_ros2/
+git ls-files --error-unmatch src/sllidar_ros2/
+git status src/sllidar_ros2
+git diff src/sllidar_ros2
+git diff src/sllidar_ros2
+git status src/sllidar_ros2
+git rm --cached src/sllidar_ros2
+git add src/sllidar_ros2/*
+git commit -m "Aggiungo sllidar_ros2 come parte del repo principale"
+git status
+git status
+git push
