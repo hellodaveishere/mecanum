@@ -374,23 +374,39 @@ namespace mecanum_hardware
     out.emplace_back("ir_front_center", "range", &ir_state_.ir_front_center);
     out.emplace_back("ir_front_right", "range", &ir_state_.ir_front_right);
 
-    // 📤 Interfacce di stato per i servomotori
-    out.emplace_back("servo_pan_joint", "position", &servo_state_.pan_position);
-    out.emplace_back("servo_tilt_joint", "position", &servo_state_.tilt_position);
+    // ================== Interfacce hardware per i servomotori pan e tilt ==================
+
+    // 📤 Interfacce di stato: esportano la posizione attuale dei giunti (letti dal sensore o simulati)
+    // Queste vengono utilizzate dal joint_state_broadcaster per pubblicare su /joint_states
+    out.emplace_back(hardware_interface::StateInterface(
+        "servo_pan_joint", "position", &servo_state_.pan_position)); // Posizione attuale del servo pan
+    out.emplace_back(hardware_interface::StateInterface(
+        "servo_tilt_joint", "position", &servo_state_.tilt_position)); // Posizione attuale del servo tilt
 
     return out;
   }
 
-  std::vector<hardware_interface::CommandInterface> MecanumSystem::export_command_interfaces()
+std::vector<hardware_interface::CommandInterface> MecanumSystem::export_command_interfaces()
+{
+  std::vector<hardware_interface::CommandInterface> out;
+  out.reserve(joints_.size() + 2);  // 4 ruote + 2 servomotori
+
+  // 🎯 Interfacce di comando per le ruote (velocity)
+  for (size_t i = 0; i < joints_.size(); ++i)
   {
-    std::vector<hardware_interface::CommandInterface> out;
-    out.reserve(joints_.size());
-    for (size_t i = 0; i < joints_.size(); ++i)
-    {
-      out.emplace_back(joint_names_[i], hardware_interface::HW_IF_VELOCITY, &joints_[i].cmd_vel);
-    }
-    return out;
+    out.emplace_back(joint_names_[i], hardware_interface::HW_IF_VELOCITY, &joints_[i].cmd_vel);
   }
+
+  // 🎯 Interfacce di comando per i servomotori pan e tilt (position)
+  out.emplace_back(hardware_interface::CommandInterface(
+      "servo_pan_joint", "position", &servo_command_.pan_position)); // Comando di posizione per il servo pan
+
+  out.emplace_back(hardware_interface::CommandInterface(
+      "servo_tilt_joint", "position", &servo_command_.tilt_position)); // Comando di posizione per il servo tilt
+
+  return out;
+}
+
 
   // ================== LIFECYCLE ==================
 
@@ -686,7 +702,8 @@ namespace mecanum_hardware
 
   // ================== WRITE ==================
   //
-  // Invia i comandi motori in formato CSV.
+  // Invia i comandi motori e servomotori in formato CSV.
+  // Formato: "CMD,FL,FR,RL,RR,PAN,TILT"
   //
   hardware_interface::return_type MecanumSystem::write(
       const rclcpp::Time &, const rclcpp::Duration &)
@@ -700,10 +717,12 @@ namespace mecanum_hardware
     // 2) Costruzione CSV con 4 decimali (stessa formattazione lato log)
     std::ostringstream ss;
     ss << "CMD," << std::fixed << std::setprecision(4)
-       << joints_[0].cmd_vel << ","
-       << joints_[1].cmd_vel << ","
-       << joints_[2].cmd_vel << ","
-       << joints_[3].cmd_vel;
+       << joints_[0].cmd_vel << ","          // FL
+       << joints_[1].cmd_vel << ","          // FR
+       << joints_[2].cmd_vel << ","          // RL
+       << joints_[3].cmd_vel << ","          // RR
+       << servo_command_.pan_position << "," // PAN
+       << servo_command_.tilt_position;      // TILT
     const std::string csv = ss.str();
 
     // 3) Invio sempre (la riduzione riguarda solo il logging)
@@ -715,16 +734,15 @@ namespace mecanum_hardware
     }
 
     // 4) Log solo se il comando (formattato) è diverso dall’ultimo loggato
-    //    - Stato minimo: una variabile statica locale con l’ultima stringa loggata.
-    //    - Vantaggio: nessuna modifica all'header, nessun array da mantenere.
-    static std::string last_logged_csv; // vuota al primo giro → farà il primo log
+    static std::string last_logged_csv;
     if (last_logged_csv != csv)
     {
       RCLCPP_INFO(this->get_logger(),
-                  "write() cmd: FL=%.3f FR=%.3f RL=%.3f RR=%.3f",
+                  "write() cmd: FL=%.3f FR=%.3f RL=%.3f RR=%.3f PAN=%.3f TILT=%.3f",
                   joints_[0].cmd_vel, joints_[1].cmd_vel,
-                  joints_[2].cmd_vel, joints_[3].cmd_vel);
-      last_logged_csv = csv; // aggiorna “istantanea” del comando loggato
+                  joints_[2].cmd_vel, joints_[3].cmd_vel,
+                  servo_command_.pan_position, servo_command_.tilt_position);
+      last_logged_csv = csv;
     }
 
     return hardware_interface::return_type::OK;

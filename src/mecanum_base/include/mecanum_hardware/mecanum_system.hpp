@@ -57,6 +57,13 @@ namespace mecanum_hardware
         double tilt_position = 0.0; // Posizione del servo tilt
     };
 
+    // 📦 Comandi desiderati per i servomotori (in radianti)
+    struct ServoCommand
+    {
+        double pan_position = 0.0;  // Comando di posizione per il servo pan
+        double tilt_position = 0.0; // Comando di posizione per il servo tilt
+    };
+
     // 🔧 Classe principale del sistema hardware Mecanum
     //    Implementa l'interfaccia ROS 2 Control e comunica direttamente via seriale
     class MecanumSystem final : public hardware_interface::SystemInterface
@@ -116,6 +123,9 @@ namespace mecanum_hardware
 
         // Istanza della struttura ServoState per memorizzare la posizione corrente dei serco pan, tile
         ServoState servo_state_;
+
+        // 📦 Comandi desiderati per i servomotori (in radianti)
+        ServoCommand servo_command_;
 
         // 🧪 Simulazione mock: dinamica di primo ordine
         void apply_mock_dynamics_(double dt);

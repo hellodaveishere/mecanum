@@ -1,3 +1,7 @@
+Comando servo motori:
+ros2 topic pub /servo_position_controller/commands std_msgs/msg/Float64MultiArray "data: [1.0, -0.5]"
+
+
 ros2 launch mecanum_base bringup.launch.py --ros-args -r __log_level:=debug
 
 ros2 launch mecanum_base bringup.launch.py -- --ros-args --log-level serial_manager:=debug

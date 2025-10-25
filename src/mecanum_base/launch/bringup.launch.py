@@ -102,6 +102,14 @@ def generate_launch_description():
         output='screen',
     )
 
+    # 🚀 Spawner per il controller dei servomotori
+    spawner_servo_position = Node(
+        package='controller_manager',
+        executable='spawner',
+        arguments=['servo_position_controller', '--controller-manager-timeout', '10.0'],
+        output='screen',
+    )
+
     # ⏱️ Ritardo per dare tempo a ros2_control_node di inizializzarsi
     delayed_spawners = TimerAction(
         period=3.0,
@@ -111,7 +119,8 @@ def generate_launch_description():
             spawner_imu,
             spawner_ir_front_left,
             spawner_ir_front_center,
-            spawner_ir_front_right
+            spawner_ir_front_right,
+            spawner_servo_position
         ]
     )
 

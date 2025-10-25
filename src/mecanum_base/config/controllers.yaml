@@ -21,6 +21,10 @@ controller_manager:
       # Controller che accetta comandi di velocità per un gruppo di giunti.
       # Utilizzato per controllare le ruote della base Mecanum tramite messaggi Twist.
 
+    # 🎮 Controller per comandare i servomotori pan e tilt
+    servo_position_controller:
+      type: position_controllers/JointGroupPositionController
+
     # =========================
     # 📡 IMU Broadcaster
     # =========================
@@ -69,6 +73,12 @@ mecanum_velocity_controller:
     state_interfaces:
       - position                   # Interfaccia di stato: posizione
       - velocity                   # Interfaccia di stato: velocità
+
+servo_position_controller:
+  ros__parameters:
+    joints:
+      - servo_pan_joint
+      - servo_tilt_joint
 
 imu_broadcaster:
   ros__parameters:
