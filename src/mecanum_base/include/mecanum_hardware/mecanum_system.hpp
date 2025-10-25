@@ -45,9 +45,16 @@ namespace mecanum_hardware
     // Struttura per contenere i valori dei tre sensori IR frontali.
     struct IRState
     {
-    double ir_front_left = 0.0;    // Sensore IR frontale sinistro [m]
-    double ir_front_center = 0.0;  // Sensore IR frontale centrale [m]
-    double ir_front_right = 0.0;   // Sensore IR frontale destro [m]
+        double ir_front_left = 0.0;   // Sensore IR frontale sinistro [m]
+        double ir_front_center = 0.0; // Sensore IR frontale centrale [m]
+        double ir_front_right = 0.0;  // Sensore IR frontale destro [m]
+    };
+
+    // 📦 Stato dei servomotori (in radianti)
+    struct ServoState
+    {
+        double pan_position = 0.0;  // Posizione del servo pan
+        double tilt_position = 0.0; // Posizione del servo tilt
     };
 
     // 🔧 Classe principale del sistema hardware Mecanum
@@ -106,6 +113,9 @@ namespace mecanum_hardware
 
         // Istanza della struttura IRState per memorizzare lo stato corrente dei sensori IR.
         IRState ir_state_;
+
+        // Istanza della struttura ServoState per memorizzare la posizione corrente dei serco pan, tile
+        ServoState servo_state_;
 
         // 🧪 Simulazione mock: dinamica di primo ordine
         void apply_mock_dynamics_(double dt);

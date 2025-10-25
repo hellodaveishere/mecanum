@@ -167,6 +167,66 @@
     <origin xyz="0.2 -0.1 0.05" rpy="0 0 0"/>
   </joint>
 
+  <!-- Servo Pan -->
+  <joint name="servo_pan_joint" type="revolute">
+    <parent link="base_link"/>
+    <child link="servo_pan_link"/>
+    <origin xyz="0 0 0.1" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1.0" velocity="1.0" lower="-1.57" upper="1.57"/>
+  </joint>
+
+  <link name="servo_pan_link">
+    <visual>
+      <geometry>
+        <box size="0.02 0.02 0.02"/>
+      </geometry>
+      <material name="gray"/>
+    </visual>
+  </link>
+
+  <!-- Servo Tilt -->
+  <joint name="servo_tilt_joint" type="revolute">
+    <parent link="servo_pan_link"/>
+    <child link="servo_tilt_link"/>
+    <origin xyz="0 0 0.05" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1.0" velocity="1.0" lower="-1.57" upper="1.57"/>
+  </joint>
+
+  <link name="servo_tilt_link">
+    <visual>
+      <geometry>
+        <box size="0.02 0.02 0.02"/>
+      </geometry>
+      <material name="gray"/>
+    </visual>
+  </link>
+
+  <!-- 🔄 Transmission per servo_pan_joint -->
+  <transmission name="servo_pan_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="servo_pan_joint">
+      <hardwareInterface>hardware_interface/PositionStateInterface</hardwareInterface>
+    </joint>
+    <actuator name="servo_pan_motor">
+      <hardwareInterface>hardware_interface/PositionStateInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <!-- 🔄 Transmission per servo_tilt_joint -->
+  <transmission name="servo_tilt_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="servo_tilt_joint">
+      <hardwareInterface>hardware_interface/PositionStateInterface</hardwareInterface>
+    </joint>
+    <actuator name="servo_tilt_motor">
+      <hardwareInterface>hardware_interface/PositionStateInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
 
   <!-- =========================
        📌 ROS2_CONTROL: HARDWARE MECANUM

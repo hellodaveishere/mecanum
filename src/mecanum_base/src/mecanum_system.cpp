@@ -374,6 +374,10 @@ namespace mecanum_hardware
     out.emplace_back("ir_front_center", "range", &ir_state_.ir_front_center);
     out.emplace_back("ir_front_right", "range", &ir_state_.ir_front_right);
 
+    // 📤 Interfacce di stato per i servomotori
+    out.emplace_back("servo_pan_joint", "position", &servo_state_.pan_position);
+    out.emplace_back("servo_tilt_joint", "position", &servo_state_.tilt_position);
+
     return out;
   }
 
@@ -600,6 +604,64 @@ namespace mecanum_hardware
         // 🛑 Gestione di errori generici nel parsing (es. conversione fallita)
         RCLCPP_WARN(rclcpp::get_logger("MecanumSystem"),
                     "Pacchetto IR SENSORS malformato, scartato. Errore: %s | Riga: '%s'",
+                    e.what(), line->c_str());
+      }
+    }
+    else if (line->rfind("SER", 0) == 0) // 🔍 Riconoscimento del pacchetto servo: inizia con "SER"
+    {
+      try
+      {
+        // 📦 Suddivisione della stringa in token separati da virgola
+        std::vector<std::string> tokens;
+        std::stringstream ss(*line);
+        std::string item;
+        while (std::getline(ss, item, ','))
+        {
+          tokens.push_back(item);
+        }
+
+        // 🔍 Verifica che il pacchetto contenga esattamente 3 campi: "SER", pan, tilt
+        if (tokens.size() != 3)
+        {
+          throw std::runtime_error("Pacchetto SERVO malformato: numero errato di campi");
+        }
+
+        // 🔧 Funzione di parsing con gestione del valore "None"
+        auto parse_servo_value = [](const std::string &s, const std::string &label) -> double
+        {
+          if (s == "None")
+          {
+            // ⚠️ Valore non valido ricevuto: servo non inizializzato o fuori range
+            // 🔁 Convenzione: si assegna -1.0 per indicare lettura assente
+            RCLCPP_WARN(rclcpp::get_logger("MecanumSystem"),
+                        "Servo '%s' ha restituito 'None': posizione non disponibile", label.c_str());
+            return -1.0;
+          }
+
+          // ✅ Conversione sicura da stringa a double
+          return std::stod(s);
+        };
+
+        // 📥 Assegnazione dei valori ai servomotori (in radianti)
+        servo_state_.pan_position = parse_servo_value(tokens[1], "pan");
+        servo_state_.tilt_position = parse_servo_value(tokens[2], "tilt");
+
+        // 🧾 Log informativo ogni 10 letture valide per evitare spam nel terminale
+        static int servo_log_counter = 0;
+        if (++servo_log_counter >= 10)
+        {
+          RCLCPP_INFO(rclcpp::get_logger("MecanumSystem"),
+                      "Servo positions: pan=%.3f rad, tilt=%.3f rad",
+                      servo_state_.pan_position,
+                      servo_state_.tilt_position);
+          servo_log_counter = 0; // 🔄 Reset del contatore
+        }
+      }
+      catch (const std::exception &e)
+      {
+        // 🛑 Gestione di errori generici nel parsing (es. conversione fallita)
+        RCLCPP_WARN(rclcpp::get_logger("MecanumSystem"),
+                    "Pacchetto SERVO malformato, scartato. Errore: %s | Riga: '%s'",
                     e.what(), line->c_str());
       }
     }
