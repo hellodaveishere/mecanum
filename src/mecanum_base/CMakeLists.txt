@@ -4,29 +4,32 @@ project(mecanum_base)
 # =========================
 # 1. TROVA I PACCHETTI NECESSARI
 # =========================
-find_package(ament_cmake REQUIRED)
-find_package(rclcpp REQUIRED)                # logging e utilità base
-find_package(rclcpp_lifecycle REQUIRED)      # supporto lifecycle per SystemInterface
-find_package(pluginlib REQUIRED)             # caricamento dinamico plugin
-find_package(hardware_interface REQUIRED)    # API ros2_control
-find_package(controller_manager REQUIRED)    # per caricare/attivare plugin
-find_package(sensor_msgs REQUIRED)           # per coerenza con imu_broadcaster
+find_package(ament_cmake REQUIRED)              # Sistema di build ROS 2
+find_package(rclcpp REQUIRED)                   # Nodi ROS 2 e logging
+find_package(rclcpp_lifecycle REQUIRED)         # Lifecycle node per hardware interface
+find_package(pluginlib REQUIRED)                # Per registrare e caricare plugin
+find_package(hardware_interface REQUIRED)       # API ros2_control per SystemInterface
+find_package(controller_manager REQUIRED)       # Per gestire i controller
+find_package(sensor_msgs REQUIRED)              # Per usare sensor_msgs/Range
 
-# Dipendenze aggiuntive solo se servono nodi extra
-find_package(tf2_ros REQUIRED)
-find_package(geometry_msgs REQUIRED)
-find_package(nav_msgs REQUIRED)
+# Dipendenze aggiuntive per i nodi di utilità
+find_package(tf2_ros REQUIRED)                  # Per trasformazioni TF
+find_package(geometry_msgs REQUIRED)            # Per Twist e Pose
+find_package(nav_msgs REQUIRED)                 # Per Odometry
 
 # =========================
-# 2. LIBRERIA PLUGIN HARDWARE
+# 2. LIBRERIE PLUGIN
 # =========================
-# Libreria condivisa che implementa l'interfaccia hardware
+
+# Libreria hardware interface
 add_library(mecanum_system SHARED
   src/mecanum_system.cpp
 )
 
+# Imposta lo standard C++ per la libreria
 target_compile_features(mecanum_system PUBLIC cxx_std_17)
 
+# Dipendenze per la libreria hardware
 ament_target_dependencies(mecanum_system
   rclcpp
   rclcpp_lifecycle
@@ -36,8 +39,9 @@ ament_target_dependencies(mecanum_system
 )
 
 # =========================
-# 3. NODI DI UTILITÀ (opzionali)
+# 3. NODI DI UTILITÀ
 # =========================
+
 # Nodo per inviare comandi manuali
 add_executable(mecanum_cmd_node src/mecanum_cmd_node.cpp)
 target_compile_features(mecanum_cmd_node PUBLIC cxx_std_17)
@@ -60,6 +64,8 @@ ament_target_dependencies(mecanum_odom_node
 # =========================
 # 4. INCLUDE COMUNI
 # =========================
+
+# Applica le directory di include a tutti i target
 set(ALL_TARGETS
   mecanum_system
   mecanum_cmd_node
@@ -76,12 +82,14 @@ endforeach()
 # =========================
 # 5. PLUGIN ROS2_CONTROL
 # =========================
-# Esporta il file XML che descrive il plugin hardware
+
 pluginlib_export_plugin_description_file(hardware_interface mecanum_hardware_plugin.xml)
 
 # =========================
 # 6. INSTALLAZIONE
 # =========================
+
+# Installa le librerie e gli eseguibili
 install(TARGETS
   mecanum_system
   mecanum_cmd_node
@@ -91,12 +99,20 @@ install(TARGETS
   RUNTIME DESTINATION lib/${PROJECT_NAME}
 )
 
-# Installa header, file plugin e risorse (urdf, config, launch, rviz)
+# Installa gli header
 install(DIRECTORY include/ DESTINATION include)
-install(FILES mecanum_hardware_plugin.xml DESTINATION share/${PROJECT_NAME})
+
+# Installa i file plugin XML
+install(FILES
+  mecanum_hardware_plugin.xml
+  DESTINATION share/${PROJECT_NAME}
+)
+
+# Installa risorse condivise (URDF, config, launch, RViz)
 install(DIRECTORY urdf config launch rviz DESTINATION share/${PROJECT_NAME})
 
 # =========================
 # 7. MACRO FINALE
 # =========================
+
 ament_package()

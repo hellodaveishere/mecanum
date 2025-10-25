@@ -152,3 +152,146 @@ git pull origin main --no-rebase
 git commit -m "Merge branch 'origin/main' into main"
 git push origin main
 colcon build --packages-select mecanum_base
+source install/setup.bash 
+colcon build --packages-select mecanum_base
+colcon build --packages-select mecanum_base
+clear
+colcon build --packages-select mecanum_base
+clear
+colcon build --packages-select mecanum_base
+cd src/
+ls
+cd mecanum_base/
+tree
+cd src/
+ls
+ros2 pkg create --build-type ament_cmake ir_sensor_broadcaster --dependencies rclcpp controller_interface std_msgs
+cd
+clear
+colcon build --packages-select mecanum_base
+colcon build --packages-select mecanum_base
+clear
+colcon build --packages-select mecanum_base
+ros2 pkg list | grep controller_interface
+clear
+ros2 pkg list | grep controller_interface
+colcon build --packages-select mecanum_base
+clear
+colcon build --packages-select mecanum_base
+clear
+colcon build --packages-select mecanum_base
+clear
+colcon build --packages-select mecanum_base
+ros2 control list_controllers
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py
+ros2 launch mecanum_base bringup.launch.py
+clear
+ros2 control list_controllers
+colcon build --packages-select mecanum_base
+ros2 control list_controllers
+clear
+colcon build --packages-select mecanum_base
+ls src/mecanum_base/mecanum_hardware_plugin.xml
+ls src/mecanum_base/ir_sensor_broadcaster.xml
+clear
+colcon build --packages-select mecanum_base
+ls src/mecanum_base/mecanum_hardware_plugin.xml
+clear
+colcon build --packages-select mecanum_base
+clear
+colcon build --packages-select mecanum_base
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py
+clear
+colcon build --packages-select mecanum_base
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py
+clear
+colcon build --packages-select mecanum_base
+source install/setup.bash 
+ros2 control list_controller_types
+ros2 launch mecanum_base bringup.launch.py
+source install/setup.bash
+source install/setup.bash
+clear
+ros2 run pluginlib pluginlib_tester controller_interface::ControllerInterface mecanum_base/IRSensorBroadcaster
+ros2 control list_controller_types
+ros2 node list
+ros2 node list
+clear
+colcon build --packages-select mecanum_base
+source install/setup.bash
+ros2 launch mecanum_base bringup.launch.py
+clear
+colcon build --packages-select mecanum_base
+clear
+colcon build --packages-select mecanum_base
+source install/setup.bash
+ros2 launch mecanum_base bringup.launch.py
+clear
+colcon build --packages-select mecanum_base
+source install/setup.bash
+ros2 launch mecanum_base bringup.launch.py
+clear
+colcon build --packages-select mecanum_base
+src/mecanum_base/mecanum_hardware_plugin.xml
+src/mecanum_base/ir_sensor_broadcaster.xml
+ls src/mecanum_base/ir_sensor_broadcaster.xml
+ls src/mecanum_base/mecanum_hardware_plugin.xml
+clear
+rm -rf build/ install/ log/
+colcon build --packages-select mecanum_base
+source install/setup.bash
+source install/setup.bash
+ros2 launch mecanum_base bringup.launch.py
+clear
+ros2 launch mecanum_base ir_sensor_broadcaster.launch.py
+source install/setup.bash 
+ros2 launch mecanum_base ir_sensor_broadcaster.launch.py
+colcon build --packages-select mecanum_base
+source install/setup.bash 
+ros2 launch mecanum_base ir_sensor_broadcaster.launch.py
+clear
+colcon build --packages-select mecanum_base
+source install/setup.bash 
+ros2 launch mecanum_base ir_sensor_broadcaster.launch.py
+clear
+colcon build --packages-select mecanum_base
+source install/setup.bash 
+ros2 launch mecanum_base ir_sensor_broadcaster.launch.py
+clear
+colcon build --packages-select mecanum_base
+source install/setup.bash 
+ros2 launch mecanum_base ir_sensor_broadcaster.launch.py
+clear
+colcon build --packages-select mecanum_base
+source install/setup.bash 
+ros2 launch mecanum_base ir_sensor_broadcaster.launch.py
+clear
+colcon build --packages-select mecanum_base
+source install/setup.bash 
+ros2 launch mecanum_base ir_sensor_broadcaster.launch.py
+colcon build --packages-select mecanum_base
+source install/setup.bash 
+colcon build --packages-select mecanum_base
+source install/setup.bash 
+ros2 launch mecanum_base ir_sensor_broadcaster.launch.py
+clear
+colcon build --packages-select mecanum_base
+source install/setup.bash 
+ros2 launch mecanum_base ir_sensor_broadcaster.launch.py
+clear
+colcon build --packages-select mecanum_base
+source install/setup.bash 
+ros2 launch mecanum_base ir_sensor_broadcaster.launch.py
+clear
+colcon build --packages-select mecanum_base
+source install/setup.bash 
+ros2 launch mecanum_base ir_sensor_broadcaster.launch.py
+clear
+rm -rf build/mecanum_base install/mecanum_base log
+ls install/mecanum_base/share/mecanum_base/ir_sensor_broadcaster.xml
+ls install/mecanum_base/lib/libir_sensor_broadcaster.so
+source install/setup.bash 
+ros2 run controller_manager ros2_control_node --ros-args --params-file src/mecanum_base/config/ros2_control.yaml

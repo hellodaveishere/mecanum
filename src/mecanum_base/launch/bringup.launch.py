@@ -1,23 +1,19 @@
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, TimerAction, IncludeLaunchDescription
 from launch.conditions import IfCondition
-from launch.substitutions import (
-    LaunchConfiguration,
-    Command,
-    PathJoinSubstitution,
-)
+from launch.substitutions import LaunchConfiguration, Command, PathJoinSubstitution
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 from launch_ros.parameter_descriptions import ParameterValue
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-
 
 def generate_launch_description():
     # =========================
     # 🔧 Argomenti configurabili
     # =========================
     declare_rviz_arg = DeclareLaunchArgument(
-        'rviz', default_value='true', description='Abilita o disabilita RViz'
+        'rviz', default_value='true',
+        description='Abilita o disabilita RViz alla partenza'
     )
     rviz_enabled = LaunchConfiguration('rviz')
 
@@ -34,12 +30,12 @@ def generate_launch_description():
     # 🔄 Conversione Xacro → URDF
     # =========================
     robot_description = ParameterValue(
-        Command(['xacro ', urdf_file]),   # ⚠️ spazio dopo "xacro" necessario
+        Command(['xacro ', urdf_file]),  # ⚠️ spazio dopo "xacro" necessario
         value_type=str
     )
-       
+
     # =========================
-    # 📡 Nodi di base per la pubblicazione dello stato del robot
+    # 📡 Nodo per pubblicare lo stato del robot
     # =========================
     robot_state_publisher_node = Node(
         package='robot_state_publisher',
@@ -48,6 +44,9 @@ def generate_launch_description():
         output='screen',
     )
 
+    # =========================
+    # ⚙️ Nodo principale ros2_control
+    # =========================
     ros2_control_node = Node(
         package='controller_manager',
         executable='ros2_control_node',
@@ -56,7 +55,7 @@ def generate_launch_description():
     )
 
     # =========================
-    # 🎛️ Spawner dei controller
+    # 🎛️ Spawner dei controller principali
     # =========================
     spawner_joint_state = Node(
         package='controller_manager',
@@ -79,10 +78,41 @@ def generate_launch_description():
         output='screen',
     )
 
+    # =========================
+    # 📡 Spawner dei sensori IR (standard range_sensor_broadcaster)
+    # =========================
+    spawner_ir_front_left = Node(
+        package='controller_manager',
+        executable='spawner',
+        arguments=['ir_front_left_broadcaster', '--controller-manager-timeout', '10.0'],
+        output='screen',
+    )
+
+    spawner_ir_front_center = Node(
+        package='controller_manager',
+        executable='spawner',
+        arguments=['ir_front_center_broadcaster', '--controller-manager-timeout', '10.0'],
+        output='screen',
+    )
+
+    spawner_ir_front_right = Node(
+        package='controller_manager',
+        executable='spawner',
+        arguments=['ir_front_right_broadcaster', '--controller-manager-timeout', '10.0'],
+        output='screen',
+    )
+
     # ⏱️ Ritardo per dare tempo a ros2_control_node di inizializzarsi
     delayed_spawners = TimerAction(
         period=3.0,
-        actions=[spawner_joint_state, spawner_mecanum, spawner_imu]
+        actions=[
+            spawner_joint_state,
+            spawner_mecanum,
+            spawner_imu,
+            spawner_ir_front_left,
+            spawner_ir_front_center,
+            spawner_ir_front_right
+        ]
     )
 
     # =========================
@@ -147,10 +177,10 @@ def generate_launch_description():
         declare_rviz_arg,
         robot_state_publisher_node,
         ros2_control_node,
-        delayed_spawners,
+        delayed_spawners,  # ✅ Include tutti gli spawner, compresi quelli IR
         mecanum_cmd_node,
         mecanum_odom_node,
         ekf_node,
         rviz_node,
-        #sllidar_launch,  # 👉 aggiunto alla fine per lanciare anche il LiDAR
+        #sllidar_launch,  # 👉 decommenta se vuoi avviare anche il LiDAR
     ])

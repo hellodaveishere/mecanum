@@ -110,6 +110,63 @@
     <child link="imu_link"/>
     <origin xyz="0.0 0.0 0.1" rpy="0 0 0"/>
   </joint>
+  
+  <!-- ========================= -->
+  <!-- Sensore IR frontale sinistro -->
+  <!-- ========================= -->
+  <link name="ir_front_left_link">
+    <!-- Visualizzazione del sensore come un piccolo cubo nero -->
+    <visual>
+      <geometry>
+        <box size="0.02 0.02 0.01"/> <!-- Dimensioni del sensore -->
+      </geometry>
+      <material name="black"/> <!-- Colore del sensore -->
+    </visual>
+  </link>
+
+  <!-- Joint fisso tra il sensore e il corpo del robot -->
+  <joint name="ir_front_left_joint" type="fixed">
+    <parent link="base_link"/> <!-- Collegato al corpo principale -->
+    <child link="ir_front_left_link"/> <!-- Il sensore è il figlio -->
+    <origin xyz="0.2 0.1 0.05" rpy="0 0 0"/> <!-- Posizione e orientamento -->
+  </joint>
+
+  <!-- ========================= -->
+  <!-- Sensore IR frontale centrale -->
+  <!-- ========================= -->
+  <link name="ir_front_center_link">
+    <visual>
+      <geometry>
+        <box size="0.02 0.02 0.01"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+  </link>
+
+  <joint name="ir_front_center_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="ir_front_center_link"/>
+    <origin xyz="0.2 0.0 0.05" rpy="0 0 0"/>
+  </joint>
+
+  <!-- ========================= -->
+  <!-- Sensore IR frontale destro -->
+  <!-- ========================= -->
+  <link name="ir_front_right_link">
+    <visual>
+      <geometry>
+        <box size="0.02 0.02 0.01"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+  </link>
+
+  <joint name="ir_front_right_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="ir_front_right_link"/>
+    <origin xyz="0.2 -0.1 0.05" rpy="0 0 0"/>
+  </joint>
+
 
   <!-- =========================
        📌 ROS2_CONTROL: HARDWARE MECANUM

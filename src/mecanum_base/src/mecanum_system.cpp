@@ -370,9 +370,9 @@ namespace mecanum_hardware
     out.emplace_back("imu", "linear_acceleration.z", &imu_state_.linear_accel[2]);
 
     // Stato dei sensori IR frontali
-    out.emplace_back("ir_front_left", hardware_interface::HW_IF_POSITION, &ir_state_.ir_front_left);
-    out.emplace_back("ir_front_center", hardware_interface::HW_IF_POSITION, &ir_state_.ir_front_center);
-    out.emplace_back("ir_front_right", hardware_interface::HW_IF_POSITION, &ir_state_.ir_front_right);
+    out.emplace_back("ir_front_left", "range", &ir_state_.ir_front_left);
+    out.emplace_back("ir_front_center", "range", &ir_state_.ir_front_center);
+    out.emplace_back("ir_front_right", "range", &ir_state_.ir_front_right);
 
     return out;
   }
@@ -550,26 +550,45 @@ namespace mecanum_hardware
     }
     else if (line->rfind("IRS", 0) == 0)
     {
-      // 1) Parsing dei dati IR: formato atteso "IRS,ir_left,ir_center,ir_right"
+      // 📦 Parsing dei dati IR: formato atteso "IRS,ir_left,ir_center,ir_right"
       try
       {
         std::vector<std::string> tokens;
-        std::stringstream ss(*line); // ✅ dereferenziato
+        std::stringstream ss(*line);
         std::string item;
         while (std::getline(ss, item, ','))
         {
           tokens.push_back(item);
         }
 
+        // 🔍 Verifica che il pacchetto contenga esattamente 4 campi
         if (tokens.size() != 4)
         {
           throw std::runtime_error("Pacchetto IR malformato: numero errato di campi");
         }
 
-        ir_state_.ir_front_left = std::stod(tokens[1]);
-        ir_state_.ir_front_center = std::stod(tokens[2]);
-        ir_state_.ir_front_right = std::stod(tokens[3]);
+        // 🔧 Funzione di parsing con gestione del valore "None"
+        auto parse_ir_value = [](const std::string &s, const std::string &label) -> double
+        {
+          if (s == "None")
+          {
+            // ⚠️ Valore non valido ricevuto: sensore fuori copertura o troppo vicino
+            // 🔁 Convenzione: si assegna -1.0 per indicare lettura assente
+            RCLCPP_WARN(rclcpp::get_logger("MecanumSystem"),
+                        "Sensore IR '%s' fuori copertura o troppo vicino: valore 'None' ricevuto", label.c_str());
+            return -1.0;
+          }
 
+          // ✅ Conversione sicura da stringa a double
+          return std::stod(s);
+        };
+
+        // 📥 Assegnazione dei valori ai sensori IR
+        ir_state_.ir_front_left = parse_ir_value(tokens[1], "front_left");
+        ir_state_.ir_front_center = parse_ir_value(tokens[2], "front_center");
+        ir_state_.ir_front_right = parse_ir_value(tokens[3], "front_right");
+
+        // 🧾 Log informativo con i valori letti (inclusi eventuali -1.0)
         RCLCPP_INFO(rclcpp::get_logger("MecanumSystem"),
                     "IR sensors: front_left=%.2f front_center=%.2f front_right=%.2f",
                     ir_state_.ir_front_left,
@@ -578,7 +597,8 @@ namespace mecanum_hardware
       }
       catch (const std::exception &e)
       {
-        RCLCPP_WARN(rclcpp::get_logger("MecanumSystem"), // ✅ coerente
+        // 🛑 Gestione di errori generici nel parsing (es. conversione fallita)
+        RCLCPP_WARN(rclcpp::get_logger("MecanumSystem"),
                     "Pacchetto IR SENSORS malformato, scartato. Errore: %s | Riga: '%s'",
                     e.what(), line->c_str());
       }
