@@ -9,6 +9,14 @@
 .vscode-remote/
 .vscode-test/
 
+# Cartelle e file generati da npm
+node_modules/
+.npm/
+package-lock.json
+
+#Altro
+.local/share/CMakeTools/
+
 # ⚙️ Cache e dati .NET
 .dotnet/
 

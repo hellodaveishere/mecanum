@@ -295,3 +295,43 @@ ls install/mecanum_base/share/mecanum_base/ir_sensor_broadcaster.xml
 ls install/mecanum_base/lib/libir_sensor_broadcaster.so
 source install/setup.bash 
 ros2 run controller_manager ros2_control_node --ros-args --params-file src/mecanum_base/config/ros2_control.yaml
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+ros2 launch mecanum_base launch.py
+ros2 launch mecanum_base bringup.launch.py 
+clear
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+clear
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+colcon build --packages-select mecanum_base --symlink-install
+colcon build --packages-select mecanum_base --symlink-install
+clear
+colcon build --packages-select mecanum_base --symlink-install
+clear
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+clear
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+clear
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+source install/setup.bash 
+ros2 control list_controllers
+ros2 topic list
+ros2 topic echo /ir_front_left_broadcaster/range 
+source install/setup.bash 
+ros2 control list_controllers
+ros2 topic list
+source install/setup.bash 
+ros2 control list_controllers
+ros2 topic pub /servo_position_controller/commands std_msgs/msg/Float64MultiArray "data: [0.5, -0.5]"
+ros2 topic pub /servo_position_controller/commands std_msgs/msg/Float64MultiArray "data: [0.333, -0.333]"
+ros2 topic pub /servo_position_controller/commands std_msgs/msg/Float64MultiArray "data: [0.111, -0.1111]"

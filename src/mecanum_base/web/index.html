@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Joystick ROS2</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="js/roslib.min.js"></script>
+  <script src="js/nipplejs.min.js"></script>
+</head>
+<body>
+  <h1>Controllo Robot Mecanum</h1>
+
+  <!-- Stato ROS2 con testo visibile -->
+  <div id="status-indicator">
+    Stato ROS2: <span id="ros-status" class="disconnected">Non connesso</span>
+  </div>
+
+  <!-- Visualizzazione velocità con unità -->
+  <div id="velocity-display">
+    Velocità lineare: <span id="linear-speed">0.00</span> m/s
+    &nbsp;|&nbsp;
+    Velocità angolare: <span id="angular-speed">0.00</span> rad/s
+  </div>
+
+  <!-- Pannello configurazione -->
+  <div id="config-panel">
+    <label for="max-speed">Velocità massima (m/s):</label>
+    <input type="range" id="max-speed" min="0.1" max="2.0" step="0.1" />
+    <span id="max-speed-value">1.0</span>
+  </div>
+
+  <!-- Zona joystick -->
+  <div class="joystick-wrapper">
+    <div id="joystick-zone"></div>
+  </div>
+
+  <script>
+    const ros = new ROSLIB.Ros({ url: 'ws://localhost:9090' });
+
+    const rosStatus = document.getElementById('ros-status');
+    const linearDisplay = document.getElementById('linear-speed');
+    const angularDisplay = document.getElementById('angular-speed');
+    const maxSpeedSlider = document.getElementById('max-speed');
+    const maxSpeedValue = document.getElementById('max-speed-value');
+
+    // Carica velocità salvata o imposta default
+    let maxSpeed = parseFloat(localStorage.getItem('maxSpeed')) || 1.0;
+    maxSpeedSlider.value = maxSpeed.toFixed(1);
+    maxSpeedValue.textContent = maxSpeed.toFixed(1);
+
+    maxSpeedSlider.addEventListener('input', () => {
+      maxSpeed = parseFloat(maxSpeedSlider.value);
+      maxSpeedValue.textContent = maxSpeed.toFixed(1);
+      localStorage.setItem('maxSpeed', maxSpeed.toFixed(1));
+    });
+
+    // Aggiorna stato ROS2 con testo visibile
+    ros.on('connection', () => {
+      rosStatus.textContent = 'Connesso';
+      rosStatus.className = 'connected';
+    });
+
+    ros.on('error', () => {
+      rosStatus.textContent = 'Errore';
+      rosStatus.className = 'disconnected';
+    });
+
+    ros.on('close', () => {
+      rosStatus.textContent = 'Non connesso';
+      rosStatus.className = 'disconnected';
+    });
+
+    const cmdVel = new ROSLIB.Topic({
+      ros: ros,
+      name: '/cmd_vel',
+      messageType: 'geometry_msgs/Twist'
+    });
+
+    const joystick = nipplejs.create({
+      zone: document.getElementById('joystick-zone'),
+      mode: 'static',
+      position: { left: '50%', top: '50%' },
+      color: 'blue',
+      size: 150
+    });
+
+    joystick.on('move', (evt, data) => {
+      if (!data || !data.vector || !data.distance) return;
+
+      const maxDistance = joystick.options.size / 2;
+      const speedFactor = Math.min(data.distance / maxDistance, 1);
+
+      const linearX = data.vector.y * -maxSpeed * speedFactor;
+      const angularZ = data.vector.x * -maxSpeed * speedFactor;
+
+      linearDisplay.textContent = linearX.toFixed(2);
+      angularDisplay.textContent = angularZ.toFixed(2);
+
+      cmdVel.publish(new ROSLIB.Message({
+        linear: { x: linearX, y: 0, z: 0 },
+        angular: { x: 0, y: 0, z: angularZ }
+      }));
+    });
+
+    joystick.on('end', () => {
+      linearDisplay.textContent = '0.00';
+      angularDisplay.textContent = '0.00';
+
+      cmdVel.publish(new ROSLIB.Message({
+        linear: { x: 0, y: 0, z: 0 },
+        angular: { x: 0, y: 0, z: 0 }
+      }));
+    });
+  </script>
+</body>
+</html>

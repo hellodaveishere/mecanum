@@ -1,3 +1,5 @@
+Pagina web: http://localhost:8000
+
 Comando servo motori:
 ros2 topic pub /servo_position_controller/commands std_msgs/msg/Float64MultiArray "data: [1.0, -0.5]"
 

@@ -6,6 +6,10 @@ from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 from launch_ros.parameter_descriptions import ParameterValue
 from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.actions import ExecuteProcess
+from ament_index_python.packages import get_package_share_directory
+
+import os
 
 def generate_launch_description():
     # =========================
@@ -25,7 +29,11 @@ def generate_launch_description():
     controllers_path = PathJoinSubstitution([pkg_share, 'config', 'controllers.yaml'])
     ekf_config = PathJoinSubstitution([pkg_share, 'config', 'ekf.yaml'])
     rviz_path = PathJoinSubstitution([pkg_share, 'rviz', 'mecanum.rviz'])
-
+    webserver_path = os.path.join(
+        get_package_share_directory('mecanum_base'),
+        'webserver'
+    )
+    
     # =========================
     # 🔄 Conversione Xacro → URDF
     # =========================
@@ -53,6 +61,29 @@ def generate_launch_description():
         parameters=[{'robot_description': robot_description}, controllers_path],
         output='screen',
     )
+
+    # =========================
+    # ⚙️ Nodo rosbridge_server
+    # =========================
+    rosbridge_server_node = Node(
+            package='rosbridge_server',
+            executable='rosbridge_websocket',
+            name='rosbridge_websocket',
+            output='screen',
+            parameters=[{
+                'max_message_size': 100000000  # opzionale
+            }]
+        )
+    
+    # =========================
+    # 🌐 Web server Node.js
+    # =========================
+    webserver_node = ExecuteProcess(
+        cmd=['node', 'server.js'],
+        cwd=webserver_path,
+        output='screen'
+    )
+
 
     # =========================
     # 🎛️ Spawner dei controller principali
@@ -192,4 +223,6 @@ def generate_launch_description():
         ekf_node,
         rviz_node,
         #sllidar_launch,  # 👉 decommenta se vuoi avviare anche il LiDAR
+        rosbridge_server_node,
+        webserver_node
     ])

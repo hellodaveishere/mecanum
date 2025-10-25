@@ -108,8 +108,8 @@ install(FILES
   DESTINATION share/${PROJECT_NAME}
 )
 
-# Installa risorse condivise (URDF, config, launch, RViz)
-install(DIRECTORY urdf config launch rviz DESTINATION share/${PROJECT_NAME})
+# Installa risorse condivise (URDF, config, launch, RViz, webserver)
+install(DIRECTORY urdf config launch rviz webserver DESTINATION share/${PROJECT_NAME})
 
 # =========================
 # 7. MACRO FINALE
