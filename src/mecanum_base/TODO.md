@@ -8,7 +8,7 @@ Limitare la frequenza dei messaggi pubblicati su un topic ROS 2 per evitare satu
 ## 🔧 Passaggi
 
 - [ ] Installare `topic_tools`:
-      sudo apt install ros-humble-topic-tools
+      sudo apt install ros-jazzy-topic-tools
 
 - [ ] Avviare nodo throttle manualmente (per test):
       ros2 run topic_tools throttle messages /input_topic 5.0 /throttled_topic
