@@ -383,6 +383,14 @@ namespace mecanum_hardware
     out.emplace_back(hardware_interface::StateInterface(
         "servo_tilt_joint", "position", &servo_state_.tilt_position)); // Posizione attuale del servo tilt
 
+    // Interfacce per monitoraggio batteria
+    out.emplace_back(hardware_interface::StateInterface("battery_state", "voltage", &battery_state_.voltage));
+    out.emplace_back(hardware_interface::StateInterface("battery_state", "percentage", &battery_state_.percentage));
+    out.emplace_back(hardware_interface::StateInterface("battery_state", "present", &battery_state_.present));
+    out.emplace_back(hardware_interface::StateInterface("battery_state", "power_supply_status", &battery_state_.power_supply_status));
+    out.emplace_back(hardware_interface::StateInterface("battery_state", "power_supply_health", &battery_state_.power_supply_health));
+    out.emplace_back(hardware_interface::StateInterface("battery_state", "power_supply_technology", &battery_state_.power_supply_technology));
+
     return out;
   }
 
@@ -681,6 +689,41 @@ std::vector<hardware_interface::CommandInterface> MecanumSystem::export_command_
                     e.what(), line->c_str());
       }
     }
+    else if (line->rfind("BAT", 0) == 0)
+      {
+        try
+        {
+          std::istringstream ss(*line);
+          std::string token;
+          std::vector<std::string> fields;
+
+          while (std::getline(ss, token, ','))
+          {
+            fields.push_back(token);
+          }
+
+          if (fields.size() != 3)
+          {
+            throw std::runtime_error("Formato BAT non valido");
+          }
+
+          float voltage = std::stof(fields[1]);
+          int percent = std::stoi(fields[2]);
+
+          battery_state_.voltage = voltage;
+          battery_state_.percentage = percent / 100.0;
+          battery_state_.present = true;
+          battery_state_.power_supply_status = hardware_interface::BatteryState::POWER_SUPPLY_STATUS_DISCHARGING;
+          battery_state_.power_supply_health = hardware_interface::BatteryState::POWER_SUPPLY_HEALTH_GOOD;
+          battery_state_.power_supply_technology = hardware_interface::BatteryState::POWER_SUPPLY_TECHNOLOGY_LION;
+        }
+        catch (const std::exception &e)
+        {
+          RCLCPP_WARN(this->get_logger(),
+                      "Pacchetto BAT malformato, scartato. Errore: %s | Riga: '%s'",
+                      e.what(), line->c_str());
+        }
+      }
 
     else if (line->rfind("LOG", 0) == 0)
     {

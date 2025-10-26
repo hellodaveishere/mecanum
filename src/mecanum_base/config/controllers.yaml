@@ -52,7 +52,15 @@ controller_manager:
       type: joint_state_broadcaster/JointStateBroadcaster
       # Questo controller pubblica su /joint_states tutte le interfacce di tipo "position"
       # esportate dal tuo hardware interface. Non richiede parametri aggiuntivi.
-      
+
+    # =========================
+    # 🔋 Battery State Broadcaster
+    # =========================
+    battery_state_broadcaster:
+      type: battery_state_broadcaster/BatteryStateBroadcaster
+      # Broadcaster standard che pubblica lo stato della batteria su /battery_state
+      # utilizzando le interfacce di stato esportate dall'hardware.
+
 # =========================
 # ⚙️ Parametri specifici per ciascun controller
 # =========================
@@ -120,3 +128,11 @@ ir_front_right_broadcaster:
     min_range: 0.04
     max_range: 0.30
     publish_rate: 50
+
+# =========================
+# 🔋 Parametri per Battery State Broadcaster
+# =========================
+
+battery_state_broadcaster:
+  ros__parameters:
+    sensor_name: battery_state         # Deve corrispondere al nome delle interfacce esportate dal tuo hardware
