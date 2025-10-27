@@ -12,6 +12,8 @@
 #include "hardware_interface/handle.hpp"
 #include "hardware_interface/types/hardware_interface_type_values.hpp"
 #include "hardware_interface/hardware_component_info.hpp"
+#include "hardware_interface/battery_state.hpp"
+
 
 // ROS 2 Core
 #include "rclcpp_lifecycle/state.hpp"
@@ -126,6 +128,9 @@ namespace mecanum_hardware
 
         // 📦 Comandi desiderati per i servomotori (in radianti)
         ServoCommand servo_command_;
+
+        
+        hardware_interface::BatteryState battery_state_;
 
         // 🧪 Simulazione mock: dinamica di primo ordine
         void apply_mock_dynamics_(double dt);

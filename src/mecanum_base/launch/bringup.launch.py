@@ -1,14 +1,12 @@
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, TimerAction, IncludeLaunchDescription
+from launch.actions import DeclareLaunchArgument, TimerAction, IncludeLaunchDescription, ExecuteProcess
 from launch.conditions import IfCondition
 from launch.substitutions import LaunchConfiguration, Command, PathJoinSubstitution
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 from launch_ros.parameter_descriptions import ParameterValue
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.actions import ExecuteProcess
 from ament_index_python.packages import get_package_share_directory
-
 import os
 
 def generate_launch_description():
@@ -29,11 +27,8 @@ def generate_launch_description():
     controllers_path = PathJoinSubstitution([pkg_share, 'config', 'controllers.yaml'])
     ekf_config = PathJoinSubstitution([pkg_share, 'config', 'ekf.yaml'])
     rviz_path = PathJoinSubstitution([pkg_share, 'rviz', 'mecanum.rviz'])
-    webserver_path = os.path.join(
-        get_package_share_directory('mecanum_base'),
-        'webserver'
-    )
-    
+    webserver_path = os.path.join(get_package_share_directory('mecanum_base'), 'webserver')
+
     # =========================
     # 🔄 Conversione Xacro → URDF
     # =========================
@@ -63,20 +58,18 @@ def generate_launch_description():
     )
 
     # =========================
-    # ⚙️ Nodo rosbridge_server
+    # ⚙️ Nodo rosbridge_server per comunicazione WebSocket
     # =========================
     rosbridge_server_node = Node(
-            package='rosbridge_server',
-            executable='rosbridge_websocket',
-            name='rosbridge_websocket',
-            output='screen',
-            parameters=[{
-                'max_message_size': 100000000  # opzionale
-            }]
-        )
-    
+        package='rosbridge_server',
+        executable='rosbridge_websocket',
+        name='rosbridge_websocket',
+        output='screen',
+        parameters=[{'max_message_size': 100000000}]
+    )
+
     # =========================
-    # 🌐 Web server Node.js
+    # 🌐 Web server Node.js per interfaccia web
     # =========================
     webserver_node = ExecuteProcess(
         cmd=['node', 'server.js'],
@@ -84,9 +77,8 @@ def generate_launch_description():
         output='screen'
     )
 
-
     # =========================
-    # 🎛️ Spawner dei controller principali
+    # 🎛️ Spawner dei controller e broadcaster
     # =========================
     spawner_joint_state = Node(
         package='controller_manager',
@@ -109,9 +101,6 @@ def generate_launch_description():
         output='screen',
     )
 
-    # =========================
-    # 📡 Spawner dei sensori IR (standard range_sensor_broadcaster)
-    # =========================
     spawner_ir_front_left = Node(
         package='controller_manager',
         executable='spawner',
@@ -133,11 +122,17 @@ def generate_launch_description():
         output='screen',
     )
 
-    # 🚀 Spawner per il controller dei servomotori
     spawner_servo_position = Node(
         package='controller_manager',
         executable='spawner',
         arguments=['servo_position_controller', '--controller-manager-timeout', '10.0'],
+        output='screen',
+    )
+
+    spawner_battery = Node(
+        package='controller_manager',
+        executable='spawner',
+        arguments=['battery_state_broadcaster', '--controller-manager-timeout', '10.0'],
         output='screen',
     )
 
@@ -151,7 +146,8 @@ def generate_launch_description():
             spawner_ir_front_left,
             spawner_ir_front_center,
             spawner_ir_front_right,
-            spawner_servo_position
+            spawner_servo_position,
+            spawner_battery  # ✅ Avvio sincronizzato del broadcaster batteria
         ]
     )
 
@@ -217,12 +213,12 @@ def generate_launch_description():
         declare_rviz_arg,
         robot_state_publisher_node,
         ros2_control_node,
-        delayed_spawners,  # ✅ Include tutti gli spawner, compresi quelli IR
+        delayed_spawners,  # ✅ Tutti gli spawner avviati dopo ros2_control_node
         mecanum_cmd_node,
         mecanum_odom_node,
         ekf_node,
         rviz_node,
-        #sllidar_launch,  # 👉 decommenta se vuoi avviare anche il LiDAR
+        # sllidar_launch,  # 👉 decommenta se vuoi avviare anche il LiDAR
         rosbridge_server_node,
         webserver_node
     ])
