@@ -335,3 +335,71 @@ ros2 control list_controllers
 ros2 topic pub /servo_position_controller/commands std_msgs/msg/Float64MultiArray "data: [0.5, -0.5]"
 ros2 topic pub /servo_position_controller/commands std_msgs/msg/Float64MultiArray "data: [0.333, -0.333]"
 ros2 topic pub /servo_position_controller/commands std_msgs/msg/Float64MultiArray "data: [0.111, -0.1111]"
+sudo apt update
+sudo apt install ros-jazzy-rosbridge-server
+clear
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+clear
+ros2 launch mecanum_base bringup.launch.py 
+sudo apt install nodejs npm
+cd src/mecanum_base/
+ls
+cd webserver/
+ros2 launch mecanum_base bringup.launch.py 
+clear
+ros2 launch mecanum_base bringup.launch.py 
+ros2 launch mecanum_base bringup.launch.py 
+clear
+cd
+source install/setup.bash 
+ls /home/ws/install/mecanum_base/share/mecanum_base/launch/../webserver
+ls /home/ws/install/mecanum_base/share/mecanum_base/launch/..
+ls /home/ws/install/mecanum_base/share/mecanum_base/
+pwd
+ls
+cd src
+cd mecanum_base/
+ls
+clear
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+ls install/mecanum_base/share/mecanum_base/webserver/
+ls install/mecanum_base/share/mecanum_base/webserver/
+ls install/mecanum_base/share/mecanum_base/webserver/
+clear
+ros2 launch mecanum_base bringup.launch.py 
+clear
+ros2 launch mecanum_base bringup.launch.py 
+cd
+ls
+rm -rf build/ install/ log/
+cd src/mecanum_base/
+ls
+rm -rf build/ install/ log/
+ls
+cd
+ps aux | grep rosbridge_websocket
+netstat -tuln | grep 9090
+ss -tuln | grep 9090
+websocat ws://localhost:9090
+ps aux | grep node
+ps aux | grep node | grep js
+ps aux | grep node | grep serve
+lsof -i :3000
+netstat -an | grep 3000
+ls /home/ws/install/mecanum_base/share/mecanum_base/launch/../webserver
+ls /home/ws/install/mecanum_base/share/mecanum_base/src
+ls /home/ws/install/mecanum_base/share/mecanum_base/launch/../../webserver
+pwd
+ls /home/ws/install/mecanum_base/share/mecanum_base/launch/
+ls /home/ws/install/mecanum_base/share/mecanum_base/launch/..
+cd mecanum_base/webserver
+ls
+cd src
+cd mecanum_base/webserver
+node server.js
+npm init -y
+npm install express
+node server.js

@@ -111,7 +111,8 @@
 2025-10-25T14:00:10.150Z [debug] [main] Not starting CMake driver: no kit selected
 2025-10-25T14:01:44.258Z [debug] [main] Not starting CMake driver: no kit selected
 2025-10-25T14:01:56.320Z [debug] [main] Not starting CMake driver: no kit selected
-Z [info] [kit] Successfully loaded 1 kits from /home/ws/.local/share/CMakeTools/cmake-tools-kits.json
+2025-10-25T14:11:29.036Z [debug] [extension] Deactivate CMakeTools
+e/CMakeTools/cmake-tools-kits.json
 2025-10-25T06:17:39.897Z [debug] [main] Not starting CMake driver: no kit selected
 2025-10-25T06:19:26.485Z [debug] [main] Not starting CMake driver: no kit selected
 2025-10-25T06:19:29.214Z [debug] [main] Not starting CMake driver: no kit selected
