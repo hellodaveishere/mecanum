@@ -1,0 +1,59 @@
+{
+    "name": "ROS 2 Development Container",
+    "privileged": true,
+    "remoteUser": "dave",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "args": {
+            "USERNAME": "dave"
+        }
+    },
+    "workspaceFolder": "/home/ws",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/home/ws,type=bind",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-vscode.cpptools",
+                "ms-vscode.cpptools-themes",
+                "twxs.cmake",
+                "donjayamanne.python-extension-pack",
+                "eamodio.gitlens",
+                "ms-iot.vscode-ros",
+                "ms-python.black-formatter",
+                "ms-vscode.cmake-tools",
+                "ms-azuretools.vscode-containers",
+                "ms-vscode-remote.remote-containers",
+                "mhutchie.git-graph",
+                "github.copilot",
+                "github.copilot-chat",
+                "ms-python.vscode-pylance",
+                "ms-python.python",
+                "ms-python.debugpy",
+                "ms-python.vscode-python-envs",
+                "kevinrose.vsc-python-indent"
+            ]
+        }
+    },
+    "containerEnv": {
+        "DISPLAY": "unix:0",
+        "ROS_AUTOMATIC_DISCOVERY_RANGE": "LOCALHOST",
+        "ROS_DOMAIN_ID": "42"
+    },
+    "runArgs": [
+        "--net=host",
+        "--pid=host",
+        "--ipc=host",
+        "-e",
+        "DISPLAY=${env:DISPLAY}",
+        "--privileged",
+        "-v",
+        "/dev:/dev"
+    ],
+    "mounts": [
+        "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
+        "source=/dev/dri,target=/dev/dri,type=bind,consistency=cached",
+        "source=${localEnv:HOME}/.gitconfig,target=/root/.gitconfig,type=bind",
+        "source=${env:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached"
+    ],
+    "postCreateCommand": "echo 'source /opt/ros/jazzy/setup.bash' >> ~/.bashrc && sudo rosdep init || true && sudo rosdep update && mkdir -p /home/ws/src && sudo rosdep install --from-paths /home/ws/src --ignore-src -y && sudo chown -R dave /home/ws/ && git config --global user.name 'Dave' && git config --global user.email 'dave@dave.com' && chmod 600 ~/.ssh/id_ed25519 && chmod 644 ~/.ssh/id_ed25519.pub && chmod 644 ~/.ssh/known_hosts"
+}

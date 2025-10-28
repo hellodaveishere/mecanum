@@ -12,8 +12,6 @@
 #include "hardware_interface/handle.hpp"
 #include "hardware_interface/types/hardware_interface_type_values.hpp"
 #include "hardware_interface/hardware_component_info.hpp"
-#include "hardware_interface/battery_state.hpp"
-
 
 // ROS 2 Core
 #include "rclcpp_lifecycle/state.hpp"
@@ -64,6 +62,17 @@ namespace mecanum_hardware
     {
         double pan_position = 0.0;  // Comando di posizione per il servo pan
         double tilt_position = 0.0; // Comando di posizione per il servo tilt
+    };
+
+    // Struttura per raggruppare lo stato della batteria
+    struct BatteryState
+    {
+        double voltage = 0.0;     // Tensione della batteria (V)
+        //double current = 0.0;     // Corrente assorbita (A)
+        //double temperature = 0.0; // Temperatura (°C)
+        //double charge = 0.0;      // Carica attuale (Ah)
+        //double capacity = 0.0;    // Capacità nominale (Ah)
+        double percentage = 0.0;  // Stato di carica in percentuale (0.0–1.0)
     };
 
     // 🔧 Classe principale del sistema hardware Mecanum
@@ -129,8 +138,8 @@ namespace mecanum_hardware
         // 📦 Comandi desiderati per i servomotori (in radianti)
         ServoCommand servo_command_;
 
-        
-        hardware_interface::BatteryState battery_state_;
+        // Stato della batteria
+        BatteryState battery_state_; // Struttura contenente tutti i parametri della batteria
 
         // 🧪 Simulazione mock: dinamica di primo ordine
         void apply_mock_dynamics_(double dt);

@@ -227,6 +227,29 @@
     </actuator>
   </transmission>
 
+  <!-- Link fittizio per la batteria -->
+  <link name="battery_link">
+    <visual>
+      <geometry>
+        <box size="0.01 0.01 0.01"/>
+      </geometry>
+      <material name="gray"/>
+    </visual>
+  </link>
+
+  <!-- Joint fittizio per la batteria -->
+  <joint name="battery_state" type="fixed">
+    <parent link="base_link"/> <!-- o un altro link esistente del tuo robot -->
+    <child link="battery_link"/>
+  </joint>
+
+  <component name="battery_monitor" type="mecanum_hardware/MecanumSystemHardware">
+  <param name="use_battery">true</param>
+  <state_interface name="voltage"/>
+  <state_interface name="percentage"/>
+  </component>
+
+
 
   <!-- =========================
        📌 ROS2_CONTROL: HARDWARE MECANUM
@@ -278,6 +301,7 @@
       <state_interface name="velocity"/>
       <command_interface name="velocity"/>
     </joint>
+
   </ros2_control>
 
 </robot>

@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<robot name="test_robot" xmlns:xacro="http://ros.org/wiki/xacro">
+  <link name="base_link"/>
+</robot>

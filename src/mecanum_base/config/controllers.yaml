@@ -48,8 +48,8 @@ controller_manager:
       # Broadcaster standard per il sensore IR frontale destro.
 
     # 📡 Broadcaster dello stato dei giunti (inclusi servo_pan_joint e servo_tilt_joint)
-    joint_state_broadcaster:
-      type: joint_state_broadcaster/JointStateBroadcaster
+    #joint_state_broadcaster:
+      #type: joint_state_broadcaster/JointStateBroadcaster
       # Questo controller pubblica su /joint_states tutte le interfacce di tipo "position"
       # esportate dal tuo hardware interface. Non richiede parametri aggiuntivi.
 

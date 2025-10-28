@@ -403,3 +403,66 @@ node server.js
 npm init -y
 npm install express
 node server.js
+history| grep  fetch
+git config pull.rebase false
+pwd
+ls
+colcon build --packages-select mecanum_base --symlink-install
+sudo apt install ros-jazzy-battery-state-broadcaster
+colcon build --packages-select mecanum_base --symlink-install
+ros2 pkg list | grep battery_state_broadcaster
+ros2 control list_controller_types | grep BatteryStateBroadcaster
+ros2 pkg prefix battery_state_broadcaster
+more /opt/ros/jazzy/include/battery_state_broadcaster/battery_state_broadcaster/BatteryStateBroadcaster.hpp 
+more /opt/ros/jazzy/include/battery_state_broadcaster/battery_state_broadcaster/BatterySensor.hpp 
+cLEAr
+clear
+more /opt/ros/jazzy/include/battery_state_broadcaster/battery_state_broadcaster/BatterySensor.hpp 
+ros2 pkg list | grep battery_state_broadcaster
+ros2 pkg prefix battery_state_broadcaster
+clear
+colcon build --packages-select mecanum_base --symlink-install
+clear
+colcon build --packages-select mecanum_base --symlink-install
+history
+clear
+ros2 launch mecanum_base bringup.launch.py 
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+clear
+ros2 launch mecanum_base bringup.launch.py 
+ps -aux
+clear
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+sudo lsof -i :8000
+ros2 launch mecanum_base bringup.launch.py 
+ros2 launch mecanum_base bringup.launch.py 
+clear
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+colcon build --packages-select mecanum_base
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+hostory|grep rm
+history|grep rm
+rm -rf build/ install/ log/
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+sudo lsof -i :8000
+sudo lsof -i :8000
+sudo apt update
+sudo apt install lsof
+sudo lsof -i :8000
+sudo kill -9 9960
+sudo lsof -i :8000
+sudo lsof -i :8000
+sudo lsof -i :8000
+sudo lsof -i :8000
+sudo lsof -i :8000

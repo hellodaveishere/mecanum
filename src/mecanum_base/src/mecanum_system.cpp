@@ -383,38 +383,36 @@ namespace mecanum_hardware
     out.emplace_back(hardware_interface::StateInterface(
         "servo_tilt_joint", "position", &servo_state_.tilt_position)); // Posizione attuale del servo tilt
 
-    // Interfacce per monitoraggio batteria
     out.emplace_back(hardware_interface::StateInterface("battery_state", "voltage", &battery_state_.voltage));
+    // out.emplace_back(hardware_interface::StateInterface("battery_state", "current", &battery_state_.current));
+    // out.emplace_back(hardware_interface::StateInterface("battery_state", "temperature", &battery_state_.temperature));
+    // out.emplace_back(hardware_interface::StateInterface("battery_state", "charge", &battery_state_.charge));
+    // out.emplace_back(hardware_interface::StateInterface("battery_state", "capacity", &battery_state_.capacity));
     out.emplace_back(hardware_interface::StateInterface("battery_state", "percentage", &battery_state_.percentage));
-    out.emplace_back(hardware_interface::StateInterface("battery_state", "present", &battery_state_.present));
-    out.emplace_back(hardware_interface::StateInterface("battery_state", "power_supply_status", &battery_state_.power_supply_status));
-    out.emplace_back(hardware_interface::StateInterface("battery_state", "power_supply_health", &battery_state_.power_supply_health));
-    out.emplace_back(hardware_interface::StateInterface("battery_state", "power_supply_technology", &battery_state_.power_supply_technology));
 
     return out;
   }
 
-std::vector<hardware_interface::CommandInterface> MecanumSystem::export_command_interfaces()
-{
-  std::vector<hardware_interface::CommandInterface> out;
-  out.reserve(joints_.size() + 2);  // 4 ruote + 2 servomotori
-
-  // 🎯 Interfacce di comando per le ruote (velocity)
-  for (size_t i = 0; i < joints_.size(); ++i)
+  std::vector<hardware_interface::CommandInterface> MecanumSystem::export_command_interfaces()
   {
-    out.emplace_back(joint_names_[i], hardware_interface::HW_IF_VELOCITY, &joints_[i].cmd_vel);
+    std::vector<hardware_interface::CommandInterface> out;
+    out.reserve(joints_.size() + 2); // 4 ruote + 2 servomotori
+
+    // 🎯 Interfacce di comando per le ruote (velocity)
+    for (size_t i = 0; i < joints_.size(); ++i)
+    {
+      out.emplace_back(joint_names_[i], hardware_interface::HW_IF_VELOCITY, &joints_[i].cmd_vel);
+    }
+
+    // 🎯 Interfacce di comando per i servomotori pan e tilt (position)
+    out.emplace_back(hardware_interface::CommandInterface(
+        "servo_pan_joint", "position", &servo_command_.pan_position)); // Comando di posizione per il servo pan
+
+    out.emplace_back(hardware_interface::CommandInterface(
+        "servo_tilt_joint", "position", &servo_command_.tilt_position)); // Comando di posizione per il servo tilt
+
+    return out;
   }
-
-  // 🎯 Interfacce di comando per i servomotori pan e tilt (position)
-  out.emplace_back(hardware_interface::CommandInterface(
-      "servo_pan_joint", "position", &servo_command_.pan_position)); // Comando di posizione per il servo pan
-
-  out.emplace_back(hardware_interface::CommandInterface(
-      "servo_tilt_joint", "position", &servo_command_.tilt_position)); // Comando di posizione per il servo tilt
-
-  return out;
-}
-
 
   // ================== LIFECYCLE ==================
 
@@ -690,40 +688,38 @@ std::vector<hardware_interface::CommandInterface> MecanumSystem::export_command_
       }
     }
     else if (line->rfind("BAT", 0) == 0)
+    {
+      try
       {
-        try
+        std::istringstream ss(*line);
+        std::string token;
+        std::vector<std::string> fields;
+
+        while (std::getline(ss, token, ','))
         {
-          std::istringstream ss(*line);
-          std::string token;
-          std::vector<std::string> fields;
-
-          while (std::getline(ss, token, ','))
-          {
-            fields.push_back(token);
-          }
-
-          if (fields.size() != 3)
-          {
-            throw std::runtime_error("Formato BAT non valido");
-          }
-
-          float voltage = std::stof(fields[1]);
-          int percent = std::stoi(fields[2]);
-
-          battery_state_.voltage = voltage;
-          battery_state_.percentage = percent / 100.0;
-          battery_state_.present = true;
-          battery_state_.power_supply_status = hardware_interface::BatteryState::POWER_SUPPLY_STATUS_DISCHARGING;
-          battery_state_.power_supply_health = hardware_interface::BatteryState::POWER_SUPPLY_HEALTH_GOOD;
-          battery_state_.power_supply_technology = hardware_interface::BatteryState::POWER_SUPPLY_TECHNOLOGY_LION;
+          fields.push_back(token);
         }
-        catch (const std::exception &e)
+
+        if (fields.size() != 3)
         {
-          RCLCPP_WARN(this->get_logger(),
-                      "Pacchetto BAT malformato, scartato. Errore: %s | Riga: '%s'",
-                      e.what(), line->c_str());
+          throw std::runtime_error("Formato BAT non valido");
         }
+
+        // Estrai i valori
+        float voltage = std::stof(fields[1]);
+        int percent = std::stoi(fields[2]);
+
+        // Aggiorna lo stato della batteria
+        battery_state_.voltage = static_cast<double>(voltage);
+        battery_state_.percentage = static_cast<double>(percent) / 100.0;
       }
+      catch (const std::exception &e)
+      {
+        RCLCPP_WARN(this->get_logger(),
+                    "Pacchetto BAT malformato, scartato. Errore: %s | Riga: '%s'",
+                    e.what(), line->c_str());
+      }
+    }
 
     else if (line->rfind("LOG", 0) == 0)
     {

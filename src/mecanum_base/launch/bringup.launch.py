@@ -65,7 +65,10 @@ def generate_launch_description():
         executable='rosbridge_websocket',
         name='rosbridge_websocket',
         output='screen',
-        parameters=[{'max_message_size': 100000000}]
+        parameters=[
+            {'max_message_size': 100000000},
+            {'port': 9091}
+        ]
     )
 
     # =========================
