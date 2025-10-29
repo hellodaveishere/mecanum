@@ -1,197 +1,196 @@
-2025-10-28T18:27:07.022Z [info] [proc] Executing command: /usr/bin/cmake --version
-2025-10-28T18:27:07.023Z [debug] [proc]   with environment: {"HOSTNAME":"dave-computer","HOME":"/home/ws","ROS_DISTRO":"jazzy","PATH":"/vscode/vscode-server/bin/linux-x64/488a1f239235055e34e673291fb8d8c810886f81/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin","DISPLAY":":0","LANG":"C.UTF-8","ROS_DOMAIN_ID":"42","SHELL":"/bin/bash","ROS_AUTOMATIC_DISCOVERY_RANGE":"LOCALHOST","LC_ALL":"C.UTF-8","PWD":"/vscode/vscode-server/bin/linux-x64/488a1f239235055e34e673291fb8d8c810886f81","VSCODE_CWD":"/vscode/vscode-server/bin/linux-x64/488a1f239235055e34e673291fb8d8c810886f81","VSCODE_NLS_CONFIG":"{\"userLocale\":\"en\",\"osLocale\":\"en\",\"resolvedLanguage\":\"en\",\"defaultMessagesFile\":\"/vscode/vscode-server/bin/linux-x64/488a1f239235055e34e673291fb8d8c810886f81/out/nls.messages.json\",\"locale\":\"en\",\"availableLanguages\":{}}","VSCODE_HANDLES_SIGPIPE":"true","VSCODE_ESM_ENTRYPOINT":"vs/workbench/api/node/extensionHostProcess","VSCODE_HANDLES_UNCAUGHT_ERRORS":"true","REMOTE_CONTAINERS_IPC":"/tmp/vscode-remote-containers-ipc-9c197753-d68e-4fb1-8149-319c89240963.sock","REMOTE_CONTAINERS_SOCKETS":"[\"/tmp/vscode-ssh-auth-9c197753-d68e-4fb1-8149-319c89240963.sock\",\"/home/ws/.gnupg/S.gpg-agent\"]","SHLVL":"1","_":"/usr/bin/cat","SSH_AUTH_SOCK":"/tmp/vscode-ssh-auth-9c197753-d68e-4fb1-8149-319c89240963.sock","REMOTE_CONTAINERS":"true","BROWSER":"/vscode/vscode-server/bin/linux-x64/488a1f239235055e34e673291fb8d8c810886f81/bin/helpers/browser.sh","ELECTRON_RUN_AS_NODE":"1","VSCODE_IPC_HOOK_CLI":"/tmp/vscode-ipc-33c40403-c153-47a6-8ee3-84710131c4ef.sock","VSCODE_L10N_BUNDLE_LOCATION":"","APPLICATION_INSIGHTS_NO_STATSBEAT":"true"}
-2025-10-28T18:27:07.596Z [info] [proc] Executing command: /usr/bin/cmake -E capabilities
-2025-10-28T18:27:07.596Z [debug] [proc]   with environment: {"HOSTNAME":"dave-computer","HOME":"/home/ws","ROS_DISTRO":"jazzy","PATH":"/vscode/vscode-server/bin/linux-x64/488a1f239235055e34e673291fb8d8c810886f81/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin","DISPLAY":":0","LANG":"C.UTF-8","ROS_DOMAIN_ID":"42","SHELL":"/bin/bash","ROS_AUTOMATIC_DISCOVERY_RANGE":"LOCALHOST","LC_ALL":"C.UTF-8","PWD":"/vscode/vscode-server/bin/linux-x64/488a1f239235055e34e673291fb8d8c810886f81","VSCODE_CWD":"/vscode/vscode-server/bin/linux-x64/488a1f239235055e34e673291fb8d8c810886f81","VSCODE_NLS_CONFIG":"{\"userLocale\":\"en\",\"osLocale\":\"en\",\"resolvedLanguage\":\"en\",\"defaultMessagesFile\":\"/vscode/vscode-server/bin/linux-x64/488a1f239235055e34e673291fb8d8c810886f81/out/nls.messages.json\",\"locale\":\"en\",\"availableLanguages\":{}}","VSCODE_HANDLES_SIGPIPE":"true","VSCODE_ESM_ENTRYPOINT":"vs/workbench/api/node/extensionHostProcess","VSCODE_HANDLES_UNCAUGHT_ERRORS":"true","REMOTE_CONTAINERS_IPC":"/tmp/vscode-remote-containers-ipc-9c197753-d68e-4fb1-8149-319c89240963.sock","REMOTE_CONTAINERS_SOCKETS":"[\"/tmp/vscode-ssh-auth-9c197753-d68e-4fb1-8149-319c89240963.sock\",\"/home/ws/.gnupg/S.gpg-agent\"]","SHLVL":"1","_":"/usr/bin/cat","SSH_AUTH_SOCK":"/tmp/vscode-ssh-auth-9c197753-d68e-4fb1-8149-319c89240963.sock","REMOTE_CONTAINERS":"true","BROWSER":"/vscode/vscode-server/bin/linux-x64/488a1f239235055e34e673291fb8d8c810886f81/bin/helpers/browser.sh","ELECTRON_RUN_AS_NODE":"1","VSCODE_IPC_HOOK_CLI":"/tmp/vscode-ipc-33c40403-c153-47a6-8ee3-84710131c4ef.sock","VSCODE_L10N_BUNDLE_LOCATION":"","APPLICATION_INSIGHTS_NO_STATSBEAT":"true"}
-2025-10-28T18:27:09.457Z [debug] [main] Safe constructing new CMakeProject instance
-2025-10-28T18:27:09.458Z [debug] [variant] Constructing VariantManager
-2025-10-28T18:27:09.460Z [debug] [main] Constructing new CMakeProject instance
-2025-10-28T18:27:09.462Z [debug] [main] Starting CMake Tools second-phase init
-2025-10-28T18:27:09.625Z [debug] [kit] Reading kits file /home/ws/.local/share/CMakeTools/cmake-tools-kits.json
-2025-10-28T18:27:10.020Z [info] [kit] Successfully loaded 1 kits from /home/ws/.local/share/CMakeTools/cmake-tools-kits.json
-2025-10-28T18:27:11.196Z [debug] [kit] Not reading non-existent kits file: /home/ws/.vscode/cmake-kits.json
-2025-10-28T18:27:11.816Z [info] [variant] Loaded new set of variants
-2025-10-28T18:27:11.818Z [debug] [main] CMakeProject instance initialization complete.
-2025-10-28T18:27:20.577Z [debug] [extension] Configuring workspace on open /home/ws
-2025-10-28T18:27:22.572Z [debug] [kitsController] Start selection of kits. Found 4 kits.
-2025-10-28T18:27:22.573Z [debug] [kitsController] Opening kit selection QuickPick
-2025-10-28T18:27:23.920Z [debug] [kitsController] User cancelled Kit selection
-2025-10-28T18:41:33.436Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-28T18:54:06.090Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-28T18:54:07.663Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-28T18:59:55.119Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-28T18:59:57.370Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-28T19:00:01.239Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-28T19:02:18.785Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-28T19:02:20.578Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-28T19:02:29.484Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-28T19:03:01.004Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-28T19:03:04.967Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-28T19:06:54.316Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-28T19:08:50.368Z [debug] [main] Not starting CMake driver: no kit selected
-ngw32\bin
-2025-10-27T22:03:45.703Z [debug] [kit] Skipping scan of not existing path undefined\msys64\mingw64\bin
-2025-10-27T22:03:45.704Z [debug] [kit] Found 0 kits in directory undefined\msys64\mingw64\bin
-2025-10-27T22:03:45.705Z [debug] [kit] Skipping scan of not existing path undefined\msys64\clang32\bin
-2025-10-27T22:03:45.711Z [debug] [kit] Found 0 kits in directory undefined\msys64\clang32\bin
-2025-10-27T22:03:45.713Z [debug] [kit] Skipping scan of not existing path undefined\msys64\clang64\bin
-2025-10-27T22:03:45.725Z [debug] [kit] Found 0 kits in directory undefined\msys64\clang64\bin
-2025-10-27T22:03:45.728Z [debug] [kit] Skipping scan of not existing path undefined\msys64\clangarm64\bin
-2025-10-27T22:03:45.729Z [debug] [kit] Found 0 kits in directory undefined\msys64\clangarm64\bin
-2025-10-27T22:03:45.729Z [debug] [kit] Skipping scan of not existing path undefined\msys64\ucrt64\bin
-2025-10-27T22:03:45.731Z [debug] [kit] Found 0 kits in directory undefined\msys64\ucrt64\bin
-2025-10-27T22:03:48.092Z [debug] [kit] Found 0 kits in directory /vscode/vscode-server/bin/linux-x64/488a1f239235055e34e673291fb8d8c810886f81/bin/remote-cli
-2025-10-27T22:03:48.093Z [debug] [kit] Found 0 kits in directory /usr/local/sbin
-2025-10-27T22:03:48.093Z [debug] [kit] Found 0 kits in directory /usr/local/bin
-2025-10-27T22:03:48.294Z [debug] [kit] Found 0 kits in directory /usr/sbin
-2025-10-27T22:03:48.432Z [debug] [kit] Found 0 kits in directory /sbin
-2025-10-27T22:03:48.576Z [debug] [kit] Testing GCC binary: /bin/c89-gcc
-2025-10-27T22:03:48.585Z [info] [proc] Executing command: /bin/c89-gcc -v
-2025-10-27T22:03:48.649Z [debug] [kit] Testing GCC binary: /bin/c99-gcc
-2025-10-27T22:03:48.657Z [info] [proc] Executing command: /bin/c99-gcc -v
-2025-10-27T22:03:48.825Z [debug] [kit] Testing GCC binary: /bin/gcc
-2025-10-27T22:03:48.829Z [info] [proc] Executing command: /bin/gcc -v
-2025-10-27T22:03:48.881Z [debug] [kit] Testing GCC binary: /bin/gcc-13
-2025-10-27T22:03:48.882Z [info] [proc] Executing command: /bin/gcc-13 -v
-2025-10-27T22:03:49.181Z [debug] [kit] Testing GCC binary: /bin/x86_64-linux-gnu-gcc
-2025-10-27T22:03:49.182Z [info] [proc] Executing command: /bin/x86_64-linux-gnu-gcc -v
-2025-10-27T22:03:49.307Z [debug] [kit] Testing GCC binary: /bin/x86_64-linux-gnu-gcc-13
-2025-10-27T22:03:49.324Z [info] [proc] Executing command: /bin/x86_64-linux-gnu-gcc-13 -v
-2025-10-27T22:03:49.573Z [debug] [kit] Testing GCC binary: /usr/bin/c89-gcc
-2025-10-27T22:03:49.574Z [info] [proc] Executing command: /usr/bin/c89-gcc -v
-2025-10-27T22:03:49.725Z [debug] [kit] Testing GCC binary: /usr/bin/c99-gcc
-2025-10-27T22:03:49.727Z [info] [proc] Executing command: /usr/bin/c99-gcc -v
-2025-10-27T22:03:49.824Z [debug] [kit] Testing GCC binary: /usr/bin/gcc
-2025-10-27T22:03:49.829Z [info] [proc] Executing command: /usr/bin/gcc -v
-2025-10-27T22:03:49.962Z [debug] [kit] Testing GCC binary: /usr/bin/gcc-13
-2025-10-27T22:03:49.969Z [info] [proc] Executing command: /usr/bin/gcc-13 -v
-2025-10-27T22:03:50.787Z [debug] [kit] Testing GCC binary: /usr/bin/x86_64-linux-gnu-gcc
-2025-10-27T22:03:50.789Z [info] [proc] Executing command: /usr/bin/x86_64-linux-gnu-gcc -v
-2025-10-27T22:03:50.924Z [debug] [kit] Testing GCC binary: /usr/bin/x86_64-linux-gnu-gcc-13
-2025-10-27T22:03:50.931Z [info] [proc] Executing command: /usr/bin/x86_64-linux-gnu-gcc-13 -v
-2025-10-27T22:03:51.471Z [debug] [kit] Detected GCC compiler: /usr/bin/x86_64-linux-gnu-gcc-13
-2025-10-27T22:03:51.479Z [debug] [kit] Detected GCC compiler: /usr/bin/x86_64-linux-gnu-gcc
-2025-10-27T22:03:51.486Z [debug] [kit] Detected GCC compiler: /usr/bin/gcc-13
-2025-10-27T22:03:51.494Z [debug] [kit] Detected GCC compiler: /usr/bin/gcc
-2025-10-27T22:03:51.502Z [debug] [kit] Detected GCC compiler: /usr/bin/c99-gcc
-2025-10-27T22:03:51.511Z [debug] [kit] Detected GCC compiler: /usr/bin/c89-gcc
-2025-10-27T22:03:51.528Z [debug] [kit] Detected GCC compiler: /bin/x86_64-linux-gnu-gcc-13
-2025-10-27T22:03:51.542Z [debug] [kit] Detected GCC compiler: /bin/x86_64-linux-gnu-gcc
-2025-10-27T22:03:51.595Z [debug] [kit] Detected GCC compiler: /bin/gcc-13
-2025-10-27T22:03:51.624Z [debug] [kit] Detected GCC compiler: /bin/gcc
-2025-10-27T22:03:51.669Z [debug] [kit] Detected GCC compiler: /bin/c99-gcc
-2025-10-27T22:03:51.701Z [debug] [kit] Detected GCC compiler: /bin/c89-gcc
-2025-10-27T22:03:51.911Z [debug] [kit] Testing GCC binary: /usr/bin/c99-gcc
-2025-10-27T22:03:51.912Z [info] [proc] Executing command: /usr/bin/c99-gcc -v
-2025-10-27T22:03:51.982Z [debug] [kit] Testing GCC binary: /usr/bin/c89-gcc
-2025-10-27T22:03:51.991Z [info] [proc] Executing command: /usr/bin/c89-gcc -v
-2025-10-27T22:03:52.056Z [debug] [kit] Testing GCC binary: /bin/c99-gcc
-2025-10-27T22:03:52.063Z [info] [proc] Executing command: /bin/c99-gcc -v
-2025-10-27T22:03:52.141Z [debug] [kit] Testing GCC binary: /bin/c89-gcc
-2025-10-27T22:03:52.142Z [info] [proc] Executing command: /bin/c89-gcc -v
-2025-10-27T22:03:52.259Z [debug] [kit] Detected GCC compiler: /bin/c99-gcc
-2025-10-27T22:03:52.273Z [debug] [kit] Detected GCC compiler: /usr/bin/c89-gcc
-2025-10-27T22:03:52.285Z [debug] [kit] Detected GCC compiler: /usr/bin/c99-gcc
-2025-10-27T22:03:52.292Z [debug] [kit] Found 6 kits in directory /usr/bin
-2025-10-27T22:03:52.318Z [debug] [kit] Detected GCC compiler: /bin/c89-gcc
-2025-10-27T22:03:52.673Z [debug] [kit] Found 6 kits in directory /bin
-2025-10-27T22:03:52.676Z [info] [kit] Found Kit (trusted): GCC 13.3.0 x86_64-linux-gnu
-2025-10-27T22:03:52.677Z [info] [kit] Found Kit (trusted): GCC 13.3.0 x86_64-linux-gnu
-2025-10-27T22:03:52.677Z [info] [kit] Found Kit (trusted): GCC 13.3.0 x86_64-linux-gnu
-2025-10-27T22:03:52.677Z [info] [kit] Found Kit (trusted): GCC 13.3.0 x86_64-linux-gnu
-2025-10-27T22:03:52.677Z [info] [kit] Found Kit (trusted): GCC 13.3.0 x86_64-linux-gnu
-2025-10-27T22:03:52.678Z [info] [kit] Found Kit (trusted): GCC 13.3.0 x86_64-linux-gnu
-2025-10-27T22:03:52.678Z [info] [kit] Found Kit (trusted): GCC 13.3.0 x86_64-linux-gnu
-2025-10-27T22:03:52.678Z [info] [kit] Found Kit (trusted): GCC 13.3.0 x86_64-linux-gnu
-2025-10-27T22:03:52.678Z [info] [kit] Found Kit (trusted): GCC 13.3.0 x86_64-linux-gnu
-2025-10-27T22:03:52.679Z [info] [kit] Found Kit (trusted): GCC 13.3.0 x86_64-linux-gnu
-2025-10-27T22:03:52.679Z [info] [kit] Found Kit (trusted): GCC 13.3.0 x86_64-linux-gnu
-2025-10-27T22:03:52.679Z [info] [kit] Found Kit (trusted): GCC 13.3.0 x86_64-linux-gnu
-2025-10-27T22:03:52.683Z [debug] [kitsController] Saving kits to /home/ws/.local/share/CMakeTools/cmake-tools-kits.json
-2025-10-27T22:03:52.684Z [debug] [kitsController] Saving new kits to /home/ws/.local/share/CMakeTools/cmake-tools-kits.json
-2025-10-27T22:03:52.780Z [debug] [kit] Reading kits file /home/ws/.local/share/CMakeTools/cmake-tools-kits.json
-2025-10-27T22:03:52.995Z [info] [kit] Successfully loaded 1 kits from /home/ws/.local/share/CMakeTools/cmake-tools-kits.json
-2025-10-27T22:11:54.433Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-27T22:12:07.516Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-27T22:12:15.568Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-27T22:12:22.620Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-27T22:18:04.586Z [debug] [extension] Deactivate CMakeTools
-no kit selected
-2025-10-25T06:21:18.067Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T06:21:26.894Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T06:21:29.957Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T06:21:35.384Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T06:21:38.026Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T06:21:45.945Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T06:21:49.114Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T06:23:57.213Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T06:24:02.534Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T06:24:38.122Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T06:31:48.867Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T06:31:54.163Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T06:37:22.922Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T06:37:28.068Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T06:37:59.127Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T06:42:31.655Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T06:46:12.910Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T06:47:54.822Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T06:54:52.751Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T06:54:54.410Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:10:25.713Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:10:27.178Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:11:35.459Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:11:37.075Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:11:50.651Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:11:51.993Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:12:04.354Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:12:12.409Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:12:20.569Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:12:23.476Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:12:24.744Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:12:27.626Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:12:34.428Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:12:44.153Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:13:07.092Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:13:08.821Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:16:57.006Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:16:58.090Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:17:04.508Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:18:27.549Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:18:29.035Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:21:06.364Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:21:39.888Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:21:45.965Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:21:50.007Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:22:06.094Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:22:10.570Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:22:37.523Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:22:39.332Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:22:59.884Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:25:44.472Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:25:46.340Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:25:55.253Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:31:46.115Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:31:48.320Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:31:50.227Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:31:54.258Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:31:55.688Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:32:01.182Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:32:03.149Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:32:05.354Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:32:24.348Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:32:49.660Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:32:51.448Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:32:53.605Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:32:58.639Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:33:05.347Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:36:16.654Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:37:14.016Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:37:15.526Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:37:19.618Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:37:21.490Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:37:48.591Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:37:50.712Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:37:56.120Z [debug] [main] Not starting CMake driver: no kit selected
-2025-10-25T07:38:05.160Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T10:00:28.782Z [info] [proc] Executing command: /usr/bin/cmake --version
+2025-10-29T10:00:28.783Z [debug] [proc]   with environment: {"HOSTNAME":"dave-computer","HOME":"/home/ws","ROS_DISTRO":"jazzy","PATH":"/vscode/vscode-server/bin/linux-x64/488a1f239235055e34e673291fb8d8c810886f81/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin","DISPLAY":":0","LANG":"C.UTF-8","ROS_DOMAIN_ID":"42","SHELL":"/bin/bash","ROS_AUTOMATIC_DISCOVERY_RANGE":"LOCALHOST","LC_ALL":"C.UTF-8","PWD":"/vscode/vscode-server/bin/linux-x64/488a1f239235055e34e673291fb8d8c810886f81","VSCODE_CWD":"/vscode/vscode-server/bin/linux-x64/488a1f239235055e34e673291fb8d8c810886f81","VSCODE_NLS_CONFIG":"{\"userLocale\":\"en\",\"osLocale\":\"en\",\"resolvedLanguage\":\"en\",\"defaultMessagesFile\":\"/vscode/vscode-server/bin/linux-x64/488a1f239235055e34e673291fb8d8c810886f81/out/nls.messages.json\",\"locale\":\"en\",\"availableLanguages\":{}}","VSCODE_HANDLES_SIGPIPE":"true","VSCODE_ESM_ENTRYPOINT":"vs/workbench/api/node/extensionHostProcess","VSCODE_HANDLES_UNCAUGHT_ERRORS":"true","REMOTE_CONTAINERS_IPC":"/tmp/vscode-remote-containers-ipc-6c2d6d59-ff4e-419d-9286-c02825d5a7b5.sock","REMOTE_CONTAINERS_SOCKETS":"[\"/tmp/vscode-ssh-auth-6c2d6d59-ff4e-419d-9286-c02825d5a7b5.sock\",\"/home/ws/.gnupg/S.gpg-agent\"]","SHLVL":"1","_":"/usr/bin/cat","SSH_AUTH_SOCK":"/tmp/vscode-ssh-auth-6c2d6d59-ff4e-419d-9286-c02825d5a7b5.sock","REMOTE_CONTAINERS":"true","BROWSER":"/vscode/vscode-server/bin/linux-x64/488a1f239235055e34e673291fb8d8c810886f81/bin/helpers/browser.sh","ELECTRON_RUN_AS_NODE":"1","VSCODE_IPC_HOOK_CLI":"/tmp/vscode-ipc-02c713d9-6935-485e-b593-1db72cea8d13.sock","VSCODE_L10N_BUNDLE_LOCATION":""}
+2025-10-29T10:00:29.044Z [info] [proc] Executing command: /usr/bin/cmake -E capabilities
+2025-10-29T10:00:29.045Z [debug] [proc]   with environment: {"HOSTNAME":"dave-computer","HOME":"/home/ws","ROS_DISTRO":"jazzy","PATH":"/vscode/vscode-server/bin/linux-x64/488a1f239235055e34e673291fb8d8c810886f81/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin","DISPLAY":":0","LANG":"C.UTF-8","ROS_DOMAIN_ID":"42","SHELL":"/bin/bash","ROS_AUTOMATIC_DISCOVERY_RANGE":"LOCALHOST","LC_ALL":"C.UTF-8","PWD":"/vscode/vscode-server/bin/linux-x64/488a1f239235055e34e673291fb8d8c810886f81","VSCODE_CWD":"/vscode/vscode-server/bin/linux-x64/488a1f239235055e34e673291fb8d8c810886f81","VSCODE_NLS_CONFIG":"{\"userLocale\":\"en\",\"osLocale\":\"en\",\"resolvedLanguage\":\"en\",\"defaultMessagesFile\":\"/vscode/vscode-server/bin/linux-x64/488a1f239235055e34e673291fb8d8c810886f81/out/nls.messages.json\",\"locale\":\"en\",\"availableLanguages\":{}}","VSCODE_HANDLES_SIGPIPE":"true","VSCODE_ESM_ENTRYPOINT":"vs/workbench/api/node/extensionHostProcess","VSCODE_HANDLES_UNCAUGHT_ERRORS":"true","REMOTE_CONTAINERS_IPC":"/tmp/vscode-remote-containers-ipc-6c2d6d59-ff4e-419d-9286-c02825d5a7b5.sock","REMOTE_CONTAINERS_SOCKETS":"[\"/tmp/vscode-ssh-auth-6c2d6d59-ff4e-419d-9286-c02825d5a7b5.sock\",\"/home/ws/.gnupg/S.gpg-agent\"]","SHLVL":"1","_":"/usr/bin/cat","SSH_AUTH_SOCK":"/tmp/vscode-ssh-auth-6c2d6d59-ff4e-419d-9286-c02825d5a7b5.sock","REMOTE_CONTAINERS":"true","BROWSER":"/vscode/vscode-server/bin/linux-x64/488a1f239235055e34e673291fb8d8c810886f81/bin/helpers/browser.sh","ELECTRON_RUN_AS_NODE":"1","VSCODE_IPC_HOOK_CLI":"/tmp/vscode-ipc-02c713d9-6935-485e-b593-1db72cea8d13.sock","VSCODE_L10N_BUNDLE_LOCATION":""}
+2025-10-29T10:00:29.991Z [debug] [main] Safe constructing new CMakeProject instance
+2025-10-29T10:00:29.992Z [debug] [variant] Constructing VariantManager
+2025-10-29T10:00:29.997Z [debug] [main] Constructing new CMakeProject instance
+2025-10-29T10:00:29.999Z [debug] [main] Starting CMake Tools second-phase init
+2025-10-29T10:00:30.104Z [debug] [kit] Reading kits file /home/ws/.local/share/CMakeTools/cmake-tools-kits.json
+2025-10-29T10:00:42.097Z [info] [kit] Successfully loaded 1 kits from /home/ws/.local/share/CMakeTools/cmake-tools-kits.json
+2025-10-29T10:00:42.649Z [debug] [kit] Not reading non-existent kits file: /home/ws/.vscode/cmake-kits.json
+2025-10-29T10:00:43.968Z [info] [variant] Loaded new set of variants
+2025-10-29T10:00:43.978Z [debug] [main] CMakeProject instance initialization complete.
+2025-10-29T10:00:46.582Z [debug] [extension] Configuring workspace on open /home/ws
+2025-10-29T10:00:46.787Z [debug] [kitsController] Start selection of kits. Found 4 kits.
+2025-10-29T10:00:46.787Z [debug] [kitsController] Opening kit selection QuickPick
+2025-10-29T10:00:51.044Z [debug] [kitsController] Rescanning for kits
+2025-10-29T10:00:51.045Z [debug] [kit] Scanning for Kits on system
+2025-10-29T10:00:51.055Z [debug] [kit] Scanning directory /vscode/vscode-server/bin/linux-x64/488a1f239235055e34e673291fb8d8c810886f81/bin/remote-cli for compilers
+2025-10-29T10:00:51.057Z [debug] [kit] Scanning directory /usr/local/sbin for compilers
+2025-10-29T10:00:51.060Z [debug] [kit] Scanning directory /usr/local/bin for compilers
+2025-10-29T10:00:51.062Z [debug] [kit] Scanning directory /usr/sbin for compilers
+2025-10-29T10:00:51.064Z [debug] [kit] Scanning directory /usr/bin for compilers
+2025-10-29T10:00:51.066Z [debug] [kit] Scanning directory /sbin for compilers
+2025-10-29T10:00:51.070Z [debug] [kit] Scanning directory /bin for compilers
+2025-10-29T10:00:51.072Z [debug] [kit] Skipping scan of not existing path undefined\LLVM\bin
+2025-10-29T10:00:51.076Z [debug] [kit] Found 0 kits in directory undefined\LLVM\bin
+2025-10-29T10:00:51.077Z [debug] [kit] Skipping scan of not existing path undefined\msys64\mingw32\bin
+2025-10-29T10:00:51.077Z [debug] [kit] Found 0 kits in directory undefined\msys64\mingw32\bin
+2025-10-29T10:00:51.078Z [debug] [kit] Skipping scan of not existing path undefined\msys64\mingw64\bin
+2025-10-29T10:00:51.078Z [debug] [kit] Found 0 kits in directory undefined\msys64\mingw64\bin
+2025-10-29T10:00:51.079Z [debug] [kit] Skipping scan of not existing path undefined\msys64\clang32\bin
+2025-10-29T10:00:51.079Z [debug] [kit] Found 0 kits in directory undefined\msys64\clang32\bin
+2025-10-29T10:00:51.080Z [debug] [kit] Skipping scan of not existing path undefined\msys64\clang64\bin
+2025-10-29T10:00:51.080Z [debug] [kit] Found 0 kits in directory undefined\msys64\clang64\bin
+2025-10-29T10:00:51.081Z [debug] [kit] Skipping scan of not existing path undefined\msys64\clangarm64\bin
+2025-10-29T10:00:51.081Z [debug] [kit] Found 0 kits in directory undefined\msys64\clangarm64\bin
+2025-10-29T10:00:51.082Z [debug] [kit] Skipping scan of not existing path undefined\msys64\ucrt64\bin
+2025-10-29T10:00:51.082Z [debug] [kit] Found 0 kits in directory undefined\msys64\ucrt64\bin
+2025-10-29T10:00:51.097Z [debug] [kit] Found 0 kits in directory /vscode/vscode-server/bin/linux-x64/488a1f239235055e34e673291fb8d8c810886f81/bin/remote-cli
+2025-10-29T10:00:51.102Z [debug] [kit] Found 0 kits in directory /usr/local/sbin
+2025-10-29T10:00:51.103Z [debug] [kit] Found 0 kits in directory /usr/local/bin
+2025-10-29T10:00:51.156Z [debug] [kit] Found 0 kits in directory /usr/sbin
+2025-10-29T10:00:51.209Z [debug] [kit] Found 0 kits in directory /sbin
+2025-10-29T10:00:51.259Z [debug] [kit] Testing GCC binary: /usr/bin/c89-gcc
+2025-10-29T10:00:51.261Z [info] [proc] Executing command: /usr/bin/c89-gcc -v
+2025-10-29T10:00:51.323Z [debug] [kit] Testing GCC binary: /usr/bin/c99-gcc
+2025-10-29T10:00:51.326Z [info] [proc] Executing command: /usr/bin/c99-gcc -v
+2025-10-29T10:00:51.391Z [debug] [kit] Testing GCC binary: /usr/bin/gcc
+2025-10-29T10:00:51.392Z [info] [proc] Executing command: /usr/bin/gcc -v
+2025-10-29T10:00:51.413Z [debug] [kit] Testing GCC binary: /usr/bin/gcc-13
+2025-10-29T10:00:51.415Z [info] [proc] Executing command: /usr/bin/gcc-13 -v
+2025-10-29T10:00:51.597Z [debug] [kit] Testing GCC binary: /usr/bin/x86_64-linux-gnu-gcc
+2025-10-29T10:00:51.598Z [info] [proc] Executing command: /usr/bin/x86_64-linux-gnu-gcc -v
+2025-10-29T10:00:51.619Z [debug] [kit] Testing GCC binary: /usr/bin/x86_64-linux-gnu-gcc-13
+2025-10-29T10:00:51.620Z [info] [proc] Executing command: /usr/bin/x86_64-linux-gnu-gcc-13 -v
+2025-10-29T10:00:51.737Z [debug] [kit] Testing GCC binary: /bin/c89-gcc
+2025-10-29T10:00:51.744Z [info] [proc] Executing command: /bin/c89-gcc -v
+2025-10-29T10:00:51.780Z [debug] [kit] Testing GCC binary: /bin/c99-gcc
+2025-10-29T10:00:51.781Z [info] [proc] Executing command: /bin/c99-gcc -v
+2025-10-29T10:00:51.872Z [debug] [kit] Testing GCC binary: /bin/gcc
+2025-10-29T10:00:51.879Z [info] [proc] Executing command: /bin/gcc -v
+2025-10-29T10:00:51.906Z [debug] [kit] Testing GCC binary: /bin/gcc-13
+2025-10-29T10:00:51.907Z [info] [proc] Executing command: /bin/gcc-13 -v
+2025-10-29T10:00:52.125Z [debug] [kit] Testing GCC binary: /bin/x86_64-linux-gnu-gcc
+2025-10-29T10:00:52.126Z [info] [proc] Executing command: /bin/x86_64-linux-gnu-gcc -v
+2025-10-29T10:00:52.153Z [debug] [kit] Testing GCC binary: /bin/x86_64-linux-gnu-gcc-13
+2025-10-29T10:00:52.154Z [info] [proc] Executing command: /bin/x86_64-linux-gnu-gcc-13 -v
+2025-10-29T10:00:52.543Z [debug] [kit] Detected GCC compiler: /bin/x86_64-linux-gnu-gcc-13
+2025-10-29T10:00:52.554Z [debug] [kit] Detected GCC compiler: /bin/x86_64-linux-gnu-gcc
+2025-10-29T10:00:52.561Z [debug] [kit] Detected GCC compiler: /bin/gcc-13
+2025-10-29T10:00:52.568Z [debug] [kit] Detected GCC compiler: /bin/gcc
+2025-10-29T10:00:52.574Z [debug] [kit] Detected GCC compiler: /bin/c99-gcc
+2025-10-29T10:00:52.580Z [debug] [kit] Detected GCC compiler: /bin/c89-gcc
+2025-10-29T10:00:52.585Z [debug] [kit] Detected GCC compiler: /usr/bin/x86_64-linux-gnu-gcc-13
+2025-10-29T10:00:52.591Z [debug] [kit] Detected GCC compiler: /usr/bin/x86_64-linux-gnu-gcc
+2025-10-29T10:00:52.597Z [debug] [kit] Detected GCC compiler: /usr/bin/gcc-13
+2025-10-29T10:00:52.605Z [debug] [kit] Detected GCC compiler: /usr/bin/gcc
+2025-10-29T10:00:52.614Z [debug] [kit] Detected GCC compiler: /usr/bin/c99-gcc
+2025-10-29T10:00:52.622Z [debug] [kit] Detected GCC compiler: /usr/bin/c89-gcc
+2025-10-29T10:00:52.685Z [debug] [kit] Testing GCC binary: /bin/c99-gcc
+2025-10-29T10:00:52.686Z [info] [proc] Executing command: /bin/c99-gcc -v
+2025-10-29T10:00:52.780Z [debug] [kit] Testing GCC binary: /bin/c89-gcc
+2025-10-29T10:00:52.784Z [info] [proc] Executing command: /bin/c89-gcc -v
+2025-10-29T10:00:52.826Z [debug] [kit] Testing GCC binary: /usr/bin/c99-gcc
+2025-10-29T10:00:52.829Z [info] [proc] Executing command: /usr/bin/c99-gcc -v
+2025-10-29T10:00:52.843Z [debug] [kit] Testing GCC binary: /usr/bin/c89-gcc
+2025-10-29T10:00:52.843Z [info] [proc] Executing command: /usr/bin/c89-gcc -v
+2025-10-29T10:00:53.394Z [debug] [kit] Detected GCC compiler: /usr/bin/c89-gcc
+2025-10-29T10:00:53.409Z [debug] [kit] Detected GCC compiler: /usr/bin/c99-gcc
+2025-10-29T10:00:53.417Z [debug] [kit] Detected GCC compiler: /bin/c89-gcc
+2025-10-29T10:00:53.424Z [debug] [kit] Detected GCC compiler: /bin/c99-gcc
+2025-10-29T10:00:53.429Z [debug] [kit] Found 6 kits in directory /usr/bin
+2025-10-29T10:00:53.430Z [debug] [kit] Found 6 kits in directory /bin
+2025-10-29T10:00:53.433Z [info] [kit] Found Kit (trusted): GCC 13.3.0 x86_64-linux-gnu
+2025-10-29T10:00:53.434Z [info] [kit] Found Kit (trusted): GCC 13.3.0 x86_64-linux-gnu
+2025-10-29T10:00:53.434Z [info] [kit] Found Kit (trusted): GCC 13.3.0 x86_64-linux-gnu
+2025-10-29T10:00:53.434Z [info] [kit] Found Kit (trusted): GCC 13.3.0 x86_64-linux-gnu
+2025-10-29T10:00:53.435Z [info] [kit] Found Kit (trusted): GCC 13.3.0 x86_64-linux-gnu
+2025-10-29T10:00:53.435Z [info] [kit] Found Kit (trusted): GCC 13.3.0 x86_64-linux-gnu
+2025-10-29T10:00:53.435Z [info] [kit] Found Kit (trusted): GCC 13.3.0 x86_64-linux-gnu
+2025-10-29T10:00:53.437Z [info] [kit] Found Kit (trusted): GCC 13.3.0 x86_64-linux-gnu
+2025-10-29T10:00:53.437Z [info] [kit] Found Kit (trusted): GCC 13.3.0 x86_64-linux-gnu
+2025-10-29T10:00:53.438Z [info] [kit] Found Kit (trusted): GCC 13.3.0 x86_64-linux-gnu
+2025-10-29T10:00:53.438Z [info] [kit] Found Kit (trusted): GCC 13.3.0 x86_64-linux-gnu
+2025-10-29T10:00:53.438Z [info] [kit] Found Kit (trusted): GCC 13.3.0 x86_64-linux-gnu
+2025-10-29T10:00:53.441Z [debug] [kitsController] Saving kits to /home/ws/.local/share/CMakeTools/cmake-tools-kits.json
+2025-10-29T10:00:53.442Z [debug] [kitsController] Saving new kits to /home/ws/.local/share/CMakeTools/cmake-tools-kits.json
+2025-10-29T10:00:54.865Z [debug] [kit] Reading kits file /home/ws/.local/share/CMakeTools/cmake-tools-kits.json
+2025-10-29T10:00:55.008Z [info] [kit] Successfully loaded 1 kits from /home/ws/.local/share/CMakeTools/cmake-tools-kits.json
+2025-10-29T10:02:28.954Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T10:02:46.472Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T10:02:47.667Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T10:02:49.387Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T10:05:24.511Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T10:05:27.541Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T10:09:59.938Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T10:10:01.779Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T10:10:17.392Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T10:10:18.320Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T10:11:15.249Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T10:11:19.496Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T10:11:28.266Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T10:11:30.681Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T10:11:37.306Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T10:15:07.086Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T10:15:35.285Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T10:16:11.816Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T10:16:15.707Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T10:16:51.818Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T10:21:40.785Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T10:21:44.713Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T10:21:54.673Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T10:21:56.489Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T10:22:02.391Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T10:33:42.454Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T10:33:46.204Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T10:39:06.690Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T10:39:09.714Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T10:39:23.201Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T10:41:22.664Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T10:46:49.080Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T10:47:03.360Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T10:47:23.509Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T10:48:04.436Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T10:48:05.826Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T10:59:46.320Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T10:59:58.963Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T11:00:08.462Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T11:10:11.124Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T11:10:15.566Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T11:10:41.895Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T11:10:52.694Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T11:10:54.813Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T11:10:58.548Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T11:11:04.938Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T11:25:13.225Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T11:25:17.198Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T11:27:30.818Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T11:27:32.961Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T11:27:42.549Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T11:27:45.507Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T11:58:52.971Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T11:58:57.383Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T11:59:08.601Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T11:59:44.436Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T12:02:42.664Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T12:03:34.063Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T12:03:37.103Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T12:04:58.816Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T12:05:01.356Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T12:05:04.916Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T12:05:06.382Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T12:05:08.895Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T12:05:10.884Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T12:09:14.353Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T12:11:07.769Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T12:11:48.273Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T12:11:51.965Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T12:12:30.677Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T12:12:35.898Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T12:27:32.695Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T12:27:39.198Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T12:28:11.515Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T12:28:15.651Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T12:28:18.189Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T12:28:22.779Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T12:28:24.271Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T12:50:33.069Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T12:52:56.763Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T12:53:07.157Z [debug] [main] Not starting CMake driver: no kit selected
+2025-10-29T12:56:14.862Z [debug] [main] Not starting CMake driver: no kit selected
+ed
 2025-10-25T07:38:10.315Z [debug] [main] Not starting CMake driver: no kit selected
 2025-10-25T07:38:11.309Z [debug] [main] Not starting CMake driver: no kit selected
 2025-10-25T07:38:50.497Z [debug] [main] Not starting CMake driver: no kit selected

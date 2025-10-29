@@ -243,11 +243,11 @@
     <child link="battery_link"/>
   </joint>
 
-  <component name="battery_monitor" type="mecanum_hardware/MecanumSystemHardware">
+  <!--<component name="battery_monitor" type="mecanum_hardware/MecanumSystemHardware">
   <param name="use_battery">true</param>
   <state_interface name="voltage"/>
   <state_interface name="percentage"/>
-  </component>
+  </component> -->
 
 
 
@@ -278,6 +278,8 @@
       <param name="serial_port">/dev/ttyUSB0</param>
       <!-- <param name="baudrate">115200</param> -->
       <param name="baudrate">1000000</param> 
+
+      <param name="use_battery">true</param>
     </hardware>
 
     <!-- Interfacce per ciascun giunto -->
@@ -302,6 +304,10 @@
       <command_interface name="velocity"/>
     </joint>
 
+    <sensor name="battery_state">
+      <state_interface name="voltage"/>
+      <state_interface name="percentage"/>
+    </sensor>
   </ros2_control>
 
 </robot>

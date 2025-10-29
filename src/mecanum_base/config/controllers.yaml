@@ -135,4 +135,16 @@ ir_front_right_broadcaster:
 
 battery_state_broadcaster:
   ros__parameters:
-    sensor_name: battery_state         # Deve corrispondere al nome delle interfacce esportate dal tuo hardware
+    sensor_name: "battery_state"           # Nome del sensore come definito nel file URDF (deve corrispondere esattamente)
+    battery_interfaces:                    # Elenco delle interfacce di stato esportate dal tuo hardware
+      - voltage                            # Tensione della batteria (in Volt)
+      - percentage                         # Stato di carica (valore tra 0.0 e 1.0)
+
+    design_capacity: 100.0                 # Capacità nominale della batteria (in Ah), usata per il campo design_capacity
+    power_supply_technology: 2             # Tipo di batteria (2 = Li-ion, secondo BatteryState.msg)
+    power_supply_status: 1                 # Stato della batteria (1 = Discharging, secondo BatteryState.msg)
+    power_supply_health: 1                 # Stato di salute della batteria (1 = Good, secondo BatteryState.msg)
+    present: true                          # Indica se la batteria è presente (true/false)
+    location: "base_link"                  # Posizione fisica della batteria nel robot (campo location del messaggio)
+    serial_number: "BAT123456"             # Numero di serie della batteria (campo serial_number del messaggio)
+

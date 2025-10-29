@@ -389,6 +389,8 @@ namespace mecanum_hardware
     // out.emplace_back(hardware_interface::StateInterface("battery_state", "charge", &battery_state_.charge));
     // out.emplace_back(hardware_interface::StateInterface("battery_state", "capacity", &battery_state_.capacity));
     out.emplace_back(hardware_interface::StateInterface("battery_state", "percentage", &battery_state_.percentage));
+    
+    RCLCPP_INFO(rclcpp::get_logger("BatteryDebug"), "Exporting interface: percentage @ %p", &battery_state_.percentage);
 
     return out;
   }
@@ -486,7 +488,7 @@ namespace mecanum_hardware
     }
 
     // 3.2) Log della riga grezza ricevuta (utile per diagnosi di framing/formato).
-    RCLCPP_DEBUG(this->get_logger(),
+    RCLCPP_INFO(this->get_logger(),
                  "Linea seriale ricevuta: %s", line->c_str());
 
     // 4) Dispatch in base al prefisso del pacchetto.
@@ -528,14 +530,14 @@ namespace mecanum_hardware
         }
 
         // 4.4) Log immediato dei giunti aggiornati (utile in debug).
-        for (size_t i = 0; i < joints_.size(); ++i)
-        {
-          RCLCPP_INFO(this->get_logger(),
-                      "Joint %s: pos=%.3f rad, vel=%.3f rad/s",
-                      joint_names_[i].c_str(),
-                      joints_[i].pos_rad,
-                      joints_[i].vel_rad_s);
-        }
+        //for (size_t i = 0; i < joints_.size(); ++i)
+        //{
+        //  RCLCPP_INFO(this->get_logger(),
+        //              "Joint %s: pos=%.3f rad, vel=%.3f rad/s",
+        //              joint_names_[i].c_str(),
+        //              joints_[i].pos_rad,
+        //              joints_[i].vel_rad_s);
+        //}
       }
       catch (const std::exception &e)
       {
@@ -555,16 +557,16 @@ namespace mecanum_hardware
 
         // 5.1) Log dei valori IMU aggiornati (utile in debug di integrazione).
         // RCLCPP_INFO(this->get_logger(),
-        RCLCPP_INFO(this->get_logger(),
-                    "IMU orient=(%.3f, %.3f, %.3f, %.3f) "
-                    "ang_vel=(%.3f, %.3f, %.3f) "
-                    "lin_acc=(%.3f, %.3f, %.3f)",
-                    imu_state_.orientation[0], imu_state_.orientation[1],
-                    imu_state_.orientation[2], imu_state_.orientation[3],
-                    imu_state_.angular_vel[0], imu_state_.angular_vel[1],
-                    imu_state_.angular_vel[2],
-                    imu_state_.linear_accel[0], imu_state_.linear_accel[1],
-                    imu_state_.linear_accel[2]);
+        //RCLCPP_INFO(this->get_logger(),
+        //            "IMU orient=(%.3f, %.3f, %.3f, %.3f) "
+        //            "ang_vel=(%.3f, %.3f, %.3f) "
+        //            "lin_acc=(%.3f, %.3f, %.3f)",
+        //            imu_state_.orientation[0], imu_state_.orientation[1],
+        //            imu_state_.orientation[2], imu_state_.orientation[3],
+        //            imu_state_.angular_vel[0], imu_state_.angular_vel[1],
+        //            imu_state_.angular_vel[2],
+        //            imu_state_.linear_accel[0], imu_state_.linear_accel[1],
+        //            imu_state_.linear_accel[2]);
       }
       catch (const std::exception &e)
       {
@@ -615,11 +617,11 @@ namespace mecanum_hardware
         ir_state_.ir_front_right = parse_ir_value(tokens[3], "front_right");
 
         // 🧾 Log informativo con i valori letti (inclusi eventuali -1.0)
-        RCLCPP_INFO(rclcpp::get_logger("MecanumSystem"),
-                    "IR sensors: front_left=%.2f front_center=%.2f front_right=%.2f",
-                    ir_state_.ir_front_left,
-                    ir_state_.ir_front_center,
-                    ir_state_.ir_front_right);
+        //RCLCPP_INFO(rclcpp::get_logger("MecanumSystem"),
+        //            "IR sensors: front_left=%.2f front_center=%.2f front_right=%.2f",
+        //            ir_state_.ir_front_left,
+        //            ir_state_.ir_front_center,
+        //            ir_state_.ir_front_right);
       }
       catch (const std::exception &e)
       {
@@ -669,15 +671,15 @@ namespace mecanum_hardware
         servo_state_.tilt_position = parse_servo_value(tokens[2], "tilt");
 
         // 🧾 Log informativo ogni 10 letture valide per evitare spam nel terminale
-        static int servo_log_counter = 0;
-        if (++servo_log_counter >= 10)
-        {
-          RCLCPP_INFO(rclcpp::get_logger("MecanumSystem"),
-                      "Servo positions: pan=%.3f rad, tilt=%.3f rad",
-                      servo_state_.pan_position,
-                      servo_state_.tilt_position);
-          servo_log_counter = 0; // 🔄 Reset del contatore
-        }
+        //static int servo_log_counter = 0;
+        //if (++servo_log_counter >= 10)
+        //{
+        //  RCLCPP_INFO(rclcpp::get_logger("MecanumSystem"),
+        //              "Servo positions: pan=%.3f rad, tilt=%.3f rad",
+        //              servo_state_.pan_position,
+        //              servo_state_.tilt_position);
+        //  servo_log_counter = 0; // 🔄 Reset del contatore
+        //}
       }
       catch (const std::exception &e)
       {
@@ -706,12 +708,25 @@ namespace mecanum_hardware
         }
 
         // Estrai i valori
-        float voltage = std::stof(fields[1]);
-        int percent = std::stoi(fields[2]);
+        float voltage = std::stof(fields[1]);         // Converte la tensione da stringa a float
+        float percent = std::stof(fields[2]);        // Converte la percentuale da stringa a double
 
         // Aggiorna lo stato della batteria
-        battery_state_.voltage = static_cast<double>(voltage);
-        battery_state_.percentage = static_cast<double>(percent) / 100.0;
+        battery_state_.voltage = static_cast<double>(voltage);   // Cast esplicito a double
+        battery_state_.percentage = static_cast<double>(voltage); / 100.0;  // Normalizza tra 0.0 e 1.0
+
+
+        static int bat_log_counter = 0;
+        if (++bat_log_counter >= 10)
+        {
+          RCLCPP_INFO(rclcpp::get_logger("BatteryDebug"), "Updating percentage to %.3f @ %p", battery_state_.percentage, &battery_state_.percentage);
+
+          RCLCPP_INFO(rclcpp::get_logger("MecanumSystem"),
+                      "Battery: voltage=%.3f V, percentage=%.3f",
+                      battery_state_.voltage,
+                      battery_state_.percentage);
+          bat_log_counter = 0; // 🔄 Reset del contatore
+        }
       }
       catch (const std::exception &e)
       {

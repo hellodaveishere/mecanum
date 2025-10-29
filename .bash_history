@@ -1,14 +1,4 @@
 ls
-cd
-ls
-ros2
-git rm -r --cached install/ build/ log/
-git commit -m "Ignora build/, install/ e log/"
-ls
-ls -al
-more .gitignore 
-git rm -r --cached install/ build/ log/
-ls
 ls install/
 git rm -r --cached .vscode .vscode-server .vscode-remote
 git commit -m "Ignora dati VS Code e VS Code Server"
@@ -466,3 +456,45 @@ sudo lsof -i :8000
 sudo lsof -i :8000
 sudo lsof -i :8000
 sudo lsof -i :8000
+sudo lsof -i :9090
+sudo lsof -i :9090
+sudo lsof -i :9090
+clear
+sudo lsof -i :9090
+clear
+sudo lsof -i :9090 |more
+ps aux | grep rosbridge
+sudo lsof -i :9090
+sudo lsof -i :9091
+sudo lsof -i :9090
+ps -p 3642 -o args
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+ros2 launch mecanum_base bringup.launch.py 
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+clear
+ros2 launch mecanum_base bringup.launch.py 
+clear
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+clear
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+ros2 launch mecanum_base bringup.launch.py 
+colcon build --packages-select mecanum_base --symlink-install
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+colcon build --packages-select mecanum_base --symlink-install
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+ros2 launch mecanum_base bringup.launch.py 
+ros2 launch mecanum_base bringup.launch.py 

@@ -14,7 +14,7 @@ def generate_launch_description():
     # 🔧 Argomenti configurabili
     # =========================
     declare_rviz_arg = DeclareLaunchArgument(
-        'rviz', default_value='true',
+        'rviz', default_value='false',
         description='Abilita o disabilita RViz alla partenza'
     )
     rviz_enabled = LaunchConfiguration('rviz')
@@ -79,6 +79,17 @@ def generate_launch_description():
         cwd=webserver_path,
         output='screen'
     )
+    
+    # =========================
+    # Nodo che limitare la frequenza (specificata in Hz) dei messaggi pubblicati su un topic ROS 2 
+    # per evitare saturazione del WebSocket usato da rosbridge.
+    # =========================
+    throttle_node = Node(
+            package='topic_tools',
+            executable='throttle',
+            name='throttle_node',
+            arguments=['messages', '/battery_state_broadcaster/battery_state', '0.2', '/battery_state_broadcaster/battery_state_throttled']
+        )
 
     # =========================
     # 🎛️ Spawner dei controller e broadcaster
@@ -223,5 +234,6 @@ def generate_launch_description():
         rviz_node,
         # sllidar_launch,  # 👉 decommenta se vuoi avviare anche il LiDAR
         rosbridge_server_node,
-        webserver_node
+        webserver_node,
+        throttle_node
     ])

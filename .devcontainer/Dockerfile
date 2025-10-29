@@ -28,6 +28,7 @@ RUN apt-get update && apt-get install -y \
     ros-jazzy-robot-localization \
     ros-jazzy-rosbridge-server \
     ros-jazzy-battery-state-broadcaster \
+    ros-jazzy-topic-tools \
     nodejs \
     npm \
     && rm -rf /var/lib/apt/lists/*
