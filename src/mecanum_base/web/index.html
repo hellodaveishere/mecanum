@@ -1,36 +1,71 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Joystick ROS2</title>
   <link rel="stylesheet" href="css/style.css" />
+  
   <script src="js/roslib.min.js"></script>
   <script src="js/nipplejs.min.js"></script>
+  <style>
+    /* Stile per l'indicatore di batteria */
+    #battery-container {
+      margin-top: 15px;
+      width: 300px;
+      height: 25px;
+      background-color: #ddd;
+      border-radius: 5px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    #battery-bar {
+      height: 100%;
+      width: 0%;
+      background-color: green;
+      transition: width 0.3s ease;
+    }
+
+    #battery-text {
+      margin-top: 5px;
+      font-weight: bold;
+    }
+  </style>
 </head>
+
 <body>
   <h1>Controllo Robot Mecanum</h1>
 
-  <!-- Stato ROS2 con testo visibile -->
+  <!-- Stato ROS2 -->
   <div id="status-indicator">
     Stato ROS2: <span id="ros-status" class="disconnected">Non connesso</span>
   </div>
 
-  <!-- Visualizzazione velocità con unità -->
+  <!-- Velocità -->
   <div id="velocity-display">
     Velocità lineare: <span id="linear-speed">0.00</span> m/s
     &nbsp;|&nbsp;
     Velocità angolare: <span id="angular-speed">0.00</span> rad/s
   </div>
 
-  <!-- Pannello configurazione -->
+  <!-- Configurazione velocità -->
   <div id="config-panel">
     <label for="max-speed">Velocità massima (m/s):</label>
     <input type="range" id="max-speed" min="0.1" max="2.0" step="0.1" />
     <span id="max-speed-value">1.0</span>
   </div>
 
-  <!-- Zona joystick -->
+  <!-- Indicatore di carica batteria -->
+  <div id="battery-display">
+    <div id="battery-text">Stato batteria: --%</div>
+    <div id="battery-container">
+      <div id="battery-bar"></div>
+    </div>
+  </div>
+
+  <!-- Joystick -->
   <div class="joystick-wrapper">
     <div id="joystick-zone"></div>
   </div>
@@ -43,8 +78,10 @@
     const angularDisplay = document.getElementById('angular-speed');
     const maxSpeedSlider = document.getElementById('max-speed');
     const maxSpeedValue = document.getElementById('max-speed-value');
+    const batteryText = document.getElementById('battery-text');
+    const batteryBar = document.getElementById('battery-bar');
 
-    // Carica velocità salvata o imposta default
+    // Imposta velocità massima iniziale
     let maxSpeed = parseFloat(localStorage.getItem('maxSpeed')) || 1.0;
     maxSpeedSlider.value = maxSpeed.toFixed(1);
     maxSpeedValue.textContent = maxSpeed.toFixed(1);
@@ -55,7 +92,7 @@
       localStorage.setItem('maxSpeed', maxSpeed.toFixed(1));
     });
 
-    // Aggiorna stato ROS2 con testo visibile
+    // Stato ROS2
     ros.on('connection', () => {
       rosStatus.textContent = 'Connesso';
       rosStatus.className = 'connected';
@@ -71,12 +108,43 @@
       rosStatus.className = 'disconnected';
     });
 
+    // Publisher per /cmd_vel
     const cmdVel = new ROSLIB.Topic({
       ros: ros,
       name: '/cmd_vel',
       messageType: 'geometry_msgs/Twist'
     });
 
+    // Subscriber per /battery_state_throttled
+    const batteryTopic = new ROSLIB.Topic({
+      ros: ros,
+      name: 'battery_state_broadcaster/battery_state_throttled',
+      messageType: 'sensor_msgs/BatteryState'
+    });
+
+    //batteryTopic.subscribe((message) => {
+    //  console.log("Battery message received:", message);
+    //});
+
+
+    batteryTopic.subscribe((message) => {
+      const voltage = message.voltage;
+      const percentage = Math.min((voltage / 12.6) * 100, 100); // Normalizza su LiPo 3S
+
+      batteryText.textContent = `Stato batteria: ${percentage.toFixed(1)}%`;
+      batteryBar.style.width = `${percentage}%`;
+
+      // Cambia colore in base al livello
+      if (percentage > 60) {
+        batteryBar.style.backgroundColor = 'green';
+      } else if (percentage > 30) {
+        batteryBar.style.backgroundColor = 'orange';
+      } else {
+        batteryBar.style.backgroundColor = 'red';
+      }
+    });
+
+    // Joystick
     const joystick = nipplejs.create({
       zone: document.getElementById('joystick-zone'),
       mode: 'static',
@@ -114,4 +182,5 @@
     });
   </script>
 </body>
+
 </html>

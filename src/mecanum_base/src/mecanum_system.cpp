@@ -488,7 +488,7 @@ namespace mecanum_hardware
     }
 
     // 3.2) Log della riga grezza ricevuta (utile per diagnosi di framing/formato).
-    RCLCPP_INFO(this->get_logger(),
+    RCLCPP_DEBUG(this->get_logger(),
                  "Linea seriale ricevuta: %s", line->c_str());
 
     // 4) Dispatch in base al prefisso del pacchetto.
@@ -713,20 +713,20 @@ namespace mecanum_hardware
 
         // Aggiorna lo stato della batteria
         battery_state_.voltage = static_cast<double>(voltage);   // Cast esplicito a double
-        battery_state_.percentage = static_cast<double>(voltage); / 100.0;  // Normalizza tra 0.0 e 1.0
+        battery_state_.percentage = static_cast<double>(voltage) / 100.0;  // Normalizza tra 0.0 e 1.0
 
 
-        static int bat_log_counter = 0;
-        if (++bat_log_counter >= 10)
-        {
-          RCLCPP_INFO(rclcpp::get_logger("BatteryDebug"), "Updating percentage to %.3f @ %p", battery_state_.percentage, &battery_state_.percentage);
+        //static int bat_log_counter = 0;
+        //if (++bat_log_counter >= 10)
+        //{
+          //RCLCPP_INFO(rclcpp::get_logger("BatteryDebug"), "Updating percentage to %.3f @ %p", battery_state_.percentage, &battery_state_.percentage);
 
-          RCLCPP_INFO(rclcpp::get_logger("MecanumSystem"),
-                      "Battery: voltage=%.3f V, percentage=%.3f",
-                      battery_state_.voltage,
-                      battery_state_.percentage);
-          bat_log_counter = 0; // 🔄 Reset del contatore
-        }
+          //RCLCPP_INFO(rclcpp::get_logger("MecanumSystem"),
+          //            "Battery: voltage=%.3f V, percentage=%.3f",
+          //            battery_state_.voltage,
+          //            battery_state_.percentage);
+          //bat_log_counter = 0; // 🔄 Reset del contatore
+        //}
       }
       catch (const std::exception &e)
       {
