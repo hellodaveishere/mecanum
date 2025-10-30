@@ -1,62 +1,65 @@
 <!DOCTYPE html>
 <html lang="it">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Joystick ROS2</title>
+  <title>Controllo Robot e Telecamera</title>
+
+  <!-- Foglio di stile esterno -->
   <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Librerie ROS e Joystick -->
   <script src="js/roslib.min.js"></script>
   <script src="js/nipplejs.min.js"></script>
-  <style>
-    canvas {
-      border: 1px solid #ccc;
-      margin-top: 15px;
-    }
-
-    #battery-text {
-      margin-top: 10px;
-      font-weight: bold;
-    }
-  </style>
 </head>
 
 <body>
-  <h1>Controllo Robot Mecanum</h1>
+  <h1>Controllo Robot Mecanum + Telecamera</h1>
 
-  <!-- Stato ROS2 -->
+  <!-- Stato connessione ROS -->
   <div id="status-indicator">
     Stato ROS2: <span id="ros-status" class="disconnected">Non connesso</span>
   </div>
 
-  <!-- Velocità -->
+  <!-- Visualizzazione velocità -->
   <div id="velocity-display">
-    Velocità lineare: <span id="linear-speed">0.00</span> m/s
-    &nbsp;|&nbsp;
+    Velocità lineare: <span id="linear-speed">0.00</span> m/s |
     Velocità angolare: <span id="angular-speed">0.00</span> rad/s
   </div>
 
-  <!-- Configurazione velocità -->
+  <!-- Configurazione velocità massima -->
   <div id="config-panel">
     <label for="max-speed">Velocità massima (m/s):</label>
     <input type="range" id="max-speed" min="0.1" max="2.0" step="0.1" />
     <span id="max-speed-value">1.0</span>
   </div>
 
-  <!-- Stato batteria (solo testo) -->
+  <!-- Stato batteria -->
   <div id="battery-text">Stato batteria: --%</div>
 
-  <!-- Canvas per immagini -->
+  <!-- Anteprima immagine da ROS -->
   <canvas id="image-canvas" width="640" height="480"></canvas>
 
-  <!-- Joystick -->
-  <div class="joystick-wrapper">
-    <div id="joystick-zone"></div>
+  <!-- Contenitore joystick: telecamera a sinistra, robot a destra -->
+  <div class="joystick-container">
+    <!-- Joystick Telecamera -->
+    <div class="joystick-wrapper">
+      <h3>Controllo Telecamera</h3>
+      <div id="camera-joystick-zone"></div>
+    </div>
+
+    <!-- Joystick Robot -->
+    <div class="joystick-wrapper">
+      <h3>Controllo Robot</h3>
+      <div id="joystick-zone"></div>
+    </div>
   </div>
 
   <script>
+    // Connessione a ROS2 tramite rosbridge
     const ros = new ROSLIB.Ros({ url: 'ws://localhost:9091' });
 
+    // Elementi DOM
     const rosStatus = document.getElementById('ros-status');
     const linearDisplay = document.getElementById('linear-speed');
     const angularDisplay = document.getElementById('angular-speed');
@@ -64,16 +67,19 @@
     const maxSpeedValue = document.getElementById('max-speed-value');
     const batteryText = document.getElementById('battery-text');
 
+    // Imposta velocità massima iniziale
     let maxSpeed = parseFloat(localStorage.getItem('maxSpeed')) || 1.0;
     maxSpeedSlider.value = maxSpeed.toFixed(1);
     maxSpeedValue.textContent = maxSpeed.toFixed(1);
 
+    // Aggiorna velocità massima da slider
     maxSpeedSlider.addEventListener('input', () => {
       maxSpeed = parseFloat(maxSpeedSlider.value);
       maxSpeedValue.textContent = maxSpeed.toFixed(1);
       localStorage.setItem('maxSpeed', maxSpeed.toFixed(1));
     });
 
+    // Stato connessione ROS
     ros.on('connection', () => {
       rosStatus.textContent = 'Connesso';
       rosStatus.className = 'connected';
@@ -89,12 +95,21 @@
       rosStatus.className = 'disconnected';
     });
 
+    // Publisher per movimento robot
     const cmdVel = new ROSLIB.Topic({
       ros: ros,
       name: '/cmd_vel',
       messageType: 'geometry_msgs/Twist'
     });
 
+    // Publisher per servo pan/tilt (JointGroupPositionController)
+    const servoPublisher = new ROSLIB.Topic({
+      ros: ros,
+      name: '/servo_position_controller/commands',
+      messageType: 'std_msgs/Float64MultiArray'
+    });
+
+    // Stato batteria
     const batteryTopic = new ROSLIB.Topic({
       ros: ros,
       name: 'battery_state_broadcaster/battery_state_throttled',
@@ -107,6 +122,7 @@
       batteryText.textContent = `Stato batteria: ${percentage.toFixed(1)}%`;
     });
 
+    // Immagine da ROS (compressed)
     const imageTopic = new ROSLIB.Topic({
       ros: ros,
       name: '/image_raw/compressed',
@@ -121,6 +137,7 @@
       img.src = 'data:image/jpeg;base64,' + message.data;
     });
 
+    // Joystick per movimento robot
     const joystick = nipplejs.create({
       zone: document.getElementById('joystick-zone'),
       mode: 'static',
@@ -135,7 +152,8 @@
       const maxDistance = joystick.options.size / 2;
       const speedFactor = Math.min(data.distance / maxDistance, 1);
 
-      const linearX = data.vector.y * -maxSpeed * speedFactor;
+      // Inverti Y per ottenere movimento avanti quando si spinge in alto
+      const linearX = data.vector.y * maxSpeed * speedFactor;
       const angularZ = data.vector.x * -maxSpeed * speedFactor;
 
       linearDisplay.textContent = linearX.toFixed(2);
@@ -156,7 +174,39 @@
         angular: { x: 0, y: 0, z: 0 }
       }));
     });
+
+    // Joystick per controllo telecamera
+    const cameraJoystick = nipplejs.create({
+      zone: document.getElementById('camera-joystick-zone'),
+      mode: 'static',
+      position: { left: '50%', top: '50%' },
+      color: 'red',
+      size: 150
+    });
+
+    // Funzione per inviare comandi ai servo
+    function sendServoCommand(pan, tilt) {
+      const msg = new ROSLIB.Message({
+        data: [pan, tilt] // Ordine: [servo_pan_joint, servo_tilt_joint]
+      });
+      servoPublisher.publish(msg);
+    }
+
+    cameraJoystick.on('move', (evt, data) => {
+      if (!data || !data.vector || !data.distance) return;
+
+      const maxDistance = cameraJoystick.options.size / 2;
+      const factor = Math.min(data.distance / maxDistance, 1);
+
+      const pan = data.vector.x * factor;
+      const tilt = data.vector.y * factor;
+
+      sendServoCommand(pan, tilt);
+    });
+
+    cameraJoystick.on('end', () => {
+      sendServoCommand(0.0, 0.0);
+    });
   </script>
 </body>
-
 </html>

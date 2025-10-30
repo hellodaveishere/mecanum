@@ -830,3 +830,1108 @@
 [ros2_control_node-2] [INFO] [1761820485.610722728] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:759 Scartati:0 Err:0 Coda↑:0 ↓:0
 [ros2_control_node-2] [WARN] [1761820490.478006831] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 29.313414 ms (missed cycles : 2).
 [ros2_control_node-2] [WARN] [1761820490.629169421] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: ,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [WARN] [1761820493.143884780] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 35.213156 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761820494.237543174] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 28.868994 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761820495.570420204] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:770 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820495.651097659] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.406399 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761820505.554953293] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:781 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820514.630657284] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.984655 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761820515.648840183] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:792 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820519.311018182] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 62.342999 ms (missed cycles : 4).
+[ros2_control_node-2] [WARN] [1761820520.509433887] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 40.747671 ms (missed cycles : 3).
+[ros2_control_node-2] [WARN] [1761820522.268714717] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.043153 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761820525.369216812] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 00,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [INFO] [1761820525.608856803] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:803 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820534.021301774] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 52.629065 ms (missed cycles : 3).
+[ros2_control_node-2] [INFO] [1761820535.709079526] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:814 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820538.852304053] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.619993 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761820545.628910987] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:824 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820555.628972922] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:835 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820559.780473954] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 51.787923 ms (missed cycles : 3).
+[ros2_control_node-2] [WARN] [1761820564.596080465] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 87.407659 ms (missed cycles : 5).
+[ros2_control_node-2] [INFO] [1761820565.649471590] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:846 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820570.348802290] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 0.0000,0.0000
+[ros2_control_node-2] [WARN] [1761820575.448857663] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 0,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [INFO] [1761820575.628882996] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:857 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820579.548872167] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 00,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [INFO] [1761820585.788879840] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:867 Scartati:0 Err:0 Coda↑:1 ↓:0
+[ros2_control_node-2] [WARN] [1761820590.273276381] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.603202 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761820594.868986059] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: ,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [WARN] [1761820595.397004479] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 28.331453 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761820595.689685387] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:878 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820600.583440566] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 34.766977 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761820605.688883584] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:889 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820615.308847255] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: ,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [INFO] [1761820615.708894395] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:900 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820625.729349607] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:911 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820635.848855997] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:921 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820640.751328232] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.112 FR=-0.267 RL=0.112 RR=-0.267 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820640.791789636] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.087 FR=-0.352 RL=0.087 RR=-0.352 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820640.891287226] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-0.228 FR=-0.788 RL=-0.228 RR=-0.788 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820640.932035198] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-0.987 FR=-1.720 RL=-0.987 RR=-1.720 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820640.977615519] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-2.516 FR=-3.526 RL=-2.516 RR=-3.526 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820641.012323499] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-2.872 FR=-3.936 RL=-2.872 RR=-3.936 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820641.451307591] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820645.768876201] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:932 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820648.009164073] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [INFO] [1761820655.768867408] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:943 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820665.788863193] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:954 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820675.788877428] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:965 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820685.969979852] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:975 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820686.932350015] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-1.487 FR=-4.120 RL=-1.487 RR=-4.120 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820687.011334416] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-1.478 FR=-4.246 RL=-1.478 RR=-4.246 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820687.051678156] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-1.359 FR=-5.336 RL=-1.359 RR=-5.336 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820687.113374502] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-0.855 FR=-7.752 RL=-0.855 RR=-7.752 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820687.152964608] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-0.601 FR=-8.661 RL=-0.601 RR=-8.661 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820687.174396168] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-0.426 FR=-9.231 RL=-0.426 RR=-9.231 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820687.750961888] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-0.486 FR=-9.039 RL=-0.486 RR=-9.039 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820687.792328578] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-0.855 FR=-7.752 RL=-0.855 RR=-7.752 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820687.838621007] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-1.356 FR=-6.628 RL=-1.356 RR=-6.628 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [WARN] [1761820687.876786702] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 28.109398 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761820687.911462208] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-1.797 FR=-4.372 RL=-1.797 RR=-4.372 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820687.973254614] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-1.766 FR=-3.043 RL=-1.766 RR=-3.043 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820687.991382489] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-1.720 FR=-2.460 RL=-1.720 RR=-2.460 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820688.033649136] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-1.711 FR=-2.323 RL=-1.711 RR=-2.323 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820688.112440355] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-1.708 FR=-2.260 RL=-1.708 RR=-2.260 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820688.133283421] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-1.707 FR=-2.092 RL=-1.707 RR=-2.092 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820688.190335512] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-1.745 FR=-1.883 RL=-1.745 RR=-1.883 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820688.212345355] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-1.852 FR=-1.761 RL=-1.852 RR=-1.761 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820688.233778277] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-1.998 FR=-1.716 RL=-1.998 RR=-1.716 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820688.271416674] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-2.703 FR=-1.870 RL=-2.703 RR=-1.870 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820688.290336615] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-2.947 FR=-1.890 RL=-2.947 RR=-1.890 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820688.354358499] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-3.034 FR=-1.897 RL=-3.034 RR=-1.897 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820688.390274693] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-3.316 FR=-1.918 RL=-3.316 RR=-1.918 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820688.431980613] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-3.416 FR=-1.925 RL=-3.416 RR=-1.925 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820688.613333169] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [WARN] [1761820695.729465813] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 40.791181 ms (missed cycles : 3).
+[ros2_control_node-2] [INFO] [1761820695.851375181] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:986 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820701.372324483] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.652561 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761820705.868905593] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:997 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820710.434622588] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 25.950900 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761820711.444489755] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 115.818279 ms (missed cycles : 6).
+[ros2_control_node-2] [WARN] [1761820712.657217570] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 28.545642 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761820714.096600869] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 27.927121 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761820715.568798518] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.124392 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761820715.871834535] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1008 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820716.690279606] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.596918 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761820718.065153512] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 36.478803 ms (missed cycles : 2).
+[ekf_node-5] [ERROR] [1761820718.248024750] [ekf_filter_node]: Failed to meet update rate! Took 0.023321886000000000005seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
+[ros2_control_node-2] [WARN] [1761820719.474370462] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 25.694507 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761820721.241031864] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 32.358318 ms (missed cycles : 2).
+[ekf_node-5] [ERROR] [1761820721.369998397] [ekf_filter_node]: Failed to meet update rate! Took 0.031283663000000003218seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
+[ros2_control_node-2] [WARN] [1761820722.280543499] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 31.872195 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761820723.353689128] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 25.001193 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761820724.525525705] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 36.851832 ms (missed cycles : 2).
+[ekf_node-5] [ERROR] [1761820725.724762125] [ekf_filter_node]: Failed to meet update rate! Took 0.025153791000000001732seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
+[ros2_control_node-2] [WARN] [1761820725.909362004] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.676530 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761820725.929060583] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1019 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820728.239703959] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 31.032069 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761820734.436381977] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 27.707862 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761820735.889435924] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1029 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820737.749172050] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.473850 ms (missed cycles : 2).
+[ekf_node-5] [ERROR] [1761820743.463308273] [ekf_filter_node]: Failed to meet update rate! Took 0.045317205999999998767seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
+[ros2_control_node-2] [WARN] [1761820743.495286787] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 26.611227 ms (missed cycles : 2).
+[ekf_node-5] [ERROR] [1761820744.963695860] [ekf_filter_node]: Failed to meet update rate! Took 0.020230852000000000557seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
+[ros2_control_node-2] [WARN] [1761820744.980993122] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 32.321183 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761820745.889268093] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1040 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820746.222512007] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 33.837234 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761820749.700356156] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 51.683282 ms (missed cycles : 3).
+[ros2_control_node-2] [WARN] [1761820751.032258679] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.584061 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761820752.814343080] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 25.671241 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761820754.897311610] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 28.640048 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761820755.969137405] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1051 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820761.533626304] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: ,0.0000,0.0000
+[ros2_control_node-2] [INFO] [1761820765.969377669] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1062 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820766.050542780] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.870564 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761820768.950312225] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.639900 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761820776.008858092] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1073 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820785.971847335] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1083 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820788.392141189] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.453550 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761820791.554862518] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 26.187119 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761820795.968939160] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1094 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820805.988859948] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1105 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820810.678059334] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 29.384401 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761820816.008877692] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1116 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820816.789400308] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: .0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [WARN] [1761820817.808833108] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: .0000,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [INFO] [1761820826.088890699] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1127 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820834.170847121] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.174582 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761820836.069284953] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1137 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820846.068897997] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1148 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820856.068878364] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1159 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820866.088960559] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1170 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820876.088897802] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1180 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820886.109202818] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1191 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820896.148864279] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1202 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820897.451787797] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.099480 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761820900.628870761] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [INFO] [1761820906.149944200] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1213 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820916.111737536] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 43.045859 ms (missed cycles : 3).
+[ros2_control_node-2] [INFO] [1761820916.168889744] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1224 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820918.175197810] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 26.519591 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761820919.470081720] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.396343 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761820920.928921162] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.247731 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761820922.954888462] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 26.210834 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761820926.168902187] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1234 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820926.801160614] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 32.489088 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761820936.148917603] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1245 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820946.169808705] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1256 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820956.169511084] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1267 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820960.831775467] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.103566 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761820961.008959508] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [INFO] [1761820966.248860579] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1278 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820976.228923421] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1288 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820980.851967308] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.294138 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761820983.713597785] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.913937 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761820984.812515138] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.830827 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761820986.209527186] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1299 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820987.813481039] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.808048 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761820990.732314860] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.641316 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761820991.749803166] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.130706 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761820994.396393580] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 27.721874 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761820996.208868676] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1310 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761821006.229024551] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1321 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821006.868833295] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.158798 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821016.249339905] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1331 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761821026.249249884] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1342 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821028.570218022] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 41.546160 ms (missed cycles : 3).
+[ros2_control_node-2] [WARN] [1761821030.501025061] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 52.353189 ms (missed cycles : 3).
+[ros2_control_node-2] [WARN] [1761821032.398137893] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 29.454302 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821033.885860137] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 37.186734 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821035.580800211] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 52.123157 ms (missed cycles : 3).
+[ros2_control_node-2] [INFO] [1761821036.288918650] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1353 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821036.613221029] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.546765 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821037.897308176] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 48.636943 ms (missed cycles : 3).
+[ros2_control_node-2] [WARN] [1761821039.860870763] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 32.196344 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821046.288953580] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1364 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821055.148147316] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 39.474715 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821056.289538826] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1375 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821057.452331932] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.658706 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821062.796583199] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 47.896609 ms (missed cycles : 3).
+[ros2_control_node-2] [WARN] [1761821064.087874597] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 39.202451 ms (missed cycles : 2).
+[ekf_node-5] [ERROR] [1761821064.766955462] [ekf_filter_node]: Failed to meet update rate! Took 0.047768299000000000176seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
+[ekf_node-5] [ERROR] [1761821064.885980295] [ekf_filter_node]: Failed to meet update rate! Took 0.026789297999999999583seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
+[ros2_control_node-2] [INFO] [1761821066.288889673] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1385 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821071.591908733] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.220402 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821076.308845683] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1396 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761821086.328860618] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1407 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821089.416396403] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 27.723447 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821095.510674149] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.002720 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821096.309372804] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1418 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761821106.388891557] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1429 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821113.749825601] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 41.154006 ms (missed cycles : 3).
+[ros2_control_node-2] [INFO] [1761821116.369331252] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1439 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821116.532447018] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.754307 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821124.274745180] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 46.073297 ms (missed cycles : 3).
+[ros2_control_node-2] [INFO] [1761821126.389316649] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1450 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821134.093663842] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.991458 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821136.389131689] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1461 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821136.973563809] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.890945 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821138.226221609] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 37.549898 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821142.859627237] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 50.955483 ms (missed cycles : 3).
+[ros2_control_node-2] [INFO] [1761821146.408903606] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1472 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821148.254383070] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 25.705194 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821154.828767166] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.087825 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821156.508874586] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1482 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821163.933331975] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 44.658575 ms (missed cycles : 3).
+[ros2_control_node-2] [INFO] [1761821166.449060622] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1493 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821166.888962243] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.277979 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821167.969679276] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.007045 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821176.468948075] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1504 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821177.817797315] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 29.123985 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821186.490540582] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1515 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821193.155521045] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 66.850567 ms (missed cycles : 4).
+[ros2_control_node-2] [WARN] [1761821194.490660831] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.928925 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821196.489601353] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1526 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761821206.671253354] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1536 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821206.792993616] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 44.321402 ms (missed cycles : 3).
+[ros2_control_node-2] [WARN] [1761821214.161383552] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 32.711004 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821216.528877272] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1547 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821220.294602066] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 45.928792 ms (missed cycles : 3).
+[ros2_control_node-2] [WARN] [1761821224.476632328] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 27.959917 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821226.528896888] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1558 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761821236.530943394] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1569 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821246.263239983] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 34.566951 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821246.548959410] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1580 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821253.618285310] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 29.612578 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821256.569388176] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1590 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821256.971243704] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.571404 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821258.977974819] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 49.282611 ms (missed cycles : 3).
+[ros2_control_node-2] [WARN] [1761821261.472037207] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 43.357404 ms (missed cycles : 3).
+[ros2_control_node-2] [INFO] [1761821266.568925052] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1601 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761821276.588866975] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1612 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821278.029566490] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.894169 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821281.081163943] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 32.491933 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821283.268885289] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: .0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [INFO] [1761821286.568819065] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1623 Scartati:0
+[ros2_control_node-2] [WARN] [1761821286.588829022] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto:  Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761821296.649018290] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1634 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821297.588817276] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: .0000,0.0000
+[ros2_control_node-2] [WARN] [1761821297.822072192] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 33.398455 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821300.889408288] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 40.723011 ms (missed cycles : 3).
+[ros2_control_node-2] [WARN] [1761821301.978997039] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 30.325059 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821303.362535056] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 33.862086 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821304.529449493] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.777377 ms (missed cycles : 2).
+[ekf_node-5] [ERROR] [1761821304.881314543] [ekf_filter_node]: Failed to meet update rate! Took 0.023253039999999999127seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
+[ros2_control_node-2] [INFO] [1761821306.609343718] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1644 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821313.046229689] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 37.553720 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821314.694230026] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 25.557100 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821315.761894882] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 53.223151 ms (missed cycles : 3).
+[ros2_control_node-2] [INFO] [1761821316.749655875] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1655 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821317.789233395] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.560192 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821318.808334320] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 59.661713 ms (missed cycles : 3).
+[ros2_control_node-2] [WARN] [1761821321.153016510] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.337201 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821322.211031545] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 62.360201 ms (missed cycles : 4).
+[ros2_control_node-2] [WARN] [1761821323.316312608] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 27.640524 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821325.209309670] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 0,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [WARN] [1761821325.691437982] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.751335 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821326.650713672] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1666 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821327.175045860] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 26.374358 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821328.189805469] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.133180 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821329.337687355] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 29.011707 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821330.446904102] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 38.207605 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821331.694724581] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 25.997726 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821332.811991059] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.318323 ms (missed cycles : 2).
+[ekf_node-5] [ERROR] [1761821334.083506828] [ekf_filter_node]: Failed to meet update rate! Took 0.02527159400000000139seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
+[ros2_control_node-2] [WARN] [1761821335.389497262] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.822665 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821335.449982531] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [INFO] [1761821336.653268734] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1677 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821336.829324076] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.650010 ms (missed cycles : 2).
+[ekf_node-5] [ERROR] [1761821337.089325488] [ekf_filter_node]: Failed to meet update rate! Took 0.030828661999999999732seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
+[ros2_control_node-2] [WARN] [1761821338.131879169] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.206688 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821339.641483996] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 32.809045 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821341.500349354] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 31.677415 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821343.032930890] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.256470 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821345.679560436] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 30.887950 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821346.770847722] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1687 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821346.852793748] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.115240 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821348.760237716] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 31.565438 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821349.774400923] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 25.728675 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821351.550018142] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.327589 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821352.753269846] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 44.595461 ms (missed cycles : 3).
+[ros2_control_node-2] [WARN] [1761821354.832729004] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.055907 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821356.210309824] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.637768 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821356.689726520] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1698 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ekf_node-5] [ERROR] [1761821356.926251033] [ekf_filter_node]: Failed to meet update rate! Took 0.039494685000000001596seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
+[ros2_control_node-2] [WARN] [1761821357.240446061] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 31.774320 ms (missed cycles : 2).
+[ekf_node-5] [ERROR] [1761821357.520633217] [ekf_filter_node]: Failed to meet update rate! Took 0.020522825000000001483seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
+[ros2_control_node-2] [WARN] [1761821358.569639829] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.955805 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821360.369415878] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.735893 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821361.791445350] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.773591 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821362.810749802] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.066604 ms (missed cycles : 2).
+[ekf_node-5] [ERROR] [1761821363.108282700] [ekf_filter_node]: Failed to meet update rate! Took 0.023129046999999999801seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
+[ekf_node-5] [ERROR] [1761821363.702872184] [ekf_filter_node]: Failed to meet update rate! Took 0.023912591999999999876seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
+[ros2_control_node-2] [WARN] [1761821363.996598690] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 27.909664 ms (missed cycles : 2).
+[ekf_node-5] [ERROR] [1761821364.337827960] [ekf_filter_node]: Failed to meet update rate! Took 0.029335196000000000882seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
+[ekf_node-5] [ERROR] [1761821365.103752508] [ekf_filter_node]: Failed to meet update rate! Took 0.021184330000000001215seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
+[ros2_control_node-2] [WARN] [1761821366.571295928] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 42.466843 ms (missed cycles : 3).
+[ros2_control_node-2] [INFO] [1761821366.689488867] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1709 
+[ros2_control_node-2] [WARN] [1761821366.708925108] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821368.636840561] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 28.169073 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821370.222976604] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 34.294373 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821371.835589569] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 106.917067 ms (missed cycles : 6).
+[ros2_control_node-2] [WARN] [1761821373.232432724] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.742959 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821374.531734339] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.062323 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821375.694011659] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 25.338756 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821376.711493314] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1720 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821376.728681651] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.009928 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821378.452490912] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.803470 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821380.289804535] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.132702 ms (missed cycles : 2).
+[ekf_node-5] [ERROR] [1761821381.260962338] [ekf_filter_node]: Failed to meet update rate! Took 0.022398165000000001129seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
+[ros2_control_node-2] [WARN] [1761821381.512276508] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.603779 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821382.621329880] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 52.657927 ms (missed cycles : 3).
+[ros2_control_node-2] [WARN] [1761821384.052141441] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.465576 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821385.057139564] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 48.466461 ms (missed cycles : 3).
+[ros2_control_node-2] [WARN] [1761821386.668961225] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 40.252592 ms (missed cycles : 3).
+[ros2_control_node-2] [INFO] [1761821386.693445016] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1731 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ekf_node-5] [ERROR] [1761821387.002345842] [ekf_filter_node]: Failed to meet update rate! Took 0.038709788000000001917seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
+[ros2_control_node-2] [WARN] [1761821388.088698732] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.027203 ms (missed cycles : 2).
+[ekf_node-5] [ERROR] [1761821388.666674911] [ekf_filter_node]: Failed to meet update rate! Took 0.030252773999999999638seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
+[ros2_control_node-2] [WARN] [1761821389.276270008] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 27.598169 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821391.194092821] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 25.417900 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821393.651864286] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.189179 ms (missed cycles : 2).
+[ekf_node-5] [ERROR] [1761821393.653620771] [ekf_filter_node]: Failed to meet update rate! Took 0.073870001000000004576seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
+[ros2_control_node-2] [WARN] [1761821395.689685395] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.012489 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821396.848914540] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1741 Scartati:0 Err:0 Coda↑:1 ↓:0
+[ros2_control_node-2] [WARN] [1761821398.471580907] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.908147 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821401.851376743] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.703351 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821404.890225829] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.553619 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821406.769681457] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1752 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821407.498118020] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 29.445093 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821408.931132712] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.460123 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821410.249000323] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.302454 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821412.273663531] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.965577 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821415.009771116] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.099977 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821416.285667459] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 36.980661 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821416.770849512] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1763 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821419.249601159] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.914921 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821422.775410692] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 66.738340 ms (missed cycles : 4).
+[ros2_control_node-2] [INFO] [1761821426.789166552] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1774 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761821436.789936689] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1785 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761821446.968889662] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1795 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821455.028850161] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: ,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [INFO] [1761821456.829043231] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1806 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761821466.828881923] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1817 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761821476.829531119] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1828 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761821486.848896189] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1839 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821488.614079146] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 25.400666 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821496.848947920] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1849 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761821506.849335563] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1860 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761821516.908869592] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1871 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821526.816918436] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 68.245527 ms (missed cycles : 4).
+[ros2_control_node-2] [INFO] [1761821526.888903281] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1882 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821530.773328285] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.653609 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821536.968918209] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1893 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821537.116084512] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 47.412746 ms (missed cycles : 3).
+[ros2_control_node-2] [WARN] [1761821544.048854570] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 0,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [INFO] [1761821546.888920142] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1903 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821550.238656851] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 29.984799 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821552.228792905] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 000,0.0000,0.0000
+[ros2_control_node-2] [WARN] [1761821554.769274771] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.601050 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821556.909887899] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1914 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821557.801208422] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 32.535594 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821558.389411460] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [WARN] [1761821560.912259438] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.586502 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821566.908921621] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1925 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821574.131579539] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.907156 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821575.728977061] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [INFO] [1761821576.928942917] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1936 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821586.030339726] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.666884 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821587.088980427] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1946 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821587.392757684] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.085339 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821590.933609356] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.936552 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821595.004080842] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 35.407906 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821596.969347107] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1957 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821602.328851620] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 00,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [WARN] [1761821605.389089694] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 00,0.0000,0.0000
+[ros2_control_node-2] [INFO] [1761821606.949389768] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1968 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821612.683017454] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 34.336455 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821616.948880027] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1979 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821617.940637020] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 71.950423 ms (missed cycles : 4).
+[ros2_control_node-2] [INFO] [1761821626.988862648] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1990 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761821636.948856952] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2000 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761821646.969352157] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2011 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761821657.048910359] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2022 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ekf_node-5] [ERROR] [1761821662.824408737] [ekf_filter_node]: Failed to meet update rate! Took 0.026282185999999999049seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
+[ros2_control_node-2] [WARN] [1761821664.833830222] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 45.155512 ms (missed cycles : 3).
+[ros2_control_node-2] [INFO] [1761821667.048926163] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2033 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821670.948748640] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.060808 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821677.049886517] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2044 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821679.814891446] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 26.210961 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821681.896440614] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 27.766560 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821683.198106137] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 29.432674 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821684.420406698] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 71.717843 ms (missed cycles : 4).
+[ros2_control_node-2] [WARN] [1761821685.437933142] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 29.254006 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821687.070672641] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2054 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821687.091337432] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.662918 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821692.772323219] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.650583 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821697.068933726] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2065 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821703.556365882] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 27.674681 ms (missed cycles : 2).
+[ekf_node-5] [ERROR] [1761821707.122733875] [ekf_filter_node]: Failed to meet update rate! Took 0.02215459800000000104seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
+[ros2_control_node-2] [WARN] [1761821707.166470426] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 37.768536 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821707.174539352] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2076 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821712.190233239] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.561452 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821717.090012303] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2087 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821721.049736837] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.050586 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821727.169502223] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2098 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821736.357741171] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 28.992964 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821737.128881475] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2108 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821737.919753336] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 31.081672 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821742.170569274] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.893435 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821743.653587765] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.914746 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821745.918655508] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 29.983394 ms (missed cycles : 2).
+[ekf_node-5] [ERROR] [1761821746.491898620] [ekf_filter_node]: Failed to meet update rate! Took 0.033915124999999997357seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
+[ros2_control_node-2] [INFO] [1761821747.148847118] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2119 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821749.068362185] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 39.689496 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821755.429281446] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.608989 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821757.128967504] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2130 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821761.788860305] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: ,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [INFO] [1761821767.149496309] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2141 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821774.089391612] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 0,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [INFO] [1761821777.270297052] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2151 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821777.295719234] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 27.046954 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821780.229589136] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [WARN] [1761821782.291582169] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.892590 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821787.169339082] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2162 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821795.573411524] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [WARN] [1761821795.775867300] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 27.194179 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821797.188912575] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2173 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761821807.188870178] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2184 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761821817.208963791] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2195 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821820.173474272] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.801031 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821821.392541744] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.836108 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821822.590695418] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.023901 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821824.028869568] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.196126 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821827.208907621] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2205 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821827.355537889] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 26.865021 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821828.655173443] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 66.500232 ms (missed cycles : 4).
+[ros2_control_node-2] [WARN] [1761821832.113114505] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.421614 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821836.993312695] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.632421 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821837.209018189] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2216 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821839.548993232] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [WARN] [1761821843.410928257] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.255391 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821844.592977218] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.303875 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821847.209756029] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2227 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821848.775343947] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 26.671071 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821850.871439902] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.767471 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821853.850838872] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.157637 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821856.813780447] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 45.092868 ms (missed cycles : 3).
+[ros2_control_node-2] [INFO] [1761821857.248943787] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2238 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821858.429917843] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 41.233784 ms (missed cycles : 3).
+[ros2_control_node-2] [WARN] [1761821859.709705415] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.018533 ms (missed cycles : 2).
+[ekf_node-5] [ERROR] [1761821860.224772047] [ekf_filter_node]: Failed to meet update rate! Took 0.026610252000000000905seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
+[ros2_control_node-2] [INFO] [1761821867.349310712] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2249 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761821877.268960720] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2259 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761821887.288885660] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2270 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821889.271452012] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 42.779587 ms (missed cycles : 3).
+[ros2_control_node-2] [WARN] [1761821895.769704837] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.031326 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821897.289372720] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2281 Scartati:0 Err:0 Coda↑:0 ↓:0
+[rosbridge_websocket-6] [INFO] [1761821900.138054080] [rosbridge_websocket]: Client disconnected. 0 clients total.
+[rosbridge_websocket-6] [WARN] [1761821900.189608439] [rosbridge_websocket]: WebSocketClosedError: Tried to write to a closed websocket
+[rosbridge_websocket-6] [INFO] [1761821900.606084494] [rosbridge_websocket]: Calling services in new thread
+[rosbridge_websocket-6] [INFO] [1761821900.609763240] [rosbridge_websocket]: Sending action goals in new thread
+[rosbridge_websocket-6] [INFO] [1761821900.619715649] [rosbridge_websocket]: Client connected. 1 clients total.
+[rosbridge_websocket-6] [INFO] [1761821900.723822309] [rosbridge_websocket]: [Client c370c571-5956-4386-97ea-84a74f8b5359] Subscribed to battery_state_broadcaster/battery_state_throttled
+[rosbridge_websocket-6] [INFO] [1761821900.732941913] [rosbridge_websocket]: [Client c370c571-5956-4386-97ea-84a74f8b5359] Subscribed to /image_raw/compressed
+[ros2_control_node-2] [INFO] [1761821907.288891309] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2292 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821914.789756888] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.069835 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821917.288870989] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2302 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761821917.470484401] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-1.269 FR=-1.269 RL=-1.269 RR=-1.269 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761821917.492281082] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-1.400 FR=-1.400 RL=-1.400 RR=-1.400 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761821917.511313375] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-1.518 FR=-1.560 RL=-1.518 RR=-1.560 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761821917.531496151] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-2.626 FR=-2.738 RL=-2.626 RR=-2.738 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761821917.550344648] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-7.262 FR=-7.446 RL=-7.262 RR=-7.446 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761821917.571659710] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-10.263 FR=-10.482 RL=-10.263 RR=-10.482 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761821917.591281213] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-13.367 FR=-13.616 RL=-13.367 RR=-13.616 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761821917.612324211] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-17.823 FR=-18.110 RL=-17.823 RR=-18.110 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761821917.651564452] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-17.779 FR=-18.194 RL=-17.779 RR=-18.194 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761821917.731447835] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-17.776 FR=-18.197 RL=-17.776 RR=-18.197 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761821917.750886914] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761821918.651457088] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.015 TILT=0.141
+[ros2_control_node-2] [INFO] [1761821918.692014594] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.0151
+[ros2_control_node-2] [INFO] [1761821918.694435355] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.018 TILT=0.196
+[ros2_control_node-2] [INFO] [1761821918.708872306] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.015707964
+[ros2_control_node-2] [INFO] [1761821918.728947225] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.03141593
+[ros2_control_node-2] [INFO] [1761821918.732097452] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.013 TILT=0.220
+[ros2_control_node-2] [INFO] [1761821918.753051039] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.0471238936
+[ros2_control_node-2] [INFO] [1761821918.769453131] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.06283186
+[ros2_control_node-2] [INFO] [1761821918.772675795] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.007 TILT=0.272
+[ros2_control_node-2] [INFO] [1761821918.790155538] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.07853982
+[ros2_control_node-2] [WARN] [1761821918.809585756] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.894530 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821918.828868336] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.09424778
+[ros2_control_node-2] [INFO] [1761821918.848857231] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.10995574
+[ros2_control_node-2] [INFO] [1761821918.850807687] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.008 TILT=0.362
+[ros2_control_node-2] [INFO] [1761821918.869363946] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.12566372
+[ros2_control_node-2] [INFO] [1761821918.873400040] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761821918.889021318] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.14137168
+[ros2_control_node-2] [INFO] [1761821918.909149041] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.15707965
+[ros2_control_node-2] [INFO] [1761821918.935992977] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.17278762
+[ros2_control_node-2] [INFO] [1761821918.951724267] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.188495584
+[ros2_control_node-2] [INFO] [1761821918.969111168] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.0
+[ros2_control_node-2] [INFO] [1761821918.989594524] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.17278762
+[ros2_control_node-2] [INFO] [1761821919.008850143] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.15707965
+[ros2_control_node-2] [INFO] [1761821919.028902716] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.14137168
+[ros2_control_node-2] [INFO] [1761821919.048854603] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.12566372
+[ros2_control_node-2] [INFO] [1761821919.068880875] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.10995575
+[ros2_control_node-2] [INFO] [1761821919.088838065] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.09424779
+[ros2_control_node-2] [INFO] [1761821919.109095319] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.078539824
+[ros2_control_node-2] [INFO] [1761821919.128832209] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.062831864
+[ros2_control_node-2] [INFO] [1761821919.149308590] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.0471239
+[ros2_control_node-2] [INFO] [1761821919.168866537] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.03141594
+[ros2_control_node-2] [INFO] [1761821919.189612731] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.015707976
+[ros2_control_node-2] [INFO] [1761821919.208823397] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 1.1175871e-08
+[ros2_control_node-2] [INFO] [1761821925.194596616] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.000 TILT=0.095
+[ros2_control_node-2] [INFO] [1761821925.230703365] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.015707976
+[ros2_control_node-2] [INFO] [1761821925.249042002] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.03141594
+[ros2_control_node-2] [INFO] [1761821925.272365072] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.025 TILT=1.000
+[ros2_control_node-2] [INFO] [1761821925.293311206] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.0471239
+[ros2_control_node-2] [INFO] [1761821925.310350352] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.062831864
+[ros2_control_node-2] [INFO] [1761821925.329080066] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.015707964
+[ros2_control_node-2] [INFO] [1761821925.348868634] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.078539824
+[ros2_control_node-2] [INFO] [1761821925.355031443] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.021 TILT=1.000
+[ros2_control_node-2] [INFO] [1761821925.369175207] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.0246
+[ros2_control_node-2] [INFO] [1761821925.389378099] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.09424779
+[ros2_control_node-2] [INFO] [1761821925.394025464] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761821925.409100882] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.10995575
+[ros2_control_node-2] [INFO] [1761821925.428858147] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.12566372
+[ros2_control_node-2] [INFO] [1761821925.448918762] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.14137168
+[ros2_control_node-2] [INFO] [1761821925.469058858] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.15707965
+[ros2_control_node-2] [INFO] [1761821925.628860296] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.008892035
+[ros2_control_node-2] [INFO] [1761821925.648843383] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.14137168
+[ros2_control_node-2] [INFO] [1761821925.669016986] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.0
+[ros2_control_node-2] [INFO] [1761821925.688869515] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.12566372
+[ros2_control_node-2] [INFO] [1761821925.708834811] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.10995575
+[ros2_control_node-2] [INFO] [1761821925.728867869] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.09424779
+[ros2_control_node-2] [INFO] [1761821925.749269993] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.078539824
+[ros2_control_node-2] [INFO] [1761821925.769067168] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.062831864
+[ros2_control_node-2] [INFO] [1761821925.789272097] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.0471239
+[ros2_control_node-2] [INFO] [1761821925.808869546] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.03141594
+[ros2_control_node-2] [INFO] [1761821925.828861541] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.015707976
+[ros2_control_node-2] [INFO] [1761821925.849331933] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 1.1175871e-08
+[ros2_control_node-2] [INFO] [1761821927.308886556] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2363 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761821937.329445451] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2374 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761821947.328873335] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2385 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821951.073257050] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 264.584549 ms (missed cycles : 14).
+[ros2_control_node-2] [WARN] [1761821953.792733857] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.060584 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821954.088876783] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [INFO] [1761821957.348962278] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2396 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821958.951658813] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.986206 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821967.060750982] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 32.077978 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821967.350872029] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2406 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821971.176441209] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 27.760462 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761821977.368908391] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2417 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761821987.368898070] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2428 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821987.749543835] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.870868 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761821987.869277303] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: .0000,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [WARN] [1761821992.035278788] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 46.594933 ms (missed cycles : 3).
+[ros2_control_node-2] [INFO] [1761821997.371335716] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2439 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761821997.796403609] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 27.732171 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822001.621443543] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 32.771673 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822003.351599273] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.923757 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761822007.441521206] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2450 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822007.783954072] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 55.281167 ms (missed cycles : 3).
+[ros2_control_node-2] [WARN] [1761822009.070429001] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 41.744630 ms (missed cycles : 3).
+[ros2_control_node-2] [WARN] [1761822011.534965553] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 26.289211 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822016.154330027] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 25.658126 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761822017.449656957] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2460 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822017.555399820] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 26.726603 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761822027.429456761] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2471 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822028.784920162] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 36.246574 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822030.072575209] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.891351 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822032.214769412] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 26.087477 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822033.908961258] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.289315 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822035.933281367] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.609159 ms (missed cycles : 2).
+[ekf_node-5] [ERROR] [1761822036.924316029] [ekf_filter_node]: Failed to meet update rate! Took 0.025811791000000000595seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
+[ros2_control_node-2] [WARN] [1761822036.951462306] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.770847 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761822037.428928190] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2482 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822037.948870999] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 00,0.0000,0.0000,0.0000
+[ros2_control_node-2] [WARN] [1761822037.992190031] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.505227 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822040.511982906] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.300762 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822042.152300209] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.627855 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822045.501138285] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 72.456953 ms (missed cycles : 4).
+[ros2_control_node-2] [INFO] [1761822047.428912501] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2493 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822048.051412723] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.731763 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822054.768426955] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 59.753456 ms (missed cycles : 3).
+[ros2_control_node-2] [WARN] [1761822056.293474573] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.780968 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761822057.488883298] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2504 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822060.468803033] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 00,0.0000,0.0000
+[ros2_control_node-2] [WARN] [1761822063.508941829] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [WARN] [1761822065.410898933] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.226835 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822066.741882346] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 33.184129 ms (missed cycles : 2).
+[ekf_node-5] [ERROR] [1761822066.742350140] [ekf_filter_node]: Failed to meet update rate! Took 0.044006782000000001231seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
+[ros2_control_node-2] [INFO] [1761822067.449058542] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2514 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822074.174102455] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 45.428837 ms (missed cycles : 3).
+[ros2_control_node-2] [WARN] [1761822075.324960861] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 76.277492 ms (missed cycles : 4).
+[ros2_control_node-2] [INFO] [1761822077.449050950] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2525 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822078.551390478] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.718765 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822080.789122666] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.450425 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822083.129721405] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.038871 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761822087.449496619] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2536 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822092.816735705] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 28.062469 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822095.141457289] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 32.785274 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822096.476867882] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 28.195809 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761822097.469078722] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2547 Scartati:0 Err:0 Coda↑:0 ↓:0
+[rosbridge_websocket-6] [INFO] [1761822098.912056236] [rosbridge_websocket]: Client disconnected. 0 clients total.
+[rosbridge_websocket-6] [INFO] [1761822099.066704426] [rosbridge_websocket]: Calling services in new thread
+[rosbridge_websocket-6] [INFO] [1761822099.068454450] [rosbridge_websocket]: Sending action goals in new thread
+[rosbridge_websocket-6] [INFO] [1761822099.070901917] [rosbridge_websocket]: Client connected. 1 clients total.
+[rosbridge_websocket-6] [INFO] [1761822099.087766682] [rosbridge_websocket]: [Client f32206f7-2416-4355-a84f-41c664b972de] Subscribed to battery_state_broadcaster/battery_state_throttled
+[rosbridge_websocket-6] [INFO] [1761822099.093249669] [rosbridge_websocket]: [Client f32206f7-2416-4355-a84f-41c664b972de] Subscribed to /image_raw/compressed
+[ros2_control_node-2] [WARN] [1761822101.349073085] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [INFO] [1761822107.468940319] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2557 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822111.588862861] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: ,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [INFO] [1761822117.468929562] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2568 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822117.729137664] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [WARN] [1761822125.213423538] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.720990 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761822127.510670287] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2579 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761822137.527591668] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2590 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822137.529641539] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 40.969942 ms (missed cycles : 3).
+[ekf_node-5] [ERROR] [1761822138.807499391] [ekf_filter_node]: Failed to meet update rate! Took 0.029112691999999999043seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
+[ros2_control_node-2] [WARN] [1761822140.274544120] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 25.870835 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822143.317385886] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 28.713329 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822144.830530090] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.848480 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761822147.531347393] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2601 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822154.736107753] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 27.435490 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761822157.528847035] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2611 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822167.414096089] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 25.423295 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761822167.548879911] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2622 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822169.971293570] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 42.620046 ms (missed cycles : 3).
+[ros2_control_node-2] [WARN] [1761822171.698035805] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 49.355256 ms (missed cycles : 3).
+[ros2_control_node-2] [WARN] [1761822171.928893030] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: .0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [WARN] [1761822173.761048944] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 32.374508 ms (missed cycles : 2).
+[rosbridge_websocket-6] [INFO] [1761822175.397393316] [rosbridge_websocket]: Client disconnected. 0 clients total.
+[rosbridge_websocket-6] [INFO] [1761822175.520172070] [rosbridge_websocket]: Calling services in new thread
+[rosbridge_websocket-6] [INFO] [1761822175.523340201] [rosbridge_websocket]: Sending action goals in new thread
+[rosbridge_websocket-6] [INFO] [1761822175.525760834] [rosbridge_websocket]: Client connected. 1 clients total.
+[rosbridge_websocket-6] [INFO] [1761822175.587526248] [rosbridge_websocket]: [Client 277fac03-9698-4311-9d66-816a7cfb120d] Subscribed to battery_state_broadcaster/battery_state_throttled
+[rosbridge_websocket-6] [INFO] [1761822175.618528119] [rosbridge_websocket]: [Client 277fac03-9698-4311-9d66-816a7cfb120d] Subscribed to /image_raw/compressed
+[ros2_control_node-2] [INFO] [1761822177.549371020] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2633 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761822177.874269242] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=17.638 FR=18.295 RL=17.638 RR=18.295 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822177.891296623] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=17.603 FR=18.318 RL=17.603 RR=18.318 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822177.930341710] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=17.495 FR=18.383 RL=17.495 RR=18.383 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822177.951339549] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=17.374 FR=18.448 RL=17.374 RR=18.448 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822177.973679017] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=17.343 FR=18.463 RL=17.343 RR=18.463 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822178.090833191] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822178.883169061] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=18.199 FR=17.773 RL=18.199 RR=17.773 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [WARN] [1761822178.890170123] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.481971 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761822178.935004914] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=18.237 FR=17.722 RL=18.237 RR=17.722 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822178.973350786] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=18.225 FR=17.739 RL=18.225 RR=17.739 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822178.992589246] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=18.230 FR=17.732 RL=18.230 RR=17.732 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822179.011763633] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=18.234 FR=17.727 RL=18.234 RR=17.727 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822179.043727429] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=18.241 FR=17.716 RL=18.241 RR=17.716 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822179.092751185] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=18.249 FR=17.705 RL=18.249 RR=17.705 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822179.133586184] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=18.213 FR=17.755 RL=18.213 RR=17.755 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822179.192295951] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=18.218 FR=17.747 RL=18.218 RR=17.747 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822179.211897611] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=18.224 FR=17.739 RL=18.224 RR=17.739 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822179.231994681] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=18.229 FR=17.734 RL=18.229 RR=17.734 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822179.270709975] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822181.752497326] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.075 TILT=-0.997
+[ros2_control_node-2] [INFO] [1761822181.769765963] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.076 TILT=-0.997
+[ros2_control_node-2] [INFO] [1761822181.811283619] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.091 TILT=-0.996
+[ros2_control_node-2] [INFO] [1761822181.829999307] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.104 TILT=-0.995
+[ros2_control_node-2] [INFO] [1761822181.851306569] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.128 TILT=-0.992
+[ros2_control_node-2] [INFO] [1761822181.872657614] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.133 TILT=-0.991
+[ros2_control_node-2] [INFO] [1761822181.892309489] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.145 TILT=-0.989
+[ros2_control_node-2] [INFO] [1761822181.912323839] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.157 TILT=-0.988
+[ros2_control_node-2] [INFO] [1761822182.092324747] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822183.071301359] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=18.612 FR=16.968 RL=18.612 RR=16.968 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822183.111428767] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=18.668 FR=16.776 RL=18.668 RR=16.776 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822183.130024955] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=18.693 FR=16.668 RL=18.693 RR=16.668 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822183.172321982] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=18.752 FR=16.336 RL=18.752 RR=16.336 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822183.192354396] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=18.776 FR=16.111 RL=18.776 RR=16.111 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822183.210281682] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=18.779 FR=16.066 RL=18.779 RR=16.066 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822183.229813143] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=18.792 FR=15.661 RL=18.792 RR=15.661 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822183.253289422] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=18.789 FR=15.494 RL=18.789 RR=15.494 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822183.271109009] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.015707964
+[ros2_control_node-2] [INFO] [1761822183.273322170] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=18.788 FR=15.460 RL=18.788 RR=15.460 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822183.312598006] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=18.779 FR=15.280 RL=18.779 RR=15.280 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [WARN] [1761822183.378624526] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 49.951834 ms (missed cycles : 3).
+[ros2_control_node-2] [INFO] [1761822183.508827128] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.0
+[ros2_control_node-2] [INFO] [1761822183.649822535] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=18.774 FR=15.209 RL=18.774 RR=15.209 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822183.690792228] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=18.777 FR=15.250 RL=18.777 RR=15.250 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822183.731849380] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=18.788 FR=15.919 RL=18.788 RR=15.919 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822183.752141128] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=18.774 FR=16.135 RL=18.774 RR=16.135 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822183.791883029] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=18.594 FR=17.022 RL=18.594 RR=17.022 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822183.811305288] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822187.548943937] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2645 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822191.250708296] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.031785 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822193.831493358] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.820942 ms (missed cycles : 2).
+[rosbridge_websocket-6] [INFO] [1761822197.075793537] [rosbridge_websocket]: Client disconnected. 0 clients total.
+[rosbridge_websocket-6] [WARN] [1761822197.117431918] [rosbridge_websocket]: WebSocketClosedError: Tried to write to a closed websocket
+[rosbridge_websocket-6] [INFO] [1761822197.181857219] [rosbridge_websocket]: Calling services in new thread
+[rosbridge_websocket-6] [INFO] [1761822197.187348113] [rosbridge_websocket]: Sending action goals in new thread
+[rosbridge_websocket-6] [INFO] [1761822197.190864928] [rosbridge_websocket]: Client connected. 1 clients total.
+[rosbridge_websocket-6] [INFO] [1761822197.224408497] [rosbridge_websocket]: [Client eeeb3941-8a03-414e-bd95-b8ee00dca711] Subscribed to battery_state_broadcaster/battery_state_throttled
+[rosbridge_websocket-6] [INFO] [1761822197.245334691] [rosbridge_websocket]: [Client eeeb3941-8a03-414e-bd95-b8ee00dca711] Subscribed to /image_raw/compressed
+[ros2_control_node-2] [INFO] [1761822197.568894921] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2656 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761822198.652476221] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=16.995 FR=18.604 RL=16.995 RR=18.604 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822198.672344178] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=16.949 FR=18.618 RL=16.949 RR=18.618 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822198.693129375] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=16.890 FR=18.636 RL=16.890 RR=18.636 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822198.773521000] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=16.721 FR=18.681 RL=16.721 RR=18.681 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822198.795596705] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=16.491 FR=18.728 RL=16.491 RR=18.728 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822198.831337407] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=16.270 FR=18.760 RL=16.270 RR=18.760 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822198.870799013] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=16.215 FR=18.766 RL=16.215 RR=18.766 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822198.951329222] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822207.569431008] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2667 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822210.626070746] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 37.396691 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822211.643455366] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 34.780791 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822212.846659608] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 37.987152 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822214.229100709] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.428839 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761822217.630019271] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2678 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761822227.588891502] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2688 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761822237.589367401] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2699 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822237.948818648] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: I
+[ros2_control_node-2] [WARN] [1761822237.968989748] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: MU,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [INFO] [1761822247.588884658] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2710 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822252.289025598] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 000,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [WARN] [1761822254.752308290] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 43.633644 ms (missed cycles : 3).
+[ros2_control_node-2] [INFO] [1761822257.608918263] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2721 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ekf_node-5] [ERROR] [1761822259.640663128] [ekf_filter_node]: Failed to meet update rate! Took 0.037523004999999998166seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
+[ros2_control_node-2] [WARN] [1761822259.643313695] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 54.623081 ms (missed cycles : 3).
+[ros2_control_node-2] [WARN] [1761822261.209669286] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 60.992564 ms (missed cycles : 4).
+[ekf_node-5] [ERROR] [1761822262.735555799] [ekf_filter_node]: Failed to meet update rate! Took 0.03684896900000000225seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
+[ros2_control_node-2] [WARN] [1761822262.829665556] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.994256 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822263.990528702] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.855919 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761822267.711602797] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2731 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822272.689428646] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [INFO] [1761822277.649249762] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2742 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822286.233533778] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.842507 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761822287.688850257] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2753 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822290.156331759] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 27.658030 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822292.463240360] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 34.568900 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822297.511855588] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.183462 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761822297.688877679] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2764 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822307.189897424] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.224065 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761822307.689378167] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2775 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822308.569276067] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.599841 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822311.533227523] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.554733 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761822317.709350849] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2785 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761822327.710517747] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2796 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822327.734635862] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 25.961031 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761822337.749334560] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2807 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822337.887601426] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 38.928491 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822347.026120977] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 37.421929 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761822347.728899771] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2818 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822348.188314647] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 59.640363 ms (missed cycles : 3).
+[rosbridge_websocket-6] [INFO] [1761822349.668291275] [rosbridge_websocket]: Client disconnected. 0 clients total.
+[rosbridge_websocket-6] [WARN] [1761822349.701393426] [rosbridge_websocket]: WebSocketClosedError: Tried to write to a closed websocket
+[rosbridge_websocket-6] [INFO] [1761822349.790269855] [rosbridge_websocket]: Calling services in new thread
+[rosbridge_websocket-6] [INFO] [1761822349.791512108] [rosbridge_websocket]: Sending action goals in new thread
+[rosbridge_websocket-6] [INFO] [1761822349.793848634] [rosbridge_websocket]: Client connected. 1 clients total.
+[rosbridge_websocket-6] [INFO] [1761822349.844377527] [rosbridge_websocket]: [Client 9cc8b74a-f623-421f-80e6-fab141ee724f] Subscribed to battery_state_broadcaster/battery_state_throttled
+[rosbridge_websocket-6] [INFO] [1761822349.868113338] [rosbridge_websocket]: [Client 9cc8b74a-f623-421f-80e6-fab141ee724f] Subscribed to /image_raw/compressed
+[ros2_control_node-2] [INFO] [1761822351.430939170] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=18.225 FR=17.739 RL=18.225 RR=17.739 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822351.491301211] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=18.231 FR=17.731 RL=18.231 RR=17.731 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822351.513544503] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=18.164 FR=17.818 RL=18.164 RR=17.818 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822351.554702356] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=16.810 FR=16.464 RL=16.810 RR=16.464 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822351.573326924] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=14.935 FR=14.739 RL=14.935 RR=14.739 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822351.600299991] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=12.427 FR=12.248 RL=12.427 RR=12.248 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822351.631223908] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=11.642 FR=11.469 RL=11.642 RR=11.469 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822351.912425412] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822352.792396647] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=17.854 FR=18.134 RL=17.854 RR=18.134 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822352.831357248] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=17.748 FR=18.218 RL=17.748 RR=18.218 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822352.852615267] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=16.993 FR=18.604 RL=16.993 RR=18.604 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822352.872343921] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=15.615 FR=18.792 RL=15.615 RR=18.792 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822352.891734208] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=8.720 FR=16.444 RL=8.720 RR=16.444 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822352.952387371] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=1.788 FR=11.790 RL=1.788 RR=11.790 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822352.970346342] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=1.536 FR=11.592 RL=1.536 RR=11.592 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822353.271289212] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822354.252354736] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=17.411 FR=18.429 RL=17.411 RR=18.429 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822354.291147364] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=17.350 FR=18.459 RL=17.350 RR=18.459 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822354.411299737] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=17.382 FR=18.444 RL=17.382 RR=18.444 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822354.451298509] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=17.366 FR=18.452 RL=17.366 RR=18.452 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822354.530286729] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=17.348 FR=18.460 RL=17.348 RR=18.460 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822354.832286404] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822357.748999921] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2829 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761822358.670939183] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.129 TILT=-0.992
+[ros2_control_node-2] [INFO] [1761822358.692333171] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.122 TILT=-0.993
+[ros2_control_node-2] [INFO] [1761822358.732672076] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.106 TILT=-0.994
+[ros2_control_node-2] [INFO] [1761822358.750596301] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.015707964
+[ros2_control_node-2] [INFO] [1761822358.762198587] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.095 TILT=-0.995
+[ros2_control_node-2] [INFO] [1761822358.768929576] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.03141593
+[ros2_control_node-2] [INFO] [1761822358.790497138] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.099 TILT=-0.995
+[ros2_control_node-2] [INFO] [1761822358.808871521] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.0471238936
+[ros2_control_node-2] [INFO] [1761822358.828955254] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.06283186
+[ros2_control_node-2] [INFO] [1761822358.848925916] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.07853982
+[ros2_control_node-2] [INFO] [1761822358.868944852] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.09424778
+[ros2_control_node-2] [INFO] [1761822358.912343958] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822358.949031703] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.07853982
+[ros2_control_node-2] [INFO] [1761822358.969042099] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.06283186
+[ros2_control_node-2] [INFO] [1761822358.988983557] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.0471238936
+[ros2_control_node-2] [INFO] [1761822359.011043786] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.031415932
+[ros2_control_node-2] [INFO] [1761822359.030065370] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.015707968
+[ros2_control_node-2] [INFO] [1761822359.049429146] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 3.7252904e-09
+[ros2_control_node-2] [WARN] [1761822364.352466304] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.793790 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822365.829101136] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 0,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [WARN] [1761822367.433309589] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.627489 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761822367.755348240] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2851 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822370.731492278] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.805012 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761822377.769076663] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2862 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822385.191843251] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.160258 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761822387.789210399] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2873 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822388.533016750] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.345396 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822389.589882742] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.191456 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822390.849485221] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.787025 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822393.093534152] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 44.835830 ms (missed cycles : 3).
+[ros2_control_node-2] [WARN] [1761822394.798557657] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 29.884380 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822395.468837502] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 0,0.0000,0.0000
+[ros2_control_node-2] [INFO] [1761822397.809162928] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2884 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822398.548904500] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: ,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [WARN] [1761822398.608947212] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.275065 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761822407.829543923] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2895 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822408.753721161] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 25.048531 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822414.251415159] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.723791 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822415.895689404] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 27.015724 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822417.633723450] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 25.037432 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761822417.829226613] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2905 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822420.315149959] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 26.477115 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822421.671843093] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 43.171710 ms (missed cycles : 3).
+[ros2_control_node-2] [WARN] [1761822426.050313355] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.641521 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822427.208891184] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 0.0000,0.0000
+[ros2_control_node-2] [INFO] [1761822427.828950669] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2916 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822428.177639385] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 28.936622 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822431.137574821] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 28.902883 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822437.062399047] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 53.727563 ms (missed cycles : 3).
+[ros2_control_node-2] [INFO] [1761822437.829220906] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2927 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822444.185403939] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 96.732170 ms (missed cycles : 5).
+[ros2_control_node-2] [WARN] [1761822447.696226458] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 27.552975 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761822447.831578308] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2938 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761822457.808905872] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2948 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822460.097797216] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 29.123227 ms (missed cycles : 2).
+[ekf_node-5] [ERROR] [1761822460.259132710] [ekf_filter_node]: Failed to meet update rate! Took 0.031645139000000002683seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
+[ros2_control_node-2] [WARN] [1761822461.509352618] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.680251 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822464.028984561] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
+[rosbridge_websocket-6] [INFO] [1761822464.593402900] [rosbridge_websocket]: Client disconnected. 0 clients total.
+[rosbridge_websocket-6] [INFO] [1761822464.722196935] [rosbridge_websocket]: Calling services in new thread
+[rosbridge_websocket-6] [INFO] [1761822464.723743815] [rosbridge_websocket]: Sending action goals in new thread
+[rosbridge_websocket-6] [INFO] [1761822464.726048817] [rosbridge_websocket]: Client connected. 1 clients total.
+[rosbridge_websocket-6] [INFO] [1761822464.791508227] [rosbridge_websocket]: [Client 6c1d638f-d501-4002-8004-8b5fc82e950c] Subscribed to battery_state_broadcaster/battery_state_throttled
+[rosbridge_websocket-6] [INFO] [1761822464.809780530] [rosbridge_websocket]: [Client 6c1d638f-d501-4002-8004-8b5fc82e950c] Subscribed to /image_raw/compressed
+[ros2_control_node-2] [INFO] [1761822466.571297547] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=18.581 FR=17.061 RL=18.581 RR=17.061 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822466.592363981] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=18.672 FR=16.757 RL=18.672 RR=16.757 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822466.633757755] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=17.163 FR=13.649 RL=17.163 RR=13.649 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822466.670234482] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=9.945 FR=6.798 RL=9.945 RR=6.798 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822466.713287048] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=6.643 FR=3.477 RL=6.643 RR=3.477 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822467.032329328] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822467.829279256] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2959 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822477.513897033] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 25.225599 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761822477.849435430] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2970 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822482.428938474] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 00,0.0000,0.0000,0.0000
+[ros2_control_node-2] [WARN] [1761822482.749365468] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.691716 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822483.771307968] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.634899 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822485.061777992] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 33.089272 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822486.956220077] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 27.546924 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761822487.829515343] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2981 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822489.592670719] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.975460 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761822497.848839693] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:2992 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822503.408697839] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.026209 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761822507.868899554] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:3002 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822508.010063427] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [WARN] [1761822509.753326785] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 44.638156 ms (missed cycles : 3).
+[ros2_control_node-2] [INFO] [1761822517.868871883] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:3013 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822523.118374653] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 29.687374 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822523.310054534] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: ,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [WARN] [1761822525.078626428] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 29.953447 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822526.260107643] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 31.435926 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761822527.929365306] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:3024 Scartati:0 Err:0 Coda↑:0 ↓:0
+[rosbridge_websocket-6] [INFO] [1761822529.356147903] [rosbridge_websocket]: Client disconnected. 0 clients total.
+[rosbridge_websocket-6] [INFO] [1761822529.458045145] [rosbridge_websocket]: Calling services in new thread
+[rosbridge_websocket-6] [INFO] [1761822529.459934290] [rosbridge_websocket]: Sending action goals in new thread
+[rosbridge_websocket-6] [INFO] [1761822529.467454044] [rosbridge_websocket]: Client connected. 1 clients total.
+[rosbridge_websocket-6] [INFO] [1761822529.525536954] [rosbridge_websocket]: [Client 48d47580-e09f-40ef-ab29-1bb6319576a8] Subscribed to battery_state_broadcaster/battery_state_throttled
+[rosbridge_websocket-6] [INFO] [1761822529.542934285] [rosbridge_websocket]: [Client 48d47580-e09f-40ef-ab29-1bb6319576a8] Subscribed to /image_raw/compressed
+[ros2_control_node-2] [INFO] [1761822530.951289816] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=2.618 FR=1.677 RL=2.618 RR=1.677 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822530.973502449] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=1.760 FR=0.847 RL=1.760 RR=0.847 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822531.011322659] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-0.981 FR=-2.873 RL=-0.981 RR=-2.873 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822531.031324921] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-4.246 FR=-7.513 RL=-4.246 RR=-7.513 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822531.070640756] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-7.630 FR=-11.716 RL=-7.630 RR=-11.716 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822531.111314231] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-9.521 FR=-13.942 RL=-9.521 RR=-13.942 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822531.131305019] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-10.199 FR=-14.735 RL=-10.199 RR=-14.735 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822531.411309528] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [WARN] [1761822535.314699288] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 26.026628 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761822537.909097428] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:3035 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822541.748826902] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 000,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [WARN] [1761822545.252590169] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.916560 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761822547.969345674] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:3046 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822556.008863557] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [INFO] [1761822557.929258024] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:3056 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822558.941265685] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 32.593720 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822565.475077371] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 46.406557 ms (missed cycles : 3).
+[ros2_control_node-2] [INFO] [1761822567.928883240] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:3067 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822576.814619948] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 25.948510 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761822577.948880970] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:3078 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761822587.948933892] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:3089 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822597.250229772] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.505913 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761822598.109199609] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:3099 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822607.512325474] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.653755 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761822607.968877223] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:3110 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822609.437598415] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 28.921057 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822612.014621707] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 25.938278 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822614.329311231] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.639689 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822616.137221486] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 28.547704 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761822617.968935002] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:3121 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761822627.969281624] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:3132 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761822638.029140135] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:3143 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822639.592655271] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.970507 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822641.009061397] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 0,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [INFO] [1761822647.968921217] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:3153 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822653.317136108] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 28.463374 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761822657.989369287] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:3164 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822660.882678045] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 74.005688 ms (missed cycles : 4).
+[ros2_control_node-2] [WARN] [1761822664.511613893] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.928130 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822667.612275407] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.599015 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761822667.988921746] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:3175 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822671.279559992] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 30.887584 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761822678.009253958] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:3186 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822679.699087685] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 70.413144 ms (missed cycles : 4).
+[ros2_control_node-2] [WARN] [1761822681.487449255] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 78.776046 ms (missed cycles : 4).
+[ros2_control_node-2] [WARN] [1761822683.094260840] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 45.588070 ms (missed cycles : 3).
+[rosbridge_websocket-6] [INFO] [1761822684.846833234] [rosbridge_websocket]: Client disconnected. 0 clients total.
+[rosbridge_websocket-6] [INFO] [1761822684.968413410] [rosbridge_websocket]: Calling services in new thread
+[rosbridge_websocket-6] [INFO] [1761822684.970501760] [rosbridge_websocket]: Sending action goals in new thread
+[rosbridge_websocket-6] [INFO] [1761822684.976012889] [rosbridge_websocket]: Client connected. 1 clients total.
+[rosbridge_websocket-6] [INFO] [1761822685.007157479] [rosbridge_websocket]: [Client 0230778e-a565-4122-9d48-db722c3204a5] Subscribed to battery_state_broadcaster/battery_state_throttled
+[rosbridge_websocket-6] [INFO] [1761822685.025733483] [rosbridge_websocket]: [Client 0230778e-a565-4122-9d48-db722c3204a5] Subscribed to /image_raw/compressed
+[ros2_control_node-2] [INFO] [1761822687.033712306] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-0.809 FR=-1.353 RL=-0.809 RR=-1.353 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822687.072302771] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=1.708 FR=1.106 RL=1.708 RR=1.106 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822687.112707367] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=7.336 FR=5.850 RL=7.336 RR=5.850 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822687.130112746] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=13.829 FR=11.667 RL=13.829 RR=11.667 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822687.193326641] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=15.657 FR=13.225 RL=15.657 RR=13.225 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822687.453327900] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822688.109278304] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:3196 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761822688.332408234] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-14.618 FR=-12.522 RL=-14.618 RR=-12.522 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822688.351535709] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-14.196 FR=-12.130 RL=-14.196 RR=-12.130 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822688.371366636] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-13.780 FR=-11.745 RL=-13.780 RR=-11.745 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822688.391465634] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-12.854 FR=-11.007 RL=-12.854 RR=-11.007 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822688.410136775] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-11.685 FR=-9.925 RL=-11.685 RR=-9.925 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822688.431489939] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-10.938 FR=-9.235 RL=-10.938 RR=-9.235 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822688.454435467] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-6.334 FR=-5.121 RL=-6.334 RR=-5.121 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822688.491904636] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-1.675 FR=-0.922 RL=-1.675 RR=-0.922 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822688.512467810] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-0.822 FR=-0.175 RL=-0.822 RR=-0.175 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822688.531953725] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-0.243 FR=0.346 RL=-0.243 RR=0.346 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822688.552356297] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.532 FR=1.333 RL=0.532 RR=1.333 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822688.592753501] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=1.255 FR=2.298 RL=1.255 RR=2.298 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822688.609742869] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=1.379 FR=2.449 RL=1.379 RR=2.449 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822688.631714095] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=1.508 FR=2.607 RL=1.508 RR=2.607 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822688.652315138] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=1.650 FR=2.860 RL=1.650 RR=2.860 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822688.672341298] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=1.791 FR=3.031 RL=1.791 RR=3.031 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822688.692286645] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=2.591 FR=4.078 RL=2.591 RR=4.078 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822688.712520582] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=4.619 FR=6.455 RL=4.619 RR=6.455 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822688.731712484] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=6.403 FR=8.496 RL=6.403 RR=8.496 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822688.771338940] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=9.147 FR=11.581 RL=9.147 RR=11.581 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822688.789954182] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=11.264 FR=13.794 RL=11.264 RR=13.794 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822688.812056011] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=12.020 FR=14.625 RL=12.020 RR=14.625 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822688.830571997] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=12.802 FR=15.482 RL=12.802 RR=15.482 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822688.852276371] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=13.620 FR=16.230 RL=13.620 RR=16.230 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822688.872300339] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=15.349 FR=17.803 RL=15.349 RR=17.803 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822689.092631779] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822690.050793338] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=-0.068 TILT=-0.183
+[ros2_control_node-2] [INFO] [1761822690.070551868] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=-0.039 TILT=-0.087
+[ros2_control_node-2] [INFO] [1761822690.091438227] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=-0.004 TILT=0.003
+[ros2_control_node-2] [INFO] [1761822690.111431387] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=-0.005 TILT=0.022
+[ros2_control_node-2] [INFO] [1761822690.133555342] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=-0.002 TILT=0.051
+[ros2_control_node-2] [INFO] [1761822690.150637171] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.010 TILT=0.094
+[ros2_control_node-2] [INFO] [1761822690.168890975] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.015707976
+[ros2_control_node-2] [INFO] [1761822690.172530516] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.019 TILT=0.160
+[ros2_control_node-2] [INFO] [1761822690.208838327] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.0102
+[ros2_control_node-2] [INFO] [1761822690.228859091] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.03141594
+[ros2_control_node-2] [INFO] [1761822690.231825577] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.039 TILT=0.286
+[ros2_control_node-2] [INFO] [1761822690.250383386] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.0471239
+[ros2_control_node-2] [INFO] [1761822690.269318258] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.062831864
+[ros2_control_node-2] [INFO] [1761822690.271625590] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.055 TILT=0.395
+[ros2_control_node-2] [INFO] [1761822690.288848139] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.025907964
+[ros2_control_node-2] [INFO] [1761822690.308875898] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.078539824
+[ros2_control_node-2] [INFO] [1761822690.311311552] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.058 TILT=0.447
+[ros2_control_node-2] [INFO] [1761822690.329463252] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.0394
+[ros2_control_node-2] [INFO] [1761822690.348857864] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.09424779
+[ros2_control_node-2] [INFO] [1761822690.358413847] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.059 TILT=0.465
+[ros2_control_node-2] [INFO] [1761822690.368814760] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.0547
+[ros2_control_node-2] [INFO] [1761822690.388844364] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.10995575
+[ros2_control_node-2] [INFO] [1761822690.409019875] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.12566372
+[ros2_control_node-2] [INFO] [1761822690.429028385] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.14137168
+[ros2_control_node-2] [INFO] [1761822690.451929745] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.15707965
+[ros2_control_node-2] [INFO] [1761822690.468897341] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.17278762
+[ros2_control_node-2] [INFO] [1761822690.489033092] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.188495584
+[ros2_control_node-2] [INFO] [1761822690.508816207] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.20420356
+[ros2_control_node-2] [INFO] [1761822690.528939858] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.219911532
+[ros2_control_node-2] [INFO] [1761822690.531647631] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822690.549253815] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.2356195
+[ros2_control_node-2] [INFO] [1761822690.569058877] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.25132746
+[ros2_control_node-2] [INFO] [1761822690.588851826] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.26703542
+[ros2_control_node-2] [INFO] [1761822690.608894796] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.2827434
+[ros2_control_node-2] [INFO] [1761822690.629084875] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.29845136
+[ros2_control_node-2] [INFO] [1761822690.650882903] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.038992032
+[ros2_control_node-2] [INFO] [1761822690.668878243] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.2827434
+[ros2_control_node-2] [INFO] [1761822690.688862053] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.023284068
+[ros2_control_node-2] [INFO] [1761822690.708829668] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.26703542
+[ros2_control_node-2] [INFO] [1761822690.729332453] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.00757610436
+[ros2_control_node-2] [INFO] [1761822690.749034023] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.25132746
+[ros2_control_node-2] [INFO] [1761822690.768853740] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.23561948
+[ros2_control_node-2] [INFO] [1761822690.789274524] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.21991152
+[ros2_control_node-2] [INFO] [1761822690.809732216] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.20420354
+[ros2_control_node-2] [INFO] [1761822690.829426720] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.18849558
+[ros2_control_node-2] [INFO] [1761822690.849270942] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.1727876
+[ros2_control_node-2] [INFO] [1761822690.868851334] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.15707964
+[ros2_control_node-2] [INFO] [1761822690.888889599] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.14137166
+[ros2_control_node-2] [INFO] [1761822690.910551608] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.1256637
+[ros2_control_node-2] [INFO] [1761822690.929136599] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.109955736
+[ros2_control_node-2] [INFO] [1761822690.950841823] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.09424777
+[ros2_control_node-2] [INFO] [1761822690.969358399] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.07853981
+[ros2_control_node-2] [INFO] [1761822690.989139537] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.06283185
+[ros2_control_node-2] [INFO] [1761822691.009391661] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.047123888
+[ros2_control_node-2] [INFO] [1761822691.028968974] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.031415924
+[ros2_control_node-2] [INFO] [1761822691.049168371] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.01570796
+[ros2_control_node-2] [INFO] [1761822691.068844689] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.0
+[ros2_control_node-2] [INFO] [1761822691.971307893] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-5.379 FR=-6.524 RL=-5.379 RR=-6.524 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822692.011402503] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-11.784 FR=-1.780 RL=-11.784 RR=-1.780 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822692.031332050] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-8.928 FR=1.649 RL=-8.928 RR=1.649 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822692.053297931] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-7.807 FR=2.892 RL=-7.807 RR=2.892 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822692.070898916] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-7.261 FR=3.479 RL=-7.261 RR=3.479 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822692.105308665] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-7.237 FR=3.505 RL=-7.237 RR=3.505 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822692.311111574] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [WARN] [1761822692.364613619] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 35.941895 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761822693.052347217] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-8.420 FR=-9.075 RL=-8.420 RR=-9.075 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822693.071340246] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-8.365 FR=-9.226 RL=-8.365 RR=-9.226 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822693.091025729] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-7.319 FR=-8.851 RL=-7.319 RR=-8.851 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822693.115581809] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-7.051 FR=-9.844 RL=-7.051 RR=-9.844 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822693.132593899] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-6.433 FR=-11.845 RL=-6.433 RR=-11.845 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822693.150373440] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-4.850 FR=-14.043 RL=-4.850 RR=-14.043 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822693.171298737] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-3.720 FR=-13.246 RL=-3.720 RR=-13.246 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822693.210042380] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-2.869 FR=-12.619 RL=-2.869 RR=-12.619 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822693.233360155] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-2.792 FR=-12.561 RL=-2.792 RR=-12.561 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822693.252388151] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-2.641 FR=-12.447 RL=-2.641 RR=-12.447 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822693.292364762] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-2.568 FR=-12.391 RL=-2.568 RR=-12.391 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822693.331378511] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761822698.009025505] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:3252 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761822708.028890946] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:3263 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761822718.029390439] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:3274 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822727.910658930] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: ,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [INFO] [1761822728.029052087] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:3285 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822732.008855615] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: ,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [INFO] [1761822738.109144788] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:3295 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761822748.088843797] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:3306 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761822751.715816376] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 27.143320 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822754.529637802] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [WARN] [1761822754.614666016] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 45.974277 ms (missed cycles : 3).
+[ekf_node-5] [ERROR] [1761822754.969823585] [ekf_filter_node]: Failed to meet update rate! Took 0.049293762999999997387seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
+[ros2_control_node-2] [WARN] [1761822756.135757395] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 27.063632 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761822767.400636316] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 31.964655 ms (missed cycles : 2).
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+[ERROR] [node-7]: process has died [pid 8844, exit code -2, cmd 'node server.js'].
+[ekf_node-5] [INFO] [1761822769.856300523] [rclcpp]: signal_handler(signum=2)
+[v4l2_camera_node-9] [INFO] [1761822769.856944148] [rclcpp]: signal_handler(signum=2)
+[throttle-8] [INFO] [1761822769.856160603] [rclcpp]: signal_handler(signum=2)
+[ros2_control_node-2] [INFO] [1761822769.858331319] [rclcpp]: signal_handler(signum=2)
+[ros2_control_node-2] [INFO] [1761822769.866273032] [controller_manager]: Shutdown request received....
+[ros2_control_node-2] [INFO] [1761822769.869956841] [controller_manager]: Shutting down all controllers in the controller manager.
+[ros2_control_node-2] [INFO] [1761822769.887279143] [controller_manager]: Deactivating controller 'servo_position_controller'
+[ros2_control_node-2] [INFO] [1761822769.898720380] [controller_manager]: Shutting down controller 'servo_position_controller'
+[ros2_control_node-2] [INFO] [1761822769.928158604] [controller_manager]: Deactivating controller 'imu_broadcaster'
+[ros2_control_node-2] [INFO] [1761822769.931923848] [controller_manager]: Shutting down controller 'imu_broadcaster'
+[ros2_control_node-2] [INFO] [1761822769.935061270] [controller_manager]: Deactivating controller 'ir_front_center_broadcaster'
+[ros2_control_node-2] [INFO] [1761822769.937798656] [controller_manager]: Shutting down controller 'ir_front_center_broadcaster'
+[ros2_control_node-2] [INFO] [1761822769.938124949] [controller_manager]: Deactivating controller 'ir_front_right_broadcaster'
+[ros2_control_node-2] [INFO] [1761822769.941216221] [controller_manager]: Shutting down controller 'ir_front_right_broadcaster'
+[ros2_control_node-2] [INFO] [1761822769.942379831] [controller_manager]: Deactivating controller 'joint_state_broadcaster'
+[ros2_control_node-2] [INFO] [1761822769.947013405] [controller_manager]: Shutting down controller 'joint_state_broadcaster'
+[ros2_control_node-2] [INFO] [1761822769.947194643] [controller_manager]: Deactivating controller 'mecanum_velocity_controller'
+[ros2_control_node-2] [INFO] [1761822769.966548757] [controller_manager]: Shutting down controller 'mecanum_velocity_controller'
+[ros2_control_node-2] [INFO] [1761822769.967125089] [controller_manager]: Deactivating controller 'ir_front_left_broadcaster'
+[ros2_control_node-2] [INFO] [1761822769.968756254] [controller_manager]: Shutting down controller 'ir_front_left_broadcaster'
+[ros2_control_node-2] [INFO] [1761822769.968899338] [controller_manager]: Deactivating controller 'battery_state_broadcaster'
+[ros2_control_node-2] [INFO] [1761822769.971913698] [controller_manager]: Shutting down controller 'battery_state_broadcaster'
+[ros2_control_node-2] [INFO] [1761822769.976487738] [resource_manager]: 'deactivate' hardware 'MecanumSystem' 
+[ros2_control_node-2] [INFO] [1761822769.980695205] [controller_manager.hardware_component.system.MecanumSystem]: Porta seriale /dev/ttyUSB0 chiusa
+[ros2_control_node-2] [INFO] [1761822769.980750442] [resource_manager]: Successful 'deactivate' of hardware 'MecanumSystem'
+[ros2_control_node-2] [INFO] [1761822769.980761564] [resource_manager]: 'shutdown' hardware 'MecanumSystem' 
+[ros2_control_node-2] [INFO] [1761822769.980772340] [resource_manager]: Successful 'shutdown' of hardware 'MecanumSystem'
+[ros2_control_node-2] [INFO] [1761822769.985830016] [controller_manager]: Shutting down the controller manager.
+[ros2_control_node-2] [ERROR] [1761822769.989799813] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!
+[robot_state_publisher-1] [INFO] [1761822769.859035284] [rclcpp]: signal_handler(signum=2)
+[mecanum_cmd_node-3] [INFO] [1761822769.860619961] [rclcpp]: signal_handler(signum=2)
+[mecanum_odom_node-4] [INFO] [1761822769.862377279] [rclcpp]: signal_handler(signum=2)
+[rosbridge_websocket-6] registered capabilities (classes):
+[rosbridge_websocket-6]  - <class 'rosbridge_library.capabilities.advertise.Advertise'>
+[rosbridge_websocket-6]  - <class 'rosbridge_library.capabilities.publish.Publish'>
+[rosbridge_websocket-6]  - <class 'rosbridge_library.capabilities.subscribe.Subscribe'>
+[rosbridge_websocket-6]  - <class 'rosbridge_library.capabilities.defragmentation.Defragment'>
+[rosbridge_websocket-6]  - <class 'rosbridge_library.capabilities.advertise_service.AdvertiseService'>
+[rosbridge_websocket-6]  - <class 'rosbridge_library.capabilities.call_service.CallService'>
+[rosbridge_websocket-6]  - <class 'rosbridge_library.capabilities.service_response.ServiceResponse'>
+[rosbridge_websocket-6]  - <class 'rosbridge_library.capabilities.unadvertise_service.UnadvertiseService'>
+[rosbridge_websocket-6]  - <class 'rosbridge_library.capabilities.advertise_action.AdvertiseAction'>
+[rosbridge_websocket-6]  - <class 'rosbridge_library.capabilities.action_feedback.ActionFeedback'>
+[rosbridge_websocket-6]  - <class 'rosbridge_library.capabilities.action_result.ActionResult'>
+[rosbridge_websocket-6]  - <class 'rosbridge_library.capabilities.send_action_goal.SendActionGoal'>
+[rosbridge_websocket-6]  - <class 'rosbridge_library.capabilities.unadvertise_action.UnadvertiseAction'>
+[rosbridge_websocket-6] Exiting due to SIGINT
+[ros2_control_node-2] [INFO] [1761822770.106701349] [controller_manager.pal_statistics]: Async messages lost 0
+[ros2_control_node-2] [INFO] [1761822770.106726869] [controller_manager.pal_statistics]: publish_async_failures_ 0
+[INFO] [mecanum_cmd_node-3]: process has finished cleanly [pid 8839]
+[INFO] [throttle-8]: process has finished cleanly [pid 8846]
+[INFO] [mecanum_odom_node-4]: process has finished cleanly [pid 8840]
+[INFO] [robot_state_publisher-1]: process has finished cleanly [pid 8837]
+[INFO] [ekf_node-5]: process has finished cleanly [pid 8841]
+[INFO] [v4l2_camera_node-9]: process has finished cleanly [pid 8849]
+[INFO] [ros2_control_node-2]: process has finished cleanly [pid 8838]
+[INFO] [rosbridge_websocket-6]: process has finished cleanly [pid 8842]
