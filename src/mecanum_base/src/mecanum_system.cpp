@@ -788,16 +788,16 @@ namespace mecanum_hardware
     }
 
     // 4) Log solo se il comando (formattato) è diverso dall’ultimo loggato
-    static std::string last_logged_csv;
-    if (last_logged_csv != csv)
-    {
-      RCLCPP_INFO(this->get_logger(),
-                  "write() cmd: FL=%.3f FR=%.3f RL=%.3f RR=%.3f PAN=%.3f TILT=%.3f",
-                  joints_[0].cmd_vel, joints_[1].cmd_vel,
-                  joints_[2].cmd_vel, joints_[3].cmd_vel,
-                  servo_command_.pan_position, servo_command_.tilt_position);
-      last_logged_csv = csv;
-    }
+    //static std::string last_logged_csv;
+    //if (last_logged_csv != csv)
+    //{
+    //  RCLCPP_INFO(this->get_logger(),
+    //              "write() cmd: FL=%.3f FR=%.3f RL=%.3f RR=%.3f PAN=%.3f TILT=%.3f",
+    //              joints_[0].cmd_vel, joints_[1].cmd_vel,
+    //              joints_[2].cmd_vel, joints_[3].cmd_vel,
+    //              servo_command_.pan_position, servo_command_.tilt_position);
+    //  last_logged_csv = csv;
+    //}
 
     return hardware_interface::return_type::OK;
   }
