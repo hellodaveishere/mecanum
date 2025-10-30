@@ -1,0 +1,832 @@
+[INFO] [launch]: All log files can be found below /home/ws/.ros/log/2025-10-29-16-46-32-718886-dave-computer-176694
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [robot_state_publisher-1]: process started with pid [176706]
+[INFO] [ros2_control_node-2]: process started with pid [176707]
+[INFO] [mecanum_cmd_node-3]: process started with pid [176708]
+[INFO] [mecanum_odom_node-4]: process started with pid [176709]
+[INFO] [ekf_node-5]: process started with pid [176710]
+[INFO] [rosbridge_websocket-6]: process started with pid [176711]
+[INFO] [node-7]: process started with pid [176713]
+[INFO] [throttle-8]: process started with pid [176715]
+[INFO] [v4l2_camera_node-9]: process started with pid [176718]
+[robot_state_publisher-1] [INFO] [1761756393.272097563] [robot_state_publisher]: Robot initialized
+[mecanum_odom_node-4] [INFO] [1761756393.276828816] [mecanum_odom_node]: mecanum_odom_node avviato
+[mecanum_cmd_node-3] [INFO] [1761756393.295505385] [mecanum_cmd_node]: mecanum_cmd_node: pubblicazione comandi su /mecanum_velocity_controller/commands
+[ros2_control_node-2] [INFO] [1761756393.415237354] [controller_manager]: Using Steady (Monotonic) clock for triggering controller manager cycles.
+[ros2_control_node-2] [INFO] [1761756393.446627760] [controller_manager]: Subscribing to '/robot_description' topic for robot description.
+[ros2_control_node-2] [INFO] [1761756393.476389875] [controller_manager]: update rate is 50 Hz
+[ros2_control_node-2] [INFO] [1761756393.476461000] [controller_manager]: Spawning controller_manager RT thread with scheduler priority: 50
+[ros2_control_node-2] [WARN] [1761756393.479405519] [controller_manager]: Could not enable FIFO RT scheduling policy: with error number <1>(Operation not permitted). See [https://control.ros.org/master/doc/ros2_control/controller_manager/doc/userdoc.html] for details on how to enable realtime scheduling.
+[ros2_control_node-2] [INFO] [1761756393.583126245] [controller_manager]: Received robot description from topic.
+[ros2_control_node-2] [INFO] [1761756393.595071118] [controller_manager]: Loading hardware 'MecanumSystem' 
+[ros2_control_node-2] [INFO] [1761756393.598479994] [controller_manager]: Loaded hardware 'MecanumSystem' from plugin 'mecanum_hardware/MecanumSystem'
+[ros2_control_node-2] [INFO] [1761756393.598618294] [controller_manager]: Initialize hardware 'MecanumSystem' 
+[ros2_control_node-2] [INFO] [1761756393.642246274] [controller_manager.hardware_component.system.MecanumSystem]: Init OK (mock=false, serial=/dev/ttyUSB0, baud=1000000)
+[ros2_control_node-2] [INFO] [1761756393.642326149] [controller_manager]: Successful initialization of hardware 'MecanumSystem'
+[ros2_control_node-2] [INFO] [1761756393.642814914] [BatteryDebug]: Exporting interface: percentage @ 0x77c54c02a908
+[ros2_control_node-2] [INFO] [1761756393.643517913] [resource_manager]: 'configure' hardware 'MecanumSystem' 
+[ros2_control_node-2] [INFO] [1761756393.643546578] [resource_manager]: Successful 'configure' of hardware 'MecanumSystem'
+[ros2_control_node-2] [INFO] [1761756393.643566579] [resource_manager]: 'activate' hardware 'MecanumSystem' 
+[ros2_control_node-2] [INFO] [1761756393.644397013] [controller_manager.hardware_component.system.MecanumSystem]: Porta seriale /dev/ttyUSB0 aperta a 1000000 baud
+[ros2_control_node-2] [INFO] [1761756393.644493670] [resource_manager]: Successful 'activate' of hardware 'MecanumSystem'
+[ros2_control_node-2] [INFO] [1761756393.644612041] [controller_manager]: Resource Manager has been successfully initialized. Starting Controller Manager services...
+[ros2_control_node-2] [INFO] [1761756393.661525419] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.000 TILT=0.000
+[v4l2_camera_node-9] [INFO] [1761756393.728491894] [v4l2_camera]: Driver: uvcvideo
+[v4l2_camera_node-9] [INFO] [1761756393.728733708] [v4l2_camera]: Version: 396811
+[v4l2_camera_node-9] [INFO] [1761756393.728756182] [v4l2_camera]: Device: Integrated Camera: Integrated C
+[v4l2_camera_node-9] [INFO] [1761756393.728767827] [v4l2_camera]: Location: usb-0000:00:14.0-10
+[v4l2_camera_node-9] [INFO] [1761756393.728777398] [v4l2_camera]: Capabilities:
+[v4l2_camera_node-9] [INFO] [1761756393.728787545] [v4l2_camera]:   Read/write: NO
+[v4l2_camera_node-9] [INFO] [1761756393.728797385] [v4l2_camera]:   Streaming: YES
+[v4l2_camera_node-9] [INFO] [1761756393.728813479] [v4l2_camera]: Current pixel format: YUYV @ 640x480
+[v4l2_camera_node-9] [INFO] [1761756393.729078271] [v4l2_camera]: Available pixel formats: 
+[v4l2_camera_node-9] [INFO] [1761756393.729112683] [v4l2_camera]:   YUYV - YUYV 4:2:2
+[v4l2_camera_node-9] [INFO] [1761756393.729124114] [v4l2_camera]:   MJPG - Motion-JPEG
+[v4l2_camera_node-9] [INFO] [1761756393.729134935] [v4l2_camera]: Available controls: 
+[v4l2_camera_node-9] [INFO] [1761756393.729152919] [v4l2_camera]:   Brightness (1) = 128
+[v4l2_camera_node-9] [INFO] [1761756393.729167903] [v4l2_camera]:   Contrast (1) = 32
+[v4l2_camera_node-9] [INFO] [1761756393.729181389] [v4l2_camera]:   Saturation (1) = 64
+[v4l2_camera_node-9] [INFO] [1761756393.729195292] [v4l2_camera]:   Hue (1) = 0
+[v4l2_camera_node-9] [INFO] [1761756393.729208767] [v4l2_camera]:   White Balance, Automatic (2) = 1
+[v4l2_camera_node-9] [INFO] [1761756393.729222042] [v4l2_camera]:   Gamma (1) = 120
+[v4l2_camera_node-9] [INFO] [1761756393.729238575] [v4l2_camera]:   Power Line Frequency (3) = 1
+[v4l2_camera_node-9] [INFO] [1761756393.730046637] [v4l2_camera]:   White Balance Temperature (1) = 4000 [inactive]
+[v4l2_camera_node-9] [INFO] [1761756393.730142487] [v4l2_camera]:   Sharpness (1) = 2
+[v4l2_camera_node-9] [INFO] [1761756393.730171323] [v4l2_camera]:   Backlight Compensation (1) = 1
+[v4l2_camera_node-9] [ERROR] [1761756393.730199287] [v4l2_camera]: Failed getting value for control 10092545: Permission denied (13); returning 0!
+[v4l2_camera_node-9] [INFO] [1761756393.730258202] [v4l2_camera]:   Camera Controls (6) = 0
+[v4l2_camera_node-9] [INFO] [1761756393.730282575] [v4l2_camera]:   Auto Exposure (3) = 3
+[v4l2_camera_node-9] [INFO] [1761756393.731642996] [v4l2_camera]:   Exposure Time, Absolute (1) = 156 [inactive]
+[v4l2_camera_node-9] [INFO] [1761756393.731714604] [v4l2_camera]:   Exposure, Dynamic Framerate (2) = 0
+[v4l2_camera_node-9] [WARN] [1761756393.733446675] [v4l2_camera]: Control type not currently supported: 6, for control: Camera Controls
+[v4l2_camera_node-9] [INFO] [1761756393.733696738] [v4l2_camera]: Starting camera
+[v4l2_camera_node-9] [WARN] [1761756394.002718565] [v4l2_camera]: Image encoding not the same as requested output, performing possibly slow conversion: yuv422_yuy2 => rgb8
+[v4l2_camera_node-9] [INFO] [1761756394.008774774] [v4l2_camera]: using default calibration URL
+[v4l2_camera_node-9] [INFO] [1761756394.008995523] [v4l2_camera]: camera calibration URL: file:///home/ws/.ros/camera_info/integrated_camera:_integrated_c.yaml
+[v4l2_camera_node-9] [ERROR] [1761756394.009321077] [camera_calibration_parsers]: Unable to open camera calibration file [/home/ws/.ros/camera_info/integrated_camera:_integrated_c.yaml]
+[v4l2_camera_node-9] [WARN] [1761756394.009394241] [v4l2_camera]: Camera calibration file /home/ws/.ros/camera_info/integrated_camera:_integrated_c.yaml not found
+[node-7] Serving static files from: /home/ws/src/mecanum_base/web
+[node-7] Web server attivo su http://localhost:8000
+[rosbridge_websocket-6] [INFO] [1761756394.481677152] [rosbridge_websocket]: Rosbridge WebSocket server started on port 9091
+[ros2_control_node-2] [INFO] [1761756394.859984210] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:15409 Scartati:0 Err:0 Coda↑:0 ↓:0
+[INFO] [spawner-10]: process started with pid [176868]
+[INFO] [spawner-11]: process started with pid [176869]
+[INFO] [spawner-12]: process started with pid [176873]
+[INFO] [spawner-13]: process started with pid [176877]
+[INFO] [spawner-14]: process started with pid [176878]
+[INFO] [spawner-15]: process started with pid [176879]
+[INFO] [spawner-16]: process started with pid [176880]
+[INFO] [spawner-17]: process started with pid [176881]
+[ros2_control_node-2] [WARN] [1761756396.691155972] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 31.539721 ms (missed cycles : 2).
+[spawner-17] [INFO] [1761756397.655321114] [spawner_battery_state_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
+[ros2_control_node-2] [INFO] [1761756397.759684141] [controller_manager]: Loading controller : 'battery_state_broadcaster' of type 'battery_state_broadcaster/BatteryStateBroadcaster'
+[ros2_control_node-2] [INFO] [1761756397.759748177] [controller_manager]: Loading controller 'battery_state_broadcaster'
+[ros2_control_node-2] [INFO] [1761756397.768685379] [controller_manager]: Controller 'battery_state_broadcaster' node arguments: --ros-args --params-file /tmp/launch_params_p1h_wh5r --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
+[ros2_control_node-2] [WARN] [1761756397.788556050] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 28.941416 ms (missed cycles : 2).
+[spawner-17] [INFO] [1761756398.036855251] [spawner_battery_state_broadcaster]: [94mLoaded [1mbattery_state_broadcaster[0m
+[ros2_control_node-2] [INFO] [1761756398.086045275] [controller_manager]: Configuring controller: 'battery_state_broadcaster'
+[ros2_control_node-2] [INFO] [1761756398.172714764] [controller_manager]: Activating controllers: [ battery_state_broadcaster ]
+[ros2_control_node-2] [INFO] [1761756398.179984807] [controller_manager]: Successfully switched controllers!
+[spawner-17] [INFO] [1761756398.202838748] [spawner_battery_state_broadcaster]: [92mConfigured and activated [1mbattery_state_broadcaster[0m
+[INFO] [spawner-17]: process has finished cleanly [pid 176881]
+[spawner-15] [INFO] [1761756399.004583242] [spawner_ir_front_right_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
+[ros2_control_node-2] [INFO] [1761756400.023668510] [controller_manager]: Loading controller : 'ir_front_right_broadcaster' of type 'range_sensor_broadcaster/RangeSensorBroadcaster'
+[ros2_control_node-2] [INFO] [1761756400.023842388] [controller_manager]: Loading controller 'ir_front_right_broadcaster'
+[ros2_control_node-2] [INFO] [1761756400.034940584] [controller_manager]: Controller 'ir_front_right_broadcaster' node arguments: --ros-args --params-file /tmp/launch_params_p1h_wh5r --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
+[spawner-15] [INFO] [1761756400.102843438] [spawner_ir_front_right_broadcaster]: [94mLoaded [1mir_front_right_broadcaster[0m
+[ros2_control_node-2] [INFO] [1761756400.105377154] [controller_manager]: Configuring controller: 'ir_front_right_broadcaster'
+[ros2_control_node-2] [INFO] [1761756400.122375504] [controller_manager]: Activating controllers: [ ir_front_right_broadcaster ]
+[ros2_control_node-2] [INFO] [1761756400.139810430] [controller_manager]: Successfully switched controllers!
+[spawner-15] [INFO] [1761756400.163300060] [spawner_ir_front_right_broadcaster]: [92mConfigured and activated [1mir_front_right_broadcaster[0m
+[INFO] [spawner-15]: process has finished cleanly [pid 176879]
+[spawner-10] [INFO] [1761756401.125860019] [spawner_joint_state_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
+[rosbridge_websocket-6] [INFO] [1761756401.800891197] [rosbridge_websocket]: Calling services in new thread
+[rosbridge_websocket-6] [INFO] [1761756401.803520893] [rosbridge_websocket]: Sending action goals in new thread
+[rosbridge_websocket-6] [INFO] [1761756401.807047401] [rosbridge_websocket]: Client connected. 1 clients total.
+[ros2_control_node-2] [INFO] [1761756401.880548625] [controller_manager]: Loading controller : 'joint_state_broadcaster' of type 'joint_state_broadcaster/JointStateBroadcaster'
+[ros2_control_node-2] [INFO] [1761756401.880638827] [controller_manager]: Loading controller 'joint_state_broadcaster'
+[ros2_control_node-2] [INFO] [1761756401.896470958] [controller_manager]: Controller 'joint_state_broadcaster' node arguments: --ros-args --params-file /tmp/launch_params_p1h_wh5r --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
+[spawner-10] [INFO] [1761756401.962830186] [spawner_joint_state_broadcaster]: [94mLoaded [1mjoint_state_broadcaster[0m
+[ros2_control_node-2] [INFO] [1761756401.966600399] [controller_manager]: Configuring controller: 'joint_state_broadcaster'
+[ros2_control_node-2] [INFO] [1761756401.966747571] [joint_state_broadcaster]: 'joints' or 'interfaces' parameter is empty. All available state interfaces will be published
+[ros2_control_node-2] [INFO] [1761756402.006537157] [controller_manager]: Activating controllers: [ joint_state_broadcaster ]
+[ros2_control_node-2] [INFO] [1761756402.021683619] [controller_manager]: Successfully switched controllers!
+[rosbridge_websocket-6] [INFO] [1761756402.027321096] [rosbridge_websocket]: [Client 000ac90c-ac11-44f3-8a3c-6ee307d5d45a] Subscribed to battery_state_broadcaster/battery_state_throttled
+[rosbridge_websocket-6] [INFO] [1761756402.037846043] [rosbridge_websocket]: [Client 000ac90c-ac11-44f3-8a3c-6ee307d5d45a] Subscribed to /camera/image_raw/compressed
+[spawner-10] [INFO] [1761756402.045061180] [spawner_joint_state_broadcaster]: [92mConfigured and activated [1mjoint_state_broadcaster[0m
+[INFO] [spawner-10]: process has finished cleanly [pid 176868]
+[spawner-14] [INFO] [1761756402.808698548] [spawner_ir_front_center_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
+[ros2_control_node-2] [INFO] [1761756403.846045147] [controller_manager]: Loading controller : 'ir_front_center_broadcaster' of type 'range_sensor_broadcaster/RangeSensorBroadcaster'
+[ros2_control_node-2] [INFO] [1761756403.846169236] [controller_manager]: Loading controller 'ir_front_center_broadcaster'
+[ros2_control_node-2] [INFO] [1761756403.847451308] [controller_manager]: Controller 'ir_front_center_broadcaster' node arguments: --ros-args --params-file /tmp/launch_params_p1h_wh5r --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
+[spawner-14] [INFO] [1761756403.902909681] [spawner_ir_front_center_broadcaster]: [94mLoaded [1mir_front_center_broadcaster[0m
+[ros2_control_node-2] [INFO] [1761756403.907804822] [controller_manager]: Configuring controller: 'ir_front_center_broadcaster'
+[ros2_control_node-2] [INFO] [1761756403.924122162] [controller_manager]: Activating controllers: [ ir_front_center_broadcaster ]
+[ros2_control_node-2] [INFO] [1761756403.939831028] [controller_manager]: Successfully switched controllers!
+[spawner-14] [INFO] [1761756403.962989953] [spawner_ir_front_center_broadcaster]: [92mConfigured and activated [1mir_front_center_broadcaster[0m
+[INFO] [spawner-14]: process has finished cleanly [pid 176878]
+[spawner-13] [INFO] [1761756404.198480351] [spawner_ir_front_left_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
+[ros2_control_node-2] [INFO] [1761756404.859873829] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:15420 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761756406.227887589] [controller_manager]: Loading controller : 'ir_front_left_broadcaster' of type 'range_sensor_broadcaster/RangeSensorBroadcaster'
+[ros2_control_node-2] [INFO] [1761756406.228117580] [controller_manager]: Loading controller 'ir_front_left_broadcaster'
+[ros2_control_node-2] [INFO] [1761756406.232577842] [controller_manager]: Controller 'ir_front_left_broadcaster' node arguments: --ros-args --params-file /tmp/launch_params_p1h_wh5r --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
+[spawner-13] [INFO] [1761756406.321788433] [spawner_ir_front_left_broadcaster]: [94mLoaded [1mir_front_left_broadcaster[0m
+[ros2_control_node-2] [INFO] [1761756406.324689527] [controller_manager]: Configuring controller: 'ir_front_left_broadcaster'
+[ros2_control_node-2] [INFO] [1761756406.343151799] [controller_manager]: Activating controllers: [ ir_front_left_broadcaster ]
+[ros2_control_node-2] [INFO] [1761756406.359852074] [controller_manager]: Successfully switched controllers!
+[spawner-13] [INFO] [1761756406.382854041] [spawner_ir_front_left_broadcaster]: [92mConfigured and activated [1mir_front_left_broadcaster[0m
+[INFO] [spawner-13]: process has finished cleanly [pid 176877]
+[spawner-16] [INFO] [1761756406.924525256] [spawner_servo_position_controller]: waiting for service /controller_manager/list_controllers to become available...
+[ros2_control_node-2] [INFO] [1761756407.921439820] [controller_manager]: Loading controller : 'servo_position_controller' of type 'position_controllers/JointGroupPositionController'
+[ros2_control_node-2] [INFO] [1761756407.921503058] [controller_manager]: Loading controller 'servo_position_controller'
+[ros2_control_node-2] [INFO] [1761756407.927671937] [controller_manager]: Controller 'servo_position_controller' node arguments: --ros-args --params-file /tmp/launch_params_p1h_wh5r --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
+[spawner-16] [INFO] [1761756407.982845431] [spawner_servo_position_controller]: [94mLoaded [1mservo_position_controller[0m
+[ros2_control_node-2] [INFO] [1761756407.986214212] [controller_manager]: Configuring controller: 'servo_position_controller'
+[ros2_control_node-2] [INFO] [1761756407.989114397] [servo_position_controller]: configure successful
+[ros2_control_node-2] [INFO] [1761756408.004974969] [controller_manager]: Activating controllers: [ servo_position_controller ]
+[ros2_control_node-2] [INFO] [1761756408.019867176] [servo_position_controller]: activate successful
+[ros2_control_node-2] [INFO] [1761756408.020052082] [controller_manager]: Successfully switched controllers!
+[spawner-16] [INFO] [1761756408.042602984] [spawner_servo_position_controller]: [92mConfigured and activated [1mservo_position_controller[0m
+[INFO] [spawner-16]: process has finished cleanly [pid 176880]
+[spawner-12] [INFO] [1761756408.308057397] [spawner_imu_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
+[ros2_control_node-2] [INFO] [1761756408.578216417] [controller_manager]: Loading controller : 'imu_broadcaster' of type 'imu_sensor_broadcaster/IMUSensorBroadcaster'
+[ros2_control_node-2] [INFO] [1761756408.578636605] [controller_manager]: Loading controller 'imu_broadcaster'
+[ros2_control_node-2] [INFO] [1761756408.599215856] [controller_manager]: Controller 'imu_broadcaster' node arguments: --ros-args --params-file /tmp/launch_params_p1h_wh5r --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
+[spawner-12] [INFO] [1761756408.663051527] [spawner_imu_broadcaster]: [94mLoaded [1mimu_broadcaster[0m
+[ros2_control_node-2] [INFO] [1761756408.665943353] [controller_manager]: Configuring controller: 'imu_broadcaster'
+[ros2_control_node-2] [INFO] [1761756408.763949903] [controller_manager]: Activating controllers: [ imu_broadcaster ]
+[ros2_control_node-2] [INFO] [1761756408.779959574] [controller_manager]: Successfully switched controllers!
+[spawner-12] [INFO] [1761756408.802052496] [spawner_imu_broadcaster]: [92mConfigured and activated [1mimu_broadcaster[0m
+[INFO] [spawner-12]: process has finished cleanly [pid 176873]
+[spawner-11] [INFO] [1761756409.107365736] [spawner_mecanum_velocity_controller]: waiting for service /controller_manager/list_controllers to become available...
+[ros2_control_node-2] [INFO] [1761756409.529073266] [controller_manager]: Loading controller : 'mecanum_velocity_controller' of type 'velocity_controllers/JointGroupVelocityController'
+[ros2_control_node-2] [INFO] [1761756409.529134189] [controller_manager]: Loading controller 'mecanum_velocity_controller'
+[ros2_control_node-2] [INFO] [1761756409.533571281] [controller_manager]: Controller 'mecanum_velocity_controller' node arguments: --ros-args --params-file /tmp/launch_params_p1h_wh5r --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
+[spawner-11] [INFO] [1761756409.603429747] [spawner_mecanum_velocity_controller]: [94mLoaded [1mmecanum_velocity_controller[0m
+[ros2_control_node-2] [INFO] [1761756409.609819149] [controller_manager]: Configuring controller: 'mecanum_velocity_controller'
+[ros2_control_node-2] [INFO] [1761756409.615240313] [mecanum_velocity_controller]: configure successful
+[ros2_control_node-2] [INFO] [1761756409.627724917] [controller_manager]: Activating controllers: [ mecanum_velocity_controller ]
+[ros2_control_node-2] [INFO] [1761756409.640265701] [mecanum_velocity_controller]: activate successful
+[ros2_control_node-2] [INFO] [1761756409.640703071] [controller_manager]: Successfully switched controllers!
+[spawner-11] [INFO] [1761756409.661935695] [spawner_mecanum_velocity_controller]: [92mConfigured and activated [1mmecanum_velocity_controller[0m
+[INFO] [spawner-11]: process has finished cleanly [pid 176869]
+[ros2_control_node-2] [INFO] [1761756410.304216344] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.060 FR=0.034 RL=0.060 RR=0.034 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761756410.320798707] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-0.044 FR=-0.104 RL=-0.044 RR=-0.104 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761756410.343489766] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-0.140 FR=-0.220 RL=-0.140 RR=-0.220 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761756410.362504224] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-0.418 FR=-0.569 RL=-0.418 RR=-0.569 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761756410.384340332] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-2.343 FR=-2.728 RL=-2.343 RR=-2.728 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761756410.401902867] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-4.140 FR=-4.643 RL=-4.140 RR=-4.643 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761756410.422495243] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-5.607 FR=-6.274 RL=-5.607 RR=-6.274 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761756410.445321210] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-7.602 FR=-8.475 RL=-7.602 RR=-8.475 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761756410.482464987] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-11.693 FR=-13.141 RL=-11.693 RR=-13.141 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761756410.503034977] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-13.252 FR=-14.924 RL=-13.252 RR=-14.924 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761756410.703412026] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-12.846 FR=-14.494 RL=-12.846 RR=-14.494 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761756410.745922000] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-10.209 FR=-11.567 RL=-10.209 RR=-11.567 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761756410.762714350] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-8.498 FR=-9.743 RL=-8.498 RR=-9.743 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761756410.801651778] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=1.865 FR=1.912 RL=1.865 RR=1.912 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761756410.822450774] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=4.414 FR=4.486 RL=4.414 RR=4.486 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761756410.842502726] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=5.416 FR=5.495 RL=5.416 RR=5.495 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761756410.860981368] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=6.520 FR=6.607 RL=6.520 RR=6.607 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761756410.881181385] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=6.812 FR=6.901 RL=6.812 RR=6.901 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761756410.903466930] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=7.110 FR=7.201 RL=7.110 RR=7.201 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761756410.922441737] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761756411.626548612] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.220 FR=0.220 RL=0.220 RR=0.220 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761756411.646128215] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.565 FR=0.565 RL=0.565 RR=0.565 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761756411.662450658] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=1.589 FR=1.589 RL=1.589 RR=1.589 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761756411.681475454] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=4.690 FR=4.690 RL=4.690 RR=4.690 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761756411.721479387] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=7.727 FR=7.821 RL=7.727 RR=7.821 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761756411.744064027] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=10.035 FR=10.252 RL=10.035 RR=10.252 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761756411.762543604] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=11.856 FR=12.209 RL=11.856 RR=12.209 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761756411.781482356] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=13.002 FR=13.496 RL=13.002 RR=13.496 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761756411.802447606] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=14.253 FR=14.771 RL=14.253 RR=14.771 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761756411.922492609] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=13.830 FR=14.340 RL=13.830 RR=14.340 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761756411.944709093] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=12.597 FR=13.084 RL=12.597 RR=13.084 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761756411.961378545] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761756414.860421076] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:15430 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761756417.321714236] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.097211 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761756424.181911354] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.296128 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761756424.899879077] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:15441 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761756434.919860356] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:15452 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761756444.919961251] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:15463 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761756454.940203087] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 000,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [INFO] [1761756455.039843348] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:15473 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761756461.571660071] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 32.035104 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761756464.940562905] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:15484 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761756465.159836094] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [WARN] [1761756468.326627298] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 87.012946 ms (missed cycles : 5).
+[ros2_control_node-2] [INFO] [1761756474.960420391] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:15495 Scartati:0 Err:0 Coda↑:0 ↓:0
+[INFO] [launch]: All log files can be found below /home/ws/.ros/log/2025-10-30-10-25-14-863768-dave-computer-8824
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [robot_state_publisher-1]: process started with pid [8837]
+[INFO] [ros2_control_node-2]: process started with pid [8838]
+[INFO] [mecanum_cmd_node-3]: process started with pid [8839]
+[INFO] [mecanum_odom_node-4]: process started with pid [8840]
+[INFO] [ekf_node-5]: process started with pid [8841]
+[INFO] [rosbridge_websocket-6]: process started with pid [8842]
+[INFO] [node-7]: process started with pid [8844]
+[INFO] [throttle-8]: process started with pid [8846]
+[INFO] [v4l2_camera_node-9]: process started with pid [8849]
+[mecanum_cmd_node-3] [INFO] [1761819915.529122527] [mecanum_cmd_node]: mecanum_cmd_node: pubblicazione comandi su /mecanum_velocity_controller/commands
+[mecanum_odom_node-4] [INFO] [1761819915.580639662] [mecanum_odom_node]: mecanum_odom_node avviato
+[ros2_control_node-2] [INFO] [1761819915.587845546] [controller_manager]: Using Steady (Monotonic) clock for triggering controller manager cycles.
+[robot_state_publisher-1] [INFO] [1761819915.597434768] [robot_state_publisher]: Robot initialized
+[ros2_control_node-2] [INFO] [1761819915.620082259] [controller_manager]: Subscribing to '/robot_description' topic for robot description.
+[ros2_control_node-2] [INFO] [1761819915.647791400] [controller_manager]: update rate is 50 Hz
+[ros2_control_node-2] [INFO] [1761819915.647871185] [controller_manager]: Spawning controller_manager RT thread with scheduler priority: 50
+[ros2_control_node-2] [WARN] [1761819915.648017612] [controller_manager]: Could not enable FIFO RT scheduling policy: with error number <1>(Operation not permitted). See [https://control.ros.org/master/doc/ros2_control/controller_manager/doc/userdoc.html] for details on how to enable realtime scheduling.
+[ros2_control_node-2] [INFO] [1761819915.682398842] [controller_manager]: Received robot description from topic.
+[ros2_control_node-2] [INFO] [1761819915.688300969] [controller_manager]: Loading hardware 'MecanumSystem' 
+[ros2_control_node-2] [INFO] [1761819915.698348992] [controller_manager]: Loaded hardware 'MecanumSystem' from plugin 'mecanum_hardware/MecanumSystem'
+[ros2_control_node-2] [INFO] [1761819915.698495461] [controller_manager]: Initialize hardware 'MecanumSystem' 
+[ros2_control_node-2] [INFO] [1761819915.739230346] [controller_manager.hardware_component.system.MecanumSystem]: Init OK (mock=false, serial=/dev/ttyUSB0, baud=1000000)
+[ros2_control_node-2] [INFO] [1761819915.739332755] [controller_manager]: Successful initialization of hardware 'MecanumSystem'
+[ros2_control_node-2] [INFO] [1761819915.739835089] [BatteryDebug]: Exporting interface: percentage @ 0x63cb76a8c9a8
+[ros2_control_node-2] [INFO] [1761819915.740485730] [resource_manager]: 'configure' hardware 'MecanumSystem' 
+[ros2_control_node-2] [INFO] [1761819915.740520437] [resource_manager]: Successful 'configure' of hardware 'MecanumSystem'
+[ros2_control_node-2] [INFO] [1761819915.740537614] [resource_manager]: 'activate' hardware 'MecanumSystem' 
+[ros2_control_node-2] [INFO] [1761819915.741170983] [controller_manager.hardware_component.system.MecanumSystem]: Porta seriale /dev/ttyUSB0 aperta a 1000000 baud
+[ros2_control_node-2] [INFO] [1761819915.741264823] [resource_manager]: Successful 'activate' of hardware 'MecanumSystem'
+[ros2_control_node-2] [INFO] [1761819915.741367949] [controller_manager]: Resource Manager has been successfully initialized. Starting Controller Manager services...
+[ros2_control_node-2] [INFO] [1761819915.750340115] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [WARN] [1761819915.768829506] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: �
+[v4l2_camera_node-9] [INFO] [1761819916.112902929] [v4l2_camera]: Driver: uvcvideo
+[v4l2_camera_node-9] [INFO] [1761819916.125493274] [v4l2_camera]: Version: 396811
+[v4l2_camera_node-9] [INFO] [1761819916.125556797] [v4l2_camera]: Device: Integrated Camera: Integrated C
+[v4l2_camera_node-9] [INFO] [1761819916.125575733] [v4l2_camera]: Location: usb-0000:00:14.0-10
+[v4l2_camera_node-9] [INFO] [1761819916.125588841] [v4l2_camera]: Capabilities:
+[v4l2_camera_node-9] [INFO] [1761819916.125603092] [v4l2_camera]:   Read/write: NO
+[v4l2_camera_node-9] [INFO] [1761819916.125615617] [v4l2_camera]:   Streaming: YES
+[v4l2_camera_node-9] [INFO] [1761819916.125639950] [v4l2_camera]: Current pixel format: YUYV @ 640x480
+[v4l2_camera_node-9] [INFO] [1761819916.125841408] [v4l2_camera]: Available pixel formats: 
+[v4l2_camera_node-9] [INFO] [1761819916.125876317] [v4l2_camera]:   YUYV - YUYV 4:2:2
+[v4l2_camera_node-9] [INFO] [1761819916.125891610] [v4l2_camera]:   MJPG - Motion-JPEG
+[v4l2_camera_node-9] [INFO] [1761819916.125904109] [v4l2_camera]: Available controls: 
+[v4l2_camera_node-9] [INFO] [1761819916.125925610] [v4l2_camera]:   Brightness (1) = 128
+[v4l2_camera_node-9] [INFO] [1761819916.125944473] [v4l2_camera]:   Contrast (1) = 32
+[v4l2_camera_node-9] [INFO] [1761819916.125963184] [v4l2_camera]:   Saturation (1) = 64
+[v4l2_camera_node-9] [INFO] [1761819916.125981188] [v4l2_camera]:   Hue (1) = 0
+[v4l2_camera_node-9] [INFO] [1761819916.125999982] [v4l2_camera]:   White Balance, Automatic (2) = 1
+[v4l2_camera_node-9] [INFO] [1761819916.126018359] [v4l2_camera]:   Gamma (1) = 120
+[v4l2_camera_node-9] [INFO] [1761819916.126037215] [v4l2_camera]:   Power Line Frequency (3) = 1
+[v4l2_camera_node-9] [INFO] [1761819916.126968568] [v4l2_camera]:   White Balance Temperature (1) = 4000 [inactive]
+[v4l2_camera_node-9] [INFO] [1761819916.128162187] [v4l2_camera]:   Sharpness (1) = 2
+[v4l2_camera_node-9] [INFO] [1761819916.128223946] [v4l2_camera]:   Backlight Compensation (1) = 1
+[v4l2_camera_node-9] [ERROR] [1761819916.128262066] [v4l2_camera]: Failed getting value for control 10092545: Permission denied (13); returning 0!
+[v4l2_camera_node-9] [INFO] [1761819916.128320884] [v4l2_camera]:   Camera Controls (6) = 0
+[v4l2_camera_node-9] [INFO] [1761819916.128348555] [v4l2_camera]:   Auto Exposure (3) = 3
+[v4l2_camera_node-9] [INFO] [1761819916.130247968] [v4l2_camera]:   Exposure Time, Absolute (1) = 156 [inactive]
+[v4l2_camera_node-9] [INFO] [1761819916.130357996] [v4l2_camera]:   Exposure, Dynamic Framerate (2) = 1
+[v4l2_camera_node-9] [WARN] [1761819916.135906290] [v4l2_camera]: Control type not currently supported: 6, for control: Camera Controls
+[v4l2_camera_node-9] [INFO] [1761819916.137115792] [v4l2_camera]: Succesfully set value for control Exposure, Dynamic Framerate to 0
+[v4l2_camera_node-9] [INFO] [1761819916.137332843] [v4l2_camera]: Starting camera
+[node-7] Serving static files from: /home/ws/src/mecanum_base/web
+[v4l2_camera_node-9] [WARN] [1761819916.406535947] [v4l2_camera]: Image encoding not the same as requested output, performing possibly slow conversion: yuv422_yuy2 => rgb8
+[ros2_control_node-2] [WARN] [1761819916.430966438] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.293627 ms (missed cycles : 2).
+[node-7] Web server attivo su http://localhost:8000
+[v4l2_camera_node-9] [INFO] [1761819916.478802881] [v4l2_camera]: using default calibration URL
+[v4l2_camera_node-9] [INFO] [1761819916.479081433] [v4l2_camera]: camera calibration URL: file:///home/ws/.ros/camera_info/integrated_camera:_integrated_c.yaml
+[v4l2_camera_node-9] [ERROR] [1761819916.479729528] [camera_calibration_parsers]: Unable to open camera calibration file [/home/ws/.ros/camera_info/integrated_camera:_integrated_c.yaml]
+[v4l2_camera_node-9] [WARN] [1761819916.479820294] [v4l2_camera]: Camera calibration file /home/ws/.ros/camera_info/integrated_camera:_integrated_c.yaml not found
+[rosbridge_websocket-6] [INFO] [1761819918.041886558] [rosbridge_websocket]: Rosbridge WebSocket server started on port 9091
+[INFO] [spawner-10]: process started with pid [9042]
+[INFO] [spawner-11]: process started with pid [9044]
+[INFO] [spawner-12]: process started with pid [9045]
+[INFO] [spawner-13]: process started with pid [9046]
+[INFO] [spawner-14]: process started with pid [9047]
+[INFO] [spawner-15]: process started with pid [9048]
+[INFO] [spawner-16]: process started with pid [9049]
+[INFO] [spawner-17]: process started with pid [9050]
+[ros2_control_node-2] [WARN] [1761819920.488829668] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 40.156838 ms (missed cycles : 3).
+[spawner-17] [INFO] [1761819921.731751265] [spawner_battery_state_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
+[ros2_control_node-2] [INFO] [1761819922.988012686] [controller_manager]: Loading controller : 'battery_state_broadcaster' of type 'battery_state_broadcaster/BatteryStateBroadcaster'
+[ros2_control_node-2] [INFO] [1761819922.988092531] [controller_manager]: Loading controller 'battery_state_broadcaster'
+[ros2_control_node-2] [INFO] [1761819923.002388078] [controller_manager]: Controller 'battery_state_broadcaster' node arguments: --ros-args --params-file /tmp/launch_params_cvlai2im --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
+[spawner-17] [INFO] [1761819923.099563856] [spawner_battery_state_broadcaster]: [94mLoaded [1mbattery_state_broadcaster[0m
+[ros2_control_node-2] [INFO] [1761819923.107720892] [controller_manager]: Configuring controller: 'battery_state_broadcaster'
+[ros2_control_node-2] [INFO] [1761819923.145515985] [controller_manager]: Activating controllers: [ battery_state_broadcaster ]
+[ros2_control_node-2] [INFO] [1761819923.149063963] [controller_manager]: Successfully switched controllers!
+[spawner-17] [INFO] [1761819923.172456734] [spawner_battery_state_broadcaster]: [92mConfigured and activated [1mbattery_state_broadcaster[0m
+[spawner-11] [INFO] [1761819923.355526811] [spawner_mecanum_velocity_controller]: waiting for service /controller_manager/list_controllers to become available...
+[INFO] [spawner-17]: process has finished cleanly [pid 9050]
+[ros2_control_node-2] [INFO] [1761819925.615095292] [controller_manager]: Loading controller : 'mecanum_velocity_controller' of type 'velocity_controllers/JointGroupVelocityController'
+[ros2_control_node-2] [INFO] [1761819925.615221142] [controller_manager]: Loading controller 'mecanum_velocity_controller'
+[ros2_control_node-2] [INFO] [1761819925.624799717] [controller_manager]: Controller 'mecanum_velocity_controller' node arguments: --ros-args --params-file /tmp/launch_params_cvlai2im --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
+[spawner-11] [INFO] [1761819925.693149274] [spawner_mecanum_velocity_controller]: [94mLoaded [1mmecanum_velocity_controller[0m
+[ros2_control_node-2] [INFO] [1761819925.697446510] [controller_manager]: Configuring controller: 'mecanum_velocity_controller'
+[ros2_control_node-2] [INFO] [1761819925.701815454] [mecanum_velocity_controller]: configure successful
+[ros2_control_node-2] [INFO] [1761819925.713263213] [controller_manager]: Activating controllers: [ mecanum_velocity_controller ]
+[ros2_control_node-2] [INFO] [1761819925.728943907] [mecanum_velocity_controller]: activate successful
+[ros2_control_node-2] [INFO] [1761819925.729173585] [controller_manager]: Successfully switched controllers!
+[spawner-11] [INFO] [1761819925.755044770] [spawner_mecanum_velocity_controller]: [92mConfigured and activated [1mmecanum_velocity_controller[0m
+[spawner-10] [INFO] [1761819925.965256830] [spawner_joint_state_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
+[INFO] [spawner-11]: process has finished cleanly [pid 9044]
+[ros2_control_node-2] [INFO] [1761819928.567260502] [controller_manager]: Loading controller : 'joint_state_broadcaster' of type 'joint_state_broadcaster/JointStateBroadcaster'
+[ros2_control_node-2] [INFO] [1761819928.567310042] [controller_manager]: Loading controller 'joint_state_broadcaster'
+[ros2_control_node-2] [INFO] [1761819928.579882997] [controller_manager]: Controller 'joint_state_broadcaster' node arguments: --ros-args --params-file /tmp/launch_params_cvlai2im --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
+[spawner-10] [INFO] [1761819928.616824083] [spawner_joint_state_broadcaster]: [94mLoaded [1mjoint_state_broadcaster[0m
+[ros2_control_node-2] [INFO] [1761819928.621955790] [controller_manager]: Configuring controller: 'joint_state_broadcaster'
+[ros2_control_node-2] [INFO] [1761819928.622074618] [joint_state_broadcaster]: 'joints' or 'interfaces' parameter is empty. All available state interfaces will be published
+[ros2_control_node-2] [INFO] [1761819928.656373823] [controller_manager]: Activating controllers: [ joint_state_broadcaster ]
+[ros2_control_node-2] [INFO] [1761819928.670357840] [controller_manager]: Successfully switched controllers!
+[spawner-10] [INFO] [1761819928.696667127] [spawner_joint_state_broadcaster]: [92mConfigured and activated [1mjoint_state_broadcaster[0m
+[INFO] [spawner-10]: process has finished cleanly [pid 9042]
+[spawner-16] [INFO] [1761819928.992732084] [spawner_servo_position_controller]: waiting for service /controller_manager/list_controllers to become available...
+[ros2_control_node-2] [INFO] [1761819929.998693573] [controller_manager]: Loading controller : 'servo_position_controller' of type 'position_controllers/JointGroupPositionController'
+[ros2_control_node-2] [INFO] [1761819929.998774901] [controller_manager]: Loading controller 'servo_position_controller'
+[ros2_control_node-2] [INFO] [1761819930.002880451] [controller_manager]: Controller 'servo_position_controller' node arguments: --ros-args --params-file /tmp/launch_params_cvlai2im --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
+[spawner-16] [INFO] [1761819930.051808813] [spawner_servo_position_controller]: [94mLoaded [1mservo_position_controller[0m
+[ros2_control_node-2] [INFO] [1761819930.055217248] [controller_manager]: Configuring controller: 'servo_position_controller'
+[ros2_control_node-2] [INFO] [1761819930.056870942] [servo_position_controller]: configure successful
+[ros2_control_node-2] [INFO] [1761819930.152590798] [controller_manager]: Activating controllers: [ servo_position_controller ]
+[ros2_control_node-2] [INFO] [1761819930.168903565] [servo_position_controller]: activate successful
+[ros2_control_node-2] [INFO] [1761819930.169016625] [controller_manager]: Successfully switched controllers!
+[spawner-16] [INFO] [1761819930.191860091] [spawner_servo_position_controller]: [92mConfigured and activated [1mservo_position_controller[0m
+[INFO] [spawner-16]: process has finished cleanly [pid 9049]
+[spawner-13] [INFO] [1761819930.482324883] [spawner_ir_front_left_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
+[ros2_control_node-2] [INFO] [1761819931.237625672] [controller_manager]: Loading controller : 'ir_front_left_broadcaster' of type 'range_sensor_broadcaster/RangeSensorBroadcaster'
+[ros2_control_node-2] [INFO] [1761819931.237690973] [controller_manager]: Loading controller 'ir_front_left_broadcaster'
+[ros2_control_node-2] [INFO] [1761819931.242797965] [controller_manager]: Controller 'ir_front_left_broadcaster' node arguments: --ros-args --params-file /tmp/launch_params_cvlai2im --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
+[spawner-13] [INFO] [1761819931.291683087] [spawner_ir_front_left_broadcaster]: [94mLoaded [1mir_front_left_broadcaster[0m
+[ros2_control_node-2] [INFO] [1761819931.295416003] [controller_manager]: Configuring controller: 'ir_front_left_broadcaster'
+[ros2_control_node-2] [INFO] [1761819931.312491449] [controller_manager]: Activating controllers: [ ir_front_left_broadcaster ]
+[ros2_control_node-2] [INFO] [1761819931.328920134] [controller_manager]: Successfully switched controllers!
+[spawner-13] [INFO] [1761819931.352555076] [spawner_ir_front_left_broadcaster]: [92mConfigured and activated [1mir_front_left_broadcaster[0m
+[INFO] [spawner-13]: process has finished cleanly [pid 9046]
+[spawner-15] [INFO] [1761819931.920340563] [spawner_ir_front_right_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
+[ros2_control_node-2] [INFO] [1761819932.933550581] [controller_manager]: Loading controller : 'ir_front_right_broadcaster' of type 'range_sensor_broadcaster/RangeSensorBroadcaster'
+[ros2_control_node-2] [INFO] [1761819932.933638135] [controller_manager]: Loading controller 'ir_front_right_broadcaster'
+[ros2_control_node-2] [INFO] [1761819932.941141654] [controller_manager]: Controller 'ir_front_right_broadcaster' node arguments: --ros-args --params-file /tmp/launch_params_cvlai2im --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
+[spawner-15] [INFO] [1761819933.076412743] [spawner_ir_front_right_broadcaster]: [94mLoaded [1mir_front_right_broadcaster[0m
+[ros2_control_node-2] [INFO] [1761819933.095751134] [controller_manager]: Configuring controller: 'ir_front_right_broadcaster'
+[ros2_control_node-2] [INFO] [1761819933.126075894] [controller_manager]: Activating controllers: [ ir_front_right_broadcaster ]
+[ros2_control_node-2] [INFO] [1761819933.131681700] [controller_manager]: Successfully switched controllers!
+[spawner-15] [INFO] [1761819933.161545952] [spawner_ir_front_right_broadcaster]: [92mConfigured and activated [1mir_front_right_broadcaster[0m
+[ros2_control_node-2] [WARN] [1761819933.384830877] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 36.156840 ms (missed cycles : 2).
+[INFO] [spawner-15]: process has finished cleanly [pid 9048]
+[spawner-14] [INFO] [1761819934.082854528] [spawner_ir_front_center_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
+[ros2_control_node-2] [INFO] [1761819934.338885036] [controller_manager]: Loading controller : 'ir_front_center_broadcaster' of type 'range_sensor_broadcaster/RangeSensorBroadcaster'
+[ros2_control_node-2] [INFO] [1761819934.338952742] [controller_manager]: Loading controller 'ir_front_center_broadcaster'
+[ros2_control_node-2] [INFO] [1761819934.340520479] [controller_manager]: Controller 'ir_front_center_broadcaster' node arguments: --ros-args --params-file /tmp/launch_params_cvlai2im --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
+[spawner-14] [INFO] [1761819934.413086327] [spawner_ir_front_center_broadcaster]: [94mLoaded [1mir_front_center_broadcaster[0m
+[ros2_control_node-2] [INFO] [1761819934.421319439] [controller_manager]: Configuring controller: 'ir_front_center_broadcaster'
+[ros2_control_node-2] [INFO] [1761819934.465656570] [controller_manager]: Activating controllers: [ ir_front_center_broadcaster ]
+[ros2_control_node-2] [INFO] [1761819934.469491303] [controller_manager]: Successfully switched controllers!
+[spawner-14] [INFO] [1761819934.494662301] [spawner_ir_front_center_broadcaster]: [92mConfigured and activated [1mir_front_center_broadcaster[0m
+[ros2_control_node-2] [WARN] [1761819935.135575469] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 106.903658 ms (missed cycles : 6).
+[INFO] [spawner-14]: process has finished cleanly [pid 9047]
+[spawner-12] [INFO] [1761819935.544448928] [spawner_imu_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
+[ros2_control_node-2] [INFO] [1761819937.302253021] [controller_manager]: Loading controller : 'imu_broadcaster' of type 'imu_sensor_broadcaster/IMUSensorBroadcaster'
+[ros2_control_node-2] [INFO] [1761819937.302398931] [controller_manager]: Loading controller 'imu_broadcaster'
+[ros2_control_node-2] [INFO] [1761819937.310333693] [controller_manager]: Controller 'imu_broadcaster' node arguments: --ros-args --params-file /tmp/launch_params_cvlai2im --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
+[ros2_control_node-2] [WARN] [1761819937.369395864] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.725259 ms (missed cycles : 2).
+[spawner-12] [INFO] [1761819937.397725681] [spawner_imu_broadcaster]: [94mLoaded [1mimu_broadcaster[0m
+[ros2_control_node-2] [INFO] [1761819937.402936322] [controller_manager]: Configuring controller: 'imu_broadcaster'
+[ros2_control_node-2] [INFO] [1761819937.418910978] [controller_manager]: Activating controllers: [ imu_broadcaster ]
+[ros2_control_node-2] [INFO] [1761819937.429317024] [controller_manager]: Successfully switched controllers!
+[spawner-12] [INFO] [1761819937.453964143] [spawner_imu_broadcaster]: [92mConfigured and activated [1mimu_broadcaster[0m
+[INFO] [spawner-12]: process has finished cleanly [pid 9045]
+[rosbridge_websocket-6] [INFO] [1761819949.536231060] [rosbridge_websocket]: Calling services in new thread
+[rosbridge_websocket-6] [INFO] [1761819949.537750859] [rosbridge_websocket]: Sending action goals in new thread
+[rosbridge_websocket-6] [INFO] [1761819949.540936558] [rosbridge_websocket]: Client connected. 1 clients total.
+[rosbridge_websocket-6] [INFO] [1761819949.775114984] [rosbridge_websocket]: [Client 896448e8-2790-402a-aee4-63c2f8d049b9] Subscribed to battery_state_broadcaster/battery_state_throttled
+[rosbridge_websocket-6] [INFO] [1761819949.785158052] [rosbridge_websocket]: [Client 896448e8-2790-402a-aee4-63c2f8d049b9] Subscribed to /camera/image_raw/compressed
+[ros2_control_node-2] [INFO] [1761819955.070842149] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-0.569 FR=-0.418 RL=-0.569 RR=-0.418 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761819955.091308285] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-7.695 FR=-7.507 RL=-7.695 RR=-7.507 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761819955.230215177] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-8.067 FR=-7.781 RL=-8.067 RR=-7.781 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761819955.427674270] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-8.392 FR=-8.099 RL=-8.392 RR=-8.099 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [WARN] [1761819955.427987452] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 39.315199 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761819955.433383397] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-10.472 FR=-10.145 RL=-10.472 RR=-10.145 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761819955.471334705] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-12.991 FR=-12.991 RL=-12.991 RR=-12.991 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761819955.592490357] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761819965.008849890] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,Dispositivi I2C trovati: [60, 72]
+[ros2_control_node-2] [INFO] [1761819965.248873647] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,Rpi Pico Robot is starting...
+[ros2_control_node-2] [INFO] [1761819965.268827776] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[uart_tx_queue] task avviato
+[ros2_control_node-2] [INFO] [1761819965.289530633] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[FL] task avviato
+[ros2_control_node-2] [INFO] [1761819965.309047871] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[RL] non disponibile: avvio task annullato
+[ros2_control_node-2] [INFO] [1761819965.328884670] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[RR] non disponibile: avvio task annullato
+[ros2_control_node-2] [INFO] [1761819965.348829113] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[servo] task avviato
+[ros2_control_node-2] [INFO] [1761819965.368877488] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[IMU] non disponibile: avvio task annullato
+[ros2_control_node-2] [INFO] [1761819965.388806463] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[IRSensor_0] task avviato
+[ros2_control_node-2] [INFO] [1761819965.408891048] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[IRSensor_1] task avviato
+[ros2_control_node-2] [INFO] [1761819965.428864483] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[IRSensor_2] task avviato
+[ros2_control_node-2] [INFO] [1761819965.449022603] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[Encoder] non disponibile: avvio task annullato
+[ros2_control_node-2] [INFO] [1761819965.468838473] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[Display] task avviato
+[ros2_control_node-2] [INFO] [1761819965.488857701] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[uart_tx] task avviato
+[ros2_control_node-2] [INFO] [1761819965.508861377] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[Battery_Monitor] task avviato
+[ros2_control_node-2] [INFO] [1761819965.528843425] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:0 Scartati:0 Err:0 Coda↑:0 ↓:14
+[ros2_control_node-2] [INFO] [1761819965.548831029] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 1.5550884
+[ros2_control_node-2] [INFO] [1761819965.568830513] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 1.5550884
+[ros2_control_node-2] [INFO] [1761819965.588851005] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 1.5393804
+[ros2_control_node-2] [INFO] [1761819965.608839596] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 1.5393804
+[ros2_control_node-2] [INFO] [1761819965.629050193] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 1.5236725
+[ros2_control_node-2] [INFO] [1761819965.648900666] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 1.5236725
+[ros2_control_node-2] [INFO] [1761819965.668837612] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 1.5079645
+[ros2_control_node-2] [INFO] [1761819965.688871297] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 1.5079645
+[ros2_control_node-2] [INFO] [1761819965.708870343] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 1.4922565
+[ros2_control_node-2] [INFO] [1761819965.728872144] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 1.4922565
+[ros2_control_node-2] [INFO] [1761819965.749011668] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 1.4765486
+[ros2_control_node-2] [INFO] [1761819965.768858837] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 1.4765486
+[ros2_control_node-2] [INFO] [1761819965.788858751] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 1.4608406
+[ros2_control_node-2] [INFO] [1761819965.809344715] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 1.4608406
+[ros2_control_node-2] [INFO] [1761819965.829320637] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 1.4451326
+[ros2_control_node-2] [INFO] [1761819965.849585618] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 1.4451326
+[ros2_control_node-2] [INFO] [1761819965.870229149] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 1.4294246
+[ros2_control_node-2] [INFO] [1761819965.889078611] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 1.4294246
+[ros2_control_node-2] [INFO] [1761819965.908909960] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 1.4137167
+[ros2_control_node-2] [INFO] [1761819965.928908056] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 1.4137167
+[ros2_control_node-2] [INFO] [1761819965.948827887] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 1.3980087
+[ros2_control_node-2] [INFO] [1761819965.969000863] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 1.3980087
+[ros2_control_node-2] [INFO] [1761819965.988817303] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 1.3823007
+[ros2_control_node-2] [INFO] [1761819966.008962320] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 1.3665928
+[ros2_control_node-2] [INFO] [1761819966.028862774] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 1.3665928
+[ros2_control_node-2] [INFO] [1761819966.048887257] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 1.3508848
+[ros2_control_node-2] [INFO] [1761819966.068930666] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 1.3351768
+[ros2_control_node-2] [INFO] [1761819966.088878104] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 1.3351768
+[ros2_control_node-2] [INFO] [1761819966.108933006] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 1.3194688
+[ros2_control_node-2] [INFO] [1761819966.128890725] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 1.3194688
+[ros2_control_node-2] [INFO] [1761819966.148851703] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 1.3037609
+[ros2_control_node-2] [INFO] [1761819966.168980399] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 1.3037609
+[ros2_control_node-2] [INFO] [1761819966.188937199] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 1.2880529
+[ros2_control_node-2] [INFO] [1761819966.208849688] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 1.2880529
+[ros2_control_node-2] [INFO] [1761819966.228887219] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 1.272345
+[ros2_control_node-2] [INFO] [1761819966.248907143] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 1.272345
+[ros2_control_node-2] [INFO] [1761819966.269066398] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 1.256637
+[ros2_control_node-2] [INFO] [1761819966.288901980] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 1.256637
+[ros2_control_node-2] [INFO] [1761819966.308881644] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 1.240929
+[ros2_control_node-2] [INFO] [1761819966.328903249] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 1.240929
+[ros2_control_node-2] [INFO] [1761819966.348884632] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 1.225221
+[ros2_control_node-2] [INFO] [1761819966.369104900] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 1.225221
+[ros2_control_node-2] [INFO] [1761819966.388913483] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 1.2095131
+[ros2_control_node-2] [INFO] [1761819966.408850929] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 1.2095131
+[ros2_control_node-2] [INFO] [1761819966.428844949] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 1.1938051
+[ros2_control_node-2] [INFO] [1761819966.448816599] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 1.1938051
+[ros2_control_node-2] [INFO] [1761819966.468934020] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 1.1780971
+[ros2_control_node-2] [INFO] [1761819966.488817334] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 1.1780971
+[ros2_control_node-2] [INFO] [1761819966.508815922] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 1.1623892
+[ros2_control_node-2] [INFO] [1761819966.528861256] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 1.1623892
+[ros2_control_node-2] [INFO] [1761819966.548815494] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 1.1466812
+[ros2_control_node-2] [INFO] [1761819966.568828213] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 1.1466812
+[ros2_control_node-2] [INFO] [1761819966.588850332] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 1.1309732
+[ros2_control_node-2] [INFO] [1761819966.608858797] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 1.1309732
+[ros2_control_node-2] [INFO] [1761819966.628826407] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 1.1152652
+[ros2_control_node-2] [INFO] [1761819966.648822890] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 1.1152652
+[ros2_control_node-2] [INFO] [1761819966.668920523] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 1.0995573
+[ros2_control_node-2] [INFO] [1761819966.688845898] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 1.0995573
+[ros2_control_node-2] [INFO] [1761819966.708878377] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 1.0838493
+[ros2_control_node-2] [INFO] [1761819966.828867904] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 1.0838493
+[ros2_control_node-2] [INFO] [1761819966.848887607] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 1.0681414
+[ros2_control_node-2] [INFO] [1761819966.868869511] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 1.0524334
+[ros2_control_node-2] [INFO] [1761819966.888889381] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 1.0524334
+[ros2_control_node-2] [INFO] [1761819966.908892922] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 1.0367254
+[ros2_control_node-2] [INFO] [1761819966.928880586] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 1.0210174
+[ros2_control_node-2] [INFO] [1761819966.948905631] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 1.0210174
+[ros2_control_node-2] [INFO] [1761819966.968880193] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 1.0053095
+[ros2_control_node-2] [INFO] [1761819966.988842878] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.9896015
+[ros2_control_node-2] [INFO] [1761819967.008818191] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.9896015
+[ros2_control_node-2] [INFO] [1761819967.028824379] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.9738935
+[ros2_control_node-2] [INFO] [1761819967.048814492] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.9738935
+[ros2_control_node-2] [INFO] [1761819967.069291003] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.958185536
+[ros2_control_node-2] [INFO] [1761819967.088853342] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.958185536
+[ros2_control_node-2] [INFO] [1761819967.108839639] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.9424776
+[ros2_control_node-2] [INFO] [1761819967.128958724] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.9424776
+[ros2_control_node-2] [INFO] [1761819967.148920218] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.9267696
+[ros2_control_node-2] [INFO] [1761819967.168940014] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.9267696
+[ros2_control_node-2] [INFO] [1761819967.188848047] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.911061664
+[ros2_control_node-2] [INFO] [1761819967.208838228] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.911061664
+[ros2_control_node-2] [INFO] [1761819967.228846891] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.8953537
+[ros2_control_node-2] [INFO] [1761819967.248843776] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.8953537
+[ros2_control_node-2] [INFO] [1761819967.268922171] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.8796457
+[ros2_control_node-2] [INFO] [1761819967.288863064] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.8796457
+[ros2_control_node-2] [INFO] [1761819967.308842505] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.86393776
+[ros2_control_node-2] [INFO] [1761819967.328917660] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.86393776
+[ros2_control_node-2] [INFO] [1761819967.349488052] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.84822976
+[ros2_control_node-2] [INFO] [1761819967.370336031] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.84822976
+[ros2_control_node-2] [INFO] [1761819967.388916396] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.8325218
+[ros2_control_node-2] [INFO] [1761819967.408923337] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.8168138
+[ros2_control_node-2] [INFO] [1761819967.428911752] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.8168138
+[ros2_control_node-2] [INFO] [1761819967.448884327] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.80110584
+[ros2_control_node-2] [INFO] [1761819967.468997687] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.80110584
+[ros2_control_node-2] [INFO] [1761819967.489261224] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.7853979
+[ros2_control_node-2] [INFO] [1761819967.508847317] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.7853979
+[ros2_control_node-2] [INFO] [1761819967.528845517] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.7696899
+[ros2_control_node-2] [INFO] [1761819967.548808676] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.7696899
+[ros2_control_node-2] [INFO] [1761819967.568997898] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.75398192
+[ros2_control_node-2] [INFO] [1761819967.588899649] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.738274
+[ros2_control_node-2] [INFO] [1761819967.608844121] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.738274
+[ros2_control_node-2] [INFO] [1761819967.628839240] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.722566
+[ros2_control_node-2] [INFO] [1761819967.648842314] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.706858036
+[ros2_control_node-2] [INFO] [1761819967.669033675] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.706858036
+[ros2_control_node-2] [INFO] [1761819967.689277156] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.69115008
+[ros2_control_node-2] [INFO] [1761819967.708812406] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.69115008
+[ros2_control_node-2] [INFO] [1761819967.728833756] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.6754421
+[ros2_control_node-2] [INFO] [1761819967.748822223] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.6754421
+[ros2_control_node-2] [INFO] [1761819967.768837140] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.65973412
+[ros2_control_node-2] [INFO] [1761819967.788864397] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.65973412
+[ros2_control_node-2] [INFO] [1761819967.808829354] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.64402616
+[ros2_control_node-2] [INFO] [1761819967.828811245] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.64402616
+[ros2_control_node-2] [INFO] [1761819967.848840637] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.6283182
+[ros2_control_node-2] [INFO] [1761819967.868843990] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.6126102
+[ros2_control_node-2] [INFO] [1761819967.888850696] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.6126102
+[ros2_control_node-2] [INFO] [1761819967.908844258] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.59690224
+[ros2_control_node-2] [INFO] [1761819967.928968562] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.59690224
+[ros2_control_node-2] [INFO] [1761819967.948816885] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.5811943
+[ros2_control_node-2] [INFO] [1761819967.968826711] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.5654863
+[ros2_control_node-2] [INFO] [1761819967.990783602] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.5654863
+[ros2_control_node-2] [INFO] [1761819968.008942710] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.54977832
+[ros2_control_node-2] [INFO] [1761819968.028943639] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.5340704
+[ros2_control_node-2] [INFO] [1761819968.048963356] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.5340704
+[ros2_control_node-2] [INFO] [1761819968.169161817] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.5183624
+[ros2_control_node-2] [INFO] [1761819968.189468072] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.50265444
+[ros2_control_node-2] [INFO] [1761819968.211486636] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.486946468
+[ros2_control_node-2] [INFO] [1761819968.233699307] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.486946468
+[ros2_control_node-2] [INFO] [1761819968.249604543] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.4712385
+[ros2_control_node-2] [INFO] [1761819968.268855660] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.4712385
+[ros2_control_node-2] [INFO] [1761819968.288893287] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.45553052
+[ros2_control_node-2] [INFO] [1761819968.308953411] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.45553052
+[ros2_control_node-2] [INFO] [1761819968.328923691] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.43982256
+[ros2_control_node-2] [INFO] [1761819968.348963448] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.424114584
+[ros2_control_node-2] [INFO] [1761819968.368894214] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.424114584
+[ros2_control_node-2] [INFO] [1761819968.388878283] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.408406632
+[ros2_control_node-2] [INFO] [1761819968.408961035] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.408406632
+[ros2_control_node-2] [INFO] [1761819968.428895057] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.39269864
+[ros2_control_node-2] [INFO] [1761819968.448983064] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.39269864
+[ros2_control_node-2] [INFO] [1761819968.468980939] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.37699068
+[ros2_control_node-2] [INFO] [1761819968.489054715] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.37699068
+[ros2_control_node-2] [INFO] [1761819968.509000959] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.3612827
+[ros2_control_node-2] [INFO] [1761819968.529061278] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.34557474
+[ros2_control_node-2] [INFO] [1761819968.548996653] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.34557474
+[ros2_control_node-2] [INFO] [1761819968.568995072] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.32986676
+[ros2_control_node-2] [INFO] [1761819968.588972131] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.32986676
+[ros2_control_node-2] [INFO] [1761819968.608825952] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.3141588
+[ros2_control_node-2] [INFO] [1761819968.628841411] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.29845084
+[ros2_control_node-2] [INFO] [1761819968.648864033] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.29845084
+[ros2_control_node-2] [INFO] [1761819968.668836284] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.28274286
+[ros2_control_node-2] [INFO] [1761819968.689203505] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.28274286
+[ros2_control_node-2] [INFO] [1761819968.708857567] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.2670349
+[ros2_control_node-2] [INFO] [1761819968.728851166] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.2670349
+[ros2_control_node-2] [INFO] [1761819968.748821789] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.25132692
+[ros2_control_node-2] [INFO] [1761819968.768871187] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.25132692
+[ros2_control_node-2] [INFO] [1761819968.789229316] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.235618936
+[ros2_control_node-2] [INFO] [1761819968.808815845] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.235618936
+[ros2_control_node-2] [INFO] [1761819968.828835612] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.21991098
+[ros2_control_node-2] [INFO] [1761819968.848892301] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.204203016
+[ros2_control_node-2] [INFO] [1761819968.868984604] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.204203016
+[ros2_control_node-2] [INFO] [1761819968.888976504] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.18849504
+[ros2_control_node-2] [INFO] [1761819968.909018446] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.18849504
+[ros2_control_node-2] [INFO] [1761819968.929016580] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.172787068
+[ros2_control_node-2] [INFO] [1761819968.949001370] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.172787068
+[ros2_control_node-2] [INFO] [1761819968.970562390] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.1570791
+[ros2_control_node-2] [INFO] [1761819968.989039889] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.1570791
+[ros2_control_node-2] [INFO] [1761819969.010701491] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.14137113
+[ros2_control_node-2] [INFO] [1761819969.030975504] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.14137113
+[ros2_control_node-2] [INFO] [1761819969.048864486] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.12566316
+[ros2_control_node-2] [INFO] [1761819969.069108316] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.12566316
+[ros2_control_node-2] [INFO] [1761819969.088878823] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.1099552
+[ros2_control_node-2] [INFO] [1761819969.108928380] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.1099552
+[ros2_control_node-2] [INFO] [1761819969.128887337] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.09424724
+[ros2_control_node-2] [INFO] [1761819969.148938314] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.09424724
+[ros2_control_node-2] [INFO] [1761819969.168890874] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.078539272
+[ros2_control_node-2] [INFO] [1761819969.188882822] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.078539272
+[ros2_control_node-2] [INFO] [1761819969.208941438] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.06283131
+[ros2_control_node-2] [INFO] [1761819969.229017517] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.06283131
+[ros2_control_node-2] [INFO] [1761819969.248850910] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.04712335
+[ros2_control_node-2] [INFO] [1761819969.269116744] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.04712335
+[ros2_control_node-2] [INFO] [1761819969.288890463] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.031415388
+[ros2_control_node-2] [INFO] [1761819969.308968483] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.031415388
+[ros2_control_node-2] [INFO] [1761819969.328968350] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.015707424
+[ros2_control_node-2] [INFO] [1761819969.348956794] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.015707424
+[ros2_control_node-2] [INFO] [1761819969.368923413] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] pan: 0.0
+[ros2_control_node-2] [INFO] [1761819969.388955227] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,[ServoSmooth] tilt: 0.0
+[ros2_control_node-2] [INFO] [1761819972.353456806] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-0.807 FR=-0.777 RL=-0.807 RR=-0.777 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761819972.393713727] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-1.265 FR=-1.227 RL=-1.265 RR=-1.227 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761819972.431855978] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-2.856 FR=-2.799 RL=-2.856 RR=-2.799 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761819972.453317589] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-4.631 FR=-4.486 RL=-4.631 RR=-4.486 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761819972.491309203] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-7.384 FR=-7.201 RL=-7.384 RR=-7.201 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761819972.513063185] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-8.665 FR=-8.466 RL=-8.665 RR=-8.466 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761819972.532289856] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-9.343 FR=-9.137 RL=-9.343 RR=-9.137 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761819972.553317191] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-10.409 FR=-10.191 RL=-10.409 RR=-10.191 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761819972.571368277] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-10.777 FR=-10.555 RL=-10.777 RR=-10.555 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761819972.751441929] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761819973.274592988] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-0.567 FR=-0.300 RL=-0.567 RR=-0.300 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [WARN] [1761819973.317546863] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 28.873368 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761819973.335379276] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-0.328 FR=-0.289 RL=-0.328 RR=-0.289 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761819973.372796894] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-0.302 FR=-0.658 RL=-0.302 RR=-0.658 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761819973.392363271] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-0.295 FR=-0.870 RL=-0.295 RR=-0.870 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761819973.424557233] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-0.240 FR=-1.256 RL=-0.240 RR=-1.256 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761819973.430973779] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-0.072 FR=-1.889 RL=-0.072 RR=-1.889 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761819973.453599812] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.211 FR=-2.650 RL=0.211 RR=-2.650 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761819973.470320844] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.398 FR=-3.079 RL=0.398 RR=-3.079 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761819973.572404681] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761819975.029467385] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:209 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761819985.029609262] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:220 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761819990.188998364] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.320174 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761819991.716675371] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 27.993836 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761819994.849714729] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 41.023698 ms (missed cycles : 3).
+[ros2_control_node-2] [INFO] [1761819995.029296459] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:231 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820005.069488879] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:242 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820015.069496612] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:252 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820025.068909041] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:263 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820035.068979265] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:274 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820038.571599639] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.924796 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761820045.088873020] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:285 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820050.346472003] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 37.786800 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761820055.168983383] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:296 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820065.089330202] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:306 Scartati:0 Err:0 Co
+[ros2_control_node-2] [WARN] [1761820065.109099116] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: da↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820075.108906535] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:317 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820083.616159559] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 27.485534 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761820085.148957573] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:328 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820095.129733180] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:339 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820103.416889826] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 28.216366 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761820105.148851147] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:349 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820106.301447001] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 32.772381 ms (missed cycles : 2).
+[rosbridge_websocket-6] [INFO] [1761820109.152054901] [rosbridge_websocket]: Client disconnected. 0 clients total.
+[rosbridge_websocket-6] [INFO] [1761820109.359461204] [rosbridge_websocket]: Calling services in new thread
+[rosbridge_websocket-6] [INFO] [1761820109.361241031] [rosbridge_websocket]: Sending action goals in new thread
+[rosbridge_websocket-6] [INFO] [1761820109.364438691] [rosbridge_websocket]: Client connected. 1 clients total.
+[rosbridge_websocket-6] [INFO] [1761820109.452291649] [rosbridge_websocket]: [Client 37342517-3184-446d-9147-f695402ecea5] Subscribed to battery_state_broadcaster/battery_state_throttled
+[rosbridge_websocket-6] [INFO] [1761820109.467840636] [rosbridge_websocket]: [Client 37342517-3184-446d-9147-f695402ecea5] Subscribed to /image_raw/compressed
+[ros2_control_node-2] [WARN] [1761820109.795429307] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 26.734284 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761820113.050435262] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.759806 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761820114.797088053] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 28.415708 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761820115.114967680] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-0.070 FR=-0.117 RL=-0.070 RR=-0.117 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820115.149641467] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:360 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820115.274360909] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-2.206 FR=-2.413 RL=-2.206 RR=-2.413 PAN=0.000 TILT=0.000
+[ekf_node-5] [ERROR] [1761820115.363911872] [ekf_filter_node]: Failed to meet update rate! Took 0.023435427000000001729seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
+[ros2_control_node-2] [INFO] [1761820115.380413540] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-2.926 FR=-3.164 RL=-2.926 RR=-3.164 PAN=0.000 TILT=0.000
+[ekf_node-5] [ERROR] [1761820115.427693560] [ekf_filter_node]: Failed to meet update rate! Took 0.02961774600000000035seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
+[ros2_control_node-2] [INFO] [1761820115.442468473] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-3.122 FR=-3.367 RL=-3.122 RR=-3.367 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820115.484680776] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-3.324 FR=-3.577 RL=-3.324 RR=-3.577 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820115.553909789] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-3.949 FR=-4.295 RL=-3.949 RR=-4.295 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820115.589851228] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-7.893 FR=-8.886 RL=-7.893 RR=-8.886 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820115.955105966] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-7.276 FR=-8.230 RL=-7.276 RR=-8.230 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820116.093447908] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-3.056 FR=-3.694 RL=-3.056 RR=-3.694 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820116.132929793] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-2.502 FR=-3.086 RL=-2.502 RR=-3.086 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820116.155943088] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-0.754 FR=-1.067 RL=-0.754 RR=-1.067 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [WARN] [1761820116.188866999] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.193767 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761820116.235391979] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-0.359 FR=-0.601 RL=-0.359 RR=-0.601 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820116.288366104] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=2.088 FR=1.800 RL=2.088 RR=1.800 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820116.355328423] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [WARN] [1761820117.363536584] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 34.861269 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761820119.639886104] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 31.214163 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761820125.149355974] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:371 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820134.521763505] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 33.084028 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761820135.172445676] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:382 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820139.959566377] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-0.013 FR=-0.009 RL=-0.013 RR=-0.009 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820140.091716993] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-0.267 FR=-0.232 RL=-0.267 RR=-0.232 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820140.193354735] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-1.480 FR=-1.318 RL=-1.480 RR=-1.318 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820140.231348296] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-3.164 FR=-2.926 RL=-3.164 RR=-2.926 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820140.251307831] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-5.437 FR=-5.202 RL=-5.437 RR=-5.202 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820140.316588433] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-8.281 FR=-8.184 RL=-8.281 RR=-8.184 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820140.633584825] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-5.928 FR=-5.763 RL=-5.928 RR=-5.763 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820140.689892696] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-3.750 FR=-3.555 RL=-3.750 RR=-3.555 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [WARN] [1761820140.689998846] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 41.326269 ms (missed cycles : 3).
+[ros2_control_node-2] [INFO] [1761820140.731437979] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-2.376 FR=-2.221 RL=-2.376 RR=-2.221 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820140.753840166] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-0.657 FR=-0.576 RL=-0.657 RR=-0.576 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820140.830401176] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-0.179 FR=-0.137 RL=-0.179 RR=-0.137 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820140.873206768] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-0.137 FR=-0.100 RL=-0.137 RR=-0.100 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820140.954224698] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [WARN] [1761820144.562323629] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 33.650951 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761820145.210336651] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:393 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ekf_node-5] [ERROR] [1761820145.443437042] [ekf_filter_node]: Failed to meet update rate! Took 0.045300756999999997054seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
+[ros2_control_node-2] [WARN] [1761820145.609244325] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.572005 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761820155.169036268] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:403 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820164.471308624] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.267 FR=0.424 RL=0.267 RR=0.424 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820164.532107396] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.162 FR=0.226 RL=0.162 RR=0.226 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820164.594732594] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.158 FR=0.088 RL=0.158 RR=0.088 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820164.614914388] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.329 FR=-0.108 RL=0.329 RR=-0.108 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820164.671929844] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.673 FR=-0.625 RL=0.673 RR=-0.625 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820164.692768072] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.778 FR=-0.727 RL=0.778 RR=-0.727 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820164.731299780] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.834 FR=-0.781 RL=0.834 RR=-0.781 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820164.912848513] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.891 FR=-0.837 RL=0.891 RR=-0.837 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820164.991719706] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.834 FR=-0.781 RL=0.834 RR=-0.781 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820165.013908777] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.724 FR=-0.675 RL=0.724 RR=-0.675 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820165.032275701] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.603 FR=-0.414 RL=0.603 RR=-0.414 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820165.072574052] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.364 FR=-0.329 RL=0.364 RR=-0.329 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820165.114240576] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820165.228864964] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:414 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820165.452294188] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-0.022 FR=-0.077 RL=-0.022 RR=-0.077 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820165.529587128] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-0.023 FR=-0.061 RL=-0.023 RR=-0.061 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820165.569924222] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-0.024 FR=-0.047 RL=-0.024 RR=-0.047 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820165.611334379] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-0.036 FR=-0.023 RL=-0.036 RR=-0.023 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820165.651286665] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-0.281 FR=0.050 RL=-0.281 RR=0.050 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820165.710501944] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-0.766 FR=0.347 RL=-0.766 RR=0.347 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820165.751314841] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-1.763 FR=0.879 RL=-1.763 RR=0.879 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820165.772766241] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-2.295 FR=1.268 RL=-2.295 RR=1.268 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820165.812313585] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-2.688 FR=1.567 RL=-2.688 RR=1.567 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820165.951085166] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820166.790428876] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.364 FR=0.263 RL=0.364 RR=0.263 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820166.912895997] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.339 FR=0.261 RL=0.339 RR=0.261 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820166.931101475] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.264 FR=0.300 RL=0.264 RR=0.300 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820166.972857587] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.274 FR=0.536 RL=0.274 RR=0.536 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820166.995528420] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.273 FR=0.725 RL=0.273 RR=0.725 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820167.032340704] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.265 FR=0.834 RL=0.265 RR=0.834 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820167.053029666] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.252 FR=0.952 RL=0.252 RR=0.952 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820167.091617208] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.242 FR=1.014 RL=0.242 RR=1.014 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820167.132323364] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.232 FR=1.078 RL=0.232 RR=1.078 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820167.169555481] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.219 FR=1.145 RL=0.219 RR=1.145 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820167.193668264] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820167.892320543] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.642 FR=1.124 RL=0.642 RR=1.124 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820167.916052686] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.816 FR=1.231 RL=0.816 RR=1.231 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820167.951394123] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=2.100 FR=2.522 RL=2.100 RR=2.522 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820167.992542124] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=2.441 FR=2.833 RL=2.441 RR=2.833 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820168.011372805] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=2.629 FR=2.973 RL=2.629 RR=2.973 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820168.390883220] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820169.270329684] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=2.629 FR=2.973 RL=2.629 RR=2.973 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820169.412981182] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=3.873 FR=4.146 RL=3.873 RR=4.146 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820169.450284939] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=8.001 FR=8.194 RL=8.001 RR=8.194 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820169.494472851] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=9.729 FR=9.835 RL=9.729 RR=9.835 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820169.517326292] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=14.856 FR=14.988 RL=14.856 RR=14.988 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820169.551299134] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=17.933 FR=18.064 RL=17.933 RR=18.064 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820169.572327487] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=17.946 FR=18.052 RL=17.946 RR=18.052 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820169.611305460] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=17.955 FR=18.044 RL=17.955 RR=18.044 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820169.650289724] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=17.960 FR=18.039 RL=17.960 RR=18.039 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820169.691781190] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=18.037 FR=17.962 RL=18.037 RR=17.962 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820169.713397303] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=18.108 FR=17.884 RL=18.108 RR=17.884 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820169.731310824] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=18.143 FR=17.843 RL=18.143 RR=17.843 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820170.052569221] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=18.176 FR=17.802 RL=18.176 RR=17.802 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820170.297318807] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820171.450296216] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.034 FR=-1.421 RL=0.034 RR=-1.421 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820171.471325249] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-0.341 FR=-1.866 RL=-0.341 RR=-1.866 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820171.511084455] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-1.119 FR=-2.718 RL=-1.119 RR=-2.718 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820171.551504906] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-2.933 FR=-4.730 RL=-2.933 RR=-4.730 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820171.590094971] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-11.553 FR=-14.462 RL=-11.553 RR=-14.462 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820171.611983681] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-16.194 FR=-18.768 RL=-16.194 RR=-18.768 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820171.655314614] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-17.045 FR=-18.586 RL=-17.045 RR=-18.586 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820171.673228898] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-17.440 FR=-18.414 RL=-17.440 RR=-18.414 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820171.714539322] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-18.000 FR=-18.000 RL=-18.000 RR=-18.000 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820171.749966883] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-18.207 FR=-17.763 RL=-18.207 RR=-17.763 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820171.791336530] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-18.220 FR=-17.745 RL=-18.220 RR=-17.745 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820172.071243050] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-18.203 FR=-17.768 RL=-18.203 RR=-17.768 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820172.291666579] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-18.186 FR=-17.790 RL=-18.186 RR=-17.790 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820172.370364023] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-18.168 FR=-17.812 RL=-18.168 RR=-17.812 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820172.392322104] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-18.151 FR=-17.834 RL=-18.151 RR=-17.834 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820172.470068265] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=-18.114 FR=-17.877 RL=-18.114 RR=-17.877 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820172.492495510] [controller_manager.hardware_component.system.MecanumSystem]: write() cmd: FL=0.000 FR=0.000 RL=0.000 RR=0.000 PAN=0.000 TILT=0.000
+[ros2_control_node-2] [INFO] [1761820175.209262731] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:425 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820185.209048757] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:436 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820195.348936871] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:446 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820205.228883365] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:457 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820215.209058654] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:468 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820225.228897374] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:479 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820235.308884324] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:490 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820236.128872557] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [WARN] [1761820241.228873939] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [INFO] [1761820245.289708138] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:500 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820250.428866305] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [INFO] [1761820255.288952113] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:511 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820261.648865325] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: IM
+[ros2_control_node-2] [WARN] [1761820261.668906892] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: U,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [INFO] [1761820265.308864360] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:522 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820275.289003591] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:533 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820285.288899186] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:544 Scartati:0 Err:0 Coda↑:0 �
+[ros2_control_node-2] [WARN] [1761820285.308779344] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: �:0
+[ros2_control_node-2] [INFO] [1761820295.308871287] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:554 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820296.368893145] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 00,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [INFO] [1761820305.308881007] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:565 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820315.328901023] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:576 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820325.329269744] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:587 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820335.348863867] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:598 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820345.328914190] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:608 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820355.119699693] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 111.027885 ms (missed cycles : 6).
+[ros2_control_node-2] [INFO] [1761820355.348871339] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:619 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820359.526438976] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 37.767462 ms (missed cycles : 2).
+[ekf_node-5] [ERROR] [1761820361.538796564] [ekf_filter_node]: Failed to meet update rate! Took 0.020542727999999999683seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
+[ros2_control_node-2] [INFO] [1761820365.368891681] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:630 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820367.737449737] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 28.777765 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761820369.190495623] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.824207 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761820375.368989402] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:641 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820375.713694212] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 25.022452 ms (missed cycles : 2).
+[ekf_node-5] [ERROR] [1761820376.087979836] [ekf_filter_node]: Failed to meet update rate! Took 0.026903942000000000134seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
+[ros2_control_node-2] [WARN] [1761820376.914835026] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 26.162041 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761820385.388884095] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:652 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820395.428847597] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:662 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820405.372958432] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:673 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [INFO] [1761820415.429705661] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:684 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820415.969972576] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: ,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
+[ros2_control_node-2] [WARN] [1761820416.390425715] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.728884 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761820420.435489006] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 46.794873 ms (missed cycles : 3).
+[ros2_control_node-2] [INFO] [1761820425.408915579] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:695 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820427.516700753] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 48.004843 ms (missed cycles : 3).
+[ros2_control_node-2] [INFO] [1761820435.449285157] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:706 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820438.871571198] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.897441 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761820442.873334863] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.655270 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761820445.429022174] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:716 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820453.949629397] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.956615 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761820455.448883857] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:727 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820456.573786315] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 45.112503 ms (missed cycles : 3).
+[ros2_control_node-2] [WARN] [1761820457.573934031] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 45.259555 ms (missed cycles : 3).
+[ros2_control_node-2] [WARN] [1761820458.889493164] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.794269 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761820460.994711827] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 26.036793 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761820464.730645810] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.972078 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761820465.490349900] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:738 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820465.895980308] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 27.308528 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761820469.940137711] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 31.459301 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761820475.270236185] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.563661 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1761820475.509006873] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:749 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820480.471881062] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.210342 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761820485.304383002] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 55.699614 ms (missed cycles : 3).
+[ekf_node-5] [ERROR] [1761820485.372653294] [ekf_filter_node]: Failed to meet update rate! Took 0.022010576000000000446seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
+[ros2_control_node-2] [INFO] [1761820485.610722728] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:759 Scartati:0 Err:0 Coda↑:0 ↓:0
+[ros2_control_node-2] [WARN] [1761820490.478006831] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 29.313414 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1761820490.629169421] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: ,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000

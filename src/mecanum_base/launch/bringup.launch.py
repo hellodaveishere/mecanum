@@ -84,11 +84,33 @@ def generate_launch_description():
     # Nodo che limitare la frequenza (specificata in Hz) dei messaggi pubblicati su un topic ROS 2 
     # per evitare saturazione del WebSocket usato da rosbridge.
     # =========================
-    throttle_node = Node(
+    throttle_node_for_battery_status = Node(
             package='topic_tools',
             executable='throttle',
             name='throttle_node',
             arguments=['messages', '/battery_state_broadcaster/battery_state', '0.2', '/battery_state_broadcaster/battery_state_throttled']
+        )
+    # 🟢 Nodo sorgente: v4l2_camera
+    # Questo nodo acquisisce immagini dalla webcam del laptop
+    # e pubblica sia immagini raw che JPEG compresse usando image_transport
+
+    v4l2_camera_node =  Node(
+            package='v4l2_camera',              # Pacchetto ROS 2 che contiene il nodo per la webcam
+            executable='v4l2_camera_node',      # Nodo che cattura immagini da /dev/video*
+            name='v4l2_camera',                 # Nome del nodo ROS
+            output='screen',                    # Mostra l'output nel terminale (utile per debug)
+
+            parameters=[
+                {'video_device': '/dev/video0'},    # Dispositivo video da usare (es. webcam integrata)
+                {'image_size': [640, 480]},         # Risoluzione dell'immagine (puoi abbassarla per meno banda)
+                {'frame_rate': 5.0},                # ✅ Frequenza ridotta: 5 FPS per invio via WebSocket
+                {'output_encoding': 'rgb8'},        # Codifica dell'immagine (compatibile con rqt e cv_bridge)
+                {'use_ros_timestamp': True}         # Usa timestamp ROS per sincronizzazione temporale
+            ],
+
+            remappings=[
+                ('image_raw', '/camera/image_raw')  # ✅ Remapping del topic per compatibilità con rqt_image_view
+            ]
         )
 
     # =========================
@@ -235,5 +257,6 @@ def generate_launch_description():
         # sllidar_launch,  # 👉 decommenta se vuoi avviare anche il LiDAR
         rosbridge_server_node,
         webserver_node,
-        throttle_node
+        throttle_node_for_battery_status,
+        v4l2_camera_node 
     ])

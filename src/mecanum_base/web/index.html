@@ -6,30 +6,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Joystick ROS2</title>
   <link rel="stylesheet" href="css/style.css" />
-  
   <script src="js/roslib.min.js"></script>
   <script src="js/nipplejs.min.js"></script>
   <style>
-    /* Stile per l'indicatore di batteria */
-    #battery-container {
+    canvas {
+      border: 1px solid #ccc;
       margin-top: 15px;
-      width: 300px;
-      height: 25px;
-      background-color: #ddd;
-      border-radius: 5px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    #battery-bar {
-      height: 100%;
-      width: 0%;
-      background-color: green;
-      transition: width 0.3s ease;
     }
 
     #battery-text {
-      margin-top: 5px;
+      margin-top: 10px;
       font-weight: bold;
     }
   </style>
@@ -57,13 +43,11 @@
     <span id="max-speed-value">1.0</span>
   </div>
 
-  <!-- Indicatore di carica batteria -->
-  <div id="battery-display">
-    <div id="battery-text">Stato batteria: --%</div>
-    <div id="battery-container">
-      <div id="battery-bar"></div>
-    </div>
-  </div>
+  <!-- Stato batteria (solo testo) -->
+  <div id="battery-text">Stato batteria: --%</div>
+
+  <!-- Canvas per immagini -->
+  <canvas id="image-canvas" width="640" height="480"></canvas>
 
   <!-- Joystick -->
   <div class="joystick-wrapper">
@@ -79,9 +63,7 @@
     const maxSpeedSlider = document.getElementById('max-speed');
     const maxSpeedValue = document.getElementById('max-speed-value');
     const batteryText = document.getElementById('battery-text');
-    const batteryBar = document.getElementById('battery-bar');
 
-    // Imposta velocità massima iniziale
     let maxSpeed = parseFloat(localStorage.getItem('maxSpeed')) || 1.0;
     maxSpeedSlider.value = maxSpeed.toFixed(1);
     maxSpeedValue.textContent = maxSpeed.toFixed(1);
@@ -92,7 +74,6 @@
       localStorage.setItem('maxSpeed', maxSpeed.toFixed(1));
     });
 
-    // Stato ROS2
     ros.on('connection', () => {
       rosStatus.textContent = 'Connesso';
       rosStatus.className = 'connected';
@@ -108,43 +89,38 @@
       rosStatus.className = 'disconnected';
     });
 
-    // Publisher per /cmd_vel
     const cmdVel = new ROSLIB.Topic({
       ros: ros,
       name: '/cmd_vel',
       messageType: 'geometry_msgs/Twist'
     });
 
-    // Subscriber per /battery_state_throttled
     const batteryTopic = new ROSLIB.Topic({
       ros: ros,
       name: 'battery_state_broadcaster/battery_state_throttled',
       messageType: 'sensor_msgs/BatteryState'
     });
 
-    //batteryTopic.subscribe((message) => {
-    //  console.log("Battery message received:", message);
-    //});
-
-
     batteryTopic.subscribe((message) => {
       const voltage = message.voltage;
-      const percentage = Math.min((voltage / 12.6) * 100, 100); // Normalizza su LiPo 3S
-
+      const percentage = Math.min((voltage / 12.6) * 100, 100);
       batteryText.textContent = `Stato batteria: ${percentage.toFixed(1)}%`;
-      batteryBar.style.width = `${percentage}%`;
-
-      // Cambia colore in base al livello
-      if (percentage > 60) {
-        batteryBar.style.backgroundColor = 'green';
-      } else if (percentage > 30) {
-        batteryBar.style.backgroundColor = 'orange';
-      } else {
-        batteryBar.style.backgroundColor = 'red';
-      }
     });
 
-    // Joystick
+    const imageTopic = new ROSLIB.Topic({
+      ros: ros,
+      name: '/image_raw/compressed',
+      messageType: 'sensor_msgs/CompressedImage'
+    });
+
+    imageTopic.subscribe((message) => {
+      const canvas = document.getElementById('image-canvas');
+      const ctx = canvas.getContext('2d');
+      const img = new Image();
+      img.onload = () => ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      img.src = 'data:image/jpeg;base64,' + message.data;
+    });
+
     const joystick = nipplejs.create({
       zone: document.getElementById('joystick-zone'),
       mode: 'static',

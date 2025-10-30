@@ -29,6 +29,8 @@ RUN apt-get update && apt-get install -y \
     ros-jazzy-rosbridge-server \
     ros-jazzy-battery-state-broadcaster \
     ros-jazzy-topic-tools \
+    ros-jazzy-compressed-image-transport \
+    ros-jazzy-v4l2-camera \
     nodejs \
     npm \
     && rm -rf /var/lib/apt/lists/*
@@ -37,6 +39,17 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y python3-pip
 RUN apt-get install -y python3-serial
+
+RUN apt update && apt install -y \
+  gstreamer1.0-tools \
+  gstreamer1.0-plugins-base \
+  gstreamer1.0-plugins-good \
+  gstreamer1.0-plugins-bad \
+  gstreamer1.0-plugins-ugly \
+  v4l-utils && \
+  rm -rf /var/lib/apt/lists/*
+
+
 
 # Ref. https://github.com/RozaGkliva/ros2_serial
 # 
