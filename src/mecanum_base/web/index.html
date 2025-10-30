@@ -1,212 +1,404 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Controllo Robot e Telecamera</title>
+  <title>Joystick ROS2</title>
 
-  <!-- Foglio di stile esterno -->
-  <link rel="stylesheet" href="css/style.css" />
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <script src="js/bootstrap.bundle.min.js"></script>
 
-  <!-- Librerie ROS e Joystick -->
+  <!-- ROS + Joystick -->
   <script src="js/roslib.min.js"></script>
   <script src="js/nipplejs.min.js"></script>
+
+  <style>
+    canvas {
+      border: 1px solid #ccc;
+      margin-top: 15px;
+    }
+
+    .joystick-zone {
+      width: 200px;
+      height: 200px;
+      background-color: #e0e0e0;
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      margin-top: 10px;
+      position: relative;
+    }
+
+    #ros-console {
+      background: #f8f9fa;
+      border: 1px solid #ccc;
+      padding: 10px;
+      height: 200px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+    }
+  </style>
 </head>
 
-<body>
-  <h1>Controllo Robot Mecanum + Telecamera</h1>
+<body class="bg-light text-center">
+  <div class="container py-4">
+    <!-- Navbar -->
+    <nav class="navbar navbar-light bg-white border rounded mb-4">
+      <div class="container-fluid justify-content-start">
+        <button class="btn btn-outline-secondary me-3" type="button" data-bs-toggle="offcanvas"
+          data-bs-target="#menuOffcanvas">
+          ☰
+        </button>
+        <span class="navbar-brand mb-0 h1">Controllo Robot Mecanum + Telecamera</span>
+      </div>
+    </nav>
 
-  <!-- Stato connessione ROS -->
-  <div id="status-indicator">
-    Stato ROS2: <span id="ros-status" class="disconnected">Non connesso</span>
-  </div>
-
-  <!-- Visualizzazione velocità -->
-  <div id="velocity-display">
-    Velocità lineare: <span id="linear-speed">0.00</span> m/s |
-    Velocità angolare: <span id="angular-speed">0.00</span> rad/s
-  </div>
-
-  <!-- Configurazione velocità massima -->
-  <div id="config-panel">
-    <label for="max-speed">Velocità massima (m/s):</label>
-    <input type="range" id="max-speed" min="0.1" max="2.0" step="0.1" />
-    <span id="max-speed-value">1.0</span>
-  </div>
-
-  <!-- Stato batteria -->
-  <div id="battery-text">Stato batteria: --%</div>
-
-  <!-- Anteprima immagine da ROS -->
-  <canvas id="image-canvas" width="640" height="480"></canvas>
-
-  <!-- Contenitore joystick: telecamera a sinistra, robot a destra -->
-  <div class="joystick-container">
-    <!-- Joystick Telecamera -->
-    <div class="joystick-wrapper">
-      <h3>Controllo Telecamera</h3>
-      <div id="camera-joystick-zone"></div>
+    <!-- Offcanvas menu -->
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="menuOffcanvas">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Menu</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="list-group">
+          <li class="list-group-item">
+            <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#configModal">⚙️ Configurazione</button>
+          </li>
+          <li class="list-group-item">
+            <button class="btn btn-link" onclick="alert('Made by Dave!')">ℹ️ About</button>
+          </li>
+        </ul>
+      </div>
     </div>
 
-    <!-- Joystick Robot -->
-    <div class="joystick-wrapper">
-      <h3>Controllo Robot</h3>
-      <div id="joystick-zone"></div>
+    <!-- Stato ROS -->
+    <div class="alert alert-secondary d-inline-block py-2 px-3 mb-3">
+      Stato ROS2: <span id="ros-status" class="text-danger fw-bold">Non connesso</span>
+    </div>
+
+    <!-- Velocità -->
+    <div class="mb-3">
+      <span class="me-3">Velocità lineare: <span id="linear-speed">0.00</span> m/s</span>
+      <span>Velocità angolare: <span id="angular-speed">0.00</span> rad/s</span>
+    </div>
+
+    <!-- Stato batteria -->
+    <div id="battery-text">Batteria: --%</div>
+
+    <!-- Canvas video -->
+    <canvas id="image-canvas" width="640" height="480" class="img-fluid border rounded mb-4"></canvas>
+
+    <!-- Joystick layout -->
+    <div class="d-flex flex-wrap justify-content-center gap-4 mt-4">
+      <div class="text-center">
+        <h4>Controllo Telecamera</h4>
+        <div id="camera-joystick-zone" class="joystick-zone"></div>
+      </div>
+      <div class="text-center">
+        <h4>Controllo Robot</h4>
+        <div id="joystick-zone" class="joystick-zone"></div>
+      </div>
+    </div>
+
+    <!-- Console ROS -->
+    <div id="console-section" class="mt-4 d-none text-start">
+      <h5 class="text-muted">Console ROS</h5>
+      <pre id="ros-console"></pre>
+      <div class="input-group mt-2">
+        <input type="text" id="publish-message" class="form-control" placeholder="Messaggio da inviare..." />
+        <button class="btn btn-primary" id="send-message">Invia</button>
+      </div>
     </div>
   </div>
 
+  <!-- Modal configurazione -->
+  <div class="modal fade" id="configModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content text-start">
+        <div class="modal-header">
+          <h5 class="modal-title">Configurazione</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <!-- IP ROS -->
+          <label class="form-label">Indirizzo ROS:</label>
+          <select id="ros-ip" class="form-select mb-2">
+            <option value="ws://localhost:9091">localhost</option>
+            <option value="ws://192.168.188.10:9091">192.168.188.10</option>
+            <option value="custom">Altro...</option>
+          </select>
+          <input type="text" id="custom-ip" class="form-control mb-3 d-none" placeholder="ws://IP:PORT" />
+
+          <!-- Velocità -->
+          <label class="form-label d-flex justify-content-between">
+            <span>Velocità massima (m/s):</span>
+            <strong id="max-speed-value">1.0</strong>
+          </label>
+          <input type="range" class="form-range mb-3" id="max-speed" min="0.1" max="2.0" step="0.1" />
+
+          <!-- Console -->
+          <hr />
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="enable-console" />
+            <label class="form-check-label" for="enable-console">Abilita console ROS</label>
+          </div>
+
+          <label class="form-label">Topic da sottoscrivere:</label>
+          <input type="text" class="form-control mb-2" id="console-topic" value="/chatter" />
+
+          <label class="form-label">Tipo di messaggio:</label>
+          <select class="form-select mb-3" id="message-type">
+            <option value="std_msgs/String">std_msgs/String</option>
+            <option value="std_msgs/Float64">std_msgs/Float64</option>
+            <option value="geometry_msgs/Twist">geometry_msgs/Twist</option>
+          </select>
+
+          <label class="form-label">Topic su cui pubblicare:</label>
+          <input type="text" class="form-control" id="publish-topic" value="/chatter" />
+        </div>
+        <div class="modal-footer">
+          <button id="apply-config" class="btn btn-primary" data-bs-dismiss="modal">Applica</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script principale -->
   <script>
-    // Connessione a ROS2 tramite rosbridge
-    const ros = new ROSLIB.Ros({ url: 'ws://localhost:9091' });
+    let ros;
+    let rosUrl = localStorage.getItem('rosUrl') || 'ws://localhost:9091';
+    let maxSpeed = parseFloat(localStorage.getItem('maxSpeed')) || 1.0;
+    let consoleEnabled = localStorage.getItem('consoleEnabled') === 'true';
+    let consoleTopicName = localStorage.getItem('consoleTopicName') || '/chatter';
+    let consoleMessageType = localStorage.getItem('consoleMessageType') || 'std_msgs/String';
+    let publishTopicName = localStorage.getItem('publishTopicName') || '/chatter';
+    let consoleSubscriber = null;
+    let publisher = null;
 
-    // Elementi DOM
     const rosStatus = document.getElementById('ros-status');
     const linearDisplay = document.getElementById('linear-speed');
     const angularDisplay = document.getElementById('angular-speed');
     const maxSpeedSlider = document.getElementById('max-speed');
     const maxSpeedValue = document.getElementById('max-speed-value');
-    const batteryText = document.getElementById('battery-text');
+    const rosIpSelect = document.getElementById('ros-ip');
+    const customIpInput = document.getElementById('custom-ip');
+    const applyConfigBtn = document.getElementById('apply-config');
+    const consoleSection = document.getElementById('console-section');
+    const consoleOutput = document.getElementById('ros-console');
+    const sendMessageBtn = document.getElementById('send-message');
 
-    // Imposta velocità massima iniziale
-    let maxSpeed = parseFloat(localStorage.getItem('maxSpeed')) || 1.0;
-    maxSpeedSlider.value = maxSpeed.toFixed(1);
-    maxSpeedValue.textContent = maxSpeed.toFixed(1);
+    window.addEventListener('DOMContentLoaded', () => {
+      // Ripristina configurazione salvata
+      rosIpSelect.value = ['ws://localhost:9091', 'ws://192.168.188.10:9091'].includes(rosUrl) ? rosUrl : 'custom';
+      if (rosIpSelect.value === 'custom') {
+        customIpInput.classList.remove('d-none');
+        customIpInput.value = rosUrl;
+      }
 
-    // Aggiorna velocità massima da slider
-    maxSpeedSlider.addEventListener('input', () => {
-      maxSpeed = parseFloat(maxSpeedSlider.value);
+      maxSpeedSlider.value = maxSpeed.toFixed(1);
       maxSpeedValue.textContent = maxSpeed.toFixed(1);
+      document.getElementById('enable-console').checked = consoleEnabled;
+      document.getElementById('console-topic').value = consoleTopicName;
+      document.getElementById('message-type').value = consoleMessageType;
+      document.getElementById('publish-topic').value = publishTopicName;
+
+      connectToRos();
+    });
+
+    maxSpeedSlider.addEventListener('input', () => {
+      maxSpeedValue.textContent = parseFloat(maxSpeedSlider.value).toFixed(1);
+    });
+
+    rosIpSelect.addEventListener('change', () => {
+      customIpInput.classList.toggle('d-none', rosIpSelect.value !== 'custom');
+    });
+
+    applyConfigBtn.addEventListener('click', () => {
+      const selectedIp = rosIpSelect.value === 'custom' ? customIpInput.value : rosIpSelect.value;
+      rosUrl = selectedIp || 'ws://localhost:9091';
+      localStorage.setItem('rosUrl', rosUrl);
+
+      maxSpeed = parseFloat(maxSpeedSlider.value);
       localStorage.setItem('maxSpeed', maxSpeed.toFixed(1));
+
+      consoleEnabled = document.getElementById('enable-console').checked;
+      consoleTopicName = document.getElementById('console-topic').value || '/chatter';
+      consoleMessageType = document.getElementById('message-type').value || 'std_msgs/String';
+      publishTopicName = document.getElementById('publish-topic').value || '/chatter';
+
+      localStorage.setItem('consoleEnabled', consoleEnabled);
+      localStorage.setItem('consoleTopicName', consoleTopicName);
+      localStorage.setItem('consoleMessageType', consoleMessageType);
+      localStorage.setItem('publishTopicName', publishTopicName);
+
+      connectToRos();
     });
 
-    // Stato connessione ROS
-    ros.on('connection', () => {
-      rosStatus.textContent = 'Connesso';
-      rosStatus.className = 'connected';
+    sendMessageBtn.addEventListener('click', () => {
+      const msgText = document.getElementById('publish-message').value;
+      if (msgText && publisher) {
+        const msg = new ROSLIB.Message({ data: msgText });
+        publisher.publish(msg);
+        document.getElementById('publish-message').value = '';
+      }
     });
 
-    ros.on('error', () => {
-      rosStatus.textContent = 'Errore';
-      rosStatus.className = 'disconnected';
-    });
+    function connectToRos() {
+      ros = new ROSLIB.Ros({ url: rosUrl });
 
-    ros.on('close', () => {
-      rosStatus.textContent = 'Non connesso';
-      rosStatus.className = 'disconnected';
-    });
-
-    // Publisher per movimento robot
-    const cmdVel = new ROSLIB.Topic({
-      ros: ros,
-      name: '/cmd_vel',
-      messageType: 'geometry_msgs/Twist'
-    });
-
-    // Publisher per servo pan/tilt (JointGroupPositionController)
-    const servoPublisher = new ROSLIB.Topic({
-      ros: ros,
-      name: '/servo_position_controller/commands',
-      messageType: 'std_msgs/Float64MultiArray'
-    });
-
-    // Stato batteria
-    const batteryTopic = new ROSLIB.Topic({
-      ros: ros,
-      name: 'battery_state_broadcaster/battery_state_throttled',
-      messageType: 'sensor_msgs/BatteryState'
-    });
-
-    batteryTopic.subscribe((message) => {
-      const voltage = message.voltage;
-      const percentage = Math.min((voltage / 12.6) * 100, 100);
-      batteryText.textContent = `Stato batteria: ${percentage.toFixed(1)}%`;
-    });
-
-    // Immagine da ROS (compressed)
-    const imageTopic = new ROSLIB.Topic({
-      ros: ros,
-      name: '/image_raw/compressed',
-      messageType: 'sensor_msgs/CompressedImage'
-    });
-
-    imageTopic.subscribe((message) => {
-      const canvas = document.getElementById('image-canvas');
-      const ctx = canvas.getContext('2d');
-      const img = new Image();
-      img.onload = () => ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-      img.src = 'data:image/jpeg;base64,' + message.data;
-    });
-
-    // Joystick per movimento robot
-    const joystick = nipplejs.create({
-      zone: document.getElementById('joystick-zone'),
-      mode: 'static',
-      position: { left: '50%', top: '50%' },
-      color: 'blue',
-      size: 150
-    });
-
-    joystick.on('move', (evt, data) => {
-      if (!data || !data.vector || !data.distance) return;
-
-      const maxDistance = joystick.options.size / 2;
-      const speedFactor = Math.min(data.distance / maxDistance, 1);
-
-      // Inverti Y per ottenere movimento avanti quando si spinge in alto
-      const linearX = data.vector.y * maxSpeed * speedFactor;
-      const angularZ = data.vector.x * -maxSpeed * speedFactor;
-
-      linearDisplay.textContent = linearX.toFixed(2);
-      angularDisplay.textContent = angularZ.toFixed(2);
-
-      cmdVel.publish(new ROSLIB.Message({
-        linear: { x: linearX, y: 0, z: 0 },
-        angular: { x: 0, y: 0, z: angularZ }
-      }));
-    });
-
-    joystick.on('end', () => {
-      linearDisplay.textContent = '0.00';
-      angularDisplay.textContent = '0.00';
-
-      cmdVel.publish(new ROSLIB.Message({
-        linear: { x: 0, y: 0, z: 0 },
-        angular: { x: 0, y: 0, z: 0 }
-      }));
-    });
-
-    // Joystick per controllo telecamera
-    const cameraJoystick = nipplejs.create({
-      zone: document.getElementById('camera-joystick-zone'),
-      mode: 'static',
-      position: { left: '50%', top: '50%' },
-      color: 'red',
-      size: 150
-    });
-
-    // Funzione per inviare comandi ai servo
-    function sendServoCommand(pan, tilt) {
-      const msg = new ROSLIB.Message({
-        data: [pan, tilt] // Ordine: [servo_pan_joint, servo_tilt_joint]
+      ros.on('connection', () => {
+        rosStatus.textContent = 'Connesso';
+        rosStatus.className = 'text-success fw-bold';
+        setupRosTopics();
       });
-      servoPublisher.publish(msg);
+
+      ros.on('error', () => {
+        rosStatus.textContent = 'Errore';
+        rosStatus.className = 'text-danger fw-bold';
+      });
+
+      ros.on('close', () => {
+        rosStatus.textContent = 'Non connesso';
+        rosStatus.className = 'text-danger fw-bold';
+      });
     }
 
-    cameraJoystick.on('move', (evt, data) => {
-      if (!data || !data.vector || !data.distance) return;
+    function setupRosTopics() {
+      // Video
+      const imageTopic = new ROSLIB.Topic({
+        ros: ros,
+        name: '/image_raw/compressed',
+        messageType: 'sensor_msgs/CompressedImage'
+      });
 
-      const maxDistance = cameraJoystick.options.size / 2;
-      const factor = Math.min(data.distance / maxDistance, 1);
+      imageTopic.subscribe((message) => {
+        const canvas = document.getElementById('image-canvas');
+        const ctx = canvas.getContext('2d');
+        const img = new Image();
+        img.onload = () => ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        img.src = 'data:image/jpeg;base64,' + message.data;
+      });
 
-      const pan = data.vector.x * factor;
-      const tilt = data.vector.y * factor;
 
-      sendServoCommand(pan, tilt);
-    });
+      const batteryTopic = new ROSLIB.Topic({
+        ros: ros,
+        name: '/battery_state_broadcaster/battery_state_throttled',
+        messageType: 'sensor_msgs/BatteryState'
+      });
 
-    cameraJoystick.on('end', () => {
-      sendServoCommand(0.0, 0.0);
-    });
+      batteryTopic.subscribe((message) => {
+        const percent = Math.round(message.voltage /11.7 * 100); // valore tra 0.0 e 1.0
+        document.getElementById('battery-text').textContent = `Batteria: ${percent}%`;
+      });
+
+      // Joystick robot
+      const cmdVel = new ROSLIB.Topic({
+        ros: ros,
+        name: '/cmd_vel',
+        messageType: 'geometry_msgs/Twist'
+      });
+
+      const joystick = nipplejs.create({
+        zone: document.getElementById('joystick-zone'),
+        mode: 'static',
+        position: { left: '50%', top: '50%' },
+        color: 'blue'
+      });
+
+      joystick.on('move', (evt, data) => {
+        if (data && data.vector) {
+          const linear = maxSpeed * data.vector.y * -1;
+          const angular = maxSpeed * data.vector.x;
+          linearDisplay.textContent = linear.toFixed(2);
+          angularDisplay.textContent = angular.toFixed(2);
+          const twist = new ROSLIB.Message({
+            linear: { x: linear, y: 0, z: 0 },
+            angular: { x: 0, y: 0, z: angular }
+          });
+          cmdVel.publish(twist);
+        }
+      });
+
+      joystick.on('end', () => {
+        linearDisplay.textContent = '0.00';
+        angularDisplay.textContent = '0.00';
+        cmdVel.publish(new ROSLIB.Message({
+          linear: { x: 0, y: 0, z: 0 },
+          angular: { x: 0, y: 0, z: 0 }
+        }));
+      });
+
+      // Joystick telecamera
+      const servoTopic = new ROSLIB.Topic({
+        ros: ros,
+        name: '/servo_position_controller/commands',
+        messageType: 'std_msgs/Float64MultiArray'
+      });
+
+      const cameraJoystick = nipplejs.create({
+        zone: document.getElementById('camera-joystick-zone'),
+        mode: 'static',
+        position: { left: '50%', top: '50%' },
+        color: 'green'
+      });
+
+      cameraJoystick.on('move', (evt, data) => {
+        if (data && data.vector) {
+          const pan = data.vector.x;
+          const tilt = data.vector.y * -1;
+          const msg = new ROSLIB.Message({ data: [pan, tilt] });
+          servoTopic.publish(msg);
+        }
+      });
+
+      cameraJoystick.on('end', () => {
+        const msg = new ROSLIB.Message({ data: [0, 0] });
+        servoTopic.publish(msg);
+      });
+
+      // Console ROS
+      if (consoleSubscriber) {
+        consoleSubscriber.unsubscribe();
+        consoleSubscriber = null;
+      }
+
+      if (consoleEnabled) {
+        consoleSection.classList.remove('d-none');
+        consoleOutput.textContent = '';
+
+        consoleSubscriber = new ROSLIB.Topic({
+          ros: ros,
+          name: consoleTopicName,
+          messageType: consoleMessageType
+        });
+
+        consoleSubscriber.subscribe((message) => {
+          const now = new Date().toLocaleTimeString();
+          let line = `[${now}] `;
+
+          if (consoleMessageType === 'std_msgs/String' || consoleMessageType === 'std_msgs/Float64') {
+            line += message.data;
+          } else if (consoleMessageType === 'geometry_msgs/Twist') {
+            line += `linear: ${JSON.stringify(message.linear)}, angular: ${JSON.stringify(message.angular)}`;
+          } else {
+            line += JSON.stringify(message);
+          }
+
+          consoleOutput.textContent += line + '\n';
+          consoleOutput.scrollTop = consoleOutput.scrollHeight;
+        });
+
+        publisher = new ROSLIB.Topic({
+          ros: ros,
+          name: publishTopicName,
+          messageType: 'std_msgs/String'
+        });
+      } else {
+        consoleSection.classList.add('d-none');
+      }
+    }
   </script>
 </body>
+
 </html>
