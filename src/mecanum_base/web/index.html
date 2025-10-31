@@ -38,6 +38,13 @@
       overflow-y: auto;
       white-space: pre-wrap;
     }
+
+    #menuOffcanvas {
+      width: 250px;
+      /* Imposta la larghezza desiderata */
+      max-width: 80vw;
+      /* Opzionale: limita la larghezza su schermi piccoli */
+    }
   </style>
 </head>
 
@@ -45,12 +52,18 @@
   <div class="container py-4">
     <!-- Navbar -->
     <nav class="navbar navbar-light bg-white border rounded mb-4">
-      <div class="container-fluid justify-content-start">
-        <button class="btn btn-outline-secondary me-3" type="button" data-bs-toggle="offcanvas"
-          data-bs-target="#menuOffcanvas">
-          ☰
-        </button>
-        <span class="navbar-brand mb-0 h1">Controllo Robot Mecanum + Telecamera</span>
+      <div class="container-fluid">
+        <div class="row w-100 align-items-center">
+          <div class="col-2 text-start">
+            <button class="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas"
+              data-bs-target="#menuOffcanvas">
+              ☰
+            </button>
+          </div>
+          <div class="col-8 text-center">
+            <span class="navbar-brand mb-0 h1">Controllo Robot Mecanum</span>
+          </div>
+        </div>
       </div>
     </nav>
 
@@ -60,7 +73,7 @@
         <h5 class="offcanvas-title">Menu</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
       </div>
-      <div class="offcanvas-body">
+      <div class="offcanvas-body text-start">
         <ul class="list-group">
           <li class="list-group-item">
             <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#configModal">⚙️ Configurazione</button>
@@ -145,11 +158,12 @@
           </div>
 
           <label class="form-label">Topic da sottoscrivere:</label>
-          <input type="text" class="form-control mb-2" id="console-topic" value="/chatter" />
+          <input type="text" class="form-control mb-2" id="console-topic" value="/rosout" />
 
           <label class="form-label">Tipo di messaggio:</label>
           <select class="form-select mb-3" id="message-type">
-            <option value="std_msgs/String">std_msgs/String</option>
+            <option value="std_msgs/msg/String">rcl_interfaces/msg/Log</option>
+            <option value="std_msgs/msg/String">std_msgs/msg/String</option>
             <option value="std_msgs/Float64">std_msgs/Float64</option>
             <option value="geometry_msgs/Twist">geometry_msgs/Twist</option>
           </select>
@@ -170,8 +184,8 @@
     let rosUrl = localStorage.getItem('rosUrl') || 'ws://localhost:9091';
     let maxSpeed = parseFloat(localStorage.getItem('maxSpeed')) || 1.0;
     let consoleEnabled = localStorage.getItem('consoleEnabled') === 'true';
-    let consoleTopicName = localStorage.getItem('consoleTopicName') || '/chatter';
-    let consoleMessageType = localStorage.getItem('consoleMessageType') || 'std_msgs/String';
+    let consoleTopicName = localStorage.getItem('consoleTopicName') || '/rosout';
+    let consoleMessageType = localStorage.getItem('consoleMessageType') || 'rcl_interfaces/msg/Log';
     let publishTopicName = localStorage.getItem('publishTopicName') || '/chatter';
     let consoleSubscriber = null;
     let publisher = null;
@@ -223,8 +237,8 @@
       localStorage.setItem('maxSpeed', maxSpeed.toFixed(1));
 
       consoleEnabled = document.getElementById('enable-console').checked;
-      consoleTopicName = document.getElementById('console-topic').value || '/chatter';
-      consoleMessageType = document.getElementById('message-type').value || 'std_msgs/String';
+      consoleTopicName = document.getElementById('console-topic').value || '/rosout';
+      consoleMessageType = document.getElementById('message-type').value || 'rcl_interfaces/msg/Log';
       publishTopicName = document.getElementById('publish-topic').value || '/chatter';
 
       localStorage.setItem('consoleEnabled', consoleEnabled);
@@ -288,7 +302,7 @@
       });
 
       batteryTopic.subscribe((message) => {
-        const percent = Math.round(message.voltage /11.7 * 100); // valore tra 0.0 e 1.0
+        const percent = Math.round(message.voltage / 11.7 * 100); // valore tra 0.0 e 1.0
         document.getElementById('battery-text').textContent = `Batteria: ${percent}%`;
       });
 
@@ -303,7 +317,9 @@
         zone: document.getElementById('joystick-zone'),
         mode: 'static',
         position: { left: '50%', top: '50%' },
-        color: 'blue'
+        color: 'blue',
+        size: 150, // dimensione del joystick stesso
+        maxDistance: 150 // distanza massima dal centro
       });
 
       joystick.on('move', (evt, data) => {
@@ -340,7 +356,9 @@
         zone: document.getElementById('camera-joystick-zone'),
         mode: 'static',
         position: { left: '50%', top: '50%' },
-        color: 'green'
+        color: 'green',
+        size: 150, // dimensione del joystick stesso
+        maxDistance: 150 // distanza massima dal centro
       });
 
       cameraJoystick.on('move', (evt, data) => {
@@ -367,13 +385,16 @@
         consoleSection.classList.remove('d-none');
         consoleOutput.textContent = '';
 
+        console.log('🟡 Inizializzazione sottoscrizione al topic:', consoleTopicName);
         consoleSubscriber = new ROSLIB.Topic({
           ros: ros,
-          name: consoleTopicName,
-          messageType: consoleMessageType
+          name: consoleTopicName, // es: '/rosout'
+          messageType: consoleMessageType // es: 'rcl_interfaces/msg/Log'
         });
 
         consoleSubscriber.subscribe((message) => {
+          console.log('🟢 Messaggio ricevuto:', message);
+
           const now = new Date().toLocaleTimeString();
           let line = `[${now}] `;
 
@@ -381,22 +402,49 @@
             line += message.data;
           } else if (consoleMessageType === 'geometry_msgs/Twist') {
             line += `linear: ${JSON.stringify(message.linear)}, angular: ${JSON.stringify(message.angular)}`;
+          } else if (consoleMessageType === 'rcl_interfaces/msg/Log') {
+            let levelLabel = '';
+            let color = '';
+
+            switch (message.level) {
+              case 10: levelLabel = 'DEBUG'; color = 'gray'; break;
+              case 20: levelLabel = 'INFO'; color = 'blue'; break;
+              case 30: levelLabel = 'WARN'; color = 'orange'; break;
+              case 40: levelLabel = 'ERROR'; color = 'red'; break;
+              case 50: levelLabel = 'FATAL'; color = 'darkred'; break;
+              default: levelLabel = 'UNKNOWN'; color = 'black';
+            }
+
+            line += `[${levelLabel}] ${message.name}: ${message.msg}`;
+            consoleOutput.textContent += line + '\n';
+
+            // Stampa colorata in console browser
+            console.log(`%c${line}`, `color: ${color}`);
           } else {
             line += JSON.stringify(message);
+            consoleOutput.textContent += line + '\n';
           }
 
-          consoleOutput.textContent += line + '\n';
           consoleOutput.scrollTop = consoleOutput.scrollHeight;
         });
 
-        publisher = new ROSLIB.Topic({
-          ros: ros,
-          name: publishTopicName,
-          messageType: 'std_msgs/String'
+        // Verifica connessione WebSocket
+        ros.on('connection', () => {
+          console.log('✅ Connessione WebSocket stabilita con rosbridge');
+        });
+
+        ros.on('error', (error) => {
+          console.error('❌ Errore nella connessione WebSocket:', error);
+        });
+
+        ros.on('close', () => {
+          console.warn('⚠️ Connessione WebSocket chiusa');
         });
       } else {
         consoleSection.classList.add('d-none');
+        console.log('🔴 Console disabilitata, sezione nascosta');
       }
+
     }
   </script>
 </body>

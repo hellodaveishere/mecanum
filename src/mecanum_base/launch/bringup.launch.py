@@ -67,7 +67,8 @@ def generate_launch_description():
         output='screen',
         parameters=[
             {'max_message_size': 100000000},
-            {'port': 9091}
+            {'port': 9091},
+            {'rosout_enable': True}
         ]
     )
 
@@ -112,7 +113,15 @@ def generate_launch_description():
                 ('image_raw', '/camera/image_raw')  # ✅ Remapping del topic per compatibilità con rqt_image_view
             ]
         )
-
+    rosout_reply_node = Node(
+            # Nome del pacchetto dove si trova il nodo
+            package='mecanum_base',
+            # Nome dell'eseguibile compilato (come definito in CMakeLists.txt)
+            executable='rosout_relay_node',
+            # Nome del nodo ROS 2 (può essere diverso dall'eseguibile)
+            name='rosout_relay',
+            output='screen',
+        )
     # =========================
     # 🎛️ Spawner dei controller e broadcaster
     # =========================
@@ -258,5 +267,6 @@ def generate_launch_description():
         rosbridge_server_node,
         webserver_node,
         throttle_node_for_battery_status,
-        v4l2_camera_node 
+        v4l2_camera_node,
+        rosout_reply_node 
     ])

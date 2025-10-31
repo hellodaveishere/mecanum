@@ -17,6 +17,9 @@ find_package(tf2_ros REQUIRED)                  # Per trasformazioni TF
 find_package(geometry_msgs REQUIRED)            # Per Twist e Pose
 find_package(nav_msgs REQUIRED)                 # Per Odometry
 
+find_package(std_msgs REQUIRED)
+find_package(rcl_interfaces REQUIRED)
+
 # =========================
 # 2. LIBRERIE PLUGIN
 # =========================
@@ -29,7 +32,7 @@ add_library(mecanum_system SHARED
 # Imposta lo standard C++ per la libreria
 target_compile_features(mecanum_system PUBLIC cxx_std_17)
 
-# Dipendenze per la libreria hardware
+# Dipendenze per la libreria hardware e nodo rousout_relay
 ament_target_dependencies(mecanum_system
   rclcpp
   rclcpp_lifecycle
@@ -61,6 +64,13 @@ ament_target_dependencies(mecanum_odom_node
   geometry_msgs
 )
 
+# Nodo per convertire rosout message in stringa
+add_executable(rosout_relay_node src/rosout_relay_node.cpp)
+ament_target_dependencies(rosout_relay_node
+  rclcpp
+  std_msgs
+  rcl_interfaces
+)
 # =========================
 # 4. INCLUDE COMUNI
 # =========================
@@ -94,6 +104,7 @@ install(TARGETS
   mecanum_system
   mecanum_cmd_node
   mecanum_odom_node
+  rosout_relay_node 
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION lib/${PROJECT_NAME}
