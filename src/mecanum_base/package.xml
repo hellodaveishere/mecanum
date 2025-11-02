@@ -2,40 +2,49 @@
 <package format="3">
   <name>mecanum_base</name>
   <version>0.1.0</version>
+
+  <!-- 📄 Descrizione del pacchetto -->
   <description>
     Plugin hardware_interface per una base Mecanum con comunicazione seriale diretta.
-    Include anche nodi di utilità per inviare comandi e calcolare odometria.
+    Include nodi di utilità per inviare comandi, calcolare odometria e gestire la calibrazione.
+    Supporta interfaccia web tramite rosbridge e servizio ROS personalizzato.
   </description>
 
+  <!-- 👤 Informazioni sul maintainer -->
   <maintainer email="tuo.email@example.com">Il Tuo Nome</maintainer>
   <license>Apache-2.0</license>
 
   <!-- 🛠️ Sistema di build -->
   <buildtool_depend>ament_cmake</buildtool_depend>
 
-  <!-- 🔧 Dipendenze di compilazione -->
-  <build_depend>hardware_interface</build_depend>
-  <build_depend>pluginlib</build_depend>
-  <build_depend>ros2_controllers</build_depend>
+  <!-- 🔧 Dipendenze di compilazione (necessarie per build locale) -->
+  <build_depend>hardware_interface</build_depend>       <!-- Per implementare SystemInterface -->
+  <build_depend>pluginlib</build_depend>                <!-- Per registrare plugin hardware -->
+  <build_depend>ros2_controllers</build_depend>         <!-- Per usare controller standard -->
+  <build_depend>rosidl_default_generators</build_depend> <!-- Per generare interfacce personalizzate -->
 
-  <!-- 📦 Dipendenze esportate per altri pacchetti -->
+  <!-- 📦 Dipendenze esportate (necessarie per pacchetti che dipendono da questo) -->
   <build_export_depend>hardware_interface</build_export_depend>
   <build_export_depend>pluginlib</build_export_depend>
   <build_export_depend>ros2_controllers</build_export_depend>
+  <build_export_depend>rosidl_default_runtime</build_export_depend> <!-- Per usare CalibrationInput.srv -->
 
-  <!-- 🚀 Dipendenze runtime -->
-  <exec_depend>rclcpp</exec_depend>
-  <exec_depend>rclcpp_lifecycle</exec_depend>
-  <exec_depend>controller_manager</exec_depend>
-  <exec_depend>pluginlib</exec_depend>
-  <exec_depend>sensor_msgs</exec_depend>
-  <exec_depend>geometry_msgs</exec_depend>
-  <exec_depend>nav_msgs</exec_depend>
-  <exec_depend>tf2_ros</exec_depend>
-  <exec_depend>ros2_controllers</exec_depend>
-  <exec_depend>rosbridge_server</exec_depend>
+  <!-- 🚀 Dipendenze runtime (necessarie all'esecuzione) -->
+  <exec_depend>rclcpp</exec_depend>                     <!-- Per nodi ROS 2 -->
+  <exec_depend>rclcpp_lifecycle</exec_depend>           <!-- Per nodi hardware lifecycle -->
+  <exec_depend>controller_manager</exec_depend>         <!-- Per gestire controller ros2_control -->
+  <exec_depend>pluginlib</exec_depend>                  <!-- Per caricare plugin -->
+  <exec_depend>sensor_msgs</exec_depend>                <!-- Per messaggi di sensori -->
+  <exec_depend>geometry_msgs</exec_depend>              <!-- Per Twist, Pose, Vector3 -->
+  <exec_depend>nav_msgs</exec_depend>                   <!-- Per Odometry -->
+  <exec_depend>tf2_ros</exec_depend>                    <!-- Per trasformazioni TF -->
+  <exec_depend>ros2_controllers</exec_depend>           <!-- Per controller standard -->
+  <exec_depend>rosbridge_server</exec_depend>           <!-- Per interfaccia web via websocket -->
+  <exec_depend>std_msgs</exec_depend>                   <!-- Per messaggi generici -->
+  <exec_depend>rcl_interfaces</exec_depend>             <!-- Per introspezione parametri -->
+  <exec_depend>custom_interfaces</exec_depend>          <!-- Per usare CalibrationInput.srv se esterno -->
 
-  <!-- 🔌 Esportazione plugin hardware -->
+  <!-- 🔌 Esportazione plugin hardware per ros2_control -->
   <export>
     <build_type>ament_cmake</build_type>
     <pluginlib plugin="${prefix}/share/${PROJECT_NAME}/mecanum_hardware_plugin.xml"/>
