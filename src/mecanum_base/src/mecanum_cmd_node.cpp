@@ -2,11 +2,14 @@
 #include <geometry_msgs/msg/twist.hpp>
 #include <std_msgs/msg/float64_multi_array.hpp>
 #include <std_msgs/msg/string.hpp>
-#include <custom_interfaces/srv/calibration_input.hpp>  // Servizio personalizzato
+#include <sensor_msgs/msg/joint_state.hpp>
+#include <custom_interfaces/srv/calibration_input.hpp>
 #include <vector>
 #include <string>
 #include <sstream>
 #include <fstream>
+#include <map>
+#include <numeric>
 #include <cmath>
 #include <algorithm>
 
@@ -15,7 +18,6 @@ class MecanumCmdNode : public rclcpp::Node
 public:
   MecanumCmdNode() : Node("mecanum_cmd_node")
   {
-    // Parametri cinematici
     r_ = declare_parameter<double>("wheel_radius", 0.05);
     L_ = declare_parameter<double>("L", 0.15);
     W_ = declare_parameter<double>("W", 0.15);
@@ -24,21 +26,23 @@ public:
     max_wz_ = declare_parameter<double>("max_wz", 3.0);
     controller_topic_ = declare_parameter<std::string>("controller_cmd_topic", "/mecanum_velocity_controller/commands");
 
-    // Fattori di correzione ruote (FL, FR, RL, RR)
     wheel_correction_ = declare_parameter<std::vector<double>>("wheel_correction", {1.0, 1.0, 1.0, 1.0});
+    wheel_offset_ = {0.0, 0.0, 0.0, 0.0};
+    last_wheel_velocity_ = {0.0, 0.0, 0.0, 0.0};
 
-    // Publisher comandi ruote
+    loadCorrectionFromFile();
+
     pub_cmd_ = create_publisher<std_msgs::msg::Float64MultiArray>(controller_topic_, 10);
-
-    // Publisher per inviare messaggi al frontend via rosbridge
     calib_pub_ = create_publisher<std_msgs::msg::String>("/calibration_status", 10);
 
-    // Subscriber al comando di velocità
     sub_twist_ = create_subscription<geometry_msgs::msg::Twist>(
-      "/cmd_vel", rclcpp::QoS(10),
+      "/cmd_vel", 10,
       std::bind(&MecanumCmdNode::twistCb, this, std::placeholders::_1));
 
-    // Servizio per ricevere input di calibrazione dal frontend
+    sub_joint_states_ = create_subscription<sensor_msgs::msg::JointState>(
+      "/joint_states", 10,
+      std::bind(&MecanumCmdNode::jointStatesCb, this, std::placeholders::_1));
+
     calib_srv_ = create_service<custom_interfaces::srv::CalibrationInput>(
       "/run_calibration_test",
       std::bind(&MecanumCmdNode::handleCalibrationRequest, this, std::placeholders::_1, std::placeholders::_2));
@@ -47,13 +51,50 @@ public:
   }
 
 private:
-  // Funzione per calcolare la correzione contestuale
+  enum class CalibrationMode { MIN_PWM, MAX_PWM, MAP_PWM };
+
+  void twistCb(const geometry_msgs::msg::Twist::SharedPtr msg)
+  {
+    const double vx = std::clamp(msg->linear.x, -max_vx_, max_vx_);
+    const double vy = std::clamp(msg->linear.y, -max_vy_, max_vy_);
+    const double wz = std::clamp(msg->angular.z, -max_wz_, max_wz_);
+
+    const double k = 1.0 / r_;
+    const double a = L_ + W_;
+
+    double w_fl = k * (vx - vy - a * wz);
+    double w_fr = k * (vx + vy + a * wz);
+    double w_rl = k * (vx + vy - a * wz);
+    double w_rr = k * (vx - vy + a * wz);
+
+    std_msgs::msg::Float64MultiArray arr;
+    arr.data = {
+      (w_fl + wheel_offset_[0]) * wheel_correction_[0],
+      (w_fr + wheel_offset_[1]) * wheel_correction_[1],
+      (w_rl + wheel_offset_[2]) * wheel_correction_[2],
+      (w_rr + wheel_offset_[3]) * wheel_correction_[3]
+    };
+
+    pub_cmd_->publish(arr);
+  }
+
+  void jointStatesCb(const sensor_msgs::msg::JointState::SharedPtr msg)
+  {
+    std::map<std::string, double> joint_vel_map;
+    for (size_t i = 0; i < msg->name.size(); ++i)
+      joint_vel_map[msg->name[i]] = msg->velocity[i];
+
+    last_wheel_velocity_ = {
+      joint_vel_map["wheel_fl_joint"],
+      joint_vel_map["wheel_fr_joint"],
+      joint_vel_map["wheel_rl_joint"],
+      joint_vel_map["wheel_rr_joint"]
+    };
+  }
+
   std::vector<double> computeCorrectionVector(double vx, double vy, double wz, double ex, double ey, double ew)
   {
     const double a = L_ + W_;
-    const double k = 1.0 / r_;
-
-    // Matrice cinematicamente inversa (4x3)
     std::vector<std::vector<double>> M = {
       {1, -1, -a},
       {1,  1,  a},
@@ -61,20 +102,12 @@ private:
       {1, -1,  a}
     };
 
-    // Pesi dinamici in base al tipo di movimento
     double total = std::abs(vx) + std::abs(vy) + std::abs(wz);
     double wx = total > 0 ? std::abs(vx) / total : 0;
     double wy = total > 0 ? std::abs(vy) / total : 0;
     double ww = total > 0 ? std::abs(wz) / total : 0;
 
-    // Vettore di errore pesato
-    std::vector<double> e = {
-      wx * ex,
-      wy * ey,
-      ww * ew
-    };
-
-    // Calcolo correzione ruote
+    std::vector<double> e = { wx * ex, wy * ey, ww * ew };
     std::vector<double> correction(4, 0.0);
     for (int i = 0; i < 4; ++i)
       for (int j = 0; j < 3; ++j)
@@ -83,38 +116,34 @@ private:
     return correction;
   }
 
-  // Callback per comando di velocità
-  void twistCb(const geometry_msgs::msg::Twist::SharedPtr msg)
+  void runCalibrationTest(CalibrationMode mode, double step, std::vector<double>& result)
   {
-    const double vx = std::clamp(msg->linear.x,  -max_vx_,  max_vx_);
-    const double vy = std::clamp(msg->linear.y,  -max_vy_,  max_vy_);
-    const double wz = std::clamp(msg->angular.z, -max_wz_,  max_wz_);
+    result.clear();
+    std::ostringstream log;
+    log << "🧪 Avvio test: ";
+    if (mode == CalibrationMode::MIN_PWM) log << "Impulso minimo\n";
+    else if (mode == CalibrationMode::MAX_PWM) log << "Impulso massimo\n";
+    else log << "Mappatura impulso-velocità\n";
 
-    const double k = 1.0 / r_;
-    const double a = (L_ + W_);
+    calib_pub_->publish(std_msgs::msg::String().set__data(log.str()));
 
-    // Velocità nominali ruote
-    double w_fl = k * ( vx - vy - a * wz );
-    double w_fr = k * ( vx + vy + a * wz );
-    double w_rl = k * ( vx + vy - a * wz );
-    double w_rr = k * ( vx - vy + a * wz );
+    for (int pwm = 50; pwm <= 255; pwm += static_cast<int>(step)) {
+      std_msgs::msg::Float64MultiArray cmd;
+      cmd.data = {pwm, pwm, pwm, pwm};
+      pub_cmd_->publish(cmd);
+      rclcpp::sleep_for(std::chrono::milliseconds(300));
 
-    // Nessuna correzione automatica in tempo reale (solo da test)
-    std::vector<double> correction = {0.0, 0.0, 0.0, 0.0};
+      double avg = std::accumulate(last_wheel_velocity_.begin(), last_wheel_velocity_.end(), 0.0) / 4.0;
+      result.push_back(avg);
 
-    // Applica correzione e fattori ruota
-    std_msgs::msg::Float64MultiArray arr;
-    arr.data = {
-      (w_fl + correction[0]) * wheel_correction_[0],
-      (w_fr + correction[1]) * wheel_correction_[1],
-      (w_rl + correction[2]) * wheel_correction_[2],
-      (w_rr + correction[3]) * wheel_correction_[3]
-    };
+      std::ostringstream step_log;
+      step_log << "PWM: " << pwm << " → Velocità media: " << avg << " rad/s\n";
+      calib_pub_->publish(std_msgs::msg::String().set__data(step_log.str()));
+    }
 
-    pub_cmd_->publish(arr);
+    calib_pub_->publish(std_msgs::msg::String().set__data("✅ Test completato.\n"));
   }
 
-  // Salva il vettore di correzione in un file YAML
   void saveCorrectionToFile(const std::vector<double>& correction)
   {
     std::ofstream out("config/correction.yaml");
@@ -131,54 +160,116 @@ private:
     }
   }
 
-  // Gestione del servizio di calibrazione
+  void loadCorrectionFromFile()
+  {
+    std::ifstream in("config/correction.yaml");
+    if (in.is_open()) {
+      std::string line;
+      while (std::getline(in, line)) {
+        if (line.find("wheel_correction") != std::string::npos) {
+          size_t start = line.find("[");
+          size_t end = line.find("]");
+          if (start != std::string::npos && end != std::string::npos && end > start) {
+            std::string values = line.substr(start + 1, end - start - 1);
+            std::stringstream ss(values);
+            std::string val;
+            int i = 0;
+            while (std::getline(ss, val, ',') && i < 4) {
+              try {
+                wheel_offset_[i] = std::stod(val);
+              } catch (...) {
+                wheel_offset_[i] = 0.0;
+              }
+              ++i;
+            }
+            while (i < 4) wheel_offset_[i++] = 0.0;
+            RCLCPP_INFO(get_logger(), "📂 Correzione caricata da config/correction.yaml");
+            return;
+          }
+        }
+      }
+      in.close();
+      RCLCPP_WARN(get_logger(), "⚠️ File YAML trovato ma formato non valido. Correzioni impostate a zero.");
+    } else {
+      RCLCPP_WARN(get_logger(), "⚠️ File config/correction.yaml non trovato. Correzioni impostate a zero.");
+    }
+
+    wheel_offset_ = {0.0, 0.0, 0.0, 0.0};
+  }
+
   void handleCalibrationRequest(
     const std::shared_ptr<custom_interfaces::srv::CalibrationInput::Request> req,
     std::shared_ptr<custom_interfaces::srv::CalibrationInput::Response> res)
   {
     std::string tipo = req->test_type;
-    double ex = 0.0, ey = 0.0, ew = 0.0;
+    double valore = req->error_value;
+    std::vector<double> result;
+    CalibrationMode mode;
 
-    if (tipo == "rettilineo" || tipo == "strafe") ew = req->error_value;
-    else if (tipo == "rotazione") ey = req->error_value;
+    if (tipo == "min_pwm") {
+      mode = CalibrationMode::MIN_PWM;
+    } else if (tipo == "max_pwm") {
+      mode = CalibrationMode::MAX_PWM;
+    } else if (tipo == "map_pwm") {
+      mode = CalibrationMode::MAP_PWM;
+    } else if (tipo == "rettilineo" || tipo == "strafe" || tipo == "rotazione") {
+      double ex = 0.0, ey = 0.0, ew = 0.0;
 
-    double vx = (tipo == "rettilineo") ? 0.5 : 0.0;
-    double vy = (tipo == "strafe") ? 0.5 : 0.0;
-    double wz = (tipo == "rotazione") ? 1.0 : 0.0;
+      if (tipo == "rettilineo") ex = valore;
+      else if (tipo == "strafe") ey = valore;
+      else if (tipo == "rotazione") ew = valore;
 
-    auto correction = computeCorrectionVector(vx, vy, wz, ex, ey, ew);
+      double vx = (tipo == "rettilineo") ? 0.5 : 0.0;
+      double vy = (tipo == "strafe") ? 0.5 : 0.0;
+      double wz = (tipo == "rotazione") ? 1.0 : 0.0;
 
-    // Salva su file YAML
-    saveCorrectionToFile(correction);
+      auto correction = computeCorrectionVector(vx, vy, wz, ex, ey, ew);
+      saveCorrectionToFile(correction);
+      wheel_offset_ = correction;
 
-    // Costruisci messaggio per frontend
+      std::stringstream ss;
+      ss << "🧪 Test cinematico: " << tipo << "\n";
+      ss << "Errore: ex=" << ex << ", ey=" << ey << ", ew=" << ew << "\n";
+      ss << "Correzione ruote:\n";
+      ss << "FL: " << correction[0] << "\n";
+      ss << "FR: " << correction[1] << "\n";
+      ss << "RL: " << correction[2] << "\n";
+      ss << "RR: " << correction[3] << "\n";
+
+      calib_pub_->publish(std_msgs::msg::String().set__data(ss.str()));
+      res->result = ss.str();
+      return;
+    } else {
+      res->result = "❌ Tipo di test non riconosciuto.";
+      calib_pub_->publish(std_msgs::msg::String().set__data(res->result));
+      return;
+    }
+
+    runCalibrationTest(mode, valore, result);
+
     std::stringstream ss;
-    ss << "🧪 Test: " << tipo << "\n";
-    ss << "Errore: ex=" << ex << ", ey=" << ey << ", ew=" << ew << "\n";
-    ss << "Correzione ruote:\n";
-    ss << "FL: " << correction[0] << "\n";
-    ss << "FR: " << correction[1] << "\n";
-    ss << "RL: " << correction[2] << "\n";
-    ss << "RR: " << correction[3] << "\n";
+    ss << "📊 Risultati test " << tipo << ":\n";
+    for (size_t i = 0; i < result.size(); ++i)
+      ss << "Step " << i << ": " << result[i] << " rad/s\n";
 
-    std_msgs::msg::String status;
-    status.data = ss.str();
-    calib_pub_->publish(status);
-
+    calib_pub_->publish(std_msgs::msg::String().set__data(ss.str()));
     res->result = ss.str();
   }
 
-  // Membri ROS
+  // === Membri ROS ===
   rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr sub_twist_;
+  rclcpp::Subscription<sensor_msgs::msg::JointState>::SharedPtr sub_joint_states_;
   rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr pub_cmd_;
   rclcpp::Publisher<std_msgs::msg::String>::SharedPtr calib_pub_;
   rclcpp::Service<custom_interfaces::srv::CalibrationInput>::SharedPtr calib_srv_;
 
-  // Parametri
+  // === Parametri ===
   double r_, L_, W_;
   double max_vx_, max_vy_, max_wz_;
   std::string controller_topic_;
   std::vector<double> wheel_correction_;
+  std::vector<double> wheel_offset_;
+  std::vector<double> last_wheel_velocity_;
 };
 
 int main(int argc, char** argv)

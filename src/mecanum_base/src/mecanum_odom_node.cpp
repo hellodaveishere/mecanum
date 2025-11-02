@@ -27,8 +27,8 @@ public:
     pub_odom_ = create_publisher<nav_msgs::msg::Odometry>("/odom", 10);
     tf_broadcaster_ = std::make_unique<tf2_ros::TransformBroadcaster>(*this);
 
-    sub_js_ = create_subscription<sensor_msgs::msg::JointState>(
-      "/joint_states", rclcpp::QoS(50),
+    /joint_statessub_js_ = create_subscription<sensor_msgs::msg::JointState>(
+      "", rclcpp::QoS(50),
       std::bind(&MecanumOdomNode::jsCb, this, std::placeholders::_1));
 
     last_time_ = now();
