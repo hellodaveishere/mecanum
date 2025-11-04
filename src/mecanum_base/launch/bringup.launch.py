@@ -215,6 +215,14 @@ def generate_launch_description():
         parameters=[controllers_path],
     )
 
+calibration_node = Node(
+        package='mecanum_base',                  # Pacchetto dove è compilato calibration_node
+        executable='calibration_node',           # Nome dell'eseguibile definito in CMakeLists.txt
+        name='calibration_node',                 # Nome del nodo ROS 2
+        output='screen',                         # Mostra l'output nel terminale
+        parameters=[controllers_path],           # Usa lo stesso file di parametri dei controller
+    )
+
     # =========================
     # 📡 EKF (filtro di localizzazione)
     # =========================
@@ -261,6 +269,7 @@ def generate_launch_description():
         delayed_spawners,  # ✅ Tutti gli spawner avviati dopo ros2_control_node
         mecanum_cmd_node,
         mecanum_odom_node,
+        calibration_node,
         ekf_node,
         rviz_node,
         # sllidar_launch,  # 👉 decommenta se vuoi avviare anche il LiDAR
