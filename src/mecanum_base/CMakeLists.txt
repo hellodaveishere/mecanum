@@ -11,8 +11,6 @@ find_package(pluginlib REQUIRED)                # Per registrare e caricare plug
 find_package(hardware_interface REQUIRED)       # API ros2_control per SystemInterface
 find_package(controller_manager REQUIRED)       # Per gestire i controller
 find_package(sensor_msgs REQUIRED)              # Per usare sensor_msgs/Range
-
-# Dipendenze aggiuntive per i nodi di utilità
 find_package(tf2_ros REQUIRED)                  # Per trasformazioni TF
 find_package(geometry_msgs REQUIRED)            # Per Twist e Pose
 find_package(nav_msgs REQUIRED)                 # Per Odometry
@@ -87,6 +85,19 @@ ament_target_dependencies(rosout_relay_node
   rcl_interfaces
 )
 
+# Nodo dedicato alla calibrazione delle ruote
+add_executable(calibration_node src/calibration_node.cpp)
+target_compile_features(calibration_node PUBLIC cxx_std_17)
+ament_target_dependencies(calibration_node
+  rclcpp
+  std_msgs
+  sensor_msgs
+  geometry_msgs
+)
+
+# Collegamento alle interfacce generate (servizi)
+rosidl_target_interfaces(calibration_node ${PROJECT_NAME} "rosidl_typesupport_cpp")
+
 # =========================
 # 5. INCLUDE COMUNI
 # =========================
@@ -96,6 +107,7 @@ set(ALL_TARGETS
   mecanum_system
   mecanum_cmd_node
   mecanum_odom_node
+  calibration_node
 )
 
 foreach(tgt IN LISTS ALL_TARGETS)
@@ -121,7 +133,8 @@ install(TARGETS
   mecanum_system
   mecanum_cmd_node
   mecanum_odom_node
-  rosout_relay_node 
+  rosout_relay_node
+  calibration_node
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION lib/${PROJECT_NAME}
