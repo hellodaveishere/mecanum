@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interfaccia Calibrazione Robot</title>
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <script src="js/bootstrap.bundle.min.js"></script>
+
+  <!-- ROSLIB -->
+  <script src="js/roslib.min.js"></script>
+</head>
+<body class="bg-light">
+  <div class="container py-4">
+    <h2 class="mb-4">🛠️ Interfaccia Calibrazione Robot Mecanum</h2>
+
+    <!-- Procedura guidata -->
+    <div class="alert alert-warning">
+      <h5>📋 Procedura di calibrazione</h5>
+      <ol class="mb-0">
+        <li>Seleziona il tipo di test da eseguire (cinematico o PWM).</li>
+        <li>Se stai eseguendo un test cinematico:
+          <ul>
+            <li>Usa i pulsanti qui sotto per far muovere il robot lungo l’asse desiderato.</li>
+            <li>Osserva il comportamento reale: deviazione, rotazione, spostamento laterale.</li>
+            <li>Misura l’errore tra la posizione attesa e quella reale (in metri o radianti).</li>
+            <li>Inserisci l’errore misurato nel campo sottostante.</li>
+          </ul>
+        </li>
+        <li>Se stai eseguendo un test PWM:
+          <ul>
+            <li>Inserisci lo step PWM da usare (es. 10) per testare la risposta del robot.</li>
+          </ul>
+        </li>
+        <li>Premi “Invia dati di calibrazione” per avviare il test.</li>
+        <li>Consulta i risultati nel riquadro in basso.</li>
+      </ol>
+    </div>
+
+    <!-- Selettore dispositivo -->
+    <div class="mb-3">
+      <label for="deviceSelect" class="form-label">Dispositivo da calibrare</label>
+      <select class="form-select" id="deviceSelect">
+        <option value="mecanum_cmd_node" selected>Ruote</option>
+      </select>
+    </div>
+
+    <!-- Tipo di test -->
+    <div class="mb-3">
+      <label for="testType" class="form-label">Tipo di test</label>
+      <select class="form-select" id="testType" onchange="updateInstructions()">
+        <option value="rettilineo">Rettilineo (errore lungo X)</option>
+        <option value="strafe">Strafe (errore lungo Y)</option>
+        <option value="rotazione">Rotazione (errore angolare)</option>
+        <option value="min_pwm">Impulso minimo (PWM threshold)</option>
+        <option value="max_pwm">Impulso massimo sicuro</option>
+        <option value="map_pwm">Mappatura impulso → velocità</option>
+      </select>
+    </div>
+
+    <!-- Istruzioni dinamiche -->
+    <div class="mb-3">
+      <div id="testInstructions" class="alert alert-info">
+        Seleziona un tipo di test per visualizzare le istruzioni.
+      </div>
+    </div>
+
+    <!-- Comandi di movimento -->
+    <div class="mb-4">
+      <h5>🎮 Comandi di movimento per test cinematici</h5>
+      <div class="d-flex flex-wrap gap-2">
+        <button class="btn btn-outline-secondary" onclick="sendCmdVel(0.5, 0, 0)">Muovi 1m lungo X</button>
+        <button class="btn btn-outline-secondary" onclick="sendCmdVel(0, 0.5, 0)">Muovi 1m lungo Y</button>
+        <button class="btn btn-outline-secondary" onclick="sendCmdVel(0, 0, 1.0)">Ruota 180°</button>
+        <button class="btn btn-outline-danger" onclick="sendCmdVel(0, 0, 0)">🛑 Ferma robot</button>
+      </div>
+    </div>
+
+    <!-- Valore errore / parametro -->
+    <div class="mb-3">
+      <label for="errorValue" class="form-label" id="errorLabel">Valore errore misurato</label>
+      <input type="number" step="0.01" class="form-control" id="errorValue" placeholder="Es. 0.15" />
+    </div>
+
+    <!-- Pulsante invio -->
+    <button class="btn btn-primary" onclick="sendCalibration()">Invia dati di calibrazione</button>
+
+    <!-- Output -->
+    <div class="mt-4">
+      <h5>📡 Messaggi di calibrazione</h5>
+      <pre id="calibOutput" class="bg-white border p-3" style="min-height: 150px;"></pre>
+    </div>
+  </div>
+
+  <script>
+    const ros = new ROSLIB.Ros({
+      url: 'ws://localhost:9090'
+    });
+
+    ros.on('connection', () => {
+      console.log('✅ Connesso a rosbridge');
+    });
+
+    ros.on('error', (error) => {
+      console.error('❌ Errore rosbridge:', error);
+    });
+
+    const calibListener = new ROSLIB.Topic({
+      ros: ros,
+      name: '/calibration_status',
+      messageType: 'std_msgs/String'
+    });
+
+    calibListener.subscribe((message) => {
+      document.getElementById('calibOutput').innerText = message.data;
+    });
+
+    function updateInstructions() {
+      const testType = document.getElementById('testType').value;
+      const instructions = document.getElementById('testInstructions');
+      const label = document.getElementById('errorLabel');
+
+      if (testType === 'rettilineo') {
+        instructions.innerText = 'Fai muovere il robot lungo X per 1 metro. Misura la deviazione laterale e inseriscila qui.';
+        label.innerText = 'Errore lungo X (m)';
+      } else if (testType === 'strafe') {
+        instructions.innerText = 'Fai muovere il robot lateralmente lungo Y. Misura la deviazione e inseriscila qui.';
+        label.innerText = 'Errore lungo Y (m)';
+      } else if (testType === 'rotazione') {
+        instructions.innerText = 'Fai ruotare il robot di 180°. Misura l’errore angolare e inseriscilo qui.';
+        label.innerText = 'Errore angolare (rad)';
+      } else if (testType === 'min_pwm') {
+        instructions.innerText = 'Inserisci lo step PWM da usare per trovare il valore minimo che genera movimento.';
+        label.innerText = 'Step PWM (intero)';
+      } else if (testType === 'max_pwm') {
+        instructions.innerText = 'Inserisci lo step PWM da usare per testare il valore massimo sicuro.';
+        label.innerText = 'Step PWM (intero)';
+      } else if (testType === 'map_pwm') {
+        instructions.innerText = 'Inserisci lo step PWM da usare per costruire la curva PWM → velocità.';
+        label.innerText = 'Step PWM (intero)';
+      } else {
+        instructions.innerText = 'Seleziona un tipo di test per visualizzare le istruzioni.';
+        label.innerText = 'Valore errore misurato';
+      }
+    }
+
+    function sendCalibration() {
+      const device = document.getElementById('deviceSelect').value;
+      const testType = document.getElementById('testType').value;
+      const errorValue = parseFloat(document.getElementById('errorValue').value);
+
+      if (isNaN(errorValue)) {
+        alert('Inserisci un valore valido.');
+        return;
+      }
+
+      const service = new ROSLIB.Service({
+        ros: ros,
+        name: `/${device}/run_calibration_test`,
+        serviceType: 'custom_interfaces/CalibrationInput'
+      });
+
+      const request = new ROSLIB.ServiceRequest({
+        test_type: testType,
+        error_value: errorValue
+      });
+
+      service.callService(request, (result) => {
+        document.getElementById('calibOutput').innerText = result.result;
+      });
+    }
+
+    function sendCmdVel(vx, vy, wz) {
+      const cmdVel = new ROSLIB.Topic({
+        ros: ros,
+        name: '/cmd_vel',
+        messageType: 'geometry_msgs/Twist'
+      });
+
+      const twist = new ROSLIB.Message({
+        linear: { x: vx, y: vy, z: 0 },
+        angular: { x: 0, y: 0, z: wz }
+      });
+
+      cmdVel.publish(twist);
+      document.getElementById('calibOutput').innerText = `📤 Comando inviato: vx=${vx}, vy=${vy}, wz=${wz}`;
+    }
+  </script>
+</body>
+</html>
