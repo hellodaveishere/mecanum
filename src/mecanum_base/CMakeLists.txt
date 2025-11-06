@@ -1,36 +1,43 @@
 cmake_minimum_required(VERSION 3.8)
 project(mecanum_base)
 
-# =========================
+# ============================================================
 # 1. TROVA I PACCHETTI NECESSARI
-# =========================
-find_package(ament_cmake REQUIRED)              # Sistema di build ROS 2
-find_package(rclcpp REQUIRED)                   # Nodi ROS 2 e logging
-find_package(rclcpp_lifecycle REQUIRED)         # Lifecycle node per hardware interface
-find_package(pluginlib REQUIRED)                # Per registrare e caricare plugin
-find_package(hardware_interface REQUIRED)       # API ros2_control per SystemInterface
-find_package(controller_manager REQUIRED)       # Per gestire i controller
-find_package(sensor_msgs REQUIRED)              # Per usare sensor_msgs/Range
-find_package(tf2_ros REQUIRED)                  # Per trasformazioni TF
-find_package(geometry_msgs REQUIRED)            # Per Twist e Pose
-find_package(nav_msgs REQUIRED)                 # Per Odometry
-
+# ============================================================
+# Questi pacchetti forniscono le funzionalità ROS 2 e le dipendenze per nodi, messaggi, plugin e interfacce
+find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(rclcpp_lifecycle REQUIRED)
+find_package(pluginlib REQUIRED)
+find_package(hardware_interface REQUIRED)
+find_package(controller_manager REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(tf2_ros REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(nav_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(rcl_interfaces REQUIRED)
+find_package(rosidl_default_generators REQUIRED)  # Necessario per generare messaggi/servizi custom
 
-# =========================
-# 2. LIBRERIE PLUGIN
-# =========================
+# ============================================================
+# 2. GENERAZIONE INTERFACCE ROSIDL (.srv)
+# ============================================================
+# Genera il servizio CalibrationInput.srv e le relative interfacce
+rosidl_generate_interfaces(${PROJECT_NAME}
+  "srv/CalibrationInput.srv"
+  DEPENDENCIES std_msgs
+)
 
-# Libreria hardware interface
+# ============================================================
+# 3. LIBRERIA HARDWARE INTERFACE (plugin ros2_control)
+# ============================================================
+# Crea una libreria condivisa per l'interfaccia hardware della base Mecanum
 add_library(mecanum_system SHARED
   src/mecanum_system.cpp
 )
-
-# Imposta lo standard C++ per la libreria
 target_compile_features(mecanum_system PUBLIC cxx_std_17)
 
-# Dipendenze per la libreria hardware e nodo rousout_relay
+# Collega le dipendenze necessarie alla libreria
 ament_target_dependencies(mecanum_system
   rclcpp
   rclcpp_lifecycle
@@ -39,11 +46,11 @@ ament_target_dependencies(mecanum_system
   sensor_msgs
 )
 
-# =========================
-# 3. NODI DI UTILITÀ
-# =========================
+# ============================================================
+# 4. NODI DI UTILITÀ (eseguibili ROS 2)
+# ============================================================
 
-# Nodo per inviare comandi manuali
+# Nodo per inviare comandi manuali alla base
 add_executable(mecanum_cmd_node src/mecanum_cmd_node.cpp)
 target_compile_features(mecanum_cmd_node PUBLIC cxx_std_17)
 ament_target_dependencies(mecanum_cmd_node
@@ -62,7 +69,7 @@ ament_target_dependencies(mecanum_odom_node
   geometry_msgs
 )
 
-# Nodo per convertire rosout message in stringa
+# Nodo per convertire messaggi rosout in stringhe leggibili
 add_executable(rosout_relay_node src/rosout_relay_node.cpp)
 ament_target_dependencies(rosout_relay_node
   rclcpp
@@ -70,7 +77,7 @@ ament_target_dependencies(rosout_relay_node
   rcl_interfaces
 )
 
-# Nodo dedicato alla calibrazione delle ruote
+# Nodo per calibrazione delle ruote
 add_executable(calibration_node src/calibration_node.cpp)
 target_compile_features(calibration_node PUBLIC cxx_std_17)
 ament_target_dependencies(calibration_node
@@ -80,14 +87,17 @@ ament_target_dependencies(calibration_node
   geometry_msgs
 )
 
-# Collegamento alle interfacce generate (servizi)
-rosidl_target_interfaces(calibration_node ${PROJECT_NAME} "rosidl_typesupport_cpp")
+# ============================================================
+# 5. COLLEGAMENTO ALLE INTERFACCE ROSIDL
+# ============================================================
+# Collega il nodo calibration_node alle interfacce generate dal servizio
+rosidl_get_typesupport_target(cpp_typesupport_target "${PROJECT_NAME}" "rosidl_typesupport_cpp")
+target_link_libraries(calibration_node "${cpp_typesupport_target}")
 
-# =========================
-# 4. INCLUDE COMUNI
-# =========================
-
-# Applica le directory di include a tutti i target
+# ============================================================
+# 6. INCLUDE COMUNI PER TUTTI I TARGET
+# ============================================================
+# Applica le directory di include a tutti i nodi e librerie
 set(ALL_TARGETS
   mecanum_system
   mecanum_cmd_node
@@ -102,17 +112,16 @@ foreach(tgt IN LISTS ALL_TARGETS)
   )
 endforeach()
 
-# =========================
-# 5. PLUGIN ROS2_CONTROL
-# =========================
-
+# ============================================================
+# 7. ESPORTAZIONE DEL PLUGIN ROS2_CONTROL
+# ============================================================
+# Descrive il plugin per ros2_control tramite file XML
 pluginlib_export_plugin_description_file(hardware_interface mecanum_hardware_plugin.xml)
 
-# =========================
-# 6. INSTALLAZIONE
-# =========================
-
-# Installa le librerie e gli eseguibili
+# ============================================================
+# 8. INSTALLAZIONE DEI FILE
+# ============================================================
+# Installa librerie ed eseguibili
 install(TARGETS
   mecanum_system
   mecanum_cmd_node
@@ -127,7 +136,7 @@ install(TARGETS
 # Installa gli header
 install(DIRECTORY include/ DESTINATION include)
 
-# Installa i file plugin XML
+# Installa il file XML del plugin
 install(FILES
   mecanum_hardware_plugin.xml
   DESTINATION share/${PROJECT_NAME}
@@ -136,8 +145,8 @@ install(FILES
 # Installa risorse condivise (URDF, config, launch, RViz, webserver)
 install(DIRECTORY urdf config launch rviz webserver DESTINATION share/${PROJECT_NAME})
 
-# =========================
-# 7. MACRO FINALE
-# =========================
-
+# ============================================================
+# 9. MACRO FINALE PER IL PACCHETTO
+# ============================================================
+# Necessario per completare la configurazione del pacchetto ROS 2
 ament_package()

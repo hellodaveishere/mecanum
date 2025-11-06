@@ -1,9 +1,13 @@
-#include <rclcpp/rclcpp.hpp>
-#include <std_msgs/msg/float64_multi_array.hpp>
-#include <std_msgs/msg/string.hpp>
-#include <sensor_msgs/msg/joint_state.hpp>
-#include <custom_interfaces/srv/calibration_input.hpp>
+// === Inclusioni ROS 2 ===
+#include <rclcpp/rclcpp.hpp>  // Base per nodi ROS 2
+#include <std_msgs/msg/float64_multi_array.hpp>  // Per inviare comandi ai motori
+#include <std_msgs/msg/string.hpp>               // Per pubblicare messaggi di stato
+#include <sensor_msgs/msg/joint_state.hpp>       // Per ricevere velocità delle ruote
 
+// === Inclusione del servizio definito nel pacchetto mecanum_base ===
+#include "mecanum_base/srv/calibration_input.hpp"
+
+// === Librerie standard C++ ===
 #include <vector>
 #include <string>
 #include <sstream>
@@ -17,27 +21,30 @@ class CalibrationNode : public rclcpp::Node
 public:
   CalibrationNode() : Node("calibration_node")
   {
-    // === Parametri robot ===
+    // === Parametri robot letti da file di configurazione o launch ===
     r_ = declare_parameter<double>("wheel_radius", 0.05);
     L_ = declare_parameter<double>("L", 0.15);
     W_ = declare_parameter<double>("W", 0.15);
     controller_topic_ = declare_parameter<std::string>("controller_cmd_topic", "/mecanum_velocity_controller/commands");
 
+    // === Inizializzazione dei vettori di stato ===
     wheel_offset_ = {0.0, 0.0, 0.0, 0.0};
     last_wheel_velocity_ = {0.0, 0.0, 0.0, 0.0};
 
+    // === Carica correzioni precedenti da file YAML ===
     loadCorrectionFromFile();
 
-    // === Publisher e Subscriber ROS ===
+    // === Publisher per comandi ai motori e stato della calibrazione ===
     pub_cmd_ = create_publisher<std_msgs::msg::Float64MultiArray>(controller_topic_, 10);
     calib_pub_ = create_publisher<std_msgs::msg::String>("/calibration_status", 10);
 
+    // === Subscriber per ricevere velocità delle ruote ===
     sub_joint_states_ = create_subscription<sensor_msgs::msg::JointState>(
       "/joint_states", 10,
       std::bind(&CalibrationNode::jointStatesCb, this, std::placeholders::_1));
 
-    // === Servizio per avviare la calibrazione ===
-    calib_srv_ = create_service<custom_interfaces::srv::CalibrationInput>(
+    // === Servizio per avviare test di calibrazione ===
+    calib_srv_ = create_service<mecanum_base::srv::CalibrationInput>(
       "/run_calibration_test",
       std::bind(&CalibrationNode::handleCalibrationRequest, this, std::placeholders::_1, std::placeholders::_2));
 
@@ -45,9 +52,10 @@ public:
   }
 
 private:
+  // === Modalità di calibrazione disponibili ===
   enum class CalibrationMode { MIN_PWM, MAX_PWM, MAP_PWM };
 
-  // === Callback per joint_states ===
+  // === Callback per ricevere velocità delle ruote dal topic /joint_states ===
   void jointStatesCb(const sensor_msgs::msg::JointState::SharedPtr msg)
   {
     std::map<std::string, double> joint_vel_map;
@@ -62,7 +70,7 @@ private:
     };
   }
 
-  // === Funzione per eseguire test di calibrazione PWM ===
+  // === Esegue test di calibrazione PWM e raccoglie velocità medie delle ruote ===
   void runCalibrationTest(CalibrationMode mode, double step, std::vector<double>& result)
   {
     result.clear();
@@ -76,7 +84,9 @@ private:
 
     for (int pwm = 50; pwm <= 255; pwm += static_cast<int>(step)) {
       std_msgs::msg::Float64MultiArray cmd;
-      cmd.data = {pwm, pwm, pwm, pwm};
+      cmd.data = {static_cast<double>(pwm), static_cast<double>(pwm),
+            static_cast<double>(pwm), static_cast<double>(pwm)};
+
       pub_cmd_->publish(cmd);
       rclcpp::sleep_for(std::chrono::milliseconds(300));
 
@@ -91,7 +101,7 @@ private:
     calib_pub_->publish(std_msgs::msg::String().set__data("✅ Test completato.\n"));
   }
 
-  // === Funzione per calcolare vettore di correzione cinematico ===
+  // === Calcola vettore di correzione cinematico in base all’errore misurato ===
   std::vector<double> computeCorrectionVector(double vx, double vy, double wz, double ex, double ey, double ew)
   {
     const double a = L_ + W_;
@@ -116,23 +126,26 @@ private:
     return correction;
   }
 
-  // === Servizio per gestire richiesta di calibrazione ===
+  // === Gestisce la richiesta del servizio di calibrazione ===
   void handleCalibrationRequest(
-    const std::shared_ptr<custom_interfaces::srv::CalibrationInput::Request> req,
-    std::shared_ptr<custom_interfaces::srv::CalibrationInput::Response> res)
+    const std::shared_ptr<mecanum_base::srv::CalibrationInput::Request> req,
+    std::shared_ptr<mecanum_base::srv::CalibrationInput::Response> res)
   {
     std::string tipo = req->test_type;
     double valore = req->error_value;
     std::vector<double> result;
     CalibrationMode mode;
 
+    // === Modalità PWM ===
     if (tipo == "min_pwm") {
       mode = CalibrationMode::MIN_PWM;
     } else if (tipo == "max_pwm") {
       mode = CalibrationMode::MAX_PWM;
     } else if (tipo == "map_pwm") {
       mode = CalibrationMode::MAP_PWM;
-    } else if (tipo == "rettilineo" || tipo == "strafe" || tipo == "rotazione") {
+    }
+    // === Modalità cinematiche ===
+    else if (tipo == "rettilineo" || tipo == "strafe" || tipo == "rotazione") {
       double ex = 0.0, ey = 0.0, ew = 0.0;
 
       if (tipo == "rettilineo") ex = valore;
@@ -159,24 +172,29 @@ private:
       calib_pub_->publish(std_msgs::msg::String().set__data(ss.str()));
       res->result = ss.str();
       return;
-    } else {
+    }
+    // === Tipo non valido ===
+    else {
       res->result = "❌ Tipo di test non riconosciuto.";
       calib_pub_->publish(std_msgs::msg::String().set__data(res->result));
       return;
     }
 
+       // === Esecuzione test PWM ===
     runCalibrationTest(mode, valore, result);
 
+    // === Costruzione del messaggio di risposta con i risultati del test ===
     std::stringstream ss;
     ss << "📊 Risultati test " << tipo << ":\n";
     for (size_t i = 0; i < result.size(); ++i)
       ss << "Step " << i << ": " << result[i] << " rad/s\n";
 
+    // Pubblica i risultati sul topic di stato e li restituisce nella risposta del servizio
     calib_pub_->publish(std_msgs::msg::String().set__data(ss.str()));
     res->result = ss.str();
   }
 
-  // === Salvataggio correzione su file ===
+  // === Salvataggio del vettore di correzione su file YAML ===
   void saveCorrectionToFile(const std::vector<double>& correction)
   {
     std::ofstream out("config/correction.yaml");
@@ -189,12 +207,11 @@ private:
       out.close();
       RCLCPP_INFO(get_logger(), "💾 Correzione salvata in config/correction.yaml");
     } else {
-RCLCPP_INFO(get_logger(), "💾 Correzione salvata in config/correction.yaml");
-    } else {
       RCLCPP_WARN(get_logger(), "⚠️ Impossibile scrivere su config/correction.yaml");
     }
   }
 
+  // === Caricamento del vettore di correzione da file YAML ===
   void loadCorrectionFromFile()
   {
     std::ifstream in("config/correction.yaml");
@@ -236,7 +253,7 @@ RCLCPP_INFO(get_logger(), "💾 Correzione salvata in config/correction.yaml");
   rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr pub_cmd_;
   rclcpp::Publisher<std_msgs::msg::String>::SharedPtr calib_pub_;
   rclcpp::Subscription<sensor_msgs::msg::JointState>::SharedPtr sub_joint_states_;
-  rclcpp::Service<custom_interfaces::srv::CalibrationInput>::SharedPtr calib_srv_;
+  rclcpp::Service<mecanum_base::srv::CalibrationInput>::SharedPtr calib_srv_;
 
   // === Parametri robot ===
   double r_, L_, W_;
@@ -245,6 +262,7 @@ RCLCPP_INFO(get_logger(), "💾 Correzione salvata in config/correction.yaml");
   std::vector<double> last_wheel_velocity_;
 };
 
+// === Funzione main: avvia il nodo ROS 2 ===
 int main(int argc, char** argv)
 {
   rclcpp::init(argc, argv);

@@ -1,41 +1,78 @@
 <?xml version="1.0"?>
 <package format="3">
+  <!-- 📛 Nome del pacchetto ROS 2 -->
   <name>mecanum_base</name>
+
+  <!-- 🕒 Versione del pacchetto -->
   <version>0.1.0</version>
+
+  <!-- 📝 Descrizione del pacchetto -->
   <description>
     Plugin hardware_interface per una base Mecanum con comunicazione seriale diretta.
     Include anche nodi di utilità per inviare comandi e calcolare odometria.
   </description>
 
+  <!-- 👤 Maintainer del pacchetto -->
   <maintainer email="tuo.email@example.com">Il Tuo Nome</maintainer>
+
+  <!-- ⚖️ Licenza open source -->
   <license>Apache-2.0</license>
 
-  <!-- 🛠️ Sistema di build -->
+  <!-- 🛠️ Sistema di build usato (ament_cmake per ROS 2) -->
   <buildtool_depend>ament_cmake</buildtool_depend>
 
-  <!-- 🔧 Dipendenze di compilazione -->
+  <!-- 🔧 Dipendenze necessarie per la compilazione -->
   <build_depend>hardware_interface</build_depend>
   <build_depend>pluginlib</build_depend>
   <build_depend>ros2_controllers</build_depend>
+  <build_depend>rclcpp</build_depend>
+  <build_depend>rclcpp_lifecycle</build_depend>
+  <build_depend>controller_manager</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>nav_msgs</build_depend>
+  <build_depend>tf2_ros</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>rcl_interfaces</build_depend>
 
-  <!-- 📦 Dipendenze esportate per altri pacchetti -->
+  <!-- 🧬 Dipendenze per generare messaggi/servizi custom -->
+  <build_depend>rosidl_default_generators</build_depend>
+
+  <!-- 📦 Dipendenze esportate per altri pacchetti che usano questo -->
   <build_export_depend>hardware_interface</build_export_depend>
   <build_export_depend>pluginlib</build_export_depend>
   <build_export_depend>ros2_controllers</build_export_depend>
+  <build_export_depend>rclcpp</build_export_depend>
+  <build_export_depend>rclcpp_lifecycle</build_export_depend>
+  <build_export_depend>controller_manager</build_export_depend>
+  <build_export_depend>sensor_msgs</build_export_depend>
+  <build_export_depend>geometry_msgs</build_export_depend>
+  <build_export_depend>nav_msgs</build_export_depend>
+  <build_export_depend>tf2_ros</build_export_depend>
+  <build_export_depend>std_msgs</build_export_depend>
+  <build_export_depend>rcl_interfaces</build_export_depend>
+  <build_export_depend>rosidl_default_generators</build_export_depend>
 
-  <!-- 🚀 Dipendenze runtime -->
+  <!-- 🚀 Dipendenze necessarie in fase di esecuzione -->
+  <exec_depend>hardware_interface</exec_depend>
+  <exec_depend>pluginlib</exec_depend>
+  <exec_depend>ros2_controllers</exec_depend>
   <exec_depend>rclcpp</exec_depend>
   <exec_depend>rclcpp_lifecycle</exec_depend>
   <exec_depend>controller_manager</exec_depend>
-  <exec_depend>pluginlib</exec_depend>
   <exec_depend>sensor_msgs</exec_depend>
   <exec_depend>geometry_msgs</exec_depend>
   <exec_depend>nav_msgs</exec_depend>
   <exec_depend>tf2_ros</exec_depend>
-  <exec_depend>ros2_controllers</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>rcl_interfaces</exec_depend>
+  <exec_depend>rosidl_default_runtime</exec_depend>
   <exec_depend>rosbridge_server</exec_depend>
 
-  <!-- 🔌 Esportazione plugin hardware -->
+  <!-- 🧭 Gruppo per pacchetti che generano interfacce ROSIDL -->
+  <member_of_group>rosidl_interface_packages</member_of_group>
+
+  <!-- 🔌 Esportazione del plugin hardware ros2_control -->
   <export>
     <build_type>ament_cmake</build_type>
     <pluginlib plugin="${prefix}/share/${PROJECT_NAME}/mecanum_hardware_plugin.xml"/>

@@ -1,0 +1,7 @@
+# Richiesta dal frontend
+string test_type         # "rettilineo", "strafe" o "rotazione"
+float64 error_value      # valore misurato (gradi o metri)
+
+---
+# Risposta dal nodo
+string result            # Messaggio di stato e correzione calcolata

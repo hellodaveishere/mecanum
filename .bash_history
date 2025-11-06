@@ -1,18 +1,3 @@
-colcon build --packages-select mecanum_base
-clear
-colcon build --packages-select mecanum_base
-source install/setup.bash
-ros2 launch mecanum_base bringup.launch.py
-clear
-colcon build --packages-select mecanum_base
-source install/setup.bash
-ros2 launch mecanum_base bringup.launch.py
-clear
-colcon build --packages-select mecanum_base
-src/mecanum_base/mecanum_hardware_plugin.xml
-src/mecanum_base/ir_sensor_broadcaster.xml
-ls src/mecanum_base/ir_sensor_broadcaster.xml
-ls src/mecanum_base/mecanum_hardware_plugin.xml
 clear
 rm -rf build/ install/ log/
 colcon build --packages-select mecanum_base
@@ -498,3 +483,18 @@ ros2 launch mecanum_base bringup.launch.py
 ros2 topic echo /rosout_string 
 ros2 topic echo /rosout_string 
 ros2 topic info /rosout_string 
+history|grep fetch
+git pull origin main
+git status
+git status
+git cherry-pick --continue
+clear
+git status
+git checkout --theirs src/mecanum_base/web/calibration_interface.html
+git add src/mecanum_base/web/calibration_interface.html
+git cherry-pick --continue
+git config --global core.editor "code --wait"
+git cherry-pick --continue
+git status
+git status
+git status
