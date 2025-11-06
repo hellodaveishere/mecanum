@@ -96,7 +96,7 @@
 
   <script>
     const ros = new ROSLIB.Ros({
-      url: 'ws://localhost:9090'
+      url: 'ws://localhost:9091'
     });
 
     ros.on('connection', () => {
@@ -158,8 +158,8 @@
 
       const service = new ROSLIB.Service({
         ros: ros,
-        name: `/${device}/run_calibration_test`,
-        serviceType: 'custom_interfaces/CalibrationInput'
+        name: `/run_calibration_test`,
+        serviceType: 'mecanum_base/CalibrationInput'
       });
 
       const request = new ROSLIB.ServiceRequest({

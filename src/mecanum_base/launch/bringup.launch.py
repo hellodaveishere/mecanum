@@ -215,7 +215,7 @@ def generate_launch_description():
         parameters=[controllers_path],
     )
 
-calibration_node = Node(
+    calibration_node = Node(
         package='mecanum_base',                  # Pacchetto dove è compilato calibration_node
         executable='calibration_node',           # Nome dell'eseguibile definito in CMakeLists.txt
         name='calibration_node',                 # Nome del nodo ROS 2
