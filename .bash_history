@@ -1,13 +1,3 @@
-clear
-ros2 run pluginlib pluginlib_tester controller_interface::ControllerInterface mecanum_base/IRSensorBroadcaster
-ros2 control list_controller_types
-ros2 node list
-ros2 node list
-clear
-colcon build --packages-select mecanum_base
-source install/setup.bash
-ros2 launch mecanum_base bringup.launch.py
-clear
 colcon build --packages-select mecanum_base
 clear
 colcon build --packages-select mecanum_base
@@ -498,3 +488,13 @@ ros2 topic list
 source install/setup.bash 
 ros2 run rqt_image_view rqt_image_view
 ros2 topic info /camera/image_raw/compressed
+colcon build --packages-select mecanum_base --symlink-install
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+ros2 topic echo /rosout_string 
+ros2 topic echo /rosout_string 
+ros2 topic info /rosout_string 
