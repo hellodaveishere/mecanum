@@ -32,7 +32,7 @@ public:
     last_wheel_velocity_ = {0.0, 0.0, 0.0, 0.0};
 
     // === Carica correzioni precedenti da file YAML ===
-    loadCorrectionFromFile();
+    //loadCorrectionFromFile();
 
     // === Publisher per comandi ai motori e stato della calibrazione ===
     pub_cmd_ = create_publisher<std_msgs::msg::Float64MultiArray>(controller_topic_, 10);
