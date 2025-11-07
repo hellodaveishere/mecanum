@@ -67,23 +67,26 @@
       </div>
     </nav>
 
-    <!-- Offcanvas menu -->
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="menuOffcanvas">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title">Menu</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
-      </div>
-      <div class="offcanvas-body text-start">
-        <ul class="list-group">
-          <li class="list-group-item">
-            <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#configModal">⚙️ Configurazione</button>
-          </li>
-          <li class="list-group-item">
-            <button class="btn btn-link" onclick="alert('Made by Dave!')">ℹ️ About</button>
-          </li>
-        </ul>
-      </div>
-    </div>
+<!-- Offcanvas menu -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="menuOffcanvas">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title">Menu</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+  </div>
+  <div class="offcanvas-body text-start">
+    <ul class="list-group">
+      <li class="list-group-item">
+        <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#configModal">⚙️ Configurazione</button>
+      </li>
+      <li class="list-group-item">
+        <a class="btn btn-link" href="calibration_interface.html" target="_blank" rel="noopener noreferrer">🛠️ Calibrazione</a>
+      </li>
+      <li class="list-group-item">
+        <button class="btn btn-link" onclick="alert('Made by Dave!')">ℹ️ About</button>
+      </li>
+    </ul>
+  </div>
+</div>
 
     <!-- Stato ROS -->
     <div class="alert alert-secondary d-inline-block py-2 px-3 mb-3">
