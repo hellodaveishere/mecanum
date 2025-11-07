@@ -20,6 +20,12 @@
       margin-top: 15px;
     }
 
+    .nipple.active {
+      box-shadow: 0 0 10px 5px rgba(0, 255, 0, 0.5);
+      /* glow verde */
+      transition: box-shadow 0.2s ease;
+    }
+
     .joystick-zone {
       width: 200px;
       height: 200px;
@@ -67,26 +73,27 @@
       </div>
     </nav>
 
-<!-- Offcanvas menu -->
-<div class="offcanvas offcanvas-start" tabindex="-1" id="menuOffcanvas">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title">Menu</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
-  </div>
-  <div class="offcanvas-body text-start">
-    <ul class="list-group">
-      <li class="list-group-item">
-        <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#configModal">⚙️ Configurazione</button>
-      </li>
-      <li class="list-group-item">
-        <a class="btn btn-link" href="calibration_interface.html" target="_blank" rel="noopener noreferrer">🛠️ Calibrazione</a>
-      </li>
-      <li class="list-group-item">
-        <button class="btn btn-link" onclick="alert('Made by Dave!')">ℹ️ About</button>
-      </li>
-    </ul>
-  </div>
-</div>
+    <!-- Offcanvas menu -->
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="menuOffcanvas">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Menu</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+      </div>
+      <div class="offcanvas-body text-start">
+        <ul class="list-group">
+          <li class="list-group-item">
+            <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#configModal">⚙️ Configurazione</button>
+          </li>
+          <li class="list-group-item">
+            <a class="btn btn-link" href="calibration_interface.html" target="_blank" rel="noopener noreferrer">🛠️
+              Calibrazione</a>
+          </li>
+          <li class="list-group-item">
+            <button class="btn btn-link" onclick="alert('Made by Dave!')">ℹ️ About</button>
+          </li>
+        </ul>
+      </div>
+    </div>
 
     <!-- Stato ROS -->
     <div class="alert alert-secondary d-inline-block py-2 px-3 mb-3">
@@ -309,74 +316,150 @@
         document.getElementById('battery-text').textContent = `Batteria: ${percent}%`;
       });
 
-      // Joystick robot
+      const deadZone = 0.05; // soglia per ignorare piccoli movimenti
+
+      // === ROS publisher per il robot ===
       const cmdVel = new ROSLIB.Topic({
         ros: ros,
         name: '/cmd_vel',
         messageType: 'geometry_msgs/Twist'
       });
 
+      let robotIsIdle = true; // stato del joystick robot
+
+      // === Joystick robot ===
       const joystick = nipplejs.create({
         zone: document.getElementById('joystick-zone'),
         mode: 'static',
         position: { left: '50%', top: '50%' },
         color: 'blue',
-        size: 150, // dimensione del joystick stesso
-        maxDistance: 150 // distanza massima dal centro
+        size: 150,
+        maxDistance: 150
       });
 
+      // Evento quando il joystick si muove
       joystick.on('move', (evt, data) => {
+        const nippleEl = document.querySelector('#joystick-zone .nipple');
+        if (nippleEl) nippleEl.classList.add('active');
+
         if (data && data.vector) {
-          const linear = maxSpeed * data.vector.y * -1;
-          const angular = maxSpeed * data.vector.x;
+          let x = data.vector.x;
+          let y = data.vector.y;
+
+          // Applica dead-zone
+          if (Math.abs(x) < deadZone) x = 0;
+          if (Math.abs(y) < deadZone) y = 0;
+
+          const linear = parseFloat((maxSpeed * y * -1).toFixed(2));
+          const angular = parseFloat((maxSpeed * x).toFixed(2));
+
+          // Aggiorna display
           linearDisplay.textContent = linear.toFixed(2);
           angularDisplay.textContent = angular.toFixed(2);
-          const twist = new ROSLIB.Message({
+
+          // Stampa su console
+          console.log(`Joystick robot → Linear: ${linear}, Angular: ${angular}`);
+
+          // Pubblica comando
+          cmdVel.publish(new ROSLIB.Message({
             linear: { x: linear, y: 0, z: 0 },
             angular: { x: 0, y: 0, z: angular }
-          });
-          cmdVel.publish(twist);
+          }));
+
+          // Aggiorna stato
+          robotIsIdle = (linear === 0 && angular === 0);
         }
       });
 
+      // Evento quando il joystick viene rilasciato
       joystick.on('end', () => {
+        const nippleEl = document.querySelector('#joystick-zone .nipple');
+        if (nippleEl) nippleEl.classList.remove('active');
+
+        // Reset display
         linearDisplay.textContent = '0.00';
         angularDisplay.textContent = '0.00';
+
+        // Stampa su console
+        console.log('Joystick robot → STOP');
+
+        // Pubblica comando di stop
         cmdVel.publish(new ROSLIB.Message({
           linear: { x: 0, y: 0, z: 0 },
           angular: { x: 0, y: 0, z: 0 }
         }));
+
+        robotIsIdle = true;
       });
 
-      // Joystick telecamera
+      // === ROS publisher per la telecamera ===
       const servoTopic = new ROSLIB.Topic({
         ros: ros,
         name: '/servo_position_controller/commands',
         messageType: 'std_msgs/Float64MultiArray'
       });
 
+      let cameraIsIdle = true; // stato del joystick telecamera
+
+      // === Joystick telecamera ===
       const cameraJoystick = nipplejs.create({
         zone: document.getElementById('camera-joystick-zone'),
         mode: 'static',
         position: { left: '50%', top: '50%' },
         color: 'green',
-        size: 150, // dimensione del joystick stesso
-        maxDistance: 150 // distanza massima dal centro
+        size: 150,
+        maxDistance: 150
       });
 
+      // Evento quando il joystick si muove
       cameraJoystick.on('move', (evt, data) => {
+        const nippleEl = document.querySelector('#camera-joystick-zone .nipple');
+        if (nippleEl) nippleEl.classList.add('active');
+
         if (data && data.vector) {
-          const pan = data.vector.x;
-          const tilt = data.vector.y * -1;
-          const msg = new ROSLIB.Message({ data: [pan, tilt] });
-          servoTopic.publish(msg);
+          let x = data.vector.x;
+          let y = data.vector.y;
+
+          // Applica dead-zone
+          if (Math.abs(x) < deadZone) x = 0;
+          if (Math.abs(y) < deadZone) y = 0;
+
+          const pan = parseFloat(x.toFixed(2));
+          const tilt = parseFloat((y * -1).toFixed(2));
+
+          // Pubblica comando
+          servoTopic.publish(new ROSLIB.Message({ data: [pan, tilt] }));
+
+          cameraIsIdle = (pan === 0 && tilt === 0);
         }
       });
 
+      // Evento quando il joystick viene rilasciato
       cameraJoystick.on('end', () => {
-        const msg = new ROSLIB.Message({ data: [0, 0] });
-        servoTopic.publish(msg);
+        const nippleEl = document.querySelector('#camera-joystick-zone .nipple');
+        if (nippleEl) nippleEl.classList.remove('active');
+
+        // Pubblica comando di stop
+        servoTopic.publish(new ROSLIB.Message({ data: [0, 0] }));
+        cameraIsIdle = true;
       });
+
+      // === Timer per invio periodico di stop (0.5 Hz) ===
+      setInterval(() => {
+        if (robotIsIdle) {
+          console.log('Joystick robot → Periodic STOP');
+          cmdVel.publish(new ROSLIB.Message({
+            linear: { x: 0, y: 0, z: 0 },
+            angular: { x: 0, y: 0, z: 0 }
+          }));
+        }
+
+        if (cameraIsIdle) {
+          servoTopic.publish(new ROSLIB.Message({ data: [0, 0] }));
+        }
+      }, 2000); // ogni 2 secondi
+
+
 
       // Console ROS
       if (consoleSubscriber) {
@@ -396,7 +479,7 @@
         });
 
         consoleSubscriber.subscribe((message) => {
-          console.log('🟢 Messaggio ricevuto:', message);
+          //console.log('🟢 Messaggio ricevuto:', message);
 
           const now = new Date().toLocaleTimeString();
           let line = `[${now}] `;
@@ -422,7 +505,7 @@
             consoleOutput.textContent += line + '\n';
 
             // Stampa colorata in console browser
-            console.log(`%c${line}`, `color: ${color}`);
+            //console.log(`%c${line}`, `color: ${color}`);
           } else {
             line += JSON.stringify(message);
             consoleOutput.textContent += line + '\n';

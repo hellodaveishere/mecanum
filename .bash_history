@@ -1,36 +1,3 @@
-ros2 launch mecanum_base ir_sensor_broadcaster.launch.py
-colcon build --packages-select mecanum_base
-source install/setup.bash 
-ros2 launch mecanum_base ir_sensor_broadcaster.launch.py
-clear
-colcon build --packages-select mecanum_base
-source install/setup.bash 
-ros2 launch mecanum_base ir_sensor_broadcaster.launch.py
-clear
-colcon build --packages-select mecanum_base
-source install/setup.bash 
-ros2 launch mecanum_base ir_sensor_broadcaster.launch.py
-clear
-colcon build --packages-select mecanum_base
-source install/setup.bash 
-ros2 launch mecanum_base ir_sensor_broadcaster.launch.py
-clear
-colcon build --packages-select mecanum_base
-source install/setup.bash 
-ros2 launch mecanum_base ir_sensor_broadcaster.launch.py
-clear
-colcon build --packages-select mecanum_base
-source install/setup.bash 
-ros2 launch mecanum_base ir_sensor_broadcaster.launch.py
-colcon build --packages-select mecanum_base
-source install/setup.bash 
-colcon build --packages-select mecanum_base
-source install/setup.bash 
-ros2 launch mecanum_base ir_sensor_broadcaster.launch.py
-clear
-colcon build --packages-select mecanum_base
-source install/setup.bash 
-ros2 launch mecanum_base ir_sensor_broadcaster.launch.py
 clear
 colcon build --packages-select mecanum_base
 source install/setup.bash 
@@ -498,3 +465,36 @@ clear
 colcon build --packages-select mecanum_base --symlink-install
 clear
 colcon build --packages-select mecanum_base --symlink-install
+ros2 launch mecanum_base bringup.launch.py 
+source install/setup.
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+clear
+ros2 launch mecanum_base bringup.launch.py 
+colcon build --packages-select mecanum_base --symlink-install
+sudo apt update
+sudo apt install ros-jazzy-pal-statistics
+ls /opt/ros/jazzy/include/pal_statistics/pal_statistics_macros.hpp
+ls /opt/ros/jazzy/include/pal_statistics/
+ls /opt/ros/jazzy/include/pal_statistics/
+ls /opt/ros/jazzy/include/pal_statistics/pal_statistics/
+history|grep rm
+rm -rf build/ install/ log/
+ls
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+clear
+ls /dev/ttyUSB*
+ros2 launch mecanum_base bringup.launch.py 
+ls /dev/ttyUSB*
+ls /dev/ttyUSB*
+ls /dev/ttyUSB*
+clear
+ros2 launch mecanum_base bringup.launch.py 
+ls /dev/ttyUSB*
+ls /dev/ttyUSB*
+ls /dev/ttyUSB*
+ls /dev/ttyUSB*
+ls /dev/ttyUSB*
+ros2 launch mecanum_base bringup.launch.py 
