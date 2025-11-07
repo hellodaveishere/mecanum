@@ -337,53 +337,43 @@
         maxDistance: 150
       });
 
-      // Evento quando il joystick si muove
       joystick.on('move', (evt, data) => {
         const nippleEl = document.querySelector('#joystick-zone .nipple');
         if (nippleEl) nippleEl.classList.add('active');
 
         if (data && data.vector) {
-          let x = data.vector.x;
-          let y = data.vector.y;
+          const rawX = data.vector.x;
+          const rawY = data.vector.y;
 
-          // Applica dead-zone
-          if (Math.abs(x) < deadZone) x = 0;
-          if (Math.abs(y) < deadZone) y = 0;
+          const linear = maxSpeed * rawY * -1;
+          const angular = maxSpeed * rawX;
 
-          const linear = parseFloat((maxSpeed * y * -1).toFixed(2));
-          const angular = parseFloat((maxSpeed * x).toFixed(2));
+          const linearFiltered = Math.abs(linear) < deadZone * maxSpeed ? 0 : linear;
+          const angularFiltered = Math.abs(angular) < deadZone * maxSpeed ? 0 : angular;
 
-          // Aggiorna display
-          linearDisplay.textContent = linear.toFixed(2);
-          angularDisplay.textContent = angular.toFixed(2);
+          linearDisplay.textContent = linearFiltered.toFixed(2);
+          angularDisplay.textContent = angularFiltered.toFixed(2);
 
-          // Stampa su console
-          console.log(`Joystick robot → Linear: ${linear}, Angular: ${angular}`);
+          console.log(`Joystick robot → Linear: ${linearFiltered}, Angular: ${angularFiltered}`);
 
-          // Pubblica comando
           cmdVel.publish(new ROSLIB.Message({
-            linear: { x: linear, y: 0, z: 0 },
-            angular: { x: 0, y: 0, z: angular }
+            linear: { x: linearFiltered, y: 0, z: 0 },
+            angular: { x: 0, y: 0, z: angularFiltered }
           }));
 
-          // Aggiorna stato
-          robotIsIdle = (linear === 0 && angular === 0);
+          robotIsIdle = (linearFiltered === 0 && angularFiltered === 0);
         }
       });
 
-      // Evento quando il joystick viene rilasciato
       joystick.on('end', () => {
         const nippleEl = document.querySelector('#joystick-zone .nipple');
         if (nippleEl) nippleEl.classList.remove('active');
 
-        // Reset display
         linearDisplay.textContent = '0.00';
         angularDisplay.textContent = '0.00';
 
-        // Stampa su console
         console.log('Joystick robot → STOP');
 
-        // Pubblica comando di stop
         cmdVel.publish(new ROSLIB.Message({
           linear: { x: 0, y: 0, z: 0 },
           angular: { x: 0, y: 0, z: 0 }
@@ -411,35 +401,30 @@
         maxDistance: 150
       });
 
-      // Evento quando il joystick si muove
       cameraJoystick.on('move', (evt, data) => {
         const nippleEl = document.querySelector('#camera-joystick-zone .nipple');
         if (nippleEl) nippleEl.classList.add('active');
 
         if (data && data.vector) {
-          let x = data.vector.x;
-          let y = data.vector.y;
+          const rawX = data.vector.x;
+          const rawY = data.vector.y;
 
-          // Applica dead-zone
-          if (Math.abs(x) < deadZone) x = 0;
-          if (Math.abs(y) < deadZone) y = 0;
+          const pan = rawX;
+          const tilt = rawY * -1;
 
-          const pan = parseFloat(x.toFixed(2));
-          const tilt = parseFloat((y * -1).toFixed(2));
+          const panFiltered = Math.abs(pan) < deadZone ? 0 : parseFloat(pan.toFixed(2));
+          const tiltFiltered = Math.abs(tilt) < deadZone ? 0 : parseFloat(tilt.toFixed(2));
 
-          // Pubblica comando
-          servoTopic.publish(new ROSLIB.Message({ data: [pan, tilt] }));
+          servoTopic.publish(new ROSLIB.Message({ data: [panFiltered, tiltFiltered] }));
 
-          cameraIsIdle = (pan === 0 && tilt === 0);
+          cameraIsIdle = (panFiltered === 0 && tiltFiltered === 0);
         }
       });
 
-      // Evento quando il joystick viene rilasciato
       cameraJoystick.on('end', () => {
         const nippleEl = document.querySelector('#camera-joystick-zone .nipple');
         if (nippleEl) nippleEl.classList.remove('active');
 
-        // Pubblica comando di stop
         servoTopic.publish(new ROSLIB.Message({ data: [0, 0] }));
         cameraIsIdle = true;
       });
