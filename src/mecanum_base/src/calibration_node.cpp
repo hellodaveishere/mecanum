@@ -16,6 +16,9 @@
 #include <cmath>
 #include <algorithm>
 
+#include <filesystem>   // Per gestire directory e file system
+namespace fs = std::filesystem;  // Alias per semplificare l'uso
+
 class CalibrationNode : public rclcpp::Node
 {
 public:
@@ -193,23 +196,43 @@ private:
     calib_pub_->publish(std_msgs::msg::String().set__data(ss.str()));
     res->result = ss.str();
   }
+  
 
-  // === Salvataggio del vettore di correzione su file YAML ===
-  void saveCorrectionToFile(const std::vector<double>& correction)
-  {
-    std::ofstream out("config/correction.yaml");
-    if (out.is_open()) {
-      out << "wheel_correction: ["
-          << correction[0] << ", "
-          << correction[1] << ", "
-          << correction[2] << ", "
-          << correction[3] << "]\n";
-      out.close();
-      RCLCPP_INFO(get_logger(), "💾 Correzione salvata in config/correction.yaml");
-    } else {
-      RCLCPP_WARN(get_logger(), "⚠️ Impossibile scrivere su config/correction.yaml");
+// Metodo per salvare il vettore di correzione su file YAML
+void saveCorrectionToFile(const std::vector<double>& correction)
+{
+  const std::string dir = "config";                      // Directory di destinazione
+  const std::string filepath = dir + "/correction.yaml"; // Percorso completo del file
+
+  // Verifica se la directory esiste, altrimenti la crea
+  if (!fs::exists(dir)) {
+    try {
+      fs::create_directories(dir);  // Crea la directory e eventuali sottodirectory
+    } catch (const fs::filesystem_error& e) {
+      // Log di errore se la creazione fallisce
+      RCLCPP_ERROR(get_logger(), "❌ Errore nella creazione della cartella '%s': %s", dir.c_str(), e.what());
+      return;  // Esce dal metodo se non può creare la cartella
     }
   }
+
+  // Apertura del file in scrittura
+  std::ofstream out(filepath);
+  if (out.is_open()) {
+    // Scrittura del vettore nel formato YAML
+    out << "wheel_correction: ["
+        << correction[0] << ", "
+        << correction[1] << ", "
+        << correction[2] << ", "
+        << correction[3] << "]\n";
+    out.close();  // Chiude il file dopo la scrittura
+
+    // Log di conferma
+    RCLCPP_INFO(get_logger(), "💾 Correzione salvata in %s", filepath.c_str());
+  } else {
+    // Log di avviso se il file non può essere aperto
+    RCLCPP_WARN(get_logger(), "⚠️ Impossibile scrivere su %s", filepath.c_str());
+  }
+}
 
   // === Caricamento del vettore di correzione da file YAML ===
   void loadCorrectionFromFile()
