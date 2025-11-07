@@ -94,4 +94,5 @@ node_modules/
 # 📄 File di progetto generati
 compile_commands.json
 .local/
+.local/share/CMakeTools
 .config/

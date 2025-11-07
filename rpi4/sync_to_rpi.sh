@@ -12,7 +12,8 @@
 #
 # Questo script copierà:
 # - I pacchetti ROS 2 mecanum_base/ e sllider_ros2/ da ~/ros2-dev-container/src/
-# - Verso: /home/ws/src/ sul Raspberry Pi 4
+# - I file docker-compose.yaml, Dockerfile, start_ros2_container.sh e stop_ros2_container.sh da ~/ros2-dev-container/rpi4/
+# - Verso: /home/ws/src/ e /home/pi/ros2-dev-container/ sul Raspberry Pi 4
 # - Che è montato come volume nel container ros2-dev
 #
 # 📁 STRUTTURA DELLE CARTELLE
@@ -34,20 +35,32 @@
 # /home/ws/src/                    # Volume montato nel container ros2-dev
 # ├── mecanum_base/
 # └── sllider_ros2/
+# /home/pi/ros2-dev-container/     # Contiene i file di configurazione Docker
 # ============================================================
 
 # 📍 Parametri fissi
 RPI_USER="pi"
-
-# 🧠 IP del Raspberry Pi 4 sulla rete locale (non è l’IP del container!)
-# Il container ros2-dev usa network_mode: host, quindi condivide l’IP del Raspberry Pi.
-# Questo IP deve essere statico o riservato nel router per evitare cambiamenti.
-RPI_HOST="192.168.1.42"
-
+RPI_HOST="192.168.188.41"
 RPI="$RPI_USER@$RPI_HOST"
-SRC_DIR="./src"
-TARGET_DIR="/home/ws/src"
-PACKAGES=("mecanum_base" "sllider_ros2")
+
+SRC_DIR="../src"
+RPI4_DIR="."
+TARGET_DIR="/home/pi/ws/src"
+DOCKER_TARGET_DIR="/home/pi/ros2-dev-container"
+
+PACKAGES=("mecanum_base" "sllidar_ros2")
+DOCKER_FILES=("docker-compose.yaml" "Dockerfile" "start_ros2_container.sh" "stop_ros2_container.sh")
+
+# 📦 Copia dei file Docker e degli script di gestione container
+# Questi file sono necessari per costruire e controllare il container ros2-dev sul Raspberry Pi
+for file in "${DOCKER_FILES[@]}"; do
+  if [[ -f "$RPI4_DIR/$file" ]]; then
+    echo "📤 Copia del file: $file"
+    rsync -avz "$RPI4_DIR/$file" "$RPI:$DOCKER_TARGET_DIR/"
+  else
+    echo "⚠️ Attenzione: il file $file non esiste in $RPI4_DIR, salto..."
+  fi
+done
 
 # 🔍 Verifica se il container ros2-dev è attivo sul Raspberry Pi
 echo "🔎 Controllo stato del container ros2-dev su $RPI_HOST..."
@@ -61,11 +74,24 @@ if [[ "$CONTAINER_STATUS" != "ros2-dev" ]]; then
     ssh "$RPI" 'cd ~/ros2-dev-container && ./start_ros2_container.sh'
     sleep 3
   else
-    echo "⏭️ Sincronizzazione annullata."
-    exit 0
+    echo "✅ Il container ros2-dev non è attivo."
   fi
 else
   echo "✅ Il container ros2-dev è attivo."
+
+  # ⚠️ I file Docker e gli script sono stati aggiornati, ma il container è già in esecuzione.
+  # Per applicare le modifiche, è necessario riavviarlo.
+  read -p "🔄 Vuoi riavviare il container per applicare le modifiche? [s/N]: " restart_choice
+  if [[ "$restart_choice" =~ ^[Ss]$ ]]; then
+    echo "🛑 Arresto del container ros2-dev..."
+    ssh "$RPI" 'cd ~/ros2-dev-container && ./stop_ros2_container.sh'
+    sleep 2
+    echo "🚀 Riavvio del container ros2-dev..."
+    ssh "$RPI" 'cd ~/ros2-dev-container && ./start_ros2_container.sh'
+    sleep 3
+  else
+    echo "⏭️ Il container continuerà a funzionare con la configurazione precedente."
+  fi
 fi
 
 # 🔁 Sincronizzazione dei pacchetti ROS 2

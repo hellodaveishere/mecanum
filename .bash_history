@@ -1,12 +1,3 @@
-clear
-rm -rf build/ install/ log/
-colcon build --packages-select mecanum_base
-source install/setup.bash
-source install/setup.bash
-ros2 launch mecanum_base bringup.launch.py
-clear
-ros2 launch mecanum_base ir_sensor_broadcaster.launch.py
-source install/setup.bash 
 ros2 launch mecanum_base ir_sensor_broadcaster.launch.py
 colcon build --packages-select mecanum_base
 source install/setup.bash 
@@ -498,3 +489,12 @@ git cherry-pick --continue
 git status
 git status
 git status
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+ros2 launch mecanum_base bringup.launch.py 
+clear
+ros2 launch mecanum_base bringup.launch.py 
+clear
+colcon build --packages-select mecanum_base --symlink-install
+clear
+colcon build --packages-select mecanum_base --symlink-install
