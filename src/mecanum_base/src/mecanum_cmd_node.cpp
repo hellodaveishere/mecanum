@@ -69,92 +69,104 @@ private:
     pub_cmd_->publish(arr);
   }
 
-  std::vector<double> loadCorrectionFromFile()
+std::vector<double> loadCorrectionFromFile()
+{
+  // 🔧 Tipi di test cinematici da combinare
+  // Ogni test rappresenta una modalità di movimento del robot (rettilineo, traslazione laterale, rotazione)
+  const std::vector<std::string> types = {"rettilineo", "strafe", "rotazione"};
+
+  // ⚖️ Pesi assegnati a ciascun test per la combinazione finale
+  // La somma dei pesi è 1.0 → combinazione bilanciata
+  const std::vector<double> weights = {0.33, 0.33, 0.34};
+
+  // 🧮 Vettori parziali per ciascun test
+  // Ogni vettore contiene 4 valori (uno per ruota), inizialmente in METRI
+  std::vector<std::vector<double>> partials(3, std::vector<double>(4, 0.0));
+  bool loaded_any = false;
+
+  // 📂 Carica ciascun file YAML separato
+  for (size_t t = 0; t < types.size(); ++t)
   {
-    // 🔧 Tipi di test cinematici da combinare
-    const std::vector<std::string> types = {"rettilineo", "strafe", "rotazione"};
+    std::string filepath = "config/correction_" + types[t] + ".yaml";
+    std::ifstream in(filepath);
 
-    // ⚖️ Pesi assegnati a ciascun test (equilibrati)
-    const std::vector<double> weights = {0.33, 0.33, 0.34};
-
-    // 🧮 Vettori parziali per ciascun test
-    std::vector<std::vector<double>> partials(3, std::vector<double>(4, 0.0));
-    bool loaded_any = false;
-
-    // 📂 Carica ciascun file YAML separato
-    for (size_t t = 0; t < types.size(); ++t)
+    if (in.is_open())
     {
-      std::string filepath = "config/correction_" + types[t] + ".yaml";
-      std::ifstream in(filepath);
-
-      if (in.is_open())
+      std::string line;
+      while (std::getline(in, line))
       {
-        std::string line;
-        while (std::getline(in, line))
+        if (line.find("correction_" + types[t]) != std::string::npos)
         {
-          if (line.find("correction_" + types[t]) != std::string::npos)
+          size_t start = line.find("[");
+          size_t end = line.find("]");
+          if (start != std::string::npos && end != std::string::npos && end > start)
           {
-            size_t start = line.find("[");
-            size_t end = line.find("]");
-            if (start != std::string::npos && end != std::string::npos && end > start)
+            std::string values = line.substr(start + 1, end - start - 1);
+            std::stringstream ss(values);
+            std::string val;
+            int i = 0;
+
+            while (std::getline(ss, val, ',') && i < 4)
             {
-              std::string values = line.substr(start + 1, end - start - 1);
-              std::stringstream ss(values);
-              std::string val;
-              int i = 0;
-
-              while (std::getline(ss, val, ',') && i < 4)
+              try
               {
-                try
-                {
-                  partials[t][i] = std::stod(val);
-                }
-                catch (...)
-                {
-                  partials[t][i] = 0.0;
-                }
-                ++i;
+                partials[t][i] = std::stod(val); // ✅ Valori in METRI (spostamento lineare da compensare)
               }
-
-              loaded_any = true;
-              RCLCPP_INFO(get_logger(), "📂 Correzione '%s' caricata da %s", types[t].c_str(), filepath.c_str());
-              break;
+              catch (...)
+              {
+                partials[t][i] = 0.0;
+              }
+              ++i;
             }
+
+            loaded_any = true;
+            RCLCPP_INFO(get_logger(), "📂 Correzione '%s' caricata da %s", types[t].c_str(), filepath.c_str());
+            break;
           }
         }
-        in.close();
       }
-      else
-      {
-        RCLCPP_WARN(get_logger(), "⚠️ File %s non trovato. Correzione '%s' impostata a zero.", filepath.c_str(), types[t].c_str());
-      }
-    }
-
-    // ➕ Somma pesata dei tre vettori per ottenere la correzione finale
-    std::vector<double> wheel_offset(4, 0.0);
-    for (int i = 0; i < 4; ++i)
-      wheel_offset[i] = weights[0] * partials[0][i] + weights[1] * partials[1][i] + weights[2] * partials[2][i];
-
-    // ✅ Log finale
-    if (loaded_any)
-    {
-      RCLCPP_INFO(get_logger(), "✅ Correzione totale combinata con pesi: rettilineo=%.2f, strafe=%.2f, rotazione=%.2f",
-                  weights[0], weights[1], weights[2]);
-
-      RCLCPP_INFO(get_logger(), "🔎 Offset ruote finali:");
-      RCLCPP_INFO(get_logger(), "FL: %.4f", wheel_offset[0]);
-      RCLCPP_INFO(get_logger(), "FR: %.4f", wheel_offset[1]);
-      RCLCPP_INFO(get_logger(), "RL: %.4f", wheel_offset[2]);
-      RCLCPP_INFO(get_logger(), "RR: %.4f", wheel_offset[3]);
+      in.close();
     }
     else
     {
-      RCLCPP_WARN(get_logger(), "⚠️ Nessuna correzione caricata. Tutti gli offset impostati a zero.");
+      RCLCPP_WARN(get_logger(), "⚠️ File %s non trovato. Correzione '%s' impostata a zero.", filepath.c_str(), types[t].c_str());
     }
-
-    return wheel_offset;
   }
 
+  // ➕ Somma pesata dei tre vettori per ottenere la correzione finale
+  // Il risultato è ancora in METRI
+  std::vector<double> wheel_offset_m(4, 0.0);
+  for (int i = 0; i < 4; ++i)
+    wheel_offset_m[i] = weights[0] * partials[0][i] + weights[1] * partials[1][i] + weights[2] * partials[2][i];
+
+  // 🔁 Conversione da METRI a RAD/S
+  // Serve per rendere l'offset compatibile con le velocità angolari delle ruote
+  std::vector<double> wheel_offset_rad_s(4, 0.0);
+  const double wheel_radius = r_; // ✅ Raggio ruota in METRI, già dichiarato nella classe
+
+  for (int i = 0; i < 4; ++i)
+    wheel_offset_rad_s[i] = wheel_offset_m[i] / wheel_radius; // ✅ Conversione: v/r = ω → rad/s
+
+  // ✅ Log finale
+  if (loaded_any)
+  {
+    RCLCPP_INFO(get_logger(), "✅ Correzione totale combinata con pesi: rettilineo=%.2f, strafe=%.2f, rotazione=%.2f",
+                weights[0], weights[1], weights[2]);
+
+    RCLCPP_INFO(get_logger(), "🔎 Offset ruote finali (unità: rad/s):");
+    RCLCPP_INFO(get_logger(), "FL: %.4f", wheel_offset_rad_s[0]);
+    RCLCPP_INFO(get_logger(), "FR: %.4f", wheel_offset_rad_s[1]);
+    RCLCPP_INFO(get_logger(), "RL: %.4f", wheel_offset_rad_s[2]);
+    RCLCPP_INFO(get_logger(), "RR: %.4f", wheel_offset_rad_s[3]);
+  }
+  else
+  {
+    RCLCPP_WARN(get_logger(), "⚠️ Nessuna correzione caricata. Tutti gli offset impostati a zero.");
+  }
+
+  // 🔚 Restituisce offset in RAD/S, pronto per essere sommato alle velocità angolari delle ruote
+  return wheel_offset_rad_s;
+}
   rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr sub_twist_;
   rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr pub_cmd_;
 
