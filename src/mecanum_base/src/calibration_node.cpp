@@ -76,41 +76,64 @@ private:
         joint_vel_map["wheel_rl_joint"],
         joint_vel_map["wheel_rr_joint"]};
   }
+// === Esegue un test di calibrazione PWM e raccoglie le velocità medie delle ruote ===
+// Parametri:
+// - mode: tipo di test da eseguire (MIN_PWM, MAX_PWM, MAPPING)
+// - step: incremento del valore PWM ad ogni ciclo
+// - result: vettore in cui verranno salvate le velocità medie misurate
+void runCalibrationTest(CalibrationMode mode, double step, std::vector<double> &result)
+{
+  // Pulisce il vettore dei risultati
+  result.clear();
 
-  // === Esegue test di calibrazione PWM e raccoglie velocità medie delle ruote ===
-  void runCalibrationTest(CalibrationMode mode, double step, std::vector<double> &result)
+  // Prepara un log iniziale con il tipo di test
+  std::ostringstream log;
+  log << "🧪 Avvio test: ";
+  if (mode == CalibrationMode::MIN_PWM)
+    log << "Impulso minimo\n";
+  else if (mode == CalibrationMode::MAX_PWM)
+    log << "Impulso massimo\n";
+  else
+    log << "Mappatura impulso-velocità\n";
+
+  // Pubblica il log iniziale sul topic di calibrazione
+  calib_pub_->publish(std_msgs::msg::String().set__data(log.str()));
+
+  // Ciclo di test: da PWM 50 a 255 con incremento definito da 'step'
+  for (int pwm = 50; pwm <= 255; pwm += static_cast<int>(step))
   {
-    result.clear();
-    std::ostringstream log;
-    log << "🧪 Avvio test: ";
-    if (mode == CalibrationMode::MIN_PWM)
-      log << "Impulso minimo\n";
-    else if (mode == CalibrationMode::MAX_PWM)
-      log << "Impulso massimo\n";
-    else
-      log << "Mappatura impulso-velocità\n";
+    // Crea il comando PWM per tutte le ruote (uguale per ciascuna ruota)
+    std_msgs::msg::Float64MultiArray cmd;
+    cmd.data = {
+      static_cast<double>(pwm), // Ruota anteriore sinistra
+      static_cast<double>(pwm), // Ruota anteriore destra
+      static_cast<double>(pwm), // Ruota posteriore sinistra
+      static_cast<double>(pwm)  // Ruota posteriore destra
+    };
 
-    calib_pub_->publish(std_msgs::msg::String().set__data(log.str()));
+    // Pubblica il comando PWM
+    pub_cmd_->publish(cmd);
 
-    for (int pwm = 50; pwm <= 255; pwm += static_cast<int>(step))
-    {
-      std_msgs::msg::Float64MultiArray cmd;
-      cmd.data = {static_cast<double>(pwm), static_cast<double>(pwm),
-                  static_cast<double>(pwm), static_cast<double>(pwm)};
+    // Attende 300 ms per permettere al sistema di stabilizzarsi
+    rclcpp::sleep_for(std::chrono::milliseconds(300));
 
-      pub_cmd_->publish(cmd);
-      rclcpp::sleep_for(std::chrono::milliseconds(300));
+    // Calcola la velocità media delle 4 ruote
+    double avg = std::accumulate(last_wheel_velocity_.begin(), last_wheel_velocity_.end(), 0.0) / 4.0;
 
-      double avg = std::accumulate(last_wheel_velocity_.begin(), last_wheel_velocity_.end(), 0.0) / 4.0;
-      result.push_back(avg);
+    // Salva la velocità media nel vettore dei risultati
+    result.push_back(avg);
 
-      std::ostringstream step_log;
-      step_log << "PWM: " << pwm << " → Velocità media: " << avg << " rad/s\n";
-      calib_pub_->publish(std_msgs::msg::String().set__data(step_log.str()));
-    }
-
-    calib_pub_->publish(std_msgs::msg::String().set__data("✅ Test completato.\n"));
+    // Crea un log per questo step e lo pubblica
+    std::ostringstream step_log;
+    step_log << "PWM: " << pwm << " → Velocità media: " << avg << " rad/s\n";
+    calib_pub_->publish(std_msgs::msg::String().set__data(step_log.str()));
   }
+
+  // Pubblica il messaggio finale di completamento
+  calib_pub_->publish(std_msgs::msg::String().set__data("✅ Test completato.\n"));
+}
+
+
 
   // === Calcola vettore di correzione cinematico in base all’errore misurato ===
   std::vector<double> computeCorrectionVector(double vx, double vy, double wz, double ex, double ey, double ew)
