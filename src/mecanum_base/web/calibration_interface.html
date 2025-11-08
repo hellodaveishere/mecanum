@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,6 +13,7 @@
   <!-- ROSLIB -->
   <script src="js/roslib.min.js"></script>
 </head>
+
 <body class="bg-light">
   <div class="container py-4">
     <h2 class="mb-4">🛠️ Interfaccia Calibrazione Robot Mecanum</h2>
@@ -172,6 +174,16 @@
       });
     }
 
+    // ⏱️ Variabile globale per gestire l'intervallo di invio
+    let cmdVelInterval = null;
+
+    /**
+     * 🚀 Invia comandi di velocità a /cmd_vel con frequenza costante (10 Hz)
+     * Anche il comando di stop (vx=0, vy=0, wz=0) viene inviato periodicamente.
+     * @param {number} vx - Velocità lineare lungo X (avanti/indietro)
+     * @param {number} vy - Velocità lineare lungo Y (laterale)
+     * @param {number} wz - Velocità angolare attorno a Z (rotazione)
+     */
     function sendCmdVel(vx, vy, wz) {
       const cmdVel = new ROSLIB.Topic({
         ros: ros,
@@ -179,14 +191,33 @@
         messageType: 'geometry_msgs/Twist'
       });
 
+      // 🔧 Costruisce il messaggio Twist da inviare
       const twist = new ROSLIB.Message({
         linear: { x: vx, y: vy, z: 0 },
         angular: { x: 0, y: 0, z: wz }
       });
 
-      cmdVel.publish(twist);
-      document.getElementById('calibOutput').innerText = `📤 Comando inviato: vx=${vx}, vy=${vy}, wz=${wz}`;
+      // 🧹 Cancella eventuale intervallo precedente
+      if (cmdVelInterval) {
+        clearInterval(cmdVelInterval);
+        cmdVelInterval = null;
+      }
+
+      // 📤 Invia il messaggio ogni 100 ms (10 Hz), anche se è uno stop
+      cmdVelInterval = setInterval(() => {
+        cmdVel.publish(twist);
+
+        // 🖥️ Aggiorna l'interfaccia con il comando corrente
+        if (vx === 0 && vy === 0 && wz === 0) {
+          document.getElementById('calibOutput').innerText = `🛑 Comando di stop inviato periodicamente`;
+        } else {
+          document.getElementById('calibOutput').innerText =
+            `📤 Comando inviato: vx=${vx}, vy=${vy}, wz=${wz}`;
+        }
+      }, 100);
     }
+
   </script>
 </body>
+
 </html>

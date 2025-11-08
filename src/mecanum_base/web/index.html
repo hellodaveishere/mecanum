@@ -85,9 +85,12 @@
             <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#configModal">⚙️ Configurazione</button>
           </li>
           <li class="list-group-item">
-            <a class="btn btn-link" href="calibration_interface.html" target="_blank" rel="noopener noreferrer">🛠️
-              Calibrazione</a>
+            <a id="calibrationLink" class="btn btn-link" href="calibration_interface.html" target="_blank"
+              rel="noopener noreferrer">
+              🛠️ Calibrazione
+            </a>
           </li>
+
           <li class="list-group-item">
             <button class="btn btn-link" onclick="alert('Made by Dave!')">ℹ️ About</button>
           </li>
@@ -98,7 +101,14 @@
     <!-- Stato ROS -->
     <div class="alert alert-secondary d-inline-block py-2 px-3 mb-3">
       Stato ROS2: <span id="ros-status" class="text-danger fw-bold">Non connesso</span>
+      <label>
+        <input type="checkbox" id="joystickControlToggle" checked />
+        Attiva controllo joystick
+      </label>
     </div>
+
+
+
 
     <!-- Velocità -->
     <div class="mb-3">
@@ -318,13 +328,6 @@
 
       const deadZone = 0.05; // soglia per ignorare piccoli movimenti
 
-      // === ROS publisher per il robot ===
-      const cmdVel = new ROSLIB.Topic({
-        ros: ros,
-        name: '/cmd_vel',
-        messageType: 'geometry_msgs/Twist'
-      });
-
       let robotIsIdle = true; // stato del joystick robot
 
       // === Joystick robot ===
@@ -337,6 +340,34 @@
         maxDistance: 150
       });
 
+      // === Buffer per comandi robot ===
+      let currentLinear = 0;
+      let currentAngular = 0;
+
+      // === Publisher ROS2 per /cmd_vel ===
+      const cmdVel = new ROSLIB.Topic({
+        ros: ros,
+        name: '/cmd_vel',
+        messageType: 'geometry_msgs/Twist'
+      });
+
+      // === Timer per invio periodico a 10 Hz ===
+      setInterval(() => {
+        if (!isJoystickControlEnabled()) return; // ⛔ Non inviare comandi se disattivato
+
+        cmdVel.publish(new ROSLIB.Message({
+          linear: { x: currentLinear, y: 0, z: 0 },
+          angular: { x: 0, y: 0, z: currentAngular }
+        }));
+
+        const status = (currentLinear === 0 && currentAngular === 0)
+          ? '🛑 Comando di stop inviato'
+          : `📤 Comando inviato: vx=${currentLinear.toFixed(2)}, wz=${currentAngular.toFixed(2)}`;
+
+        //console.log(status);
+      }, 100); // 10 Hz
+
+      // === Joystick robot ===
       joystick.on('move', (evt, data) => {
         const nippleEl = document.querySelector('#joystick-zone .nipple');
         if (nippleEl) nippleEl.classList.add('active');
@@ -354,14 +385,11 @@
           linearDisplay.textContent = linearFiltered.toFixed(2);
           angularDisplay.textContent = angularFiltered.toFixed(2);
 
-          console.log(`Joystick robot → Linear: ${linearFiltered}, Angular: ${angularFiltered}`);
+          //console.log(`Joystick robot → Linear: ${linearFiltered}, Angular: ${angularFiltered}`);
 
-          cmdVel.publish(new ROSLIB.Message({
-            linear: { x: linearFiltered, y: 0, z: 0 },
-            angular: { x: 0, y: 0, z: angularFiltered }
-          }));
-
-          robotIsIdle = (linearFiltered === 0 && angularFiltered === 0);
+          // 🔄 Aggiorna buffer per invio periodico
+          currentLinear = linearFiltered;
+          currentAngular = angularFiltered;
         }
       });
 
@@ -374,12 +402,9 @@
 
         console.log('Joystick robot → STOP');
 
-        cmdVel.publish(new ROSLIB.Message({
-          linear: { x: 0, y: 0, z: 0 },
-          angular: { x: 0, y: 0, z: 0 }
-        }));
-
-        robotIsIdle = true;
+        // 🔄 Imposta buffer a zero per invio continuo di stop
+        currentLinear = 0;
+        currentAngular = 0;
       });
 
       // === ROS publisher per la telecamera ===
@@ -389,7 +414,13 @@
         messageType: 'std_msgs/Float64MultiArray'
       });
 
-      let cameraIsIdle = true; // stato del joystick telecamera
+      let currentPan = 0;
+      let currentTilt = 0;
+
+      // === Timer per invio continuo dei comandi telecamera (10 Hz) ===
+      setInterval(() => {
+        servoTopic.publish(new ROSLIB.Message({ data: [currentPan, currentTilt] }));
+      }, 100);
 
       // === Joystick telecamera ===
       const cameraJoystick = nipplejs.create({
@@ -415,9 +446,9 @@
           const panFiltered = Math.abs(pan) < deadZone ? 0 : parseFloat(pan.toFixed(2));
           const tiltFiltered = Math.abs(tilt) < deadZone ? 0 : parseFloat(tilt.toFixed(2));
 
-          servoTopic.publish(new ROSLIB.Message({ data: [panFiltered, tiltFiltered] }));
-
-          cameraIsIdle = (panFiltered === 0 && tiltFiltered === 0);
+          // 🔄 Aggiorna buffer per invio continuo
+          currentPan = panFiltered;
+          currentTilt = tiltFiltered;
         }
       });
 
@@ -425,24 +456,10 @@
         const nippleEl = document.querySelector('#camera-joystick-zone .nipple');
         if (nippleEl) nippleEl.classList.remove('active');
 
-        servoTopic.publish(new ROSLIB.Message({ data: [0, 0] }));
-        cameraIsIdle = true;
+        // 🔄 Imposta buffer a zero per invio continuo di stop
+        currentPan = 0;
+        currentTilt = 0;
       });
-
-      // === Timer per invio periodico di stop (0.5 Hz) ===
-      setInterval(() => {
-        if (robotIsIdle) {
-          console.log('Joystick robot → Periodic STOP');
-          cmdVel.publish(new ROSLIB.Message({
-            linear: { x: 0, y: 0, z: 0 },
-            angular: { x: 0, y: 0, z: 0 }
-          }));
-        }
-
-        if (cameraIsIdle) {
-          servoTopic.publish(new ROSLIB.Message({ data: [0, 0] }));
-        }
-      }, 2000); // ogni 2 secondi
 
 
 
@@ -515,6 +532,21 @@
         consoleSection.classList.add('d-none');
         console.log('🔴 Console disabilitata, sezione nascosta');
       }
+
+      function isJoystickControlEnabled() {
+        return document.getElementById('joystickControlToggle').checked;
+      }
+
+      document.getElementById('calibrationLink').addEventListener('click', () => {
+        // 🔧 Disattiva invio comandi joystick
+        document.getElementById('joystickControlToggle').checked = false;
+
+        // 🧹 Se usi variabili come currentLinear/currentAngular, azzera anche quelle
+        currentLinear = 0;
+        currentAngular = 0;
+
+        console.log('🔒 Controllo joystick disattivato per calibrazione');
+      });
 
     }
   </script>

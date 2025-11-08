@@ -25,8 +25,8 @@ public:
 
     wheel_correction_ = declare_parameter<std::vector<double>>("wheel_correction", {1.0, 1.0, 1.0, 1.0});
 
-#wheel_offset_ = {0.0, 0.0, 0.0, 0.0 };
-#loadCorrectionFromFile();
+    // wheel_offset_ = {0.0, 0.0, 0.0, 0.0 };
+    // loadCorrectionFromFile();
     wheel_offset_ = loadCorrectionFromFile();
 
     pub_cmd_ = create_publisher<std_msgs::msg::Float64MultiArray>(controller_topic_, 10);
@@ -53,11 +53,18 @@ private:
     double w_rr = k * (vx - vy + a * wz);
 
     std_msgs::msg::Float64MultiArray arr;
+
+    // Non cosidera wheel_offset in caso di stop
+    auto applyOffset = [](double w, double offset)
+    {
+      return std::abs(w) > 1e-3 ? w + offset : 0.0;
+    };
+
     arr.data = {
-        (w_fl + wheel_offset_[0]) * wheel_correction_[0],
-        (w_fr + wheel_offset_[1]) * wheel_correction_[1],
-        (w_rl + wheel_offset_[2]) * wheel_correction_[2],
-        (w_rr + wheel_offset_[3]) * wheel_correction_[3]};
+        applyOffset(w_fl, wheel_offset_[0]) * wheel_correction_[0],
+        applyOffset(w_fr, wheel_offset_[1]) * wheel_correction_[1],
+        applyOffset(w_rl, wheel_offset_[2]) * wheel_correction_[2],
+        applyOffset(w_rr, wheel_offset_[3]) * wheel_correction_[3]};
 
     pub_cmd_->publish(arr);
   }
