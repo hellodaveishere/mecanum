@@ -1,10 +1,3 @@
-clear
-colcon build --packages-select mecanum_base
-source install/setup.bash 
-ros2 launch mecanum_base ir_sensor_broadcaster.launch.py
-clear
-colcon build --packages-select mecanum_base
-source install/setup.bash 
 ros2 launch mecanum_base ir_sensor_broadcaster.launch.py
 clear
 rm -rf build/mecanum_base install/mecanum_base log
@@ -497,4 +490,11 @@ ls /dev/ttyUSB*
 ls /dev/ttyUSB*
 ls /dev/ttyUSB*
 ls /dev/ttyUSB*
+ros2 launch mecanum_base bringup.launch.py 
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+ros2 launch mecanum_base bringup.launch.py 
+ros2 launch mecanum_base bringup.launch.py 
+clear
+ros2 launch mecanum_base bringup.launch.py 
 ros2 launch mecanum_base bringup.launch.py 

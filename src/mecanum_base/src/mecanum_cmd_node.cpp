@@ -24,8 +24,8 @@ public:
     controller_topic_ = declare_parameter<std::string>("controller_cmd_topic", "/mecanum_velocity_controller/commands");
 
     wheel_correction_ = declare_parameter<std::vector<double>>("wheel_correction", {1.0, 1.0, 1.0, 1.0});
-    wheel_offset_ = {0.0, 0.0, 0.0, 0.0};
 
+    wheel_offset_ = {0.0, 0.0, 0.0, 0.0};
     loadCorrectionFromFile();
 
     pub_cmd_ = create_publisher<std_msgs::msg::Float64MultiArray>(controller_topic_, 10);
@@ -63,50 +63,91 @@ private:
 
   void loadCorrectionFromFile()
   {
-    std::ifstream in("config/correction.yaml");
-    if (in.is_open())
+    // 🔧 Tipi di test cinematici da combinare
+    const std::vector<std::string> types = {"rettilineo", "strafe", "rotazione"};
+
+    // ⚖️ Pesi assegnati a ciascun test (equilibrati: somma = 1.0)
+    // Puoi modificarli per dare più importanza a un test specifico
+    const std::vector<double> weights = {0.33, 0.33, 0.34};
+
+    // 🧮 Vettori parziali per ciascun test
+    std::vector<std::vector<double>> partials(3, std::vector<double>(4, 0.0));
+    bool loaded_any = false;
+
+    // 📂 Carica ciascun file YAML separato
+    for (size_t t = 0; t < types.size(); ++t)
     {
-      std::string line;
-      while (std::getline(in, line))
+      std::string filepath = "config/correction_" + types[t] + ".yaml";
+      std::ifstream in(filepath);
+
+      if (in.is_open())
       {
-        if (line.find("wheel_correction") != std::string::npos)
+        std::string line;
+        while (std::getline(in, line))
         {
-          size_t start = line.find("[");
-          size_t end = line.find("]");
-          if (start != std::string::npos && end != std::string::npos && end > start)
+          // Cerca la riga con il nome del vettore
+          if (line.find("correction_" + types[t]) != std::string::npos)
           {
-            std::string values = line.substr(start + 1, end - start - 1);
-            std::stringstream ss(values);
-            std::string val;
-            int i = 0;
-            while (std::getline(ss, val, ',') && i < 4)
+            size_t start = line.find("[");
+            size_t end = line.find("]");
+            if (start != std::string::npos && end != std::string::npos && end > start)
             {
-              try
+              // Estrae i valori tra parentesi quadre
+              std::string values = line.substr(start + 1, end - start - 1);
+              std::stringstream ss(values);
+              std::string val;
+              int i = 0;
+
+              // Converte i valori in double e li salva nel vettore parziale
+              while (std::getline(ss, val, ',') && i < 4)
               {
-                wheel_offset_[i] = std::stod(val);
+                try
+                {
+                  partials[t][i] = std::stod(val);
+                }
+                catch (...)
+                {
+                  partials[t][i] = 0.0; // In caso di errore, imposta a zero
+                }
+                ++i;
               }
-              catch (...)
-              {
-                wheel_offset_[i] = 0.0;
-              }
-              ++i;
+
+              loaded_any = true;
+              RCLCPP_INFO(get_logger(), "📂 Correzione '%s' caricata da %s", types[t].c_str(), filepath.c_str());
+              break;
             }
-            while (i < 4)
-              wheel_offset_[i++] = 0.0;
-            RCLCPP_INFO(get_logger(), "📂 Correzione caricata da config/correction.yaml");
-            return;
           }
         }
+        in.close();
       }
-      in.close();
-      RCLCPP_WARN(get_logger(), "⚠️ File YAML trovato ma formato non valido. Correzioni impostate a zero.");
+      else
+      {
+        RCLCPP_WARN(get_logger(), "⚠️ File %s non trovato. Correzione '%s' impostata a zero.", filepath.c_str(), types[t].c_str());
+      }
+    }
+
+    // ➕ Somma pesata dei tre vettori per ottenere la correzione finale
+    wheel_offset_.resize(4, 0.0);
+    for (int i = 0; i < 4; ++i)
+      wheel_offset_[i] = weights[0] * partials[0][i] + weights[1] * partials[1][i] + weights[2] * partials[2][i];
+
+    // ✅ Log finale
+    if (loaded_any)
+    {
+      RCLCPP_INFO(get_logger(), "✅ Correzione totale combinata con pesi: rettilineo=%.2f, strafe=%.2f, rotazione=%.2f",
+                  weights[0], weights[1], weights[2]);
+
+      // ✨ Esempio di output
+      RCLCPP_INFO(get_logger(), "🔎 Offset ruote finali:");
+      RCLCPP_INFO(get_logger(), "FL: %.4f", wheel_offset_[0]);
+      RCLCPP_INFO(get_logger(), "FR: %.4f", wheel_offset_[1]);
+      RCLCPP_INFO(get_logger(), "RL: %.4f", wheel_offset_[2]);
+      RCLCPP_INFO(get_logger(), "RR: %.4f", wheel_offset_[3]);
     }
     else
     {
-      RCLCPP_WARN(get_logger(), "⚠️ File config/correction.yaml non trovato. Correzioni impostate a zero.");
+      RCLCPP_WARN(get_logger(), "⚠️ Nessuna correzione caricata. Tutti gli offset impostati a zero.");
     }
-
-    wheel_offset_ = {0.0, 0.0, 0.0, 0.0};
   }
 
   rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr sub_twist_;
