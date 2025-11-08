@@ -23,21 +23,20 @@
       <h5>📋 Procedura di calibrazione</h5>
       <ol class="mb-0">
         <li>Seleziona il tipo di test da eseguire (cinematico o PWM).</li>
-        <li>Se stai eseguendo un test cinematico:
+        <li>Per test cinematici:
           <ul>
-            <li>Usa i pulsanti qui sotto per far muovere il robot lungo l’asse desiderato.</li>
-            <li>Osserva il comportamento reale: deviazione, rotazione, spostamento laterale.</li>
-            <li>Misura l’errore tra la posizione attesa e quella reale (in metri o radianti) cioè e=target-attuale.</li>
-            <li>Inserisci l’errore misurato nel campo sottostante.</li>
+            <li>Premi il pulsante di movimento per avviare il test.</li>
+            <li>Premi “🛑 Ferma robot” per concludere il test.</li>
+            <li>Misura l’errore tra posizione/angolo atteso e reale (in metri o radianti).</li>
+            <li>Inserisci l’errore nel campo sottostante.</li>
           </ul>
         </li>
-        <li>Se stai eseguendo un test PWM:
+        <li>Per test PWM:
           <ul>
-            <li>Inserisci lo step PWM da usare (es. 10) per testare la risposta del robot.</li>
+            <li>Inserisci lo step PWM da testare (es. 10).</li>
           </ul>
         </li>
-        <li>Premi “Invia dati di calibrazione” per avviare il test.</li>
-        <li>Consulta i risultati nel riquadro in basso.</li>
+        <li>Premi “Invia dati di calibrazione” per inviare i dati.</li>
       </ol>
     </div>
 
@@ -80,10 +79,16 @@
       </div>
     </div>
 
-    <!-- Valore errore / parametro -->
+    <!-- Valore errore -->
     <div class="mb-3">
-      <label for="errorValue" class="form-label" id="errorLabel">Valore errore misurato</label>
+      <label for="errorValue" class="form-label" id="errorLabel">Errore misurato (m o rad)</label>
       <input type="number" step="0.01" class="form-control" id="errorValue" placeholder="Es. 0.15" />
+    </div>
+
+    <!-- Durata del test -->
+    <div class="mb-3">
+      <label class="form-label">⏱️ Durata effettiva del test (secondi)</label>
+      <div id="testDuration" class="form-control bg-light">--</div>
     </div>
 
     <!-- Pulsante invio -->
@@ -97,17 +102,10 @@
   </div>
 
   <script>
-    const ros = new ROSLIB.Ros({
-      url: 'ws://localhost:9091'
-    });
+    const ros = new ROSLIB.Ros({ url: 'ws://localhost:9091' });
 
-    ros.on('connection', () => {
-      console.log('✅ Connesso a rosbridge');
-    });
-
-    ros.on('error', (error) => {
-      console.error('❌ Errore rosbridge:', error);
-    });
+    ros.on('connection', () => console.log('✅ Connesso a rosbridge'));
+    ros.on('error', (error) => console.error('❌ Errore rosbridge:', error));
 
     const calibListener = new ROSLIB.Topic({
       ros: ros,
@@ -119,33 +117,72 @@
       document.getElementById('calibOutput').innerText = message.data;
     });
 
+    let cmdVelInterval = null;
+    let startTime = null;     // ⏱️ Timestamp inizio test
+    let testDuration = null;  // ⏱️ Durata calcolata in secondi
+
     function updateInstructions() {
       const testType = document.getElementById('testType').value;
       const instructions = document.getElementById('testInstructions');
       const label = document.getElementById('errorLabel');
 
       if (testType === 'rettilineo') {
-        instructions.innerText = 'Fai muovere il robot lungo X per 1 metro. Misura la deviazione laterale e inseriscila qui.';
+        instructions.innerText = 'Fai muovere il robot lungo X per 1 metro. Inserisci l’errore laterale (in metri).';
         label.innerText = 'Errore lungo X (m)';
       } else if (testType === 'strafe') {
-        instructions.innerText = 'Fai muovere il robot lateralmente lungo Y. Misura la deviazione e inseriscila qui.';
+        instructions.innerText = 'Fai muovere il robot lateralmente lungo Y per 1 metro. Inserisci l’errore (in metri).';
         label.innerText = 'Errore lungo Y (m)';
       } else if (testType === 'rotazione') {
-        instructions.innerText = 'Fai ruotare il robot di 180°. Misura l’errore angolare e inseriscilo qui.';
+        instructions.innerText = 'Fai ruotare il robot di 180°. Inserisci l’errore angolare (in radianti).';
         label.innerText = 'Errore angolare (rad)';
-      } else if (testType === 'min_pwm') {
-        instructions.innerText = 'Inserisci lo step PWM da usare per trovare il valore minimo che genera movimento.';
-        label.innerText = 'Step PWM (intero)';
-      } else if (testType === 'max_pwm') {
-        instructions.innerText = 'Inserisci lo step PWM da usare per testare il valore massimo sicuro.';
-        label.innerText = 'Step PWM (intero)';
-      } else if (testType === 'map_pwm') {
-        instructions.innerText = 'Inserisci lo step PWM da usare per costruire la curva PWM → velocità.';
-        label.innerText = 'Step PWM (intero)';
       } else {
         instructions.innerText = 'Seleziona un tipo di test per visualizzare le istruzioni.';
         label.innerText = 'Valore errore misurato';
       }
+
+      // Reset durata
+      document.getElementById('testDuration').innerText = '--';
+      testDuration = null;
+    }
+
+    function sendCmdVel(vx, vy, wz) {
+      const cmdVel = new ROSLIB.Topic({
+        ros: ros,
+        name: '/cmd_vel',
+        messageType: 'geometry_msgs/Twist'
+      });
+
+      const twist = new ROSLIB.Message({
+        linear: { x: vx, y: vy, z: 0 },
+        angular: { x: 0, y: 0, z: wz }
+      });
+
+      if (cmdVelInterval) {
+        clearInterval(cmdVelInterval);
+        cmdVelInterval = null;
+      }
+
+      cmdVelInterval = setInterval(() => {
+        cmdVel.publish(twist);
+
+        if (vx === 0 && vy === 0 && wz === 0) {
+          // 🛑 Stop → calcola durata
+          if (startTime) {
+            const endTime = Date.now();
+            testDuration = (endTime - startTime) / 1000;
+            document.getElementById('testDuration').innerText = `${testDuration.toFixed(2)} secondi`;
+            startTime = null;
+          }
+          document.getElementById('calibOutput').innerText = `🛑 Comando di stop inviato periodicamente`;
+        } else {
+          // 🚀 Inizio test
+          startTime = Date.now();
+          testDuration = null;
+          document.getElementById('testDuration').innerText = `Test in corso...`;
+          document.getElementById('calibOutput').innerText =
+            `📤 Comando inviato: vx=${vx}, vy=${vy}, wz=${wz}`;
+        }
+      }, 100);
     }
 
     function sendCalibration() {
@@ -154,10 +191,20 @@
       const errorValue = parseFloat(document.getElementById('errorValue').value);
 
       if (isNaN(errorValue)) {
-        alert('Inserisci un valore valido.');
+        alert('⚠️ Inserisci un valore numerico valido per l’errore.');
         return;
       }
 
+      // ⏱️ Verifica che il test sia stato eseguito e fermato
+      if (!testDuration || testDuration <= 0) {
+        alert('⚠️ Devi prima eseguire il test e premere STOP per calcolare la durata.');
+        return;
+      }
+
+      // 📉 Calcola errore normalizzato: velocità = errore / tempo
+      const normalizedError = errorValue / testDuration;
+
+      // 🛰️ Costruisce e invia la richiesta al servizio ROS
       const service = new ROSLIB.Service({
         ros: ros,
         name: `/run_calibration_test`,
@@ -166,58 +213,13 @@
 
       const request = new ROSLIB.ServiceRequest({
         test_type: testType,
-        error_value: errorValue
+        error_value: normalizedError
       });
 
       service.callService(request, (result) => {
         document.getElementById('calibOutput').innerText = result.result;
       });
     }
-
-    // ⏱️ Variabile globale per gestire l'intervallo di invio
-    let cmdVelInterval = null;
-
-    /**
-     * 🚀 Invia comandi di velocità a /cmd_vel con frequenza costante (10 Hz)
-     * Anche il comando di stop (vx=0, vy=0, wz=0) viene inviato periodicamente.
-     * @param {number} vx - Velocità lineare lungo X (avanti/indietro)
-     * @param {number} vy - Velocità lineare lungo Y (laterale)
-     * @param {number} wz - Velocità angolare attorno a Z (rotazione)
-     */
-    function sendCmdVel(vx, vy, wz) {
-      const cmdVel = new ROSLIB.Topic({
-        ros: ros,
-        name: '/cmd_vel',
-        messageType: 'geometry_msgs/Twist'
-      });
-
-      // 🔧 Costruisce il messaggio Twist da inviare
-      const twist = new ROSLIB.Message({
-        linear: { x: vx, y: vy, z: 0 },
-        angular: { x: 0, y: 0, z: wz }
-      });
-
-      // 🧹 Cancella eventuale intervallo precedente
-      if (cmdVelInterval) {
-        clearInterval(cmdVelInterval);
-        cmdVelInterval = null;
-      }
-
-      // 📤 Invia il messaggio ogni 100 ms (10 Hz), anche se è uno stop
-      cmdVelInterval = setInterval(() => {
-        cmdVel.publish(twist);
-
-        // 🖥️ Aggiorna l'interfaccia con il comando corrente
-        if (vx === 0 && vy === 0 && wz === 0) {
-          document.getElementById('calibOutput').innerText = `🛑 Comando di stop inviato periodicamente`;
-        } else {
-          document.getElementById('calibOutput').innerText =
-            `📤 Comando inviato: vx=${vx}, vy=${vy}, wz=${wz}`;
-        }
-      }, 100);
-    }
-
   </script>
 </body>
-
 </html>
