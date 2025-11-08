@@ -80,7 +80,8 @@ std::vector<double> loadCorrectionFromFile()
   const std::vector<double> weights = {0.33, 0.33, 0.34};
 
   // 🧮 Vettori parziali per ciascun test
-  // Ogni vettore contiene 4 valori (uno per ruota), inizialmente in METRI
+  // Ogni vettore contiene 4 valori (uno per ruota), espressi in METRI/SECONDO (m/s)
+  // Rappresentano errori di velocità lineare misurati sperimentalmente
   std::vector<std::vector<double>> partials(3, std::vector<double>(4, 0.0));
   bool loaded_any = false;
 
@@ -110,7 +111,7 @@ std::vector<double> loadCorrectionFromFile()
             {
               try
               {
-                partials[t][i] = std::stod(val); // ✅ Valori in METRI (spostamento lineare da compensare)
+                partials[t][i] = std::stod(val); // ✅ Valori in m/s (errore di velocità lineare)
               }
               catch (...)
               {
@@ -134,18 +135,18 @@ std::vector<double> loadCorrectionFromFile()
   }
 
   // ➕ Somma pesata dei tre vettori per ottenere la correzione finale
-  // Il risultato è ancora in METRI
-  std::vector<double> wheel_offset_m(4, 0.0);
+  // Il risultato è ancora in m/s
+  std::vector<double> wheel_offset_linear(4, 0.0);
   for (int i = 0; i < 4; ++i)
-    wheel_offset_m[i] = weights[0] * partials[0][i] + weights[1] * partials[1][i] + weights[2] * partials[2][i];
+    wheel_offset_linear[i] = weights[0] * partials[0][i] + weights[1] * partials[1][i] + weights[2] * partials[2][i];
 
-  // 🔁 Conversione da METRI a RAD/S
+  // 🔁 Conversione da m/s a rad/s
   // Serve per rendere l'offset compatibile con le velocità angolari delle ruote
   std::vector<double> wheel_offset_rad_s(4, 0.0);
   const double wheel_radius = r_; // ✅ Raggio ruota in METRI, già dichiarato nella classe
 
   for (int i = 0; i < 4; ++i)
-    wheel_offset_rad_s[i] = wheel_offset_m[i] / wheel_radius; // ✅ Conversione: v/r = ω → rad/s
+    wheel_offset_rad_s[i] = wheel_offset_linear[i] / wheel_radius; // ✅ Conversione: ω = v / r → rad/s
 
   // ✅ Log finale
   if (loaded_any)
