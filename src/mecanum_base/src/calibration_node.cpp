@@ -136,28 +136,49 @@ void runCalibrationTest(CalibrationMode mode, double step, std::vector<double> &
 
 
   // === Calcola vettore di correzione cinematico in base all’errore misurato ===
-  std::vector<double> computeCorrectionVector(double vx, double vy, double wz, double ex, double ey, double ew)
-  {
-    const double a = L_ + W_;
-    std::vector<std::vector<double>> M = {
-        {1, -1, -a},
-        {1, 1, a},
-        {1, 1, -a},
-        {1, -1, a}};
+  // === Calcola vettore di correzione cinematico in base all’errore misurato ===
+// Input:
+//   vx, vy: velocità lineari desiderate (m/s)
+//   wz: velocità angolare desiderata (rad/s)
+//   ex, ey: errore di velocità lineare misurato (m/s)
+//   ew: errore di velocità angolare misurato (rad/s)
+// Output:
+//   correzione da applicare alle ruote (m/s), da convertire successivamente in rad/s
+std::vector<double> computeCorrectionVector(double vx, double vy, double wz, double ex, double ey, double ew)
+{
+  const double a = L_ + W_; // distanza tra ruote (m)
 
-    double total = std::abs(vx) + std::abs(vy) + std::abs(wz);
-    double wx = total > 0 ? std::abs(vx) / total : 0;
-    double wy = total > 0 ? std::abs(vy) / total : 0;
-    double ww = total > 0 ? std::abs(wz) / total : 0;
+  // 🔁 Matrice cinematica inversa per ruote Mecanum
+  // Serve a trasformare velocità del robot in velocità lineari da compensare
+  std::vector<std::vector<double>> M = {
+      {1, -1, -a},
+      {1,  1,  a},
+      {1,  1, -a},
+      {1, -1,  a}};
 
-    std::vector<double> e = {wx * ex, wy * ey, ww * ew};
-    std::vector<double> correction(4, 0.0);
-    for (int i = 0; i < 4; ++i)
-      for (int j = 0; j < 3; ++j)
-        correction[i] += M[i][j] * e[j];
+  // ⚖️ Calcolo dei pesi normalizzati per ciascun asse
+  // Serve a dare più importanza all'errore lungo l'asse dominante
+  double total = std::abs(vx) + std::abs(vy) + std::abs(wz);
+  double wx = total > 0 ? std::abs(vx) / total : 0;
+  double wy = total > 0 ? std::abs(vy) / total : 0;
+  double ww = total > 0 ? std::abs(wz) / total : 0;
 
-    return correction;
-  }
+  // 📐 Vettore di errore pesato
+  // ex, ey sono in m/s → velocità lineari
+  // ew è in rad/s → velocità angolare
+  std::vector<double> e = {wx * ex, wy * ey, ww * ew};
+
+  // 🧮 Prodotto M * e → risultato in m/s
+  // Rappresenta la correzione lineare da applicare a ciascuna ruota
+  std::vector<double> correction_m_s(4, 0.0);
+  for (int i = 0; i < 4; ++i)
+    for (int j = 0; j < 3; ++j)
+      correction_m_s[i] += M[i][j] * e[j]; // unità: m/s
+
+  // ✅ Restituisce correzione finale in m/s
+  // Da convertire in rad/s successivamente con: ω = v / r
+  return correction_m_s;
+}
 
   // === Gestisce la richiesta del servizio di calibrazione ===
   void handleCalibrationRequest(
