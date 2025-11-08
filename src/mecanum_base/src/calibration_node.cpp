@@ -215,6 +215,12 @@ std::vector<double> computeCorrectionVector(double vx, double vy, double wz, dou
       else if (tipo == "rotazione")
         ew = valore;
 
+// ⚖️ Calcolo dei pesi normalizzati per ciascun asse di movimento
+// I pesi wx, wy, ww rappresentano l'importanza relativa dell'errore lungo X, Y e rotazione
+// e sono calcolati in base alla velocità target del robot per il test corrente.
+// Questo approccio garantisce che la correzione sia focalizzata sulla direzione dominante del movimento:
+// ad esempio, se il test è rettilineo (vx > 0), solo l'errore lungo X (ex) viene considerato rilevante.
+// In alternativa, si potrebbero usare pesi manuali, ma questo metodo è più coerente e adattivo.
       double vx = (tipo == "rettilineo") ? 0.5 : 0.0;
       double vy = (tipo == "strafe") ? 0.5 : 0.0;
       double wz = (tipo == "rotazione") ? 1.0 : 0.0;
