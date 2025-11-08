@@ -274,13 +274,12 @@ private:
 }
 
 // === Caricamento del vettore di correzione da file YAML ===
-void loadCorrectionFromFile()
+std::vector<double> loadCorrectionFromFile()
 {
   // 🔧 Tipi di test cinematici da combinare
   const std::vector<std::string> types = {"rettilineo", "strafe", "rotazione"};
 
-  // ⚖️ Pesi assegnati a ciascun test (equilibrati: somma = 1.0)
-  // Puoi modificarli per dare più importanza a un test specifico
+  // ⚖️ Pesi assegnati a ciascun test (equilibrati)
   const std::vector<double> weights = {0.33, 0.33, 0.34};
 
   // 🧮 Vettori parziali per ciascun test
@@ -298,20 +297,17 @@ void loadCorrectionFromFile()
       std::string line;
       while (std::getline(in, line))
       {
-        // Cerca la riga con il nome del vettore
         if (line.find("correction_" + types[t]) != std::string::npos)
         {
           size_t start = line.find("[");
           size_t end = line.find("]");
           if (start != std::string::npos && end != std::string::npos && end > start)
           {
-            // Estrae i valori tra parentesi quadre
             std::string values = line.substr(start + 1, end - start - 1);
             std::stringstream ss(values);
             std::string val;
             int i = 0;
 
-            // Converte i valori in double e li salva nel vettore parziale
             while (std::getline(ss, val, ',') && i < 4)
             {
               try
@@ -320,7 +316,7 @@ void loadCorrectionFromFile()
               }
               catch (...)
               {
-                partials[t][i] = 0.0; // In caso di errore, imposta a zero
+                partials[t][i] = 0.0;
               }
               ++i;
             }
@@ -340,9 +336,9 @@ void loadCorrectionFromFile()
   }
 
   // ➕ Somma pesata dei tre vettori per ottenere la correzione finale
-  wheel_offset_.resize(4, 0.0);
+  std::vector<double> wheel_offset(4, 0.0);
   for (int i = 0; i < 4; ++i)
-    wheel_offset_[i] = weights[0] * partials[0][i] + weights[1] * partials[1][i] + weights[2] * partials[2][i];
+    wheel_offset[i] = weights[0] * partials[0][i] + weights[1] * partials[1][i] + weights[2] * partials[2][i];
 
   // ✅ Log finale
   if (loaded_any)
@@ -350,17 +346,18 @@ void loadCorrectionFromFile()
     RCLCPP_INFO(get_logger(), "✅ Correzione totale combinata con pesi: rettilineo=%.2f, strafe=%.2f, rotazione=%.2f",
                 weights[0], weights[1], weights[2]);
 
-    // ✨ Esempio di output
     RCLCPP_INFO(get_logger(), "🔎 Offset ruote finali:");
-    RCLCPP_INFO(get_logger(), "FL: %.4f", wheel_offset_[0]);
-    RCLCPP_INFO(get_logger(), "FR: %.4f", wheel_offset_[1]);
-    RCLCPP_INFO(get_logger(), "RL: %.4f", wheel_offset_[2]);
-    RCLCPP_INFO(get_logger(), "RR: %.4f", wheel_offset_[3]);
+    RCLCPP_INFO(get_logger(), "FL: %.4f", wheel_offset[0]);
+    RCLCPP_INFO(get_logger(), "FR: %.4f", wheel_offset[1]);
+    RCLCPP_INFO(get_logger(), "RL: %.4f", wheel_offset[2]);
+    RCLCPP_INFO(get_logger(), "RR: %.4f", wheel_offset[3]);
   }
   else
   {
     RCLCPP_WARN(get_logger(), "⚠️ Nessuna correzione caricata. Tutti gli offset impostati a zero.");
   }
+
+  return wheel_offset;
 }
 
 // === Membri ROS ===
