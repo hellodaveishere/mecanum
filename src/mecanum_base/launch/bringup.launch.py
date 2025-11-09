@@ -123,8 +123,8 @@ def generate_launch_description():
             output='screen',
         )
 
-# Nodo indipendente per il servizio Emergency Stop
-        Node(
+    # Nodo indipendente per il servizio Emergency Stop
+    estop_service_node = Node(
             package='mecanum_control',
             executable='estopservicenode',
             name='estopservicenode',
@@ -285,5 +285,6 @@ def generate_launch_description():
         webserver_node,
         throttle_node_for_battery_status,
         v4l2_camera_node,
-        rosout_reply_node 
+        rosout_reply_node,
+        estop_service_node 
     ])

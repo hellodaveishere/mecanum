@@ -34,6 +34,7 @@
   <build_depend>tf2_ros</build_depend>
   <build_depend>std_msgs</build_depend>
   <build_depend>rcl_interfaces</build_depend>
+  <build_depend>std_srvs</build_depend>
 
   <!-- 🧬 Dipendenze per generare messaggi/servizi custom -->
   <build_depend>rosidl_default_generators</build_depend>

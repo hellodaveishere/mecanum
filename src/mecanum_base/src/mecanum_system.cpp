@@ -22,10 +22,17 @@
 
 namespace mecanum_hardware
 {
-void MecanumSystem::clearEmergencyStop() {
-  emergency_stop_active_ = false;
-  RCLCPP_INFO(rclcpp::get_logger("MecanumSystem"), "Emergency Stop disattivato manualmente.");
-}
+
+  // Inizializzazione della variabile statica
+  bool MecanumSystem::emergency_stop_active_global_ = false;
+
+  void MecanumSystem::clearEmergencyStopGlobal() {
+      emergency_stop_active_global_ = false;
+  }
+
+  bool MecanumSystem::isEmergencyStopActive() {
+      return emergency_stop_active_global_;
+  }
 
   // =============================
   // Apertura della porta seriale
@@ -745,14 +752,23 @@ void MecanumSystem::clearEmergencyStop() {
       RCLCPP_INFO(this->get_logger(),
                   "Pico log: %s", line->c_str());
     }
-else if (line->rfind("EMR:", 0) == 0) {
-  std::string value = line->substr(4);
-  if (value == "1") {
-    emergency_stop_active_ = true;
-  } else if (value == "0") {
-    emergency_stop_active_ = false;
-  }
-}
+
+    // Verifica se la riga ricevuta inizia con il prefisso "EMR:" (Emergency Stop)
+    else if (line->rfind("EMR:", 0) == 0) {
+        std::string value = line->substr(4);
+        value.erase(std::remove_if(value.begin(), value.end(), ::isspace), value.end());
+
+        if (value == "1") {
+            activateEmergencyStopGlobal();
+            RCLCPP_WARN(rclcpp::get_logger("MecanumSystem"), "Emergency stop ATTIVO (EMR:1)");
+        } else if (value == "0") {
+            clearEmergencyStopGlobal();
+            RCLCPP_INFO(rclcpp::get_logger("MecanumSystem"), "Emergency stop DISATTIVATO (EMR:0)");
+        } else {
+            RCLCPP_ERROR(rclcpp::get_logger("MecanumSystem"), "Valore EMR non riconosciuto: '%s'", value.c_str());
+        }
+    }
+
     else
     {
       // 6) Prefisso sconosciuto: il pacchetto non appartiene ai formati attesi.
@@ -774,10 +790,14 @@ else if (line->rfind("EMR:", 0) == 0) {
   hardware_interface::return_type MecanumSystem::write(
       const rclcpp::Time &, const rclcpp::Duration &)
   {
-if (emergencystopactive_) {
-    RCLCPPWARN(rclcpp::getlogger("MyHardwareInterface"), "Comandi bloccati: Emergency Stop attivo.");
-    return hardwareinterface::returntype::OK;
-  }
+    // Se l'emergency stop è attivo, blocca i comandi ai motori
+    if (isEmergencyStopActive()) {
+        for (auto& cmd : command_interfaces_) {
+            cmd.set_value(0.0);  // Imposta tutte le velocità a zero
+        }
+        return;  // Esce senza inviare comandi reali
+    }
+
     // 1) Bypass in mock
     if (mock_)
     {

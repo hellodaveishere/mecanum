@@ -87,20 +87,13 @@ ament_target_dependencies(calibration_node
   geometry_msgs
 )
 
-# Aggiungi l'eseguibile
+# Nodo per gestire lo stop di emergenza da parte di rpi pico
 add_executable(estop_service_node src/estop_service_node.cpp)
-
-# Specifica le dipendenze
 ament_target_dependencies(estop_service_node
   rclcpp
   std_srvs
 )
-
-# Installa l'eseguibile
-install(TARGETS
-  estop_service_node
-  DESTINATION lib/${PROJECT_NAME}
-)
+# target_link_libraries(estop_service_node mecanum_system_lib)  # se hai una libreria separata
 
 # ============================================================
 # 5. COLLEGAMENTO ALLE INTERFACCE ROSIDL
@@ -143,6 +136,7 @@ install(TARGETS
   mecanum_odom_node
   rosout_relay_node
   calibration_node
+  estop_service_node
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION lib/${PROJECT_NAME}

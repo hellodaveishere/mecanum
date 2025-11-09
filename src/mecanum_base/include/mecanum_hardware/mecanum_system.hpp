@@ -106,10 +106,19 @@ namespace mecanum_hardware
         // ℹ️ Informazioni hardware (popolate da URDF/XACRO)
         hardware_interface::HardwareInfo info_;
 
-void clearEmergencyStop(); // chiamato da un servizio ROS 2
+        // Metodo statico per attivare l'emergency stop globalmente
+        static void activateEmergencyStopGlobal();
+
+        // Metodo statico per disattivare l'emergency stop globalmente
+        static void clearEmergencyStopGlobal();
+
+        // Metodo statico per leggere lo stato corrente dell'emergency stop
+        static bool isEmergencyStopActive();
 
     private:
-bool emergencystopactive_ = false;
+        // Variabile globale condivisa tra tutte le istanze della classe
+        static bool emergency_stop_active_global_;
+
         // ⚙️ Parametri cinematici e logici
         double wheel_radius_{0.05}; // Raggio ruota [m]
         double L_{0.15};            // Metà lunghezza telaio [m]
