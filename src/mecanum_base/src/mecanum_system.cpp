@@ -741,6 +741,10 @@ namespace mecanum_hardware
       RCLCPP_INFO(this->get_logger(),
                   "Pico log: %s", line->c_str());
     }
+else if (line->rfind("EMR", 0) == 0) {  // Inizia con "EMR"
+        emergencystopactive_ = true;
+        RCLCPPWARN(rclcpp::getlogger("MyHardwareInterface"), "Emergency Stop ricevuto via UART!");
+      }
     else
     {
       // 6) Prefisso sconosciuto: il pacchetto non appartiene ai formati attesi.
