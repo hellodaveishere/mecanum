@@ -741,10 +741,14 @@ namespace mecanum_hardware
       RCLCPP_INFO(this->get_logger(),
                   "Pico log: %s", line->c_str());
     }
-else if (line->rfind("EMR", 0) == 0) {  // Inizia con "EMR"
-        emergencystopactive_ = true;
-        RCLCPPWARN(rclcpp::getlogger("MyHardwareInterface"), "Emergency Stop ricevuto via UART!");
-      }
+else if (line->rfind("EMR:", 0) == 0) {
+  std::string value = line->substr(4);
+  if (value == "1") {
+    emergency_stop_active_ = true;
+  } else if (value == "0") {
+    emergency_stop_active_ = false;
+  }
+}
     else
     {
       // 6) Prefisso sconosciuto: il pacchetto non appartiene ai formati attesi.
@@ -766,6 +770,10 @@ else if (line->rfind("EMR", 0) == 0) {  // Inizia con "EMR"
   hardware_interface::return_type MecanumSystem::write(
       const rclcpp::Time &, const rclcpp::Duration &)
   {
+if (emergencystopactive_) {
+    RCLCPPWARN(rclcpp::getlogger("MyHardwareInterface"), "Comandi bloccati: Emergency Stop attivo.");
+    return hardwareinterface::returntype::OK;
+  }
     // 1) Bypass in mock
     if (mock_)
     {
