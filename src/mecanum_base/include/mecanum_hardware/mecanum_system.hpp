@@ -106,7 +106,10 @@ namespace mecanum_hardware
         // ℹ️ Informazioni hardware (popolate da URDF/XACRO)
         hardware_interface::HardwareInfo info_;
 
+void clearEmergencyStop(); // chiamato da un servizio ROS 2
+
     private:
+bool emergencystopactive_ = false;
         // ⚙️ Parametri cinematici e logici
         double wheel_radius_{0.05}; // Raggio ruota [m]
         double L_{0.15};            // Metà lunghezza telaio [m]
