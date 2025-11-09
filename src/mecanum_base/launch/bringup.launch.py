@@ -122,6 +122,14 @@ def generate_launch_description():
             name='rosout_relay',
             output='screen',
         )
+
+# Nodo indipendente per il servizio Emergency Stop
+        Node(
+            package='mecanum_control',
+            executable='estopservicenode',
+            name='estopservicenode',
+            output='screen'
+        ),
     # =========================
     # 🎛️ Spawner dei controller e broadcaster
     # =========================
