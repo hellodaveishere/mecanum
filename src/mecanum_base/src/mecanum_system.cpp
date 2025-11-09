@@ -22,6 +22,10 @@
 
 namespace mecanum_hardware
 {
+void MecanumSystem::clearEmergencyStop() {
+  emergency_stop_active_ = false;
+  RCLCPP_INFO(rclcpp::get_logger("MecanumSystem"), "Emergency Stop disattivato manualmente.");
+}
 
   // =============================
   // Apertura della porta seriale
