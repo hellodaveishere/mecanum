@@ -129,7 +129,8 @@ def generate_launch_description():
             executable='estopservicenode',
             name='estopservicenode',
             output='screen'
-        ),
+        )
+
     # =========================
     # 🎛️ Spawner dei controller e broadcaster
     # =========================
