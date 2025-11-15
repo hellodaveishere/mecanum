@@ -23,17 +23,6 @@
 namespace mecanum_hardware
 {
 
-  // Inizializzazione della variabile statica
-  bool MecanumSystem::emergency_stop_active_global_ = false;
-
-  void MecanumSystem::clearEmergencyStopGlobal() {
-      emergency_stop_active_global_ = false;
-  }
-
-  bool MecanumSystem::isEmergencyStopActive() {
-      return emergency_stop_active_global_;
-  }
-
   // =============================
   // Apertura della porta seriale
   // =============================
@@ -400,7 +389,16 @@ namespace mecanum_hardware
     // out.emplace_back(hardware_interface::StateInterface("battery_state", "charge", &battery_state_.charge));
     // out.emplace_back(hardware_interface::StateInterface("battery_state", "capacity", &battery_state_.capacity));
     out.emplace_back(hardware_interface::StateInterface("battery_state", "percentage", &battery_state_.percentage));
-    
+
+    // Definisci la state interface "mecanum_base/estop_active"
+    out.emplace_back(
+    hardware_interface::StateInterface(
+      "estop_sensor",       // deve coincidere con il nome nel URDF
+      "estop_active",       // deve coincidere con il nome nel URDF
+      &estop_active_state_  // variabile double che contiene lo stato
+    )
+  );
+
     RCLCPP_INFO(rclcpp::get_logger("BatteryDebug"), "Exporting interface: percentage @ %p", &battery_state_.percentage);
 
     return out;
@@ -541,7 +539,7 @@ namespace mecanum_hardware
         }
 
         // 4.4) Log immediato dei giunti aggiornati (utile in debug).
-        //for (size_t i = 0; i < joints_.size(); ++i)
+        // for (size_t i = 0; i < joints_.size(); ++i)
         //{
         //  RCLCPP_INFO(this->get_logger(),
         //              "Joint %s: pos=%.3f rad, vel=%.3f rad/s",
@@ -568,7 +566,7 @@ namespace mecanum_hardware
 
         // 5.1) Log dei valori IMU aggiornati (utile in debug di integrazione).
         // RCLCPP_INFO(this->get_logger(),
-        //RCLCPP_INFO(this->get_logger(),
+        // RCLCPP_INFO(this->get_logger(),
         //            "IMU orient=(%.3f, %.3f, %.3f, %.3f) "
         //            "ang_vel=(%.3f, %.3f, %.3f) "
         //            "lin_acc=(%.3f, %.3f, %.3f)",
@@ -628,7 +626,7 @@ namespace mecanum_hardware
         ir_state_.ir_front_right = parse_ir_value(tokens[3], "front_right");
 
         // 🧾 Log informativo con i valori letti (inclusi eventuali -1.0)
-        //RCLCPP_INFO(rclcpp::get_logger("MecanumSystem"),
+        // RCLCPP_INFO(rclcpp::get_logger("MecanumSystem"),
         //            "IR sensors: front_left=%.2f front_center=%.2f front_right=%.2f",
         //            ir_state_.ir_front_left,
         //            ir_state_.ir_front_center,
@@ -682,8 +680,8 @@ namespace mecanum_hardware
         servo_state_.tilt_position = parse_servo_value(tokens[2], "tilt");
 
         // 🧾 Log informativo ogni 10 letture valide per evitare spam nel terminale
-        //static int servo_log_counter = 0;
-        //if (++servo_log_counter >= 10)
+        // static int servo_log_counter = 0;
+        // if (++servo_log_counter >= 10)
         //{
         //  RCLCPP_INFO(rclcpp::get_logger("MecanumSystem"),
         //              "Servo positions: pan=%.3f rad, tilt=%.3f rad",
@@ -719,24 +717,23 @@ namespace mecanum_hardware
         }
 
         // Estrai i valori
-        float voltage = std::stof(fields[1]);         // Converte la tensione da stringa a float
-        float percent = std::stof(fields[2]);        // Converte la percentuale da stringa a double
+        float voltage = std::stof(fields[1]); // Converte la tensione da stringa a float
+        float percent = std::stof(fields[2]); // Converte la percentuale da stringa a double
 
         // Aggiorna lo stato della batteria
-        battery_state_.voltage = static_cast<double>(voltage);   // Cast esplicito a double
-        battery_state_.percentage = static_cast<double>(voltage) / 100.0;  // Normalizza tra 0.0 e 1.0
+        battery_state_.voltage = static_cast<double>(voltage);            // Cast esplicito a double
+        battery_state_.percentage = static_cast<double>(voltage) / 100.0; // Normalizza tra 0.0 e 1.0
 
-
-        //static int bat_log_counter = 0;
-        //if (++bat_log_counter >= 10)
+        // static int bat_log_counter = 0;
+        // if (++bat_log_counter >= 10)
         //{
-          //RCLCPP_INFO(rclcpp::get_logger("BatteryDebug"), "Updating percentage to %.3f @ %p", battery_state_.percentage, &battery_state_.percentage);
+        // RCLCPP_INFO(rclcpp::get_logger("BatteryDebug"), "Updating percentage to %.3f @ %p", battery_state_.percentage, &battery_state_.percentage);
 
-          //RCLCPP_INFO(rclcpp::get_logger("MecanumSystem"),
-          //            "Battery: voltage=%.3f V, percentage=%.3f",
-          //            battery_state_.voltage,
-          //            battery_state_.percentage);
-          //bat_log_counter = 0; // 🔄 Reset del contatore
+        // RCLCPP_INFO(rclcpp::get_logger("MecanumSystem"),
+        //             "Battery: voltage=%.3f V, percentage=%.3f",
+        //             battery_state_.voltage,
+        //             battery_state_.percentage);
+        // bat_log_counter = 0; // 🔄 Reset del contatore
         //}
       }
       catch (const std::exception &e)
@@ -754,19 +751,15 @@ namespace mecanum_hardware
     }
 
     // Verifica se la riga ricevuta inizia con il prefisso "EMR:" (Emergency Stop)
-    else if (line->rfind("EMR:", 0) == 0) {
-        std::string value = line->substr(4);
-        value.erase(std::remove_if(value.begin(), value.end(), ::isspace), value.end());
+    else if (line->rfind("EMR:", 0) == 0)
+    {
+      std::string value = line->substr(4);
+      value.erase(std::remove_if(value.begin(), value.end(), ::isspace), value.end());
 
-        if (value == "1") {
-            activateEmergencyStopGlobal();
-            RCLCPP_WARN(rclcpp::get_logger("MecanumSystem"), "Emergency stop ATTIVO (EMR:1)");
-        } else if (value == "0") {
-            clearEmergencyStopGlobal();
-            RCLCPP_INFO(rclcpp::get_logger("MecanumSystem"), "Emergency stop DISATTIVATO (EMR:0)");
-        } else {
-            RCLCPP_ERROR(rclcpp::get_logger("MecanumSystem"), "Valore EMR non riconosciuto: '%s'", value.c_str());
-        }
+      estop_active_state_ = (value == "true") ? 1.0 : 0.0;
+      RCLCPP_WARN_STREAM(rclcpp::get_logger("MecanumSystem"),
+                   "Emergency stop ATTIVO (EMR: " << value << ")");
+
     }
 
     else
@@ -790,13 +783,18 @@ namespace mecanum_hardware
   hardware_interface::return_type MecanumSystem::write(
       const rclcpp::Time &, const rclcpp::Duration &)
   {
+    // Per maggiore sicurezza. 
+    // Nodo EstopManagerNode chiama già /controller_manager/switch_controller per disattivare mecanum_velocity_controller.
     // Se l'emergency stop è attivo, blocca i comandi ai motori
-    if (isEmergencyStopActive()) {
-        for (auto& cmd : command_interfaces_) {
-            cmd.set_value(0.0);  // Imposta tutte le velocità a zero
-        }
-        return;  // Esce senza inviare comandi reali
-    }
+    //if (estop_active_state_ > 0.5)
+   // {
+    //  for (auto &ci : command_interfaces_)
+    //  {
+    //    ci.set_value(0.0);
+    //  }
+    //  RCLCPP_WARN(rclcpp::get_logger("MecanumSystem"), "Comandi azzerati per E-STOP");
+    //  return hardware_interface::return_type::OK; // Esce senza inviare comandi reali
+    //}
 
     // 1) Bypass in mock
     if (mock_)
@@ -824,8 +822,8 @@ namespace mecanum_hardware
     }
 
     // 4) Log solo se il comando (formattato) è diverso dall’ultimo loggato
-    //static std::string last_logged_csv;
-    //if (last_logged_csv != csv)
+    // static std::string last_logged_csv;
+    // if (last_logged_csv != csv)
     //{
     //  RCLCPP_INFO(this->get_logger(),
     //              "write() cmd: FL=%.3f FR=%.3f RL=%.3f RR=%.3f PAN=%.3f TILT=%.3f",

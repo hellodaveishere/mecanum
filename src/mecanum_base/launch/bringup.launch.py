@@ -123,13 +123,12 @@ def generate_launch_description():
             output='screen',
         )
 
-    # Nodo indipendente per il servizio Emergency Stop
-    estop_service_node = Node(
-            package='mecanum_control',
-            executable='estopservicenode',
-            name='estopservicenode',
-            output='screen'
-        )
+    # Nodo EstopManager indipendente per il servizio Emergency Stop
+    estop_manager = Node(
+        package="mecanum_base",   # il tuo pacchetto
+        executable="estop_manager_node",
+        output="screen"
+    )
 
     # =========================
     # 🎛️ Spawner dei controller e broadcaster
@@ -190,6 +189,14 @@ def generate_launch_description():
         output='screen',
     )
 
+    # Spawner per il broadcaster dell’estop
+    spawner_estop = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["estop_state_broadcaster"],
+        output="screen"
+    )
+
     # ⏱️ Ritardo per dare tempo a ros2_control_node di inizializzarsi
     delayed_spawners = TimerAction(
         period=3.0,
@@ -201,7 +208,8 @@ def generate_launch_description():
             spawner_ir_front_center,
             spawner_ir_front_right,
             spawner_servo_position,
-            spawner_battery  # ✅ Avvio sincronizzato del broadcaster batteria
+            spawner_battery,  # ✅ Avvio sincronizzato del broadcaster batteria
+            spawner_estop
         ]
     )
 
@@ -287,5 +295,5 @@ def generate_launch_description():
         throttle_node_for_battery_status,
         v4l2_camera_node,
         rosout_reply_node,
-        estop_service_node 
+        estop_manager
     ])

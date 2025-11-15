@@ -308,6 +308,11 @@
       <state_interface name="voltage"/>
       <state_interface name="percentage"/>
     </sensor>
+
+    <!-- State interface per E-STOP -->
+    <sensor name="estop_sensor">
+      <state_interface name="estop_active"/>
+    </sensor>
   </ros2_control>
 
 </robot>

@@ -1,0 +1,6 @@
+<library path="mecanum_base_estop_state_broadcaster">
+  <class name="mecanum_base/EstopStateBroadcaster"
+         type="mecanum_base::EstopStateBroadcaster"
+         base_class_type="controller_interface::ControllerInterface"/>
+</library>
+

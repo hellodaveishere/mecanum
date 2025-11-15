@@ -18,6 +18,9 @@ find_package(nav_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(rcl_interfaces REQUIRED)
 find_package(rosidl_default_generators REQUIRED)  # Necessario per generare messaggi/servizi custom
+find_package(std_srvs REQUIRED)
+find_package(controller_interface REQUIRED)
+
 
 # ============================================================
 # 2. GENERAZIONE INTERFACCE ROSIDL (.srv)
@@ -45,6 +48,20 @@ ament_target_dependencies(mecanum_system
   pluginlib
   sensor_msgs
 )
+
+# ============================================================
+# LIBRERIA BROADCASTER ESTOP
+# ============================================================
+add_library(mecanum_base_estop_state_broadcaster SHARED
+  src/estop_state_broadcaster.cpp
+)
+target_compile_features(mecanum_base_estop_state_broadcaster PUBLIC cxx_std_17)
+ament_target_dependencies(mecanum_base_estop_state_broadcaster
+  rclcpp
+  controller_interface
+  std_msgs
+)
+
 
 # ============================================================
 # 4. NODI DI UTILITÀ (eseguibili ROS 2)
@@ -88,12 +105,13 @@ ament_target_dependencies(calibration_node
 )
 
 # Nodo per gestire lo stop di emergenza da parte di rpi pico
-add_executable(estop_service_node src/estop_service_node.cpp)
-ament_target_dependencies(estop_service_node
-  rclcpp
-  std_srvs
+add_executable(estop_manager_node
+  src/estop_manager_node.cpp
 )
-# target_link_libraries(estop_service_node mecanum_system_lib)  # se hai una libreria separata
+target_compile_features(estop_manager_node PUBLIC cxx_std_17)
+ament_target_dependencies(estop_manager_node
+  rclcpp std_srvs controller_manager_msgs
+)
 
 # ============================================================
 # 5. COLLEGAMENTO ALLE INTERFACCE ROSIDL
@@ -108,9 +126,11 @@ target_link_libraries(calibration_node "${cpp_typesupport_target}")
 # Applica le directory di include a tutti i nodi e librerie
 set(ALL_TARGETS
   mecanum_system
+  mecanum_base_estop_state_broadcaster
   mecanum_cmd_node
   mecanum_odom_node
   calibration_node
+  estop_manager_node
 )
 
 foreach(tgt IN LISTS ALL_TARGETS)
@@ -126,17 +146,22 @@ endforeach()
 # Descrive il plugin per ros2_control tramite file XML
 pluginlib_export_plugin_description_file(hardware_interface mecanum_hardware_plugin.xml)
 
+# Esporta il plugin broadcaster
+pluginlib_export_plugin_description_file(controller_interface estop_state_broadcaster_plugin.xml)
+
+
 # ============================================================
 # 8. INSTALLAZIONE DEI FILE
 # ============================================================
 # Installa librerie ed eseguibili
 install(TARGETS
   mecanum_system
+  mecanum_base_estop_state_broadcaster
   mecanum_cmd_node
   mecanum_odom_node
   rosout_relay_node
   calibration_node
-  estop_service_node
+  estop_manager_node
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION lib/${PROJECT_NAME}

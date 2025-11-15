@@ -61,6 +61,13 @@ controller_manager:
       # Broadcaster standard che pubblica lo stato della batteria su /battery_state
       # utilizzando le interfacce di stato esportate dall'hardware.
 
+    # =========================
+    # Emergency Stop Broadcaster
+    # =========================
+    estop_state_broadcaster:
+      type: mecanum_base/EstopStateBroadcaster
+      state_interfaces:
+        - MecanumSystem/estop_active
 # =========================
 # ⚙️ Parametri specifici per ciascun controller
 # =========================

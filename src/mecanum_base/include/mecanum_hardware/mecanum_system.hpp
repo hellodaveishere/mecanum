@@ -67,12 +67,12 @@ namespace mecanum_hardware
     // Struttura per raggruppare lo stato della batteria
     struct BatteryState
     {
-        double voltage = 0.0;     // Tensione della batteria (V)
-        //double current = 0.0;     // Corrente assorbita (A)
-        //double temperature = 0.0; // Temperatura (°C)
-        //double charge = 0.0;      // Carica attuale (Ah)
-        //double capacity = 0.0;    // Capacità nominale (Ah)
-        double percentage = 0.0;  // Stato di carica in percentuale (0.0–1.0)
+        double voltage = 0.0; // Tensione della batteria (V)
+        // double current = 0.0;     // Corrente assorbita (A)
+        // double temperature = 0.0; // Temperatura (°C)
+        // double charge = 0.0;      // Carica attuale (Ah)
+        // double capacity = 0.0;    // Capacità nominale (Ah)
+        double percentage = 0.0; // Stato di carica in percentuale (0.0–1.0)
     };
 
     // 🔧 Classe principale del sistema hardware Mecanum
@@ -106,18 +106,9 @@ namespace mecanum_hardware
         // ℹ️ Informazioni hardware (popolate da URDF/XACRO)
         hardware_interface::HardwareInfo info_;
 
-        // Metodo statico per attivare l'emergency stop globalmente
-        static void activateEmergencyStopGlobal();
-
-        // Metodo statico per disattivare l'emergency stop globalmente
-        static void clearEmergencyStopGlobal();
-
-        // Metodo statico per leggere lo stato corrente dell'emergency stop
-        static bool isEmergencyStopActive();
-
     private:
-        // Variabile globale condivisa tra tutte le istanze della classe
-        static bool emergency_stop_active_global_;
+        // Stato E-STOP hardware (1.0 = attivo, 0.0 = non attivo)
+        double estop_active_state_{0.0};
 
         // ⚙️ Parametri cinematici e logici
         double wheel_radius_{0.05}; // Raggio ruota [m]
