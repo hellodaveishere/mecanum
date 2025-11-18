@@ -1,155 +1,237 @@
-// Per test: ros2 service call /clear_estop std_srvs/srv/Trigger "{}"
-// ros2 control list_controllers
-// Vedrai che mecanum_velocity_controller passa da active a inactive.
-/*
-Note operative
-Il servizio ora si chiama clear_estop relativo al nodo → lo vedrai come /estop_manager_node/clear_estop se il nodo gira senza namespace.
-
-Puoi verificarlo con:
-
-bash
-ros2 service list | grep clear_estop
-Per monitorare lo stato dei controller:
-
-bash
-watch -n 1 ros2 control list_controllers
-Quando l’E‑STOP hardware diventa true, il controller passa a inactive.
-
-Quando chiami:
-
-bash
-ros2 service call /estop_manager_node/clear_estop std_srvs/srv/Trigger "{}"
-e l’hardware è rilasciato, il controller torna active.
-
-*/
-
 #include "rclcpp/rclcpp.hpp"
 #include "std_srvs/srv/trigger.hpp"
 #include "std_msgs/msg/bool.hpp"
 #include "controller_manager_msgs/srv/switch_controller.hpp"
+#include "controller_manager_msgs/srv/list_controllers.hpp"
 
 /**
  * Nodo EstopManager:
- *  - Si sottoscrive al topic /estop/active (pubblicato dal broadcaster)
- *  - Disattiva il controller di movimento quando l’E‑STOP hardware diventa attivo
- *  - Espone un servizio /clear_estop per riattivare il controller quando l’E‑STOP hardware è rilasciato
+ *  - Si sottoscrive al topic /estop/active (pubblicato dal broadcaster hardware)
+ *  - Disattiva il controller di movimento quando l’E‑STOP hardware diventa attivo (solo via topic)
+ *  - Espone un servizio ~/clear_estop per riattivare il controller quando l’E‑STOP hardware è rilasciato (solo via servizio)
+ *
+ * 📌 Comandi di test:
+ *  Verifica servizio:
+ *    ros2 service list | grep clear_estop   → /estop_manager_node/clear_estop
+ *
+ *  Disattivazione via topic:
+ *    ros2 topic pub /estop/active std_msgs/msg/Bool "data: true"
+ *
+ *  Riattivazione via servizio:
+ *    ros2 service call /estop_manager_node/clear_estop std_srvs/srv/Trigger "{}"
+ *
+ *  Stato controller:
+ *    watch -n 1 ros2 control list_controllers
  */
-class EstopManagerNode : public rclcpp::Node {
+class EstopManagerNode : public rclcpp::Node
+{
 public:
-  EstopManagerNode() : Node("estop_manager_node"), hw_estop_active_(false) {
+  EstopManagerNode()
+      : Node("estop_manager_node"),
+        hw_estop_active_(false)
+  {
+    // Callback groups
+    service_cb_group_ = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
+    client_cb_group_ = this->create_callback_group(rclcpp::CallbackGroupType::Reentrant);
+
+    // Client verso controller_manager (QoS aggiornato)
+    switch_client_ = this->create_client<controller_manager_msgs::srv::SwitchController>(
+        "/controller_manager/switch_controller",
+        rclcpp::ServicesQoS(),
+        client_cb_group_);
+
+    list_client_ = this->create_client<controller_manager_msgs::srv::ListControllers>(
+        "/controller_manager/list_controllers",
+        rclcpp::ServicesQoS(),
+        client_cb_group_);
+
     // Sottoscrizione al topic /estop/active
     sub_estop_ = this->create_subscription<std_msgs::msg::Bool>(
-      "/estop/active", 10,
-      [this](const std_msgs::msg::Bool::SharedPtr msg) {
-        bool new_state = msg->data;
-        RCLCPP_INFO(this->get_logger(), "Ricevuto estop_active=%s", new_state ? "true" : "false");
+        "/estop/active", rclcpp::QoS(10),
+        [this](const std_msgs::msg::Bool::SharedPtr msg)
+        {
+          bool new_state = msg->data;
 
-        // Se passa da inattivo a attivo → disattiva il controller
-        if (!hw_estop_active_ && new_state) {
-          deactivate_motion_controller();
-        }
-        hw_estop_active_ = new_state;
-      });
+          // Stampa log solo se lo stato cambia
+          if (new_state != hw_estop_active_)
+          {
+            if (new_state)
+            {
+              RCLCPP_WARN(this->get_logger(), "E-STOP ATTIVO: disattivo il controller");
+              bool stopped = deactivate_motion_controller();
+              if (!stopped)
+              {
+                RCLCPP_ERROR(this->get_logger(), "Disattivazione controller non confermata");
+              }
+            }
+            else
+            {
+              RCLCPP_INFO(this->get_logger(), "E-STOP DISATTIVO");
+            }
+          }
 
-    // Servizio per reset software dell’E‑STOP
+          // Aggiorna lo stato interno
+          hw_estop_active_ = new_state;
+        });
+
+    // Servizio ~/clear_estop
     reset_srv_ = this->create_service<std_srvs::srv::Trigger>(
-      "clear_estop",   // nome del servizio (senza slash iniziale → relativo al nodo)
-      [this](const std_srvs::srv::Trigger::Request::SharedPtr,
-             std_srvs::srv::Trigger::Response::SharedPtr res) {
-        // Se l’E‑STOP hardware è ancora attivo → reset negato
-        if (hw_estop_active_) {
-          res->success = false;
-          res->message = "Reset negato: E‑STOP hardware ancora attivo";
-          RCLCPP_WARN(this->get_logger(), "Tentativo di reset negato: hardware ancora attivo");
-          return;
-        }
-        // Altrimenti prova a riattivare il controller
-        bool ok = activate_motion_controller();
-        res->success = ok;
-        res->message = ok ? "Controller riattivato" : "Errore riattivazione";
-      });
+        "~/clear_estop",
+        [this](const std_srvs::srv::Trigger::Request::SharedPtr /*req*/,
+               std_srvs::srv::Trigger::Response::SharedPtr res)
+        {
+          RCLCPP_INFO(this->get_logger(), "Richiesta riattivazione controller");
+
+          if (hw_estop_active_)
+          {
+            res->success = false;
+            res->message = "Impossibile riattivare: estop ancora attivo";
+            return;
+          }
+
+          const bool requested = activate_motion_controller();
+
+          // Poll dello stato reale fino a 2s
+          const bool active = wait_until_controller_state(
+              "mecanum_velocity_controller", "active",
+              std::chrono::milliseconds(2000), std::chrono::milliseconds(100));
+
+          if (active)
+          {
+            res->success = true;
+            res->message = "Controller riattivato";
+          }
+          else
+          {
+            res->success = false;
+            res->message = requested
+                               ? "Attivazione non confermata entro timeout"
+                               : "Errore riattivazione (richiesta non inviata/timeout)";
+          }
+        },
+        rclcpp::ServicesQoS(),
+        service_cb_group_);
   }
 
 private:
-  bool hw_estop_active_;  // stato attuale dell’E‑STOP hardware
+  bool hw_estop_active_;
   rclcpp::Subscription<std_msgs::msg::Bool>::SharedPtr sub_estop_;
   rclcpp::Service<std_srvs::srv::Trigger>::SharedPtr reset_srv_;
+  rclcpp::CallbackGroup::SharedPtr service_cb_group_;
+  rclcpp::CallbackGroup::SharedPtr client_cb_group_;
+  rclcpp::Client<controller_manager_msgs::srv::SwitchController>::SharedPtr switch_client_;
+  rclcpp::Client<controller_manager_msgs::srv::ListControllers>::SharedPtr list_client_;
 
-  /**
-   * Disattiva il controller di movimento inviando una richiesta al controller_manager
-   */
-  void deactivate_motion_controller() {
-    auto client = this->create_client<controller_manager_msgs::srv::SwitchController>(
-      "/controller_manager/switch_controller");
-
-    if (!client->wait_for_service(std::chrono::seconds(2))) {
-      RCLCPP_ERROR(this->get_logger(), "Controller manager non disponibile per disattivazione");
-      return;
+  bool wait_service(const rclcpp::ClientBase::SharedPtr &client, std::chrono::seconds timeout)
+  {
+    if (!client->wait_for_service(timeout))
+    {
+      RCLCPP_ERROR(this->get_logger(), "Servizio %s non disponibile",
+                   client->get_service_name());
+      return false;
     }
-
-    auto req = std::make_shared<controller_manager_msgs::srv::SwitchController::Request>();
-    req->deactivate_controllers = {"mecanum_velocity_controller"};
-    req->activate_controllers = {};
-    req->strictness = controller_manager_msgs::srv::SwitchController::Request::STRICT;
-
-    auto fut = client->async_send_request(req);
-    auto ret = rclcpp::spin_until_future_complete(this->get_node_base_interface(), fut,
-                                                  std::chrono::seconds(2));
-
-    if (ret != rclcpp::FutureReturnCode::SUCCESS) {
-      RCLCPP_ERROR(this->get_logger(), "Timeout/cancellazione richiesta di disattivazione");
-      return;
-    }
-
-    bool ok = fut.get()->ok;
-    if (ok) {
-      RCLCPP_WARN(this->get_logger(), "mecanum_velocity_controller disattivato (E‑STOP)");
-    } else {
-      RCLCPP_ERROR(this->get_logger(), "Disattivazione fallita (switch_controller ha restituito ok=false)");
-    }
+    return true;
   }
 
-  /**
-   * Riattiva il controller di movimento inviando una richiesta al controller_manager
-   */
-  bool activate_motion_controller() {
-    auto client = this->create_client<controller_manager_msgs::srv::SwitchController>(
-      "/controller_manager/switch_controller");
-
-    if (!client->wait_for_service(std::chrono::seconds(2))) {
-      RCLCPP_ERROR(this->get_logger(), "Controller manager non disponibile per riattivazione");
+  bool deactivate_motion_controller()
+  {
+    if (!wait_service(switch_client_, std::chrono::seconds(3)))
       return false;
-    }
 
     auto req = std::make_shared<controller_manager_msgs::srv::SwitchController::Request>();
-    req->activate_controllers = {"mecanum_velocity_controller"};
-    req->deactivate_controllers = {};
-    req->strictness = controller_manager_msgs::srv::SwitchController::Request::STRICT;
+    req->deactivate_controllers.push_back("mecanum_velocity_controller");
+    req->strictness = controller_manager_msgs::srv::SwitchController::Request::BEST_EFFORT;
 
-    auto fut = client->async_send_request(req);
-    auto ret = rclcpp::spin_until_future_complete(this->get_node_base_interface(), fut,
-                                                  std::chrono::seconds(2));
-
-    if (ret != rclcpp::FutureReturnCode::SUCCESS) {
-      RCLCPP_ERROR(this->get_logger(), "Timeout/cancellazione richiesta di riattivazione");
+    auto fut = switch_client_->async_send_request(req);
+    auto status = fut.wait_for(std::chrono::seconds(5));
+    if (status != std::future_status::ready)
+    {
+      RCLCPP_ERROR(this->get_logger(), "Timeout nella chiamata a switch_controller (deactivate)");
       return false;
     }
 
-    bool ok = fut.get()->ok;
-    if (ok) {
-      RCLCPP_INFO(this->get_logger(), "mecanum_velocity_controller riattivato");
-    } else {
-      RCLCPP_ERROR(this->get_logger(), "Riattivazione fallita (switch_controller ha restituito ok=false)");
+    auto res = fut.get();
+    RCLCPP_INFO(this->get_logger(), "deactivate_controllers -> ok=%s", res->ok ? "true" : "false");
+
+    return res->ok;
+  }
+
+  bool activate_motion_controller()
+  {
+    if (!wait_service(switch_client_, std::chrono::seconds(3)))
+      return false;
+
+    auto req = std::make_shared<controller_manager_msgs::srv::SwitchController::Request>();
+    req->activate_controllers.push_back("mecanum_velocity_controller");
+    req->strictness = controller_manager_msgs::srv::SwitchController::Request::STRICT;
+
+    auto fut = switch_client_->async_send_request(req);
+    auto status = fut.wait_for(std::chrono::seconds(5));
+    if (status != std::future_status::ready)
+    {
+      RCLCPP_ERROR(this->get_logger(), "Timeout nella chiamata a switch_controller (activate)");
+      return false;
     }
-    return ok;
+
+    auto res = fut.get();
+    RCLCPP_INFO(this->get_logger(), "activate_controllers -> ok=%s", res->ok ? "true" : "false");
+
+    return res->ok;
+  }
+
+  bool is_controller_state(const std::string &name, const std::string &state)
+  {
+    if (!wait_service(list_client_, std::chrono::seconds(2)))
+      return false;
+
+    auto req = std::make_shared<controller_manager_msgs::srv::ListControllers::Request>();
+    auto fut = list_client_->async_send_request(req);
+    auto status = fut.wait_for(std::chrono::seconds(2));
+    if (status != std::future_status::ready)
+    {
+      RCLCPP_ERROR(this->get_logger(), "Timeout nella chiamata a list_controllers");
+      return false;
+    }
+
+    auto res = fut.get();
+    for (const auto &c : res->controller)
+    {
+      if (c.name == name)
+      {
+        return c.state == state;
+      }
+    }
+    return false;
+  }
+
+  bool wait_until_controller_state(const std::string &name,
+                                   const std::string &target_state,
+                                   std::chrono::milliseconds timeout,
+                                   std::chrono::milliseconds step)
+  {
+    const auto start = std::chrono::steady_clock::now();
+    while (std::chrono::steady_clock::now() - start < timeout)
+    {
+      if (is_controller_state(name, target_state))
+      {
+        return true;
+      }
+      rclcpp::sleep_for(step);
+    }
+    return false;
   }
 };
 
-
-int main(int argc, char ** argv) {
+int main(int argc, char **argv)
+{
   rclcpp::init(argc, argv);
   auto node = std::make_shared<EstopManagerNode>();
-  rclcpp::spin(node);
+
+  // Executor multithread: consente ai client di ricevere risposte mentre il servizio è in attesa
+  rclcpp::executors::MultiThreadedExecutor exec;
+  exec.add_node(node);
+  exec.spin();
+
   rclcpp::shutdown();
   return 0;
 }

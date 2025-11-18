@@ -392,12 +392,11 @@ namespace mecanum_hardware
 
     // Definisci la state interface "mecanum_base/estop_active"
     out.emplace_back(
-    hardware_interface::StateInterface(
-      "estop_sensor",       // deve coincidere con il nome nel URDF
-      "estop_active",       // deve coincidere con il nome nel URDF
-      &estop_active_state_  // variabile double che contiene lo stato
-    )
-  );
+        hardware_interface::StateInterface(
+            "estop_sensor",      // deve coincidere con il nome nel URDF
+            "estop_active",      // deve coincidere con il nome nel URDF
+            &estop_active_state_ // variabile double che contiene lo stato
+            ));
 
     RCLCPP_INFO(rclcpp::get_logger("BatteryDebug"), "Exporting interface: percentage @ %p", &battery_state_.percentage);
 
@@ -751,15 +750,30 @@ namespace mecanum_hardware
     }
 
     // Verifica se la riga ricevuta inizia con il prefisso "EMR:" (Emergency Stop)
-    else if (line->rfind("EMR:", 0) == 0)
+    else if (line->rfind("EMR", 0) == 0)
     {
       std::string value = line->substr(4);
       value.erase(std::remove_if(value.begin(), value.end(), ::isspace), value.end());
 
-      estop_active_state_ = (value == "true") ? 1.0 : 0.0;
-      RCLCPP_WARN_STREAM(rclcpp::get_logger("MecanumSystem"),
-                   "Emergency stop ATTIVO (EMR: " << value << ")");
+      bool new_state = (value == "true");
+      estop_active_state_ = new_state ? 1.0 : 0.0;
 
+      // Stampa log solo se cambia stato
+      static bool last_state = false;
+      if (new_state != last_state)
+      {
+        if (new_state)
+        {
+          RCLCPP_WARN_STREAM(rclcpp::get_logger("MecanumSystem"),
+                             "Emergency stop ATTIVO (EMR: " << value << ")");
+        }
+        else
+        {
+          RCLCPP_INFO_STREAM(rclcpp::get_logger("MecanumSystem"),
+                             "Emergency stop DISATTIVO (EMR: " << value << ")");
+        }
+        last_state = new_state;
+      }
     }
 
     else
@@ -783,11 +797,11 @@ namespace mecanum_hardware
   hardware_interface::return_type MecanumSystem::write(
       const rclcpp::Time &, const rclcpp::Duration &)
   {
-    // Per maggiore sicurezza. 
+    // Per maggiore sicurezza.
     // Nodo EstopManagerNode chiama già /controller_manager/switch_controller per disattivare mecanum_velocity_controller.
     // Se l'emergency stop è attivo, blocca i comandi ai motori
-    //if (estop_active_state_ > 0.5)
-   // {
+    // if (estop_active_state_ > 0.5)
+    // {
     //  for (auto &ci : command_interfaces_)
     //  {
     //    ci.set_value(0.0);

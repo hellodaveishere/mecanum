@@ -124,9 +124,10 @@ def generate_launch_description():
         )
 
     # Nodo EstopManager indipendente per il servizio Emergency Stop
-    estop_manager = Node(
+    estop_manager_node = Node(
         package="mecanum_base",   # il tuo pacchetto
         executable="estop_manager_node",
+        name="estop_manager_node",
         output="screen"
     )
 
@@ -295,5 +296,5 @@ def generate_launch_description():
         throttle_node_for_battery_status,
         v4l2_camera_node,
         rosout_reply_node,
-        estop_manager
+        estop_manager_node
     ])
