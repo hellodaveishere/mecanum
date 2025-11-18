@@ -1,138 +1,3 @@
-colcon build --packages-select mecanum_base --symlink-install
-source install/setup.bash 
-ros2 launch mecanum_base launch.py
-ros2 launch mecanum_base bringup.launch.py 
-clear
-colcon build --packages-select mecanum_base --symlink-install
-source install/setup.bash 
-ros2 launch mecanum_base bringup.launch.py 
-clear
-colcon build --packages-select mecanum_base --symlink-install
-source install/setup.bash 
-ros2 launch mecanum_base bringup.launch.py 
-colcon build --packages-select mecanum_base --symlink-install
-colcon build --packages-select mecanum_base --symlink-install
-clear
-colcon build --packages-select mecanum_base --symlink-install
-clear
-colcon build --packages-select mecanum_base --symlink-install
-source install/setup.bash 
-ros2 launch mecanum_base bringup.launch.py 
-clear
-colcon build --packages-select mecanum_base --symlink-install
-source install/setup.bash 
-ros2 launch mecanum_base bringup.launch.py 
-clear
-colcon build --packages-select mecanum_base --symlink-install
-source install/setup.bash 
-ros2 launch mecanum_base bringup.launch.py 
-source install/setup.bash 
-ros2 control list_controllers
-ros2 topic list
-ros2 topic echo /ir_front_left_broadcaster/range 
-source install/setup.bash 
-ros2 control list_controllers
-ros2 topic list
-source install/setup.bash 
-ros2 control list_controllers
-ros2 topic pub /servo_position_controller/commands std_msgs/msg/Float64MultiArray "data: [0.5, -0.5]"
-ros2 topic pub /servo_position_controller/commands std_msgs/msg/Float64MultiArray "data: [0.333, -0.333]"
-ros2 topic pub /servo_position_controller/commands std_msgs/msg/Float64MultiArray "data: [0.111, -0.1111]"
-sudo apt update
-sudo apt install ros-jazzy-rosbridge-server
-clear
-colcon build --packages-select mecanum_base --symlink-install
-source install/setup.bash 
-ros2 launch mecanum_base bringup.launch.py 
-clear
-ros2 launch mecanum_base bringup.launch.py 
-sudo apt install nodejs npm
-cd src/mecanum_base/
-ls
-cd webserver/
-ros2 launch mecanum_base bringup.launch.py 
-clear
-ros2 launch mecanum_base bringup.launch.py 
-ros2 launch mecanum_base bringup.launch.py 
-clear
-cd
-source install/setup.bash 
-ls /home/ws/install/mecanum_base/share/mecanum_base/launch/../webserver
-ls /home/ws/install/mecanum_base/share/mecanum_base/launch/..
-ls /home/ws/install/mecanum_base/share/mecanum_base/
-pwd
-ls
-cd src
-cd mecanum_base/
-ls
-clear
-colcon build --packages-select mecanum_base --symlink-install
-source install/setup.bash 
-ls install/mecanum_base/share/mecanum_base/webserver/
-ls install/mecanum_base/share/mecanum_base/webserver/
-ls install/mecanum_base/share/mecanum_base/webserver/
-clear
-ros2 launch mecanum_base bringup.launch.py 
-clear
-ros2 launch mecanum_base bringup.launch.py 
-cd
-ls
-rm -rf build/ install/ log/
-cd src/mecanum_base/
-ls
-rm -rf build/ install/ log/
-ls
-cd
-ps aux | grep rosbridge_websocket
-netstat -tuln | grep 9090
-ss -tuln | grep 9090
-websocat ws://localhost:9090
-ps aux | grep node
-ps aux | grep node | grep js
-ps aux | grep node | grep serve
-lsof -i :3000
-netstat -an | grep 3000
-ls /home/ws/install/mecanum_base/share/mecanum_base/launch/../webserver
-ls /home/ws/install/mecanum_base/share/mecanum_base/src
-ls /home/ws/install/mecanum_base/share/mecanum_base/launch/../../webserver
-pwd
-ls /home/ws/install/mecanum_base/share/mecanum_base/launch/
-ls /home/ws/install/mecanum_base/share/mecanum_base/launch/..
-cd mecanum_base/webserver
-ls
-cd src
-cd mecanum_base/webserver
-node server.js
-npm init -y
-npm install express
-node server.js
-history| grep  fetch
-git config pull.rebase false
-pwd
-ls
-colcon build --packages-select mecanum_base --symlink-install
-sudo apt install ros-jazzy-battery-state-broadcaster
-colcon build --packages-select mecanum_base --symlink-install
-ros2 pkg list | grep battery_state_broadcaster
-ros2 control list_controller_types | grep BatteryStateBroadcaster
-ros2 pkg prefix battery_state_broadcaster
-more /opt/ros/jazzy/include/battery_state_broadcaster/battery_state_broadcaster/BatteryStateBroadcaster.hpp 
-more /opt/ros/jazzy/include/battery_state_broadcaster/battery_state_broadcaster/BatterySensor.hpp 
-cLEAr
-clear
-more /opt/ros/jazzy/include/battery_state_broadcaster/battery_state_broadcaster/BatterySensor.hpp 
-ros2 pkg list | grep battery_state_broadcaster
-ros2 pkg prefix battery_state_broadcaster
-clear
-colcon build --packages-select mecanum_base --symlink-install
-clear
-colcon build --packages-select mecanum_base --symlink-install
-history
-clear
-ros2 launch mecanum_base bringup.launch.py 
-source install/setup.bash 
-ros2 launch mecanum_base bringup.launch.py 
-clear
 ros2 launch mecanum_base bringup.launch.py 
 ps -aux
 clear
@@ -491,6 +356,141 @@ ros2 launch mecanum_base bringup.launch.py
 clear
 ros2 launch mecanum_base bringup.launch.py 
 ros2 launch mecanum_base bringup.launch.py 
+colcon build --packages-select mecanum_base --symlink-install
+clear
+colcon build --packages-select mecanum_base --symlink-install
+clear
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+source install/setup.bash 
+ros2 control list_controllers
+ros2 service call /clear_estop std_srvs/srv/Trigger "{}"
+ros2 control list_controllers
+ros2 control list_controllers
+watch -n 1 ros2 control list_controllers
+ros2 topic list|grep estop
+ros2 service list | grep clear_estop
+ros2 control list_controllers
+ros2 topic pub /estop/active std_msgs/msg/Bool "data: true"
+ros2 control list_controllers
+ros2 topic pub /estop/active std_msgs/msg/Bool "data: false"
+ros2 control list_controllers
+ros2 service call /clear_estop std_srvs/srv/Trigger "{}"
+ros2 node list
+ros2 run mecanum_base estop_manager_node
+ros2 node list
+source install/setup.bash 
+ros2 node list
+ros2 topic pub /estop/active std_msgs/msg/Bool "data: true"
+ros2 node list
+ros2 service call /clear_estop std_srvs/srv/Trigger "{}"
+ros2 topic pub /estop/active std_msgs/msg/Bool "data: true"
+ros2 topic pub /estop/active std_msgs/msg/Bool "data: true"
+ros2 service call /estop_manager_node/clear_estop std_srvs/srv/Trigger "{}"
+ros2 service call /esclear_estop std_srvs/srv/Trigger "{}"
+ros2 service call /clear_stop std_srvs/srv/Trigger "{}"
+ros2 service type /clear_stop
+ros2 service type /clear_stop
+ros2 service list | grep clear_estop
+ros2 service type /clear_estop
+ros2 service call /clear_estop std_srvs/srv/Trigger "{}"
+source install/setup.bash 
+source install/setup.bash 
+ros2 run mecanum_base estop_manager_node
+ros2 node list
+ros2 run mecanum_base estop_manager_node
+source install/setup.bash 
+ros2 run mecanum_base estop_manager_node
+source install/setup.bash 
+ros2 run mecanum_base estop_manager_node
+ros2 service list | grep clear_estop
+
+ros2 topic pub /estop/active std_msgs/msg/Bool "data: true"
+ros2 topic pub /estop/active std_msgs/msg/Bool "data: true"
+ros2 service call /estop_manager_node/clear_estop std_srvs/srv/Trigger "{}"
+source install/setup.bash 
+ros2 service call /estop_manager_node/clear_estop std_srvs/srv/Trigger "{}"
+ros2 topic pub /estop/active std_msgs/msg/Bool "data: true"
+ros2 service call /estop_manager_node/clear_estop std_srvs/srv/Trigger "{}"
+source install/setup.bash 
+ros2 topic pub /estop/active std_msgs/msg/Bool "data: true"
+ros2 service call /estop_manager_node/clear_estop std_srvs/srv/Trigger "{}"
+ros2 service call /estop_manager_node/clear_estop std_srvs/srv/Trigger "{}"
+ros2 topic pub /estop/active std_msgs/msg/Bool "data: true"
+ros2 service call /estop_manager_node/clear_estop std_srvs/srv/Trigger "{}"
+ros2 service call /estop_manager_node/clear_estop std_srvs/srv/Trigger "{}"
+ros2 service call /estop_manager_node/clear_estop std_srvs/srv/Trigger "{}"
+ros2 service call /estop_manager_node/clear_estop std_srvs/srv/Trigger "{}"
+ros2 service call /estop_manager_node/clear_estop std_srvs/srv/Trigger "{}"
+ros2 service call /estop_manager_node/clear_estop std_srvs/srv/Trigger "{}"
+clear
+ros2 service call /estop_manager_node/clear_estop std_srvs/srv/Trigger "{}"
+ros2 service call /estop_manager_node/clear_estop std_srvs/srv/Trigger "{}"
+ros2 service call /estop_manager_node/clear_estop std_srvs/srv/Trigger "{}"
+git pull origin main
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+ros2 launch mecanum_base bringup.launch.py 
+colcon build --packages-select mecanum_base --symlink-install
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+rm -rf build/ install/ log/
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+ros2 launch mecanum_base bringup.launch.py 
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+colcon build --packages-select mecanum_base --symlink-install
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+ros2 launch mecanum_base bringup.launch.py 
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+ros2 launch mecanum_base bringup.launch.py 
+colcon build --packages-select mecanum_base --symlink-install
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+ros2 launch mecanum_base bringup.launch.py 
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+colcon build --packages-select mecanum_base --symlink-install
+clear
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+clear
+colcon build --packages-select mecanum_base --symlink-install
+clear
+colcon build --packages-select mecanum_base --symlink-install
+clear
 colcon build --packages-select mecanum_base --symlink-install
 clear
 colcon build --packages-select mecanum_base --symlink-install

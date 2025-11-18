@@ -15,7 +15,7 @@ private:
   std::mutex serial_mutex_;  // Mutex per garantire accesso thread-safe al fd
 };
 
-std::optional<std::string> MecanumSystem::read_message_()
+std::optional<std::string> MecanumSystem::read_buffer_()
 {
   // Protegge tutta la funzione da accessi concorrenti
   std::lock_guard<std::mutex> lock(serial_mutex_);

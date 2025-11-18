@@ -158,6 +158,7 @@ namespace mecanum_hardware
         void close_serial();
         bool send_command_(const std::string &cmd);
         std::optional<std::string> read_line_();
+        std::optional<std::string> read_buffer_();
 
         // 🔄 Parsing dei pacchetti ricevuti
         void parse_encoder_packet_(const std::string &line);

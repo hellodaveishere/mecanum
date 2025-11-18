@@ -133,6 +133,81 @@ namespace mecanum_hardware
     }
   }
 
+  std::optional<std::string> MecanumSystem::read_buffer_()
+  {
+    // Protegge tutta la funzione da accessi concorrenti
+    std::lock_guard<std::mutex> lock(serial_mutex_);
+
+    // Se la porta non è aperta, non possiamo leggere
+    if (serial_fd_ < 0)
+    {
+      return std::nullopt;
+    }
+
+    std::string buffer;          // Accumula i byte del messaggio tra ^ e $
+    char c;                      // Byte corrente letto dalla seriale
+    bool inside_message = false; // Stato: true quando siamo dentro un messaggio iniziato da ^
+
+    // Timeout per evitare attese infinite quando i dati non arrivano
+    constexpr int timeout_ms = 200;
+    auto last_byte_time = std::chrono::steady_clock::now(); // Timestamp dell’ultimo byte ricevuto
+
+    // Loop di lettura: legge byte finché non trova il delimitatore di fine ($) o scatta il timeout
+    while (true)
+    {
+      // Legge un singolo byte dal file descriptor della seriale
+      ssize_t n = ::read(serial_fd_, &c, 1);
+
+      if (n > 0)
+      {
+        // Aggiorna il momento dell’ultimo byte ricevuto
+        last_byte_time = std::chrono::steady_clock::now();
+
+        // Rileva l’inizio del messaggio: quando arriva '^' resetta il buffer e entra in stato di "inside_message"
+        if (c == '^')
+        {
+          buffer.clear();
+          inside_message = true;
+          continue; // Passa al prossimo byte senza aggiungere '^' al contenuto
+        }
+
+        // Rileva la fine del messaggio: quando arriva '$' e siamo dentro un messaggio, ritorna il buffer completo
+        if (c == '$' && inside_message)
+        {
+          return buffer;
+        }
+
+        // Se siamo dentro al messaggio, accumula il byte nel buffer (contenuto utile)
+        if (inside_message)
+        {
+          buffer.push_back(c);
+        }
+
+        // Se non siamo dentro al messaggio, i byte che arrivano prima di '^' vengono ignorati (rumore/prefisso)
+      }
+      else
+      {
+        // Nessun byte disponibile al momento (read non-blocking o empty). Controlla il timeout.
+        auto now = std::chrono::steady_clock::now();
+        auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - last_byte_time).count();
+
+        // Se è passato troppo tempo dall’ultimo byte, interrompi
+        if (elapsed > timeout_ms)
+        {
+          // Se eravamo dentro un messaggio, segnala che è incompleto
+          if (inside_message)
+          {
+            RCLCPP_WARN(rclcpp::get_logger("UART"), "Timeout: messaggio incompleto scartato");
+          }
+          // In ogni caso, ritorna nullopt per indicare che non abbiamo un messaggio valido
+          return std::nullopt;
+        }
+
+        // Se non è scattato il timeout, continua a looping (attesa di nuovi byte)
+      }
+    }
+  }
+
   std::optional<std::string> MecanumSystem::read_line_()
   {
     std::lock_guard<std::mutex> lock(serial_mutex_);
@@ -482,307 +557,213 @@ namespace mecanum_hardware
       return hardware_interface::return_type::OK;
     }
 
-    // 3) Legge UNA riga completa dalla seriale.
-    //    Il formato atteso è CSV con prefisso e terminatore '\n', es.:
-    //    - "ENC,dl_fl,dl_fr,dl_rl,dl_rr\n"
-    //    - "IMU,qx,qy,qz,qw,gx,gy,gz,ax,ay,az\n"
-    auto line = read_line_();
+    // 3) Legge un buffer dalla seriale (può contenere più pacchetti separati da '\n').
+    auto buffer = read_buffer_();
 
     // 3.1) Se non arriva nulla in questo ciclo, semplicemente ritorna OK.
     //      (Può capitare per jitter o rate diversi tra MCU e PC)
-    if (!line || line->empty())
+    if (!buffer || buffer->empty())
     {
       return hardware_interface::return_type::OK;
     }
 
-    // 3.2) Log della riga grezza ricevuta (utile per diagnosi di framing/formato).
-    RCLCPP_DEBUG(this->get_logger(),
-                 "Linea seriale ricevuta: %s", line->c_str());
-
-    // 4) Dispatch in base al prefisso del pacchetto.
-    //    Usiamo rfind(...,0) per verificare che la stringa inizi con il prefisso.
-    if (line->rfind("ENC", 0) == 0)
+    // 3.2) Suddividi il buffer in righe
+    std::stringstream ss(buffer.value()); // estrai la stringa dall’optional
+    std::string line;
+    while (std::getline(ss, line, '\n'))
     {
-      // 4.1) Salva le posizioni attuali per ricavare il delta di questo ciclo.
-      double prev_pos[4];
-      for (int i = 0; i < 4; ++i)
-      {
-        prev_pos[i] = joints_[i].pos_rad;
-      }
+      if (line.empty())
+        continue; // ignora righe vuote
 
-      // 4.2) Parsing robusto del pacchetto ENC.
-      //      - Qualsiasi eccezione (token non numerici, campi mancanti) viene catturata.
-      //      - In caso di errore, si scarta il pacchetto e si continua senza fermare l’hardware.
-      try
-      {
-        // parse_encoder_packet_:
-        // - legge i delta tick (4 valori interi dopo "ENC")
-        // - applica inversioni
-        // - converte i tick in radianti
-        // - incrementa joints_[i].pos_rad (posizione cumulativa)
-        parse_encoder_packet_(*line);
+      // 3.3) Log della riga grezza ricevuta (utile per diagnosi di framing/formato).
+      RCLCPP_DEBUG(this->get_logger(),
+                   "Linea seriale ricevuta: %s", line.c_str());
 
-        // 4.3) Calcolo della velocità media del ciclo (solo se dt valido).
-        if (dt > 0.0)
+      // 4) Dispatch in base al prefisso del pacchetto.
+      //    Usiamo rfind(...,0) per verificare che la stringa inizi con il prefisso.
+      if (line.rfind("ENC", 0) == 0)
+      {
+        // --- gestione pacchetto ENC (encoder) ---
+        double prev_pos[4];
+        for (int i = 0; i < 4; ++i)
+          prev_pos[i] = joints_[i].pos_rad;
+
+        try
         {
-          for (int i = 0; i < 4; ++i)
+          parse_encoder_packet_(line);
+
+          if (dt > 0.0)
           {
-            const double dpos = joints_[i].pos_rad - prev_pos[i];
-            joints_[i].vel_rad_s = dpos / dt;
+            for (int i = 0; i < 4; ++i)
+            {
+              const double dpos = joints_[i].pos_rad - prev_pos[i];
+              joints_[i].vel_rad_s = dpos / dt;
+            }
+          }
+          else
+          {
+            RCLCPP_WARN(this->get_logger(),
+                        "Velocità non aggiornata: dt=%.6f", dt);
           }
         }
-        else
+        catch (const std::exception &e)
         {
           RCLCPP_WARN(this->get_logger(),
-                      "Velocità non aggiornata: dt=%.6f", dt);
+                      "Pacchetto ENC malformato, scartato. Errore: %s | Riga: '%s'",
+                      e.what(), line.c_str());
         }
+      }
 
-        // 4.4) Log immediato dei giunti aggiornati (utile in debug).
-        // for (size_t i = 0; i < joints_.size(); ++i)
-        //{
-        //  RCLCPP_INFO(this->get_logger(),
-        //              "Joint %s: pos=%.3f rad, vel=%.3f rad/s",
-        //              joint_names_[i].c_str(),
-        //              joints_[i].pos_rad,
-        //              joints_[i].vel_rad_s);
-        //}
-      }
-      catch (const std::exception &e)
+      else if (line.rfind("IMU", 0) == 0)
       {
-        // 4.5) Pacchetto malformato: scartalo e prosegui senza interrompere il ciclo di controllo.
-        RCLCPP_WARN(this->get_logger(),
-                    "Pacchetto ENC malformato, scartato. Errore: %s | Riga: '%s'",
-                    e.what(), line->c_str());
-      }
-    }
-    else if (line->rfind("IMU", 0) == 0)
-    {
-      // 5) Pacchetto IMU: parsing robusto con gestione errori.
-      try
-      {
-        // parse_imu_packet_ aggiorna imu_state_ (orientazione, velocità angolare, accelerazione).
-        parse_imu_packet_(*line);
-
-        // 5.1) Log dei valori IMU aggiornati (utile in debug di integrazione).
-        // RCLCPP_INFO(this->get_logger(),
-        // RCLCPP_INFO(this->get_logger(),
-        //            "IMU orient=(%.3f, %.3f, %.3f, %.3f) "
-        //            "ang_vel=(%.3f, %.3f, %.3f) "
-        //            "lin_acc=(%.3f, %.3f, %.3f)",
-        //            imu_state_.orientation[0], imu_state_.orientation[1],
-        //            imu_state_.orientation[2], imu_state_.orientation[3],
-        //            imu_state_.angular_vel[0], imu_state_.angular_vel[1],
-        //            imu_state_.angular_vel[2],
-        //            imu_state_.linear_accel[0], imu_state_.linear_accel[1],
-        //            imu_state_.linear_accel[2]);
-      }
-      catch (const std::exception &e)
-      {
-        // 5.2) Pacchetto IMU malformato: scarta e continua.
-        RCLCPP_WARN(this->get_logger(),
-                    "Pacchetto IMU malformato, scartato. Errore: %s | Riga: '%s'",
-                    e.what(), line->c_str());
-      }
-    }
-    else if (line->rfind("IRS", 0) == 0)
-    {
-      // 📦 Parsing dei dati IR: formato atteso "IRS,ir_left,ir_center,ir_right"
-      try
-      {
-        std::vector<std::string> tokens;
-        std::stringstream ss(*line);
-        std::string item;
-        while (std::getline(ss, item, ','))
+        // --- gestione pacchetto IMU ---
+        try
         {
-          tokens.push_back(item);
+          parse_imu_packet_(line);
         }
-
-        // 🔍 Verifica che il pacchetto contenga esattamente 4 campi
-        if (tokens.size() != 4)
+        catch (const std::exception &e)
         {
-          throw std::runtime_error("Pacchetto IR malformato: numero errato di campi");
+          RCLCPP_WARN(this->get_logger(),
+                      "Pacchetto IMU malformato, scartato. Errore: %s | Riga: '%s'",
+                      e.what(), line.c_str());
         }
-
-        // 🔧 Funzione di parsing con gestione del valore "None"
-        auto parse_ir_value = [](const std::string &s, const std::string &label) -> double
+      }
+      else if (line.rfind("IRS", 0) == 0)
+      {
+        // 📦 Parsing dei dati IR: formato atteso "IRS,ir_left,ir_center,ir_right"
+        try
         {
-          if (s == "None")
+          std::vector<std::string> tokens;
+          std::stringstream ss_ir(line);
+          std::string item;
+          while (std::getline(ss_ir, item, ','))
+            tokens.push_back(item);
+
+          if (tokens.size() != 4)
+            throw std::runtime_error("Pacchetto IR malformato: numero errato di campi");
+
+          auto parse_ir_value = [](const std::string &s, const std::string &label) -> double
           {
-            // ⚠️ Valore non valido ricevuto: sensore fuori copertura o troppo vicino
-            // 🔁 Convenzione: si assegna -1.0 per indicare lettura assente
-            RCLCPP_WARN(rclcpp::get_logger("MecanumSystem"),
-                        "Sensore IR '%s' fuori copertura o troppo vicino: valore 'None' ricevuto", label.c_str());
-            return -1.0;
-          }
+            if (s == "None")
+            {
+              RCLCPP_WARN(rclcpp::get_logger("MecanumSystem"),
+                          "Sensore IR '%s' fuori copertura o troppo vicino: valore 'None' ricevuto", label.c_str());
+              return -1.0;
+            }
+            return std::stod(s);
+          };
 
-          // ✅ Conversione sicura da stringa a double
-          return std::stod(s);
-        };
-
-        // 📥 Assegnazione dei valori ai sensori IR
-        ir_state_.ir_front_left = parse_ir_value(tokens[1], "front_left");
-        ir_state_.ir_front_center = parse_ir_value(tokens[2], "front_center");
-        ir_state_.ir_front_right = parse_ir_value(tokens[3], "front_right");
-
-        // 🧾 Log informativo con i valori letti (inclusi eventuali -1.0)
-        // RCLCPP_INFO(rclcpp::get_logger("MecanumSystem"),
-        //            "IR sensors: front_left=%.2f front_center=%.2f front_right=%.2f",
-        //            ir_state_.ir_front_left,
-        //            ir_state_.ir_front_center,
-        //            ir_state_.ir_front_right);
-      }
-      catch (const std::exception &e)
-      {
-        // 🛑 Gestione di errori generici nel parsing (es. conversione fallita)
-        RCLCPP_WARN(rclcpp::get_logger("MecanumSystem"),
-                    "Pacchetto IR SENSORS malformato, scartato. Errore: %s | Riga: '%s'",
-                    e.what(), line->c_str());
-      }
-    }
-    else if (line->rfind("SER", 0) == 0) // 🔍 Riconoscimento del pacchetto servo: inizia con "SER"
-    {
-      try
-      {
-        // 📦 Suddivisione della stringa in token separati da virgola
-        std::vector<std::string> tokens;
-        std::stringstream ss(*line);
-        std::string item;
-        while (std::getline(ss, item, ','))
-        {
-          tokens.push_back(item);
+          ir_state_.ir_front_left = parse_ir_value(tokens[1], "front_left");
+          ir_state_.ir_front_center = parse_ir_value(tokens[2], "front_center");
+          ir_state_.ir_front_right = parse_ir_value(tokens[3], "front_right");
         }
-
-        // 🔍 Verifica che il pacchetto contenga esattamente 3 campi: "SER", pan, tilt
-        if (tokens.size() != 3)
+        catch (const std::exception &e)
         {
-          throw std::runtime_error("Pacchetto SERVO malformato: numero errato di campi");
+          RCLCPP_WARN(rclcpp::get_logger("MecanumSystem"),
+                      "Pacchetto IR SENSORS malformato, scartato. Errore: %s | Riga: '%s'",
+                      e.what(), line.c_str());
         }
-
-        // 🔧 Funzione di parsing con gestione del valore "None"
-        auto parse_servo_value = [](const std::string &s, const std::string &label) -> double
+      }
+      else if (line.rfind("SER", 0) == 0) // 🔍 Riconoscimento del pacchetto servo: inizia con "SER"
+      {
+        try
         {
-          if (s == "None")
+          std::vector<std::string> tokens;
+          std::stringstream ss_ser(line);
+          std::string item;
+          while (std::getline(ss_ser, item, ','))
+            tokens.push_back(item);
+
+          if (tokens.size() != 3)
+            throw std::runtime_error("Pacchetto SERVO malformato: numero errato di campi");
+
+          auto parse_servo_value = [](const std::string &s, const std::string &label) -> double
           {
-            // ⚠️ Valore non valido ricevuto: servo non inizializzato o fuori range
-            // 🔁 Convenzione: si assegna -1.0 per indicare lettura assente
-            RCLCPP_WARN(rclcpp::get_logger("MecanumSystem"),
-                        "Servo '%s' ha restituito 'None': posizione non disponibile", label.c_str());
-            return -1.0;
+            if (s == "None")
+            {
+              RCLCPP_WARN(rclcpp::get_logger("MecanumSystem"),
+                          "Servo '%s' ha restituito 'None': posizione non disponibile", label.c_str());
+              return -1.0;
+            }
+            return std::stod(s);
+          };
+
+          servo_state_.pan_position = parse_servo_value(tokens[1], "pan");
+          servo_state_.tilt_position = parse_servo_value(tokens[2], "tilt");
+        }
+        catch (const std::exception &e)
+        {
+          RCLCPP_WARN(rclcpp::get_logger("MecanumSystem"),
+                      "Pacchetto SERVO malformato, scartato. Errore: %s | Riga: '%s'",
+                      e.what(), line.c_str());
+        }
+      }
+      else if (line.rfind("BAT", 0) == 0)
+      {
+        try
+        {
+          std::istringstream ss_bat(line);
+          std::string token;
+          std::vector<std::string> fields;
+          while (std::getline(ss_bat, token, ','))
+            fields.push_back(token);
+
+          if (fields.size() != 3)
+            throw std::runtime_error("Formato BAT non valido");
+
+          float voltage = std::stof(fields[1]); // Converte la tensione da stringa a float
+          float percent = std::stof(fields[2]); // Converte la percentuale da stringa a float
+
+          // Aggiorna lo stato della batteria
+          battery_state_.voltage = static_cast<double>(voltage);
+          battery_state_.percentage = static_cast<double>(percent) / 100.0;
+        }
+        catch (const std::exception &e)
+        {
+          RCLCPP_WARN(this->get_logger(),
+                      "Pacchetto BAT malformato, scartato. Errore: %s | Riga: '%s'",
+                      e.what(), line.c_str());
+        }
+      }
+      else if (line.rfind("LOG", 0) == 0)
+      {
+        RCLCPP_INFO(this->get_logger(),
+                    "Pico log: %s", line.c_str());
+      }
+      // Verifica se la riga ricevuta inizia con il prefisso "EMR:" (Emergency Stop)
+      else if (line.rfind("EMR", 0) == 0)
+      {
+        std::string value = line.substr(4);
+        value.erase(std::remove_if(value.begin(), value.end(), ::isspace), value.end());
+
+        bool new_state = (value == "true");
+        estop_active_state_ = new_state ? 1.0 : 0.0;
+
+        // Stampa log solo se cambia stato
+        static bool last_state = false;
+        if (new_state != last_state)
+        {
+          if (new_state)
+          {
+            RCLCPP_WARN_STREAM(rclcpp::get_logger("MecanumSystem"),
+                               "Emergency stop ATTIVO (EMR: " << value << ")");
           }
-
-          // ✅ Conversione sicura da stringa a double
-          return std::stod(s);
-        };
-
-        // 📥 Assegnazione dei valori ai servomotori (in radianti)
-        servo_state_.pan_position = parse_servo_value(tokens[1], "pan");
-        servo_state_.tilt_position = parse_servo_value(tokens[2], "tilt");
-
-        // 🧾 Log informativo ogni 10 letture valide per evitare spam nel terminale
-        // static int servo_log_counter = 0;
-        // if (++servo_log_counter >= 10)
-        //{
-        //  RCLCPP_INFO(rclcpp::get_logger("MecanumSystem"),
-        //              "Servo positions: pan=%.3f rad, tilt=%.3f rad",
-        //              servo_state_.pan_position,
-        //              servo_state_.tilt_position);
-        //  servo_log_counter = 0; // 🔄 Reset del contatore
-        //}
-      }
-      catch (const std::exception &e)
-      {
-        // 🛑 Gestione di errori generici nel parsing (es. conversione fallita)
-        RCLCPP_WARN(rclcpp::get_logger("MecanumSystem"),
-                    "Pacchetto SERVO malformato, scartato. Errore: %s | Riga: '%s'",
-                    e.what(), line->c_str());
-      }
-    }
-    else if (line->rfind("BAT", 0) == 0)
-    {
-      try
-      {
-        std::istringstream ss(*line);
-        std::string token;
-        std::vector<std::string> fields;
-
-        while (std::getline(ss, token, ','))
-        {
-          fields.push_back(token);
+          else
+          {
+            RCLCPP_INFO_STREAM(rclcpp::get_logger("MecanumSystem"),
+                               "Emergency stop DISATTIVO (EMR: " << value << ")");
+          }
+          last_state = new_state;
         }
-
-        if (fields.size() != 3)
-        {
-          throw std::runtime_error("Formato BAT non valido");
-        }
-
-        // Estrai i valori
-        float voltage = std::stof(fields[1]); // Converte la tensione da stringa a float
-        float percent = std::stof(fields[2]); // Converte la percentuale da stringa a double
-
-        // Aggiorna lo stato della batteria
-        battery_state_.voltage = static_cast<double>(voltage);            // Cast esplicito a double
-        battery_state_.percentage = static_cast<double>(voltage) / 100.0; // Normalizza tra 0.0 e 1.0
-
-        // static int bat_log_counter = 0;
-        // if (++bat_log_counter >= 10)
-        //{
-        // RCLCPP_INFO(rclcpp::get_logger("BatteryDebug"), "Updating percentage to %.3f @ %p", battery_state_.percentage, &battery_state_.percentage);
-
-        // RCLCPP_INFO(rclcpp::get_logger("MecanumSystem"),
-        //             "Battery: voltage=%.3f V, percentage=%.3f",
-        //             battery_state_.voltage,
-        //             battery_state_.percentage);
-        // bat_log_counter = 0; // 🔄 Reset del contatore
-        //}
       }
-      catch (const std::exception &e)
+      else
       {
+        // 6) Prefisso sconosciuto: il pacchetto non appartiene ai formati attesi.
+        //    Lo segnaliamo ma non è un errore critico (potrebbe essere rumore o debug lato MCU).
         RCLCPP_WARN(this->get_logger(),
-                    "Pacchetto BAT malformato, scartato. Errore: %s | Riga: '%s'",
-                    e.what(), line->c_str());
+                    "Pacchetto con prefisso sconosciuto: %s", line.c_str());
       }
-    }
-
-    else if (line->rfind("LOG", 0) == 0)
-    {
-      RCLCPP_INFO(this->get_logger(),
-                  "Pico log: %s", line->c_str());
-    }
-
-    // Verifica se la riga ricevuta inizia con il prefisso "EMR:" (Emergency Stop)
-    else if (line->rfind("EMR", 0) == 0)
-    {
-      std::string value = line->substr(4);
-      value.erase(std::remove_if(value.begin(), value.end(), ::isspace), value.end());
-
-      bool new_state = (value == "true");
-      estop_active_state_ = new_state ? 1.0 : 0.0;
-
-      // Stampa log solo se cambia stato
-      static bool last_state = false;
-      if (new_state != last_state)
-      {
-        if (new_state)
-        {
-          RCLCPP_WARN_STREAM(rclcpp::get_logger("MecanumSystem"),
-                             "Emergency stop ATTIVO (EMR: " << value << ")");
-        }
-        else
-        {
-          RCLCPP_INFO_STREAM(rclcpp::get_logger("MecanumSystem"),
-                             "Emergency stop DISATTIVO (EMR: " << value << ")");
-        }
-        last_state = new_state;
-      }
-    }
-
-    else
-    {
-      // 6) Prefisso sconosciuto: il pacchetto non appartiene ai formati attesi.
-      //    Lo segnaliamo ma non è un errore critico (potrebbe essere rumore o debug lato MCU).
-      RCLCPP_WARN(this->get_logger(),
-                  "Pacchetto con prefisso sconosciuto: %s", line->c_str());
-    }
+    } // fine while getline
 
     // 7) Concludi regolarmente: anche se non è arrivato nulla o si è scartato un pacchetto,
     //    il ciclo di controllo continua senza disattivare l'hardware.
