@@ -122,8 +122,8 @@
 2025-11-18T21:40:20.798Z [debug] [main] Not starting CMake driver: no kit selected
 2025-11-18T21:43:17.594Z [debug] [main] Not starting CMake driver: no kit selected
 2025-11-18T21:43:20.303Z [debug] [main] Not starting CMake driver: no kit selected
-g] [kit] Scanning directory /sbin for compilers
-2025-11-17T12:15:23.188Z [debug] [kit] Scanning directory /bin for compilers
+2025-11-18T21:45:51.857Z [debug] [extension] Deactivate CMakeTools
+.188Z [debug] [kit] Scanning directory /bin for compilers
 2025-11-17T12:15:23.192Z [debug] [kit] Skipping scan of not existing path undefined\LLVM\bin
 2025-11-17T12:15:23.193Z [debug] [kit] Found 0 kits in directory undefined\LLVM\bin
 2025-11-17T12:15:23.193Z [debug] [kit] Skipping scan of not existing path undefined\msys64\mingw32\bin

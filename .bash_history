@@ -1,12 +1,3 @@
-ros2 launch mecanum_base bringup.launch.py 
-ps -aux
-clear
-source install/setup.bash 
-ros2 launch mecanum_base bringup.launch.py 
-source install/setup.bash 
-ros2 launch mecanum_base bringup.launch.py 
-source install/setup.bash 
-ros2 launch mecanum_base bringup.launch.py 
 sudo lsof -i :8000
 ros2 launch mecanum_base bringup.launch.py 
 ros2 launch mecanum_base bringup.launch.py 
@@ -498,3 +489,12 @@ clear
 colcon build --packages-select mecanum_base --symlink-install
 source install/setup.bash 
 ros2 launch mecanum_base bringup.launch.py 
+colcon build --packages-select mecanum_base --symlink-install
+lscpu
+lscpu
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+ros2 launch mecanum_base bringup.launch.py 
+colcon build --packages-select mecanum_base --symlink-install
+colcon build --packages-select mecanum_base --symlink-install

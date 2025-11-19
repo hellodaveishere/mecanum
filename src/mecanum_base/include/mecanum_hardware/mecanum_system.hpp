@@ -153,29 +153,29 @@ namespace mecanum_hardware
         int serial_fd_{-1};                       // File descriptor seriale
         std::mutex serial_mutex_;                 // Protezione accesso concorrente
 
-       // 🔒 Mutex per la scrittura sulla seriale
+        // 🔒 Mutex per la scrittura sulla seriale
         // Protegge accessi concorrenti al file descriptor durante le operazioni di write()
         std::mutex serialmutex;
 
         // 🧵 Thread di lettura
-        std::thread readerthread;               // Thread dedicato alla lettura dalla seriale
-        std::atomic<bool> running_{false};        // Flag per controllare l’esecuzione del thread
+        std::thread readerthread;          // Thread dedicato alla lettura dalla seriale
+        std::atomic<bool> running_{false}; // Flag per controllare l’esecuzione del thread
 
         // 📥 Coda dei messaggi ricevuti
-        std::queue<std::string> rxqueue;        // Buffer FIFO dei pacchetti completi ricevuti
-        std::mutex rxmutex;                     // Protegge la coda da accessi concorrenti
-        std::conditionvariable rxcv_;           // Notifica quando arriva un nuovo messaggio
+        std::queue<std::string> rxqueue; // Buffer FIFO dei pacchetti completi ricevuti
+        std::mutex rxmutex;              // Protegge la coda da accessi concorrenti
+        std::condition_variable rxcv_;    // Notifica quando arriva un nuovo messaggio
 
         // 🔌 Funzioni di supporto per la seriale
         bool open_serial();
         void close_serial();
-        bool sendcommand(const std::string &cmd);
+        bool send_command_(const std::string &cmd);
 
         // 🔄 Thread di lettura
         void readerloop(); // Funzione eseguita dal thread per leggere continuamente dalla seriale
 
         // 📥 API non bloccante per ottenere un messaggio dalla coda
-        std::optional<std::string> readbuffer();
+        std::optional<std::string> read_buffer_();
 
         // 🔄 Parsing dei pacchetti ricevuti
         void parse_encoder_packet_(const std::string &line);

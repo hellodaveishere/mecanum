@@ -133,90 +133,66 @@ namespace mecanum_hardware
     }
   }
 
-void MecanumSystem::readerloop()
-{
+  void MecanumSystem::readerloop()
+  {
     char c;
     std::string buffer;
     bool inside = false;
 
     // 🔄 Loop continuo finché running_ è true
-    while (running_) {
-        ssizet n = ::read(serialfd_, &c, 1); // Legge un byte dalla seriale
-        if (n > 0) {
-            if (c == '^') {
-                // Inizio messaggio → reset buffer
-                buffer.clear();
-                inside = true;
-            } else if (c == '$' && inside) {
-                // Fine messaggio → inserisci in coda
-                {
-                    std::lockguard<std::mutex> lk(rxmutex_);
-                    rxqueue.push(buffer);
-                }
-                rxcv.notify_one(); // Notifica eventuali consumatori
-                inside = false;
-            } else if (inside) {
-                // Accumula byte nel buffer
-                buffer.push_back(c);
-            }
-        } else {
-            // Nessun dato disponibile → piccolo sleep per non saturare CPU
-            std::thisthread::sleepfor(std::chrono::milliseconds(2));
+    while (running_)
+    {
+      ssize_t n = ::read(serial_fd_, &c, 1); // Legge un byte dalla seriale
+      if (n > 0)
+      {
+        if (c == '^')
+        {
+          // Inizio messaggio → reset buffer
+          buffer.clear();
+          inside = true;
         }
+        else if (c == '$' && inside)
+        {
+          // Fine messaggio → inserisci in coda
+          {
+            std::lock_guard<std::mutex> lk(rxmutex);
+            rxqueue.push(buffer);
+          }
+          rxcv_.notify_one(); // Notifica eventuali consumatori
+          inside = false;
+        }
+        else if (inside)
+        {
+          // Accumula byte nel buffer
+          buffer.push_back(c);
+        }
+      }
+      else
+      {
+        // Nessun dato disponibile → piccolo sleep per non saturare CPU
+        std::this_thread::sleep_for(std::chrono::milliseconds(2));
+      }
     }
-}
+  }
 
-  std::optional<std::string> MecanumSystem::readbuffer()
-{
+  std::optional<std::string> MecanumSystem::read_buffer_()
+  {
     // 🔒 Protegge la coda da accessi concorrenti
-    std::lockguard<std::mutex> lk(rxmutex_);
+    std::lock_guard<std::mutex> lk(rxmutex);
 
-    if (rxqueue.empty()) {
-        // Nessun messaggio disponibile → ritorna nullopt
-        return std::nullopt;
+    if (rxqueue.empty())
+    {
+      // Nessun messaggio disponibile → ritorna nullopt
+      return std::nullopt;
     }
 
     // ✅ Estrae il messaggio più vecchio dalla coda
     auto msg = rxqueue.front();
     rxqueue.pop();
     return msg;
-}
-
-  std::optional<std::string> MecanumSystem::read_line_()
-  {
-    std::lock_guard<std::mutex> lock(serial_mutex_);
-
-    if (serial_fd_ < 0)
-    {
-      return std::nullopt;
-    }
-
-    std::string line;
-    char c;
-    while (true)
-    {
-      ssize_t n = ::read(serial_fd_, &c, 1);
-      if (n > 0)
-      {
-        if (c == '\n')
-        {
-          break;
-        }
-        line.push_back(c);
-      }
-      else
-      {
-        // nessun dato disponibile
-        break;
-      }
-    }
-
-    if (line.empty())
-    {
-      return std::nullopt;
-    }
-    return line;
   }
+
+
 
   bool MecanumSystem::send_command_(const std::string &cmd)
   {
@@ -494,7 +470,7 @@ void MecanumSystem::readerloop()
       }
     }
 
-// ✅ Avvia il thread di lettura
+    // ✅ Avvia il thread di lettura
     running_ = true;
     readerthread = std::thread(&MecanumSystem::readerloop, this);
 
@@ -503,10 +479,11 @@ void MecanumSystem::readerloop()
 
   hardware_interface::CallbackReturn MecanumSystem::on_deactivate(const rclcpp_lifecycle::State &)
   {
-// ✅ Ferma il thread di lettura
+    // ✅ Ferma il thread di lettura
     running_ = false;
-    if (readerthread.joinable()) {
-        readerthread.join();
+    if (readerthread.joinable())
+    {
+      readerthread.join();
     }
 
     if (!mock_)
@@ -560,7 +537,7 @@ void MecanumSystem::readerloop()
         continue; // ignora righe vuote
 
       // 3.3) Log della riga grezza ricevuta (utile per diagnosi di framing/formato).
-      RCLCPP_DEBUG(this->get_logger(),
+      RCLCPP_INFO(this->get_logger(),
                    "Linea seriale ricevuta: %s", line.c_str());
 
       // 4) Dispatch in base al prefisso del pacchetto.
@@ -760,8 +737,8 @@ void MecanumSystem::readerloop()
   // Formato: "CMD,FL,FR,RL,RR,PAN,TILT"
   //
   hardware_interface::return_type MecanumSystem::write(
-    const rclcpp::Time &, const rclcpp::Duration &)
-{
+      const rclcpp::Time &, const rclcpp::Duration &)
+  {
     // 🔒 Sicurezza aggiuntiva:
     // In caso di E‑STOP (emergency stop) si potrebbero azzerare i comandi ai motori.
     // Questo blocco è già gestito da EstopManagerNode, quindi qui è commentato.
@@ -783,7 +760,7 @@ void MecanumSystem::readerloop()
     // In questo caso non inviamo nulla sulla seriale, ma ritorniamo OK.
     if (mock_)
     {
-        return hardware_interface::return_type::OK;
+      return hardware_interface::return_type::OK;
     }
 
     // 2️⃣ Costruzione del comando CSV:
@@ -804,9 +781,9 @@ void MecanumSystem::readerloop()
     // Se l’invio fallisce, logghiamo un errore e ritorniamo ERROR.
     if (!send_command_(csv + "\n"))
     {
-        RCLCPP_ERROR(this->get_logger(),
-                     "Errore invio comando seriale");
-        return hardware_interface::return_type::ERROR;
+      RCLCPP_ERROR(this->get_logger(),
+                   "Errore invio comando seriale");
+      return hardware_interface::return_type::ERROR;
     }
 
     // 4️⃣ Logging (opzionale):
@@ -827,7 +804,7 @@ void MecanumSystem::readerloop()
 
     // ✅ Se tutto è andato bene, ritorniamo OK.
     return hardware_interface::return_type::OK;
-}
+  }
 
   // ================== MOCK DYNAMICS ==================
   //
