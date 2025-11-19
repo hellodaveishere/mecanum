@@ -192,7 +192,9 @@ namespace mecanum_hardware
     return msg;
   }
 
-
+  // ==========================
+  // Funzione send_command_()
+  // ==========================
 
   bool MecanumSystem::send_command_(const std::string &cmd)
   {
@@ -217,6 +219,7 @@ namespace mecanum_hardware
     const char *buf = payload.c_str();
     size_t to_write = payload.size();
     ssize_t written_total = 0;
+    int retries = 0;
 
     // Scrittura robusta: gestisce EAGAIN/EINTR e short write
     while (to_write > 0)
@@ -227,20 +230,27 @@ namespace mecanum_hardware
         written_total += n;
         to_write -= static_cast<size_t>(n);
       }
+      else if (n < 0 && errno == EINTR)
+      {
+        // Interrotto da segnale: ritenta
+        continue;
+      }
+      else if (n < 0 && (errno == EAGAIN || errno == EWOULDBLOCK))
+      {
+        // Non-blocking: nessun buffer disponibile ora, piccola attesa e retry
+        if (++retries > 5)
+        {
+          RCLCPP_ERROR(this->get_logger(),
+                       "send_command_: troppi retry su EAGAIN");
+          return false;
+        }
+        struct timespec ts{0, 1000000}; // inizializzazione C++11
+        ::nanosleep(&ts, nullptr);      // passa l’indirizzo della variabile
+
+        continue;
+      }
       else
       {
-        if (n < 0 && (errno == EINTR))
-        {
-          // Interrotto da segnale: ritenta
-          continue;
-        }
-        if (n < 0 && (errno == EAGAIN || errno == EWOULDBLOCK))
-        {
-          // Non-blocking: nessun buffer disponibile ora, piccola attesa e retry
-          // Nota: evita usleep lunghi nell’hot path; regola se serve.
-          ::usleep(1000); // 1 ms
-          continue;
-        }
         RCLCPP_ERROR(this->get_logger(),
                      "send_command_: errore write(): %s", std::strerror(errno));
         return false;
@@ -248,6 +258,7 @@ namespace mecanum_hardware
     }
 
     // Assicura lo svuotamento del buffer di trasmissione prima di proseguire
+    // Può bloccare se la seriale è lenta, quindi valutare se tenerlo.
     if (::tcdrain(serial_fd_) != 0)
     {
       RCLCPP_WARN(this->get_logger(),
@@ -256,9 +267,10 @@ namespace mecanum_hardware
       // Non consideriamo questo un errore fatale per default
     }
 
-    // RCLCPP_DEGUG(rclcpp::get_logger("MecanumSystem"),
-    //             "send_command_: scritto '%s' (%zd byte)",
-    //             cmd.c_str(), static_cast<ssize_t>(written_total));
+    // Logging di debug (opzionale, disattivato in produzione)
+    RCLCPP_DEBUG(this->get_logger(),
+                 "send_command_: scritto '%s' (%zd byte)",
+                 payload.c_str(), static_cast<ssize_t>(written_total));
     return true;
   }
 
@@ -538,7 +550,7 @@ namespace mecanum_hardware
 
       // 3.3) Log della riga grezza ricevuta (utile per diagnosi di framing/formato).
       RCLCPP_INFO(this->get_logger(),
-                   "Linea seriale ricevuta: %s", line.c_str());
+                  "Linea seriale ricevuta: %s", line.c_str());
 
       // 4) Dispatch in base al prefisso del pacchetto.
       //    Usiamo rfind(...,0) per verificare che la stringa inizi con il prefisso.
@@ -736,13 +748,16 @@ namespace mecanum_hardware
   // Invia i comandi motori e servomotori in formato CSV.
   // Formato: "CMD,FL,FR,RL,RR,PAN,TILT"
   //
+  // ==========================
+  // Funzione write()
+  // ==========================
+
   hardware_interface::return_type MecanumSystem::write(
       const rclcpp::Time &, const rclcpp::Duration &)
   {
     // 🔒 Sicurezza aggiuntiva:
     // In caso di E‑STOP (emergency stop) si potrebbero azzerare i comandi ai motori.
     // Questo blocco è già gestito da EstopManagerNode, quindi qui è commentato.
-    // Se volessi riattivarlo, azzererebbe i comandi e uscirebbe senza inviare nulla.
     /*
     if (estop_active_state_ > 0.5)
     {
@@ -763,30 +778,48 @@ namespace mecanum_hardware
       return hardware_interface::return_type::OK;
     }
 
-    // 2️⃣ Costruzione del comando CSV:
-    // Formattiamo i valori dei giunti e dei servo in una stringa CSV.
-    // Usiamo 4 decimali per coerenza con il logging lato firmware.
-    std::ostringstream ss;
-    ss << "CMD," << std::fixed << std::setprecision(4)
-       << joints_[0].cmd_vel << ","          // Velocità ruota anteriore sinistra (FL)
-       << joints_[1].cmd_vel << ","          // Velocità ruota anteriore destra (FR)
-       << joints_[2].cmd_vel << ","          // Velocità ruota posteriore sinistra (RL)
-       << joints_[3].cmd_vel << ","          // Velocità ruota posteriore destra (RR)
-       << servo_command_.pan_position << "," // Posizione servo PAN
-       << servo_command_.tilt_position;      // Posizione servo TILT
-    const std::string csv = ss.str();
-
-    // 3️⃣ Invio del comando sulla seriale:
-    // Usiamo send_command_(), che è già protetta da serial_mutex_.
-    // Se l’invio fallisce, logghiamo un errore e ritorniamo ERROR.
-    if (!send_command_(csv + "\n"))
+    // 2️⃣ Validazione dei valori:
+    // Evitiamo di inviare valori non validi (NaN/Inf) al firmware.
+    for (auto &j : joints_)
     {
-      RCLCPP_ERROR(this->get_logger(),
-                   "Errore invio comando seriale");
+      if (!std::isfinite(j.cmd_vel))
+      {
+        RCLCPP_ERROR(this->get_logger(), "write(): comando non valido (NaN/Inf)");
+        return hardware_interface::return_type::ERROR;
+      }
+    }
+    if (!std::isfinite(servo_command_.pan_position) ||
+        !std::isfinite(servo_command_.tilt_position))
+    {
+      RCLCPP_ERROR(this->get_logger(), "write(): comando servo non valido (NaN/Inf)");
       return hardware_interface::return_type::ERROR;
     }
 
-    // 4️⃣ Logging (opzionale):
+    // 3️⃣ Costruzione del comando CSV:
+    // Formattiamo i valori dei giunti e dei servo in una stringa CSV.
+    // Usiamo 4 decimali per coerenza con il logging lato firmware.
+    std::string csv;
+    csv.reserve(64);
+    csv = "CMD," +
+          fmt::format("{:.4f},{:.4f},{:.4f},{:.4f},{:.4f},{:.4f}",
+                      joints_[0].cmd_vel, joints_[1].cmd_vel,
+                      joints_[2].cmd_vel, joints_[3].cmd_vel,
+                      servo_command_.pan_position, servo_command_.tilt_position);
+
+    // 4️⃣ Invio del comando sulla seriale:
+    // Riduciamo la frequenza di invio a 10 Hz (1 ogni 5 cicli).
+    static int cycle_counter = 0;
+    cycle_counter = (cycle_counter + 1) % 5; // contatore ciclico 0–4
+    if (cycle_counter == 0)
+    {
+      if (!send_command_(csv))
+      {
+        RCLCPP_ERROR(this->get_logger(), "write(): errore invio comando seriale");
+        return hardware_interface::return_type::ERROR;
+      }
+    }
+
+    // 5️⃣ Logging (opzionale):
     // Possiamo loggare il comando inviato solo se è diverso dall’ultimo loggato.
     // Questo riduce il rumore nei log. Attualmente è commentato.
     /*
