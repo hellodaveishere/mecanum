@@ -133,6 +133,39 @@ namespace mecanum_hardware
     }
   }
 
+void MecanumSystem::readerloop()
+{
+    char c;
+    std::string buffer;
+    bool inside = false;
+
+    // 🔄 Loop continuo finché running_ è true
+    while (running_) {
+        ssizet n = ::read(serialfd_, &c, 1); // Legge un byte dalla seriale
+        if (n > 0) {
+            if (c == '^') {
+                // Inizio messaggio → reset buffer
+                buffer.clear();
+                inside = true;
+            } else if (c == '$' && inside) {
+                // Fine messaggio → inserisci in coda
+                {
+                    std::lockguard<std::mutex> lk(rxmutex_);
+                    rxqueue.push(buffer);
+                }
+                rxcv.notify_one(); // Notifica eventuali consumatori
+                inside = false;
+            } else if (inside) {
+                // Accumula byte nel buffer
+                buffer.push_back(c);
+            }
+        } else {
+            // Nessun dato disponibile → piccolo sleep per non saturare CPU
+            std::thisthread::sleepfor(std::chrono::milliseconds(2));
+        }
+    }
+}
+
   std::optional<std::string> MecanumSystem::read_buffer_()
   {
     // Protegge tutta la funzione da accessi concorrenti
