@@ -529,6 +529,12 @@ namespace mecanum_hardware
 
   hardware_interface::CallbackReturn MecanumSystem::on_deactivate(const rclcpp_lifecycle::State &)
   {
+// ✅ Ferma il thread di lettura
+    running_ = false;
+    if (readerthread.joinable()) {
+        readerthread.join();
+    }
+
     if (!mock_)
       close_serial();
     return hardware_interface::CallbackReturn::SUCCESS;
