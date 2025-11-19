@@ -520,6 +520,10 @@ namespace mecanum_hardware
       }
     }
 
+// ✅ Avvia il thread di lettura
+    running_ = true;
+    readerthread = std::thread(&MecanumSystem::readerloop, this);
+
     return hardware_interface::CallbackReturn::SUCCESS;
   }
 
