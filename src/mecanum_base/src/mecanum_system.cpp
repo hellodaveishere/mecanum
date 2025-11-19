@@ -760,60 +760,74 @@ void MecanumSystem::readerloop()
   // Formato: "CMD,FL,FR,RL,RR,PAN,TILT"
   //
   hardware_interface::return_type MecanumSystem::write(
-      const rclcpp::Time &, const rclcpp::Duration &)
-  {
-    // Per maggiore sicurezza.
-    // Nodo EstopManagerNode chiama già /controller_manager/switch_controller per disattivare mecanum_velocity_controller.
-    // Se l'emergency stop è attivo, blocca i comandi ai motori
-    // if (estop_active_state_ > 0.5)
-    // {
-    //  for (auto &ci : command_interfaces_)
-    //  {
-    //    ci.set_value(0.0);
-    //  }
-    //  RCLCPP_WARN(rclcpp::get_logger("MecanumSystem"), "Comandi azzerati per E-STOP");
-    //  return hardware_interface::return_type::OK; // Esce senza inviare comandi reali
-    //}
+    const rclcpp::Time &, const rclcpp::Duration &)
+{
+    // 🔒 Sicurezza aggiuntiva:
+    // In caso di E‑STOP (emergency stop) si potrebbero azzerare i comandi ai motori.
+    // Questo blocco è già gestito da EstopManagerNode, quindi qui è commentato.
+    // Se volessi riattivarlo, azzererebbe i comandi e uscirebbe senza inviare nulla.
+    /*
+    if (estop_active_state_ > 0.5)
+    {
+        for (auto &ci : command_interfaces_)
+        {
+            ci.set_value(0.0);
+        }
+        RCLCPP_WARN(rclcpp::get_logger("MecanumSystem"), "Comandi azzerati per E-STOP");
+        return hardware_interface::return_type::OK;
+    }
+    */
 
-    // 1) Bypass in mock
+    // 1️⃣ Caso simulazione (mock):
+    // Se mock_ è true, significa che stiamo simulando il sistema hardware.
+    // In questo caso non inviamo nulla sulla seriale, ma ritorniamo OK.
     if (mock_)
     {
-      return hardware_interface::return_type::OK;
+        return hardware_interface::return_type::OK;
     }
 
-    // 2) Costruzione CSV con 4 decimali (stessa formattazione lato log)
+    // 2️⃣ Costruzione del comando CSV:
+    // Formattiamo i valori dei giunti e dei servo in una stringa CSV.
+    // Usiamo 4 decimali per coerenza con il logging lato firmware.
     std::ostringstream ss;
     ss << "CMD," << std::fixed << std::setprecision(4)
-       << joints_[0].cmd_vel << ","          // FL
-       << joints_[1].cmd_vel << ","          // FR
-       << joints_[2].cmd_vel << ","          // RL
-       << joints_[3].cmd_vel << ","          // RR
-       << servo_command_.pan_position << "," // PAN
-       << servo_command_.tilt_position;      // TILT
+       << joints_[0].cmd_vel << ","          // Velocità ruota anteriore sinistra (FL)
+       << joints_[1].cmd_vel << ","          // Velocità ruota anteriore destra (FR)
+       << joints_[2].cmd_vel << ","          // Velocità ruota posteriore sinistra (RL)
+       << joints_[3].cmd_vel << ","          // Velocità ruota posteriore destra (RR)
+       << servo_command_.pan_position << "," // Posizione servo PAN
+       << servo_command_.tilt_position;      // Posizione servo TILT
     const std::string csv = ss.str();
 
-    // 3) Invio sempre (la riduzione riguarda solo il logging)
+    // 3️⃣ Invio del comando sulla seriale:
+    // Usiamo send_command_(), che è già protetta da serial_mutex_.
+    // Se l’invio fallisce, logghiamo un errore e ritorniamo ERROR.
     if (!send_command_(csv + "\n"))
     {
-      RCLCPP_ERROR(this->get_logger(),
-                   "Errore invio comando seriale");
-      return hardware_interface::return_type::ERROR;
+        RCLCPP_ERROR(this->get_logger(),
+                     "Errore invio comando seriale");
+        return hardware_interface::return_type::ERROR;
     }
 
-    // 4) Log solo se il comando (formattato) è diverso dall’ultimo loggato
-    // static std::string last_logged_csv;
-    // if (last_logged_csv != csv)
-    //{
-    //  RCLCPP_INFO(this->get_logger(),
-    //              "write() cmd: FL=%.3f FR=%.3f RL=%.3f RR=%.3f PAN=%.3f TILT=%.3f",
-    //              joints_[0].cmd_vel, joints_[1].cmd_vel,
-    //              joints_[2].cmd_vel, joints_[3].cmd_vel,
-    //              servo_command_.pan_position, servo_command_.tilt_position);
-    //  last_logged_csv = csv;
-    //}
+    // 4️⃣ Logging (opzionale):
+    // Possiamo loggare il comando inviato solo se è diverso dall’ultimo loggato.
+    // Questo riduce il rumore nei log. Attualmente è commentato.
+    /*
+    static std::string last_logged_csv;
+    if (last_logged_csv != csv)
+    {
+        RCLCPP_INFO(this->get_logger(),
+                    "write() cmd: FL=%.3f FR=%.3f RL=%.3f RR=%.3f PAN=%.3f TILT=%.3f",
+                    joints_[0].cmd_vel, joints_[1].cmd_vel,
+                    joints_[2].cmd_vel, joints_[3].cmd_vel,
+                    servo_command_.pan_position, servo_command_.tilt_position);
+        last_logged_csv = csv;
+    }
+    */
 
+    // ✅ Se tutto è andato bene, ritorniamo OK.
     return hardware_interface::return_type::OK;
-  }
+}
 
   // ================== MOCK DYNAMICS ==================
   //
