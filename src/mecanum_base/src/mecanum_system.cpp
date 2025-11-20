@@ -19,6 +19,7 @@
 #include <string>
 #include <unistd.h> // read()
 #include <mutex>
+#include <poll.h>   // <-- necessario per poll(), struct pollfd, POLLOUT
 
 namespace mecanum_hardware
 {
@@ -133,14 +134,38 @@ namespace mecanum_hardware
     }
   }
 
+  // =============================
+  // Loop di scrittura
+  // =============================
+  void MecanumSystem::writerloop()
+  {
+    while (running_writer_.load())
+    {
+      std::string cmd;
+      {
+        std::unique_lock<std::mutex> lk(txmutex);
+        wxcv_.wait(lk, [&]
+                   { return !txqueue.empty() || !running_writer_.load(); });
+        if (!running_writer_.load() && txqueue.empty())
+          break;
+        cmd = std::move(txqueue.front());
+        txqueue.pop();
+      }
+      send_command_(cmd);
+    }
+  }
+
+  // =============================
+  // Loop di lettura
+  // =============================
   void MecanumSystem::readerloop()
   {
     char c;
     std::string buffer;
     bool inside = false;
 
-    // 🔄 Loop continuo finché running_ è true
-    while (running_)
+    // 🔄 Loop continuo finché running_reader_ è true
+    while (running_reader_)
     {
       ssize_t n = ::read(serial_fd_, &c, 1); // Legge un byte dalla seriale
       if (n > 0)
@@ -208,8 +233,7 @@ namespace mecanum_hardware
       return false;
     }
 
-    // Molti firmware si aspettano terminazione a nuova linea.
-    // Se il tuo protocollo usa diverso terminatore, modifica qui.
+    // Assicura terminatore newline
     std::string payload = cmd;
     if (payload.empty() || payload.back() != '\n')
     {
@@ -219,9 +243,9 @@ namespace mecanum_hardware
     const char *buf = payload.c_str();
     size_t to_write = payload.size();
     ssize_t written_total = 0;
-    int retries = 0;
+    int eagain_retries = 0;
 
-    // Scrittura robusta: gestisce EAGAIN/EINTR e short write
+    // Scrittura robusta con poll() per EAGAIN/EWOULDBLOCK
     while (to_write > 0)
     {
       ssize_t n = ::write(serial_fd_, buf + written_total, to_write);
@@ -229,24 +253,30 @@ namespace mecanum_hardware
       {
         written_total += n;
         to_write -= static_cast<size_t>(n);
+        eagain_retries = 0; // reset su successo
       }
       else if (n < 0 && errno == EINTR)
       {
-        // Interrotto da segnale: ritenta
-        continue;
+        continue; // interrotto da segnale, ritenta
       }
       else if (n < 0 && (errno == EAGAIN || errno == EWOULDBLOCK))
       {
-        // Non-blocking: nessun buffer disponibile ora, piccola attesa e retry
-        if (++retries > 5)
+        if (++eagain_retries > 10)
         {
           RCLCPP_ERROR(this->get_logger(),
-                       "send_command_: troppi retry su EAGAIN");
+                       "send_command_: troppi EAGAIN consecutivi");
           return false;
         }
-        struct timespec ts{0, 1000000}; // inizializzazione C++11
-        ::nanosleep(&ts, nullptr);      // passa l’indirizzo della variabile
-
+        // Usa poll per attendere disponibilità del buffer di trasmissione
+        struct pollfd pfd;
+        pfd.fd = serial_fd_;
+        pfd.events = POLLOUT;
+        int pret = ::poll(&pfd, 1, 5); // timeout 5 ms
+        if (pret <= 0)
+        {
+          // timeout o errore → piccolo sleep per non saturare CPU
+          ::usleep(1000); // 1 ms
+        }
         continue;
       }
       else
@@ -257,17 +287,16 @@ namespace mecanum_hardware
       }
     }
 
-    // Assicura lo svuotamento del buffer di trasmissione prima di proseguire
-    // Può bloccare se la seriale è lenta, quindi valutare se tenerlo.
-    if (::tcdrain(serial_fd_) != 0)
+    // tcdrain opzionale (configurabile)
+    if (enable_tcdrain_)
     {
-      RCLCPP_WARN(this->get_logger(),
-                  "send_command_: tcdrain ha riportato errore: %s",
-                  std::strerror(errno));
-      // Non consideriamo questo un errore fatale per default
+      if (::tcdrain(serial_fd_) != 0)
+      {
+        RCLCPP_WARN(this->get_logger(),
+                    "send_command_: tcdrain errore: %s", std::strerror(errno));
+      }
     }
 
-    // Logging di debug (opzionale, disattivato in produzione)
     RCLCPP_DEBUG(this->get_logger(),
                  "send_command_: scritto '%s' (%zd byte)",
                  payload.c_str(), static_cast<ssize_t>(written_total));
@@ -465,6 +494,7 @@ namespace mecanum_hardware
 
   hardware_interface::CallbackReturn MecanumSystem::on_activate(const rclcpp_lifecycle::State &)
   {
+    // Reset stato giunti
     for (auto &j : joints_)
     {
       j.pos_rad = 0.0;
@@ -476,30 +506,49 @@ namespace mecanum_hardware
     {
       if (!open_serial())
       {
-        RCLCPP_ERROR(this->get_logger(),
+        RCLCPP_ERROR(rclcpp::get_logger("MecanumSystem"),
                      "Impossibile aprire la porta seriale %s", serial_port_.c_str());
         return hardware_interface::CallbackReturn::ERROR;
       }
     }
 
-    // ✅ Avvia il thread di lettura
-    running_ = true;
+    // Avvia thread di lettura
+    running_reader_.store(true);
     readerthread = std::thread(&MecanumSystem::readerloop, this);
 
+    // Avvia thread di scrittura
+    running_writer_.store(true);
+    writerthread = std::thread(&MecanumSystem::writerloop, this);
+
+    RCLCPP_INFO(rclcpp::get_logger("MecanumSystem"),
+                "MecanumSystem attivato: thread reader+writer avviati");
     return hardware_interface::CallbackReturn::SUCCESS;
   }
 
   hardware_interface::CallbackReturn MecanumSystem::on_deactivate(const rclcpp_lifecycle::State &)
   {
-    // ✅ Ferma il thread di lettura
-    running_ = false;
+    // Ferma thread di lettura
+    running_reader_.store(false);
     if (readerthread.joinable())
     {
       readerthread.join();
     }
 
+    // Ferma thread di scrittura
+    running_writer_.store(false);
+    wxcv_.notify_all(); // sveglia writerloop se in attesa
+    if (writerthread.joinable())
+    {
+      writerthread.join();
+    }
+
     if (!mock_)
+    {
       close_serial();
+    }
+
+    RCLCPP_INFO(rclcpp::get_logger("MecanumSystem"),
+                "MecanumSystem disattivato: thread reader+writer chiusi");
     return hardware_interface::CallbackReturn::SUCCESS;
   }
 
@@ -550,7 +599,7 @@ namespace mecanum_hardware
 
       // 3.3) Log della riga grezza ricevuta (utile per diagnosi di framing/formato).
       RCLCPP_DEBUG(this->get_logger(),
-                  "Linea seriale ricevuta: %s", line.c_str());
+                   "Linea seriale ricevuta: %s", line.c_str());
 
       // 4) Dispatch in base al prefisso del pacchetto.
       //    Usiamo rfind(...,0) per verificare che la stringa inizi con il prefisso.

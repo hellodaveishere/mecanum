@@ -110,6 +110,9 @@ namespace mecanum_hardware
         // Stato E-STOP hardware (1.0 = attivo, 0.0 = non attivo)
         double estop_active_state_{0.0};
 
+        // Flag per tcdrain: se true, forza lo svuotamento del buffer di trasmissione
+        bool enable_tcdrain_{false};
+
         // ⚙️ Parametri cinematici e logici
         double wheel_radius_{0.05}; // Raggio ruota [m]
         double L_{0.15};            // Metà lunghezza telaio [m]
@@ -158,21 +161,27 @@ namespace mecanum_hardware
         std::mutex serialmutex;
 
         // 🧵 Thread di lettura
-        std::thread readerthread;          // Thread dedicato alla lettura dalla seriale
-        std::atomic<bool> running_{false}; // Flag per controllare l’esecuzione del thread
+        std::thread readerthread;                 // Thread dedicato alla lettura dalla seriale
+        std::atomic<bool> running_reader_{false}; // Flag di vita per il thread di lettura
+        std::queue<std::string> rxqueue;          // Buffer FIFO dei pacchetti ricevuti
+        std::mutex rxmutex;                       // Protegge la coda di ricezione
+        std::condition_variable rxcv_;            // Notifica arrivo nuovo messaggio
 
-        // 📥 Coda dei messaggi ricevuti
-        std::queue<std::string> rxqueue; // Buffer FIFO dei pacchetti completi ricevuti
-        std::mutex rxmutex;              // Protegge la coda da accessi concorrenti
-        std::condition_variable rxcv_;    // Notifica quando arriva un nuovo messaggio
+        // 🧵 Thread di scrittura
+        std::thread writerthread;                 // Thread dedicato alla scrittura sulla seriale
+        std::atomic<bool> running_writer_{false}; // Flag di vita per il thread di scrittura
+        std::queue<std::string> txqueue;          // Buffer FIFO dei comandi da inviare
+        std::mutex txmutex;                       // Protegge la coda di trasmissione
+        std::condition_variable wxcv_;            // Notifica quando c’è un nuovo comando da inviare
 
         // 🔌 Funzioni di supporto per la seriale
         bool open_serial();
         void close_serial();
         bool send_command_(const std::string &cmd);
 
-        // 🔄 Thread di lettura
+        // 🔄 Thread di lettura/scrittura
         void readerloop(); // Funzione eseguita dal thread per leggere continuamente dalla seriale
+        void writerloop(); // Funzione eseguita dal thread per scrivere continuamente dalla seriale
 
         // 📥 API non bloccante per ottenere un messaggio dalla coda
         std::optional<std::string> read_buffer_();
