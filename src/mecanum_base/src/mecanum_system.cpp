@@ -435,7 +435,7 @@ namespace mecanum_hardware
             &estop_active_state_ // variabile double che contiene lo stato
             ));
 
-    RCLCPP_INFO(rclcpp::get_logger("BatteryDebug"), "Exporting interface: percentage @ %p", &battery_state_.percentage);
+    RCLCPP_DEBUG(rclcpp::get_logger("BatteryDebug"), "Exporting interface: percentage @ %p", &battery_state_.percentage);
 
     return out;
   }
@@ -549,7 +549,7 @@ namespace mecanum_hardware
         continue; // ignora righe vuote
 
       // 3.3) Log della riga grezza ricevuta (utile per diagnosi di framing/formato).
-      RCLCPP_INFO(this->get_logger(),
+      RCLCPP_DEBUG(this->get_logger(),
                   "Linea seriale ricevuta: %s", line.c_str());
 
       // 4) Dispatch in base al prefisso del pacchetto.
