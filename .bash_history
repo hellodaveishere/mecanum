@@ -1,55 +1,3 @@
-sudo lsof -i :8000
-ros2 launch mecanum_base bringup.launch.py 
-ros2 launch mecanum_base bringup.launch.py 
-clear
-colcon build --packages-select mecanum_base --symlink-install
-source install/setup.bash 
-ros2 launch mecanum_base bringup.launch.py 
-colcon build --packages-select mecanum_base
-source install/setup.bash 
-ros2 launch mecanum_base bringup.launch.py 
-hostory|grep rm
-history|grep rm
-rm -rf build/ install/ log/
-colcon build --packages-select mecanum_base --symlink-install
-source install/setup.bash 
-ros2 launch mecanum_base bringup.launch.py 
-sudo lsof -i :8000
-sudo lsof -i :8000
-sudo apt update
-sudo apt install lsof
-sudo lsof -i :8000
-sudo kill -9 9960
-sudo lsof -i :8000
-sudo lsof -i :8000
-sudo lsof -i :8000
-sudo lsof -i :8000
-sudo lsof -i :8000
-sudo lsof -i :9090
-sudo lsof -i :9090
-sudo lsof -i :9090
-clear
-sudo lsof -i :9090
-clear
-sudo lsof -i :9090 |more
-ps aux | grep rosbridge
-sudo lsof -i :9090
-sudo lsof -i :9091
-sudo lsof -i :9090
-ps -p 3642 -o args
-colcon build --packages-select mecanum_base --symlink-install
-source install/setup.bash 
-ros2 launch mecanum_base bringup.launch.py 
-ros2 launch mecanum_base bringup.launch.py 
-colcon build --packages-select mecanum_base --symlink-install
-source install/setup.bash 
-clear
-ros2 launch mecanum_base bringup.launch.py 
-clear
-colcon build --packages-select mecanum_base --symlink-install
-source install/setup.bash 
-ros2 launch mecanum_base bringup.launch.py 
-clear
 colcon build --packages-select mecanum_base --symlink-install
 source install/setup.bash 
 ros2 launch mecanum_base bringup.launch.py 
@@ -498,3 +446,55 @@ ros2 launch mecanum_base bringup.launch.py
 ros2 launch mecanum_base bringup.launch.py 
 colcon build --packages-select mecanum_base --symlink-install
 colcon build --packages-select mecanum_base --symlink-install
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+clear
+colcon build --packages-select mecanum_base --symlink-install
+clear
+colcon build --packages-select mecanum_base --symlink-install
+ros2 launch mecanum_base bringup.launch.py 
+clear
+ros2 launch mecanum_base bringup.launch.py 
+ros2 topic list
+ros2 control list_controllers
+ros2 topic list
+ros2 topic echo /joint_states
+ros2 topic list
+ros2 topic echo /battery_state_broadcaster/battery_state
+ros2 control list_controllers
+ros2 control list_controllers
+ros2 control list_controllers launch 
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+git pull origin main
+git pull origin main
+hostory| grep git
+history| grep git
+git pull origin main
+git pull origin main
+ls
+ros2 run --help
+ls
+cd home/
+ls
+cd ws
+ls
+cd src/
+ls
+ls
+cd mecanum_base/
+ls
+more README.md 
+cd ..
+cd ..
+colcon build --packages-select mecanum_base
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
+exit
+ls
+ros2
+exit

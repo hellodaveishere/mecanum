@@ -63,7 +63,7 @@ RUN apt update && apt install -y \
 # Installa pyserial via pip
 #RUN pip3 install pyserial
 
-ENV SHELL /bin/bash
+ENV SHELL=/bin/bash
 
 # ********************************************************
 # * Anything else you want to do like clean up goes here *

@@ -1,0 +1,48 @@
+services:
+
+  # ============================================================
+  # ✅ Servizio principale ROS 2 headless
+  # ============================================================
+  ros2-dev:
+    image: ros2-dev-test:latest
+    privileged: true
+    network_mode: host
+    pid: host
+    ipc: host
+
+    environment:
+      ROS_AUTOMATIC_DISCOVERY_RANGE: LOCALHOST
+      ROS_DOMAIN_ID: "42"
+
+    volumes:
+      - .:/home/ws
+      - /dev:/dev
+      - /dev/dri:/dev/dri
+      - ${HOME}/.ssh:/home/dave/.ssh
+
+    working_dir: /home/ws
+
+    # ✅ Mantiene il container vivo
+    command: ["sleep", "infinity"]
+
+
+  # ============================================================
+  # ✅ Servizio opzionale con GUI (RViz, rqt, ecc.)
+  #    Attivabile con:
+  #    docker compose --profile gui up -d
+  # ============================================================
+  ros2-dev-gui:
+    extends:
+      service: ros2-dev
+
+    container_name: ros2-dev-gui
+
+    environment:
+      DISPLAY: ${DISPLAY:-":0"}
+
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+
+    profiles:
+      - gui
+
