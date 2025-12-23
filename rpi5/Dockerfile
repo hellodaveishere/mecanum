@@ -1,4 +1,5 @@
 FROM osrf/ros:jazzy-desktop-noble
+
 ARG USERNAME=USERNAME
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
@@ -12,7 +13,6 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && apt-get install -y sudo \
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
-
 
 RUN usermod -a -G dialout $USERNAME
 
@@ -35,7 +35,6 @@ RUN apt-get update && apt-get install -y \
     npm \
     && rm -rf /var/lib/apt/lists/*
 
-
 RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y python3-pip
 RUN apt-get install -y python3-serial
@@ -49,26 +48,15 @@ RUN apt update && apt install -y \
   v4l-utils && \
   rm -rf /var/lib/apt/lists/*
 
-
-
-# Ref. https://github.com/RozaGkliva/ros2_serial
-# 
-#install serial library for c++
-#git clone https://github.com/RoverRobotics-forks/serial-ros2
-#cd serial-ros2/
-#make
-#make install
-#cd ~/dev_ws/ && colcon build --packages-select serial
-
-# Installa pyserial via pip
-#RUN pip3 install pyserial
-
 ENV SHELL=/bin/bash
 
-# ********************************************************
-# * Anything else you want to do like clean up goes here *
-# ********************************************************
+# 🔹 Prompt chiaro per il container (valido per tutte le shell login/interattive)
+SHELL ["/bin/bash", "-c"]
+RUN echo 'export PS1="[ROS2-CONTAINER jazzy] \\u@\\h:\\w$ "' > /etc/profile.d/ros2_prompt.sh
+RUN echo "source /opt/ros/jazzy/setup.bash" > /etc/profile.d/ros2_setup.sh
+RUN chmod +x /etc/profile.d/ros2_setup.sh
 
 # [Optional] Set the default user. Omit if you want to keep the default as root.
 USER $USERNAME
 CMD ["/bin/bash"]
+

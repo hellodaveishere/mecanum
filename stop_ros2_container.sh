@@ -1,7 +1,8 @@
 #!/bin/bash
 # ============================================================
-# 🛑 Script di stop ROS 2 Dev Container
+# 🛑 Script di stop ROS 2 Dev Containers (Headless + GUI)
 # ============================================================
+
 # 📖 ISTRUZIONI D'USO:
 # 1. Assicurati di trovarti nella cartella del progetto:
 #      cd ros2-dev-container
@@ -20,5 +21,20 @@
 
 set -e
 
-echo "🧼 Arresto e rimozione dei container ROS 2..."
-docker compose down
+CONTAINERS=(
+  "ros2-dev"
+  "ros2-dev-gui"
+)
+
+for C in "${CONTAINERS[@]}"; do
+  if docker ps --format "{{.Names}}" | grep -q "^${C}$"; then
+    echo "🛑 Fermando il container ${C} ..."
+    docker stop "$C" >/dev/null
+    echo "🧹 Rimuovendo il container ${C} ..."
+    docker rm "$C" >/dev/null
+    echo "✅ ${C} fermato e rimosso."
+  else
+    echo "ℹ️ Il container '${C}' non è in esecuzione."
+  fi
+done
+

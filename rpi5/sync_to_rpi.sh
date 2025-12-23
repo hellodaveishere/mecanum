@@ -1,19 +1,19 @@
 #!/bin/bash
 
 # ============================================================
-# 🔄 Sincronizza progetto ROS 2 dal laptop al Raspberry Pi 4
+# 🔄 Sincronizza progetto ROS 2 dal laptop al Raspberry Pi 5
 # ============================================================
 
 # 📘 ISTRUZIONI D'USO:
-# 1. Assicurati che il Raspberry Pi 4 sia acceso e connesso alla rete.
+# 1. Assicurati che il Raspberry Pi 5 sia acceso e connesso alla rete.
 # 2. Verifica che SSH sia attivo sul Raspberry Pi.
 # 3. Esegui questo script dal laptop:
 #    ./sync_to_rpi.sh
 #
 # Questo script copierà:
 # - I pacchetti ROS 2 mecanum_base/ e sllider_ros2/ da ~/ros2-dev-container/src/
-# - I file docker-compose.yaml, Dockerfile, start_ros2_container.sh e stop_ros2_container.sh da ~/ros2-dev-container/rpi4/
-# - Verso: /home/ws/src/ e /home/pi/ros2-dev-container/ sul Raspberry Pi 4
+# - I file docker-compose.yaml, Dockerfile, start_ros2_container.sh e stop_ros2_container.sh da ~/ros2-dev-container/rpi5/
+# - Verso: /home/ws/src/ e /home/pi/ros2-dev-container/ sul Raspberry Pi 5
 # - Che è montato come volume nel container ros2-dev
 #
 # 📁 STRUTTURA DELLE CARTELLE
@@ -23,14 +23,14 @@
 # ├── src/                         # Codice ROS 2 sviluppato
 # │   ├── mecanum_base/
 # │   └── sllider_ros2/
-# └── rpi4/                        # Configurazione per Raspberry Pi 4
+# └── rpi5/                        # Configurazione per Raspberry Pi 5
 #     ├── docker-compose.yaml
 #     ├── Dockerfile
 #     ├── start_ros2_container.sh
 #     ├── stop_ros2_container.sh
 #     └── sync_to_rpi.sh           # Questo script
 
-# 🍓 Raspberry Pi 4 (ambiente di esecuzione)
+# 🍓 Raspberry Pi 5 (ambiente di esecuzione)
 # IP: 192.168.1.42
 # /home/ws/src/                    # Volume montato nel container ros2-dev
 # ├── mecanum_base/
@@ -44,7 +44,7 @@ RPI_HOST="192.168.188.41"
 RPI="$RPI_USER@$RPI_HOST"
 
 SRC_DIR="../src"
-RPI4_DIR="."
+RPI5_DIR="."
 TARGET_DIR="/home/pi/ws/src"
 DOCKER_TARGET_DIR="/home/pi/ros2-dev-container"
 
@@ -54,11 +54,11 @@ DOCKER_FILES=("docker-compose.yaml" "Dockerfile" "start_ros2_container.sh" "stop
 # 📦 Copia dei file Docker e degli script di gestione container
 # Questi file sono necessari per costruire e controllare il container ros2-dev sul Raspberry Pi
 for file in "${DOCKER_FILES[@]}"; do
-  if [[ -f "$RPI4_DIR/$file" ]]; then
+  if [[ -f "$RPI5_DIR/$file" ]]; then
     echo "📤 Copia del file: $file"
-    rsync -avz "$RPI4_DIR/$file" "$RPI:$DOCKER_TARGET_DIR/"
+    rsync -avz "$RPI5_DIR/$file" "$RPI:$DOCKER_TARGET_DIR/"
   else
-    echo "⚠️ Attenzione: il file $file non esiste in $RPI4_DIR, salto..."
+    echo "⚠️ Attenzione: il file $file non esiste in $RPI5_DIR, salto..."
   fi
 done
 

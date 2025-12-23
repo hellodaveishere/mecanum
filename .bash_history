@@ -1,43 +1,3 @@
-colcon build --packages-select mecanum_base --symlink-install
-source install/setup.bash 
-ros2 launch mecanum_base bringup.launch.py 
-colcon build --packages-select mecanum_base --symlink-install
-source install/setup.bash 
-ros2 launch mecanum_base bringup.launch.py 
-ros2 launch mecanum_base bringup.launch.py 
-colcon build --packages-select mecanum_base --symlink-install
-colcon build --packages-select mecanum_base --symlink-install
-source install/setup.bash 
-ros2 launch mecanum_base bringup.launch.py 
-colcon build --packages-select mecanum_base --symlink-install
-colcon build --packages-select mecanum_base --symlink-install
-source install/setup.bash 
-ros2 launch mecanum_base bringup.launch.py 
-ros2 launch mecanum_base bringup.launch.py 
-ros2 launch mecanum_base bringup.launch.py 
-sudo apt install ros-jazzy-topic-tools
-source install/setup.
-source install/setup.bash 
-ros2 run topic_tools throttle messages /input_topic 5.0 /throttled_topic
-ros2 run topic_tools throttle messages /rosout 5.0 /throttled_topic
-ros2 run topic_tools throttle 
-ros2 launch mecanum_base bringup.launch.py 
-ros2 launch mecanum_base bringup.launch.py 
-colcon build --packages-select mecanum_base --symlink-install
-source install/setup.bash  
-ros2 launch mecanum_base bringup.launch.py 
-colcon build --packages-select mecanum_base --symlink-install
-source install/setup.bash  
-ros2 launch mecanum_base bringup.launch.py 
-ros2 launch mecanum_base bringup.launch.py 
-colcon build --packages-select mecanum_base --symlink-install
-source install/setup.bash  
-ros2 launch mecanum_base bringup.launch.py 
-clear
-ros2 launch mecanum_base bringup.launch.py 
-colcon build --packages-select mecanum_base --symlink-install
-source install/setup.bash  
-ros2 launch mecanum_base bringup.launch.py 
 clear
 colcon build --packages-select mecanum_base --symlink-install
 source install/setup.bash  
@@ -497,4 +457,44 @@ ros2 launch mecanum_base bringup.launch.py
 exit
 ls
 ros2
+exit
+git pull origin main
+ls
+rqt_console
+source /opt/ros/jazzy/setup.bash 
+rqt_console
+rqt
+exit
+ls
+rqt
+ls
+exit
+which ros2
+ls
+cat /etc/hostname
+docker ps
+whoami
+hostname
+pwd
+cat /proc/1/cgroup
+clear
+echo "HOSTNAME:"; hostname
+echo "WHOAMI:"; whoami
+echo "PATH:"; echo $PATH
+echo "DOCKER BIN:"; which docker
+echo "CGROUP:"; cat /proc/1/cgroup
+exit
+exit
+exit
+ls /etc/profile.d/ros2_prompt.sh
+ls /etc/profile.d/
+exit
+ls
+rqt
+source /opt/ros/jazzy/setup.bash 
+rqt
+exit
+rqt
+ros2
+more .bashrc 
 exit

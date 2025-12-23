@@ -1,10 +1,15 @@
 services:
 
-  # ============================================================
-  # ✅ Servizio principale ROS 2 headless
-  # ============================================================
   ros2-dev:
+    container_name: ros2-dev
+
+    # 🔥 Soluzione standard: collega Dockerfile al servizio
+    build:
+      context: .
+      dockerfile: Dockerfile
+
     image: ros2-dev-test:latest
+
     privileged: true
     network_mode: host
     pid: host
@@ -13,6 +18,7 @@ services:
     environment:
       ROS_AUTOMATIC_DISCOVERY_RANGE: LOCALHOST
       ROS_DOMAIN_ID: "42"
+      PS1: "[ROS2-CONTAINER ros2-dev] \\u@\\h:\\w$ "
 
     volumes:
       - .:/home/ws
@@ -21,16 +27,9 @@ services:
       - ${HOME}/.ssh:/home/dave/.ssh
 
     working_dir: /home/ws
-
-    # ✅ Mantiene il container vivo
     command: ["sleep", "infinity"]
 
 
-  # ============================================================
-  # ✅ Servizio opzionale con GUI (RViz, rqt, ecc.)
-  #    Attivabile con:
-  #    docker compose --profile gui up -d
-  # ============================================================
   ros2-dev-gui:
     extends:
       service: ros2-dev
@@ -39,6 +38,7 @@ services:
 
     environment:
       DISPLAY: ${DISPLAY:-":0"}
+      PS1: "[ROS2-CONTAINER ros2-dev-gui] \\u@\\h:\\w$ "
 
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
