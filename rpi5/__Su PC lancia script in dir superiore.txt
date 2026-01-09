@@ -1,0 +1,2 @@
+Su PC lancia script in dir superiore ..
+Questo serve per fare copia su Rpi5

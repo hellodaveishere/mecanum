@@ -28,7 +28,7 @@ fi
 docker compose $PROFILE build
 
 # Avvia container senza ricrearlo se non serve
-docker compose $PROFILE up -d "$CONTAINER_NAME"
+docker compose $PROFILE up -d #"$CONTAINER_NAME"
 
 sleep 1
 
@@ -41,7 +41,7 @@ fi
 if $RUN_LAUNCH; then
   echo "🚀 Avvio ROS 2 launch nel container $CONTAINER_NAME ..."
   docker exec -it "$CONTAINER_NAME" bash --login -c \
-    "source /opt/ros/jazzy/setup.bash && ros2 launch mecanum_base bringup.launch.py"
+    "source /opt/ros/jazzy/setup.bash && source /home/ws/install/setup.bash && ros2 launch mecanum_base bringup.launch.py"
   exit 0
 fi
 

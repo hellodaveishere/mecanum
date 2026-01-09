@@ -1,29 +1,3 @@
-clear
-colcon build --packages-select mecanum_base --symlink-install
-source install/setup.bash  
-ros2 launch mecanum_base bringup.launch.py 
-clear
-colcon build --packages-select mecanum_base --symlink-install
-source install/setup.bash  
-ros2 launch mecanum_base bringup.launch.py 
-clear
-ros2 launch mecanum_base bringup.launch.py 
-ros2 launch mecanum_base bringup.launch.py 
-colcon build --packages-select mecanum_base --symlink-install
-source install/setup.bash  
-ros2 launch mecanum_base bringup.launch.py 
-colcon build --packages-select mecanum_base --symlink-install
-source install/setup.bash  
-ros2 launch mecanum_base bringup.launch.py 
-colcon build --packages-select mecanum_base --symlink-install
-colcon build --packages-select mecanum_base --symlink-install
-source install/setup.bash  
-ros2 launch mecanum_base bringup.launch.py 
-colcon build --packages-select mecanum_base --symlink-install
-source install/setup.bash  
-ros2 launch mecanum_base bringup.launch.py 
-ros2 launch mecanum_base bringup.launch.py 
-colcon build --packages-select mecanum_base --symlink-install
 colcon build --packages-select mecanum_base --symlink-install
 source install/setup.bash  
 ros2 launch mecanum_base bringup.launch.py 
@@ -497,4 +471,30 @@ exit
 rqt
 ros2
 more .bashrc 
+exit
+ls
+pwd
+history
+pwd
+colcon build
+colcon build --packages-select mecanum_base
+source ./install/setup.bash
+ls
+cd ./build/
+ls
+rm -r ./examples_rclcpp_async_client/
+rm -r ./examples_rclcpp_cbg_executor/
+rm -r ./examples_rclcpp_minimal_action_
+ls
+rm -r ./examples_rclcpp_minimal_action_client/
+rm -r ./examples_rclcpp_minimal_action_server/
+ls
+docker image ls
+ls
+source /opt/ros/jazzy/setup.bash && ros2 launch mecanum_base bringup.launch.py
+ls
+source install/setup.bash 
+pwd
+source /home/ws/install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 
 exit
