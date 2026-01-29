@@ -321,8 +321,32 @@
         messageType: 'sensor_msgs/BatteryState'
       });
 
+      const table = [
+            [12.60, 100], [12.40, 90], [12.20, 80], [12.00, 70],
+            [11.80, 60], [11.60, 50], [11.40, 40], [11.20, 30],
+            [11.00, 20], [10.80, 10], [10.50, 5], [9.60, 0]
+        ];
+
+        function voltageToPercent(voltage) {
+            // Fuori dai limiti della tabella
+            if (voltage >= table[0][0]) return table[0][1];
+            if (voltage <= table[table.length - 1][0]) return table[table.length - 1][1];
+
+            // Cerca i due punti tra cui interpolare
+            for (let i = 0; i < table.length - 1; i++) {
+                const [v1, p1] = table[i];
+                const [v2, p2] = table[i + 1];
+
+                if (voltage <= v1 && voltage >= v2) {
+                    const ratio = (voltage - v2) / (v1 - v2);
+                    return p2 + ratio * (p1 - p2);
+                }
+            }
+        }
+
       batteryTopic.subscribe((message) => {
-        const percent = Math.round(message.voltage / 11.7 * 100); // valore tra 0.0 e 1.0
+        //const percent = Math.round(message.voltage / 11.7 * 100); // valore tra 0.0 e 1.0
+        const percent = Math.round(voltageToPercent(message.voltage));
         document.getElementById('battery-text').textContent = `Batteria: ${percent}%`;
       });
 
@@ -413,9 +437,17 @@
         name: '/servo_position_controller/commands',
         messageType: 'std_msgs/Float64MultiArray'
       });
+      
+      
+      const SERVO_PAN_MIN_DEG = 0.0  // [°]
+      const SERVO_PAN_MAX_DEG = 180.0  // [°]
+      const SERVO_TILT_MIN_DEG = 0.0  // [°]
+      const SERVO_TILT_MAX_DEG = 45.0  // [°]
 
-      let currentPan = 0;
+      let currentPan = 0.5 * (SERVO_PAN_MAX_DEG - SERVO_PAN_MIN_DEG) * (Math.PI / 180);
       let currentTilt = 0;
+      
+
 
       // === Timer per invio continuo dei comandi telecamera (10 Hz) ===
       setInterval(() => {
@@ -440,11 +472,23 @@
           const rawX = data.vector.x;
           const rawY = data.vector.y;
 
-          const pan = rawX;
-          const tilt = rawY * -1;
+          const pan = -rawX;  // va' da -1 a 1
+          //const tilt = rawY * -1;
+          const tilt = rawY * 1;
 
-          const panFiltered = Math.abs(pan) < deadZone ? 0 : parseFloat(pan.toFixed(2));
-          const tiltFiltered = Math.abs(tilt) < deadZone ? 0 : parseFloat(tilt.toFixed(2));
+          const panFiltered =
+              Math.abs(pan) < deadZone
+                ? 0
+                : (Number(pan.toFixed(2)) + 1) * 0.5 * (SERVO_PAN_MAX_DEG - SERVO_PAN_MIN_DEG) * (Math.PI / 180);
+
+          const tiltFiltered =
+              Math.abs(tilt) < deadZone || tilt < 0
+                ? 0
+                : SERVO_TILT_MIN_DEG* (Math.PI / 180) + (Math.abs(Number(tilt.toFixed(2))) * (SERVO_TILT_MAX_DEG - SERVO_TILT_MIN_DEG)) * (Math.PI / 180);
+
+          
+          
+          console.log(`Joystick pan/tilt → Pan: ${panFiltered } (${Number(pan.toFixed(2))}), Tilt: ${tiltFiltered} (${Number(tilt.toFixed(2))})`);
 
           // 🔄 Aggiorna buffer per invio continuo
           currentPan = panFiltered;
@@ -457,7 +501,7 @@
         if (nippleEl) nippleEl.classList.remove('active');
 
         // 🔄 Imposta buffer a zero per invio continuo di stop
-        currentPan = 0;
+        currentPan = 0.5 * (SERVO_PAN_MAX_DEG - SERVO_PAN_MIN_DEG) * (Math.PI / 180);
         currentTilt = 0;
       });
 

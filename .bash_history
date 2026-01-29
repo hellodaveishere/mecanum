@@ -1,17 +1,6 @@
 colcon build --packages-select mecanum_base --symlink-install
 source install/setup.bash  
 ros2 launch mecanum_base bringup.launch.py 
-ros2 launch mecanum_base bringup.launch.py 
-colcon build --packages-select mecanum_base --symlink-install
-source install/setup.bash  
-ros2 launch mecanum_base bringup.launch.py 
-colcon build --packages-select mecanum_base --symlink-install
-source install/setup.bash  
-ros2 launch mecanum_base bringup.launch.py 
-ros2 launch mecanum_base bringup.launch.py 
-colcon build --packages-select mecanum_base --symlink-install
-source install/setup.bash  
-ros2 launch mecanum_base bringup.launch.py 
 ros2 run image_tools cam2image
 [200~ros2 run image_transport republish raw compressed
 ~ros2 run image_transport republish raw compressed
@@ -498,3 +487,14 @@ pwd
 source /home/ws/install/setup.bash 
 ros2 launch mecanum_base bringup.launch.py 
 exit
+pwd
+ls
+source install/setup.bash 
+ros2 launch  mecanum_base bringup.launch.py 
+ls
+ros2 
+history|grep list
+ros2 control list_controllers
+ros2 launch mecanum_base bringup.launch.py 
+source /home/ws/install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py 

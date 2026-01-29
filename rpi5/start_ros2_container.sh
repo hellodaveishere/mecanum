@@ -35,7 +35,7 @@ sleep 1
 if $OPEN_SHELL; then
   echo "🔧 Entrando nel container $CONTAINER_NAME ..."
   docker exec -it "$CONTAINER_NAME" bash --login
-  exit 0
+  exit 
 fi
 
 if $RUN_LAUNCH; then

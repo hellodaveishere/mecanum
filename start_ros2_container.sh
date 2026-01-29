@@ -2,8 +2,8 @@
 
 set -e
 
-USE_GUI=false
-OPEN_SHELL=false
+USE_GUI=true
+OPEN_SHELL=true
 RUN_LAUNCH=false
 
 for arg in "$@"; do
@@ -34,6 +34,7 @@ sleep 1
 
 if $OPEN_SHELL; then
   echo "🔧 Entrando nel container $CONTAINER_NAME ..."
+  # docker exec -it "ros2-dev-gui" bash --login
   docker exec -it "$CONTAINER_NAME" bash --login
   exit 0
 fi

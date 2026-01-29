@@ -6,6 +6,7 @@
 #include <optional>
 #include <algorithm>
 #include <mutex>
+#include <cmath>
 
 // ROS 2 Control
 #include "hardware_interface/system_interface.hpp"
@@ -53,14 +54,14 @@ namespace mecanum_hardware
     // 📦 Stato dei servomotori (in radianti)
     struct ServoState
     {
-        double pan_position = 0.0;  // Posizione del servo pan
+        double pan_position = 90 * M_PI / 180.0;  // Posizione del servo pan
         double tilt_position = 0.0; // Posizione del servo tilt
     };
 
     // 📦 Comandi desiderati per i servomotori (in radianti)
     struct ServoCommand
     {
-        double pan_position = 0.0;  // Comando di posizione per il servo pan
+        double pan_position = 90 * M_PI / 180.0; // Comando di posizione per il servo pan
         double tilt_position = 0.0; // Comando di posizione per il servo tilt
     };
 
@@ -113,16 +114,19 @@ namespace mecanum_hardware
         // Flag per tcdrain: se true, forza lo svuotamento del buffer di trasmissione
         bool enable_tcdrain_{false};
 
+        // NOTA: alvune variabile sono definite nel file URDF
+        // e poi caricate con es getP("wheel_radius", wheel_radius_); in file mecanum_system.cpp
+
         // ⚙️ Parametri cinematici e logici
-        double wheel_radius_{0.05}; // Raggio ruota [m]
+        double wheel_radius_{0.025}; // Raggio ruota [m]
         double L_{0.15};            // Metà lunghezza telaio [m]
         double W_{0.15};            // Metà larghezza telaio [m]
         bool mock_{false};          // true = simulazione, false = hardware reale
         double accel_limit_{25.0};  // Limite accelerazione [rad/s²] (solo mock)
 
         // ⚙️ Parametri encoder
-        int ticks_per_rev_{2048};         // Tick per giro encoder (lato motore)
-        double gear_ratio_{30.0};         // Rapporto di trasmissione
+        int ticks_per_rev_{12};         // Tick per giro encoder (lato motore)
+        double gear_ratio_{90.0};         // Rapporto di trasmissione
         double ticks_per_wheel_rev_{0.0}; // Tick per giro ruota = encoder * rapporto
 
         // 🔁 Inversione direzione ruote (1 o -1)

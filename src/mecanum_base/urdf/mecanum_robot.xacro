@@ -5,15 +5,15 @@
        📌 PARAMETRI DEL ROBOT
        ========================= -->
   <!-- Geometria -->
-  <xacro:property name="wheel_radius" value="0.05"/>   <!-- Raggio ruota [m] -->
+  <xacro:property name="wheel_radius" value="0.025"/>   <!-- Raggio ruota [m] -->
   <xacro:property name="L" value="0.15"/>              <!-- Mezzo passo longitudinale [m] -->
   <xacro:property name="W" value="0.15"/>              <!-- Mezzo passo trasversale [m] -->
 
   <!-- Hardware -->
   <xacro:property name="mock" value="false"/>          <!-- true = simulazione, false = hardware reale -->
   <xacro:property name="accel_limit" value="25.0"/>    <!-- Limite accelerazione [rad/s²] -->
-  <xacro:property name="ticks_per_rev" value="2048"/>  <!-- Tick encoder per giro motore -->
-  <xacro:property name="gear_ratio" value="30.0"/>     <!-- Rapporto di riduzione -->
+  <xacro:property name="ticks_per_rev" value="12"/>  <!-- Tick encoder per giro motore -->
+  <xacro:property name="gear_ratio" value="90.0"/>     <!-- Rapporto di riduzione -->
 
   <!-- Inversione direzione ruote -->
   <xacro:property name="invert_fl" value="1"/>
