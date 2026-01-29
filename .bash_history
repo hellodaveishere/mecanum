@@ -1,21 +1,3 @@
-colcon build --packages-select mecanum_base --symlink-install
-source install/setup.bash  
-ros2 launch mecanum_base bringup.launch.py 
-ros2 run image_tools cam2image
-[200~ros2 run image_transport republish raw compressed
-~ros2 run image_transport republish raw compressed
-ros2 run image_transport republish raw compressed
-clear
-colcon build --packages-select mecanum_base --symlink-install
-source install/setup.bash  
-ros2 launch mecanum_base bringup.launch.py 
-clear
-ros2 launch mecanum_base bringup.launch.py >> log.txt
-colcon build --packages-select mecanum_base --symlink-install
-colcon build --packages-select mecanum_base --symlink-install
-source install/setup.bash  
-ros2 launch mecanum_base bringup.launch.py > log.txt
-sudo apt install ros-jazzy-compressed-image-transport
 ros2 launch mecanum_base bringup.launch.py > log.txt
 colcon build --packages-select mecanum_base --symlink-install
 source install/setup.bash  
@@ -498,3 +480,21 @@ ros2 control list_controllers
 ros2 launch mecanum_base bringup.launch.py 
 source /home/ws/install/setup.bash 
 ros2 launch mecanum_base bringup.launch.py 
+colcon build --packages-select mecanum_base
+history | grep rm
+rm -rf build/ install/ log/
+colcon build --packages-select mecanum_base
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py
+colcon build --packages-select mecanum_base
+source install/setup.bash 
+colcon build --packages-select mecanum_base
+ros2 launch mecanum_base bringup.launch.py
+colcon build --packages-select mecanum_base
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py
+ros2 launch mecanum_base bringup.launch.py
+source install/setup.
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py
+exit

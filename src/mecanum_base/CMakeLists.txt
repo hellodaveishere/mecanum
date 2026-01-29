@@ -177,7 +177,7 @@ install(FILES
 )
 
 # Installa risorse condivise (URDF, config, launch, RViz, webserver)
-install(DIRECTORY urdf config launch rviz webserver DESTINATION share/${PROJECT_NAME})
+install(DIRECTORY urdf config launch rviz web webserver DESTINATION share/${PROJECT_NAME})
 
 # ============================================================
 # 9. MACRO FINALE PER IL PACCHETTO
