@@ -28,6 +28,7 @@ def generate_launch_description():
     ekf_config = PathJoinSubstitution([pkg_share, 'config', 'ekf.yaml'])
     rviz_path = PathJoinSubstitution([pkg_share, 'rviz', 'mecanum.rviz'])
     webserver_path = os.path.join(get_package_share_directory('mecanum_base'), 'webserver')
+    #robot_params_path = PathJoinSubstitution([pkg_share, 'config', 'robot_params.yaml'])
 
     # =========================
     # 🔄 Conversione Xacro → URDF
@@ -222,6 +223,7 @@ def generate_launch_description():
         executable='mecanum_cmd_node',
         name='mecanum_cmd_node',
         output='screen',
+        #parameters=[controllers_path, robot_params_path],
         parameters=[controllers_path],
     )
 

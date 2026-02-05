@@ -1,0 +1,39 @@
+# ============================================================
+#  Parametri fisici e hardware del robot Mecanum
+#  Versione YAML dei valori definiti nel file Xacro
+# ============================================================
+
+mecanum_cmd_node:
+  ros__parameters:
+
+    # ------------------------------------------------------------
+    # Geometria del robot
+    # ------------------------------------------------------------
+    wheel_radius: 0.0235        # Raggio ruota [m]
+    L: 0.7                      # Mezzo passo longitudinale [m]
+    W: 0.7                      # Mezzo passo trasversale [m]
+
+    # ------------------------------------------------------------
+    # Hardware e configurazione motori
+    # ------------------------------------------------------------
+    mock: false                 # true = simulazione, false = hardware reale
+    ticks_per_rev: 12           # Tick encoder per giro motore
+    gear_ratio: 90.0            # Rapporto di riduzione
+
+    # ------------------------------------------------------------
+    # Limiti cinematici del robot
+    # ------------------------------------------------------------
+    max_vx: 0.33                # Velocità lineare max asse X [m/s]
+    max_vy: 0.33                # Velocità lineare max asse Y [m/s]
+    max_wz: 4.7                 # Velocità angolare max attorno a Z [rad/s]
+
+    # accel_limit: 25.0         # (Opzionale) Limite accelerazione [rad/s²]
+
+    # ------------------------------------------------------------
+    # Inversione direzione ruote
+    # 1 = normale, -1 = invertita
+    # ------------------------------------------------------------
+    invert_fl: 1                # Front Left
+    invert_fr: 1                # Front Right
+    invert_rl: 1                # Rear Left
+    invert_rr: 1                # Rear Right

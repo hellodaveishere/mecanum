@@ -3,17 +3,25 @@
 
   <!-- =========================
        📌 PARAMETRI DEL ROBOT
-       ========================= -->
+       ========================= 
+    
+  NOTA: // Parametri fisici dichiarati qui sono indipendenti da quelli dichiarati in mecanum_cmd_node
+       -->
   <!-- Geometria -->
-  <xacro:property name="wheel_radius" value="0.025"/>   <!-- Raggio ruota [m] -->
-  <xacro:property name="L" value="0.15"/>              <!-- Mezzo passo longitudinale [m] -->
-  <xacro:property name="W" value="0.15"/>              <!-- Mezzo passo trasversale [m] -->
+  <xacro:property name="wheel_radius" value="0.0235"/>   <!-- Raggio ruota [m] -->
+  <xacro:property name="L" value="0.7"/>              <!-- Mezzo passo longitudinale [m] -->
+  <xacro:property name="W" value="0.7"/>              <!-- Mezzo passo trasversale [m] -->
 
   <!-- Hardware -->
   <xacro:property name="mock" value="false"/>          <!-- true = simulazione, false = hardware reale -->
-  <xacro:property name="accel_limit" value="25.0"/>    <!-- Limite accelerazione [rad/s²] -->
+  <xacro:property name="accel_limit" value="25.0"/>     <!--Limite accelerazione [rad/s²] -->
   <xacro:property name="ticks_per_rev" value="12"/>  <!-- Tick encoder per giro motore -->
   <xacro:property name="gear_ratio" value="90.0"/>     <!-- Rapporto di riduzione -->
+
+  <xacro:property name="max_vx" value="0.33"/>
+  <xacro:property name="max_vy" value="0.33"/>
+  <xacro:property name="max_wz" value="4.7"/>
+
 
   <!-- Inversione direzione ruote -->
   <xacro:property name="invert_fl" value="1"/>

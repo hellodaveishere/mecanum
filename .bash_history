@@ -1,21 +1,3 @@
-ros2 launch mecanum_base bringup.launch.py > log.txt
-colcon build --packages-select mecanum_base --symlink-install
-source install/setup.bash  
-ros2 launch mecanum_base bringup.launch.py > log.txt
-ros2 run image_tools cam2image --ros-args -p use_compressed:=true
-colcon build --packages-select mecanum_base --symlink-install
-source install/setup.bash  
-ros2 launch mecanum_base bringup.launch.py > log.txt
-clear
-sudo apt install ros-jazzy-compressed-image-transport
-ros2 launch mecanum_base bringup.launch.py > log.txt
-ros2 run image_tools cam2image --ros-args -p use_compressed:=true -p video_device:=/dev/video0
-ros2 run image_tools cam2image --ros-args -p use_compressed:=true -p video_device:=/dev/video0
-B
-[200~ros2 run image_tools cam2image --ros-args -p use_compressed:=true -p video_device:=/dev/video0 -p backend:=v4l2
-~
-ros2 run image_tools cam2image --ros-args -p use_compressed:=true -p video_device:=/dev/video0 -p backend:=v4l2
-apt install -y   gstreamer1.0-tools   gstreamer1.0-plugins-base   gstreamer1.0-plugins-good   gstreamer1.0-plugins-bad   gstreamer1.0-plugins-ugly   v4l-utils
 sudo apt install -y   gstreamer1.0-tools   gstreamer1.0-plugins-base   gstreamer1.0-plugins-good   gstreamer1.0-plugins-bad   gstreamer1.0-plugins-ugly   v4l-utils
 ros2 run image_tools cam2image --ros-args -p use_compressed:=true -p video_device:=/dev/video0 -p backend:=v4l2
 ros2 run image_tools cam2image --ros-args -p use_compressed:=true -p video_device:=/dev/video0 -p backend:=v4l2
@@ -498,3 +480,21 @@ source install/setup.
 source install/setup.bash 
 ros2 launch mecanum_base bringup.launch.py
 exit
+history
+history|grep sym
+colcon build --packages-select mecanum_base --symlink-install
+colcon build --packages-select mecanum_base
+colcon build --packages-select mecanum_base --symlink-install
+colcon build --packages-select mecanum_base
+pwd
+ls
+history
+rm -rf build/ install/ log/
+colcon build --packages-select mecanum_base
+colcon build --packages-select mecanum_base
+source install/setup.bash 
+colcon build --packages-select mecanum_base --symlink-install
+history|grep rm
+rm -rf build/ install/ log/
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 

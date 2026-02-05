@@ -201,7 +201,7 @@
   <script>
     let ros;
     let rosUrl = localStorage.getItem('rosUrl') || 'ws://localhost:9091';
-    let maxSpeed = parseFloat(localStorage.getItem('maxSpeed')) || 0.25;
+    let maxSpeed = parseFloat(localStorage.getItem('maxSpeed')) || 1.0;
     let consoleEnabled = localStorage.getItem('consoleEnabled') === 'true';
     let consoleTopicName = localStorage.getItem('consoleTopicName') || '/rosout';
     let consoleMessageType = localStorage.getItem('consoleMessageType') || 'rcl_interfaces/msg/Log';
@@ -396,8 +396,8 @@
         if (nippleEl) nippleEl.classList.add('active');
 
         if (data && data.vector) {
-          const rawX = data.vector.x;
-          const rawY = data.vector.y;
+          const rawX = data.vector.x; // va' da -1 a 1
+          const rawY = data.vector.y; // va' da -1 a 1
 
           const linear = maxSpeed * rawY * -1;
           const angular = maxSpeed * rawX;

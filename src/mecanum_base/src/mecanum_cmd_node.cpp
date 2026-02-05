@@ -15,16 +15,17 @@ class MecanumCmdNode : public rclcpp::Node
 public:
   MecanumCmdNode() : Node("mecanum_cmd_node")
   {
-    r_ = declare_parameter<double>("wheel_radius", 0.05);
-    L_ = declare_parameter<double>("L", 0.15);
-    W_ = declare_parameter<double>("W", 0.15);
-    max_vx_ = declare_parameter<double>("max_vx", 1.0);
-    max_vy_ = declare_parameter<double>("max_vy", 1.0);
-    max_wz_ = declare_parameter<double>("max_wz", 3.0);
-    controller_topic_ = declare_parameter<std::string>("controller_cmd_topic", "/mecanum_velocity_controller/commands");
-
+    // Parametri fisici dichiarati qui sono indipendenti da quelli nel file URDF/Xarco
+    r_ = declare_parameter<double>("wheel_radius", 0.0235);
+    L_ = declare_parameter<double>("L", 0.7);
+    W_ = declare_parameter<double>("W", 0.7);
+    max_vx_ = declare_parameter<double>("max_vx", 0.33);
+    max_vy_ = declare_parameter<double>("max_vy", 0.33);
+    max_wz_ = declare_parameter<double>("max_wz", 4.7);
     wheel_correction_ = declare_parameter<std::vector<double>>("wheel_correction", {1.0, 1.0, 1.0, 1.0});
-
+    
+    controller_topic_ = declare_parameter<std::string>("controller_cmd_topic", "/mecanum_velocity_controller/commands");
+    
     // wheel_offset_ = {0.0, 0.0, 0.0, 0.0 };
     // loadCorrectionFromFile();
     wheel_offset_ = loadCorrectionFromFile();

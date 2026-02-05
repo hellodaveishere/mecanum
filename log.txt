@@ -1,652 +1,281 @@
-[INFO] [launch]: All log files can be found below /home/ws/.ros/log/2025-10-31-09-12-33-557832-dave-computer-26258
+[INFO] [launch]: All log files can be found below /home/ws/.ros/log/2026-02-04-22-34-41-327843-dave-computer-64919
 [INFO] [launch]: Default logging verbosity is set to INFO
-[INFO] [robot_state_publisher-1]: process started with pid [26287]
-[INFO] [ros2_control_node-2]: process started with pid [26288]
-[INFO] [mecanum_cmd_node-3]: process started with pid [26289]
-[INFO] [mecanum_odom_node-4]: process started with pid [26290]
-[INFO] [ekf_node-5]: process started with pid [26291]
-[INFO] [rosbridge_websocket-6]: process started with pid [26292]
-[INFO] [node-7]: process started with pid [26293]
-[INFO] [throttle-8]: process started with pid [26294]
-[INFO] [v4l2_camera_node-9]: process started with pid [26295]
-[mecanum_cmd_node-3] [INFO] [1761901954.249849180] [mecanum_cmd_node]: mecanum_cmd_node: pubblicazione comandi su /mecanum_velocity_controller/commands
-[robot_state_publisher-1] [INFO] [1761901954.603642331] [robot_state_publisher]: Robot initialized
-[ros2_control_node-2] [INFO] [1761901954.619150808] [controller_manager]: Using Steady (Monotonic) clock for triggering controller manager cycles.
-[ros2_control_node-2] [INFO] [1761901954.680057516] [controller_manager]: Subscribing to '/robot_description' topic for robot description.
-[ros2_control_node-2] [INFO] [1761901954.724730283] [controller_manager]: update rate is 50 Hz
-[ros2_control_node-2] [INFO] [1761901954.724810409] [controller_manager]: Spawning controller_manager RT thread with scheduler priority: 50
-[ros2_control_node-2] [WARN] [1761901954.727489175] [controller_manager]: Could not enable FIFO RT scheduling policy: with error number <1>(Operation not permitted). See [https://control.ros.org/master/doc/ros2_control/controller_manager/doc/userdoc.html] for details on how to enable realtime scheduling.
-[mecanum_odom_node-4] [INFO] [1761901954.729676938] [mecanum_odom_node]: mecanum_odom_node avviato
-[ros2_control_node-2] [INFO] [1761901954.761931810] [controller_manager]: Received robot description from topic.
-[ros2_control_node-2] [INFO] [1761901954.782605002] [controller_manager]: Loading hardware 'MecanumSystem' 
-[ros2_control_node-2] [INFO] [1761901954.792087047] [controller_manager]: Loaded hardware 'MecanumSystem' from plugin 'mecanum_hardware/MecanumSystem'
-[ros2_control_node-2] [INFO] [1761901954.792215610] [controller_manager]: Initialize hardware 'MecanumSystem' 
-[ros2_control_node-2] [INFO] [1761901954.862617799] [controller_manager.hardware_component.system.MecanumSystem]: Init OK (mock=false, serial=/dev/ttyUSB0, baud=1000000)
-[ros2_control_node-2] [INFO] [1761901954.864951225] [controller_manager]: Successful initialization of hardware 'MecanumSystem'
-[ros2_control_node-2] [INFO] [1761901954.866823784] [BatteryDebug]: Exporting interface: percentage @ 0x56a7b887d898
-[ros2_control_node-2] [INFO] [1761901954.867473482] [resource_manager]: 'configure' hardware 'MecanumSystem' 
-[ros2_control_node-2] [INFO] [1761901954.867500575] [resource_manager]: Successful 'configure' of hardware 'MecanumSystem'
-[ros2_control_node-2] [INFO] [1761901954.867519225] [resource_manager]: 'activate' hardware 'MecanumSystem' 
-[ros2_control_node-2] [INFO] [1761901954.868679956] [controller_manager.hardware_component.system.MecanumSystem]: Porta seriale /dev/ttyUSB0 aperta a 1000000 baud
-[ros2_control_node-2] [INFO] [1761901954.868770814] [resource_manager]: Successful 'activate' of hardware 'MecanumSystem'
-[ros2_control_node-2] [INFO] [1761901954.868888170] [controller_manager]: Resource Manager has been successfully initialized. Starting Controller Manager services...
-[v4l2_camera_node-9] [INFO] [1761901955.021216151] [v4l2_camera]: Driver: uvcvideo
-[v4l2_camera_node-9] [INFO] [1761901955.021496073] [v4l2_camera]: Version: 396811
-[v4l2_camera_node-9] [INFO] [1761901955.021533185] [v4l2_camera]: Device: Integrated Camera: Integrated C
-[v4l2_camera_node-9] [INFO] [1761901955.021546651] [v4l2_camera]: Location: usb-0000:00:14.0-10
-[v4l2_camera_node-9] [INFO] [1761901955.021557462] [v4l2_camera]: Capabilities:
-[v4l2_camera_node-9] [INFO] [1761901955.021566952] [v4l2_camera]:   Read/write: NO
-[v4l2_camera_node-9] [INFO] [1761901955.021577037] [v4l2_camera]:   Streaming: YES
-[v4l2_camera_node-9] [INFO] [1761901955.021594315] [v4l2_camera]: Current pixel format: YUYV @ 640x480
-[v4l2_camera_node-9] [INFO] [1761901955.021767400] [v4l2_camera]: Available pixel formats: 
-[v4l2_camera_node-9] [INFO] [1761901955.021785513] [v4l2_camera]:   YUYV - YUYV 4:2:2
-[v4l2_camera_node-9] [INFO] [1761901955.021796229] [v4l2_camera]:   MJPG - Motion-JPEG
-[v4l2_camera_node-9] [INFO] [1761901955.021805717] [v4l2_camera]: Available controls: 
-[v4l2_camera_node-9] [INFO] [1761901955.021822091] [v4l2_camera]:   Brightness (1) = 128
-[v4l2_camera_node-9] [INFO] [1761901955.021838173] [v4l2_camera]:   Contrast (1) = 32
-[v4l2_camera_node-9] [INFO] [1761901955.021852699] [v4l2_camera]:   Saturation (1) = 64
-[v4l2_camera_node-9] [INFO] [1761901955.021867254] [v4l2_camera]:   Hue (1) = 0
-[v4l2_camera_node-9] [INFO] [1761901955.021883102] [v4l2_camera]:   White Balance, Automatic (2) = 1
-[v4l2_camera_node-9] [INFO] [1761901955.021897375] [v4l2_camera]:   Gamma (1) = 120
-[v4l2_camera_node-9] [INFO] [1761901955.021912028] [v4l2_camera]:   Power Line Frequency (3) = 1
-[v4l2_camera_node-9] [INFO] [1761901955.022719405] [v4l2_camera]:   White Balance Temperature (1) = 4000 [inactive]
-[v4l2_camera_node-9] [INFO] [1761901955.022786503] [v4l2_camera]:   Sharpness (1) = 2
-[v4l2_camera_node-9] [INFO] [1761901955.022826323] [v4l2_camera]:   Backlight Compensation (1) = 1
-[v4l2_camera_node-9] [ERROR] [1761901955.022866159] [v4l2_camera]: Failed getting value for control 10092545: Permission denied (13); returning 0!
-[v4l2_camera_node-9] [INFO] [1761901955.022913896] [v4l2_camera]:   Camera Controls (6) = 0
-[v4l2_camera_node-9] [INFO] [1761901955.022936396] [v4l2_camera]:   Auto Exposure (3) = 3
-[v4l2_camera_node-9] [INFO] [1761901955.023839968] [v4l2_camera]:   Exposure Time, Absolute (1) = 156 [inactive]
-[v4l2_camera_node-9] [INFO] [1761901955.023905123] [v4l2_camera]:   Exposure, Dynamic Framerate (2) = 0
-[v4l2_camera_node-9] [WARN] [1761901955.027472978] [v4l2_camera]: Control type not currently supported: 6, for control: Camera Controls
-[v4l2_camera_node-9] [INFO] [1761901955.027884617] [v4l2_camera]: Starting camera
-[node-7] Serving static files from: /home/ws/src/mecanum_base/web
-[node-7] Web server attivo su http://localhost:8000
-[v4l2_camera_node-9] [WARN] [1761901955.296266755] [v4l2_camera]: Image encoding not the same as requested output, performing possibly slow conversion: yuv422_yuy2 => rgb8
-[v4l2_camera_node-9] [INFO] [1761901955.305615461] [v4l2_camera]: using default calibration URL
-[v4l2_camera_node-9] [INFO] [1761901955.305697246] [v4l2_camera]: camera calibration URL: file:///home/ws/.ros/camera_info/integrated_camera:_integrated_c.yaml
-[v4l2_camera_node-9] [ERROR] [1761901955.305995812] [camera_calibration_parsers]: Unable to open camera calibration file [/home/ws/.ros/camera_info/integrated_camera:_integrated_c.yaml]
-[v4l2_camera_node-9] [WARN] [1761901955.306064682] [v4l2_camera]: Camera calibration file /home/ws/.ros/camera_info/integrated_camera:_integrated_c.yaml not found
-[rosbridge_websocket-6] [INFO] [1761901955.596732769] [rosbridge_websocket]: Rosbridge WebSocket server started on port 9091
-[INFO] [spawner-10]: process started with pid [26490]
-[INFO] [spawner-11]: process started with pid [26491]
-[INFO] [spawner-12]: process started with pid [26492]
-[INFO] [spawner-13]: process started with pid [26493]
-[INFO] [spawner-14]: process started with pid [26494]
-[INFO] [spawner-15]: process started with pid [26495]
-[INFO] [spawner-16]: process started with pid [26496]
-[INFO] [spawner-17]: process started with pid [26497]
-[ros2_control_node-2] [WARN] [1761901958.769128811] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.460028 ms (missed cycles : 2).
-[spawner-13] [INFO] [1761901958.964716405] [spawner_ir_front_left_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
-[ros2_control_node-2] [INFO] [1761901959.127833037] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:355 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [INFO] [1761901961.220244337] [controller_manager]: Loading controller : 'ir_front_left_broadcaster' of type 'range_sensor_broadcaster/RangeSensorBroadcaster'
-[ros2_control_node-2] [INFO] [1761901961.220305625] [controller_manager]: Loading controller 'ir_front_left_broadcaster'
-[ros2_control_node-2] [INFO] [1761901961.225199902] [controller_manager]: Controller 'ir_front_left_broadcaster' node arguments: --ros-args --params-file /tmp/launch_params_eeymekgr --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
-[spawner-13] [INFO] [1761901961.271998012] [spawner_ir_front_left_broadcaster]: [94mLoaded [1mir_front_left_broadcaster[0m
-[ros2_control_node-2] [INFO] [1761901961.356681435] [controller_manager]: Configuring controller: 'ir_front_left_broadcaster'
-[ros2_control_node-2] [INFO] [1761901961.398221363] [controller_manager]: Activating controllers: [ ir_front_left_broadcaster ]
-[ros2_control_node-2] [INFO] [1761901961.409495272] [controller_manager]: Successfully switched controllers!
-[spawner-13] [INFO] [1761901961.451897070] [spawner_ir_front_left_broadcaster]: [92mConfigured and activated [1mir_front_left_broadcaster[0m
-[INFO] [spawner-13]: process has finished cleanly [pid 26493]
-[spawner-10] [INFO] [1761901962.093930015] [spawner_joint_state_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
-[ros2_control_node-2] [INFO] [1761901962.356149545] [controller_manager]: Loading controller : 'joint_state_broadcaster' of type 'joint_state_broadcaster/JointStateBroadcaster'
-[ros2_control_node-2] [INFO] [1761901962.356327139] [controller_manager]: Loading controller 'joint_state_broadcaster'
-[ros2_control_node-2] [INFO] [1761901962.391406567] [controller_manager]: Controller 'joint_state_broadcaster' node arguments: --ros-args --params-file /tmp/launch_params_eeymekgr --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
-[spawner-10] [INFO] [1761901962.470297796] [spawner_joint_state_broadcaster]: [94mLoaded [1mjoint_state_broadcaster[0m
-[ros2_control_node-2] [INFO] [1761901962.472297737] [controller_manager]: Configuring controller: 'joint_state_broadcaster'
-[ros2_control_node-2] [INFO] [1761901962.472433368] [joint_state_broadcaster]: 'joints' or 'interfaces' parameter is empty. All available state interfaces will be published
-[ros2_control_node-2] [INFO] [1761901962.510397363] [controller_manager]: Activating controllers: [ joint_state_broadcaster ]
-[ros2_control_node-2] [INFO] [1761901962.528087817] [controller_manager]: Successfully switched controllers!
-[spawner-10] [INFO] [1761901962.550920990] [spawner_joint_state_broadcaster]: [92mConfigured and activated [1mjoint_state_broadcaster[0m
-[spawner-12] [INFO] [1761901962.743729115] [spawner_imu_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
-[INFO] [spawner-10]: process has finished cleanly [pid 26490]
-[ros2_control_node-2] [INFO] [1761901964.516958992] [controller_manager]: Loading controller : 'imu_broadcaster' of type 'imu_sensor_broadcaster/IMUSensorBroadcaster'
-[ros2_control_node-2] [INFO] [1761901964.517281654] [controller_manager]: Loading controller 'imu_broadcaster'
-[ros2_control_node-2] [INFO] [1761901964.530230386] [controller_manager]: Controller 'imu_broadcaster' node arguments: --ros-args --params-file /tmp/launch_params_eeymekgr --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
-[spawner-12] [INFO] [1761901964.631235338] [spawner_imu_broadcaster]: [94mLoaded [1mimu_broadcaster[0m
-[ros2_control_node-2] [INFO] [1761901964.633414061] [controller_manager]: Configuring controller: 'imu_broadcaster'
-[ros2_control_node-2] [INFO] [1761901964.650785790] [controller_manager]: Activating controllers: [ imu_broadcaster ]
-[ros2_control_node-2] [INFO] [1761901964.667975816] [controller_manager]: Successfully switched controllers!
-[spawner-12] [INFO] [1761901964.689905746] [spawner_imu_broadcaster]: [92mConfigured and activated [1mimu_broadcaster[0m
-[INFO] [spawner-12]: process has finished cleanly [pid 26492]
-[spawner-16] [INFO] [1761901965.225983448] [spawner_servo_position_controller]: waiting for service /controller_manager/list_controllers to become available...
-[ros2_control_node-2] [INFO] [1761901967.329246107] [controller_manager]: Loading controller : 'servo_position_controller' of type 'position_controllers/JointGroupPositionController'
-[ros2_control_node-2] [INFO] [1761901967.331200436] [controller_manager]: Loading controller 'servo_position_controller'
-[ros2_control_node-2] [INFO] [1761901967.359168022] [controller_manager]: Controller 'servo_position_controller' node arguments: --ros-args --params-file /tmp/launch_params_eeymekgr --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
-[spawner-16] [INFO] [1761901967.524062012] [spawner_servo_position_controller]: [94mLoaded [1mservo_position_controller[0m
-[ros2_control_node-2] [INFO] [1761901967.534998149] [controller_manager]: Configuring controller: 'servo_position_controller'
-[ros2_control_node-2] [INFO] [1761901967.553661046] [servo_position_controller]: configure successful
-[ros2_control_node-2] [INFO] [1761901967.585436786] [controller_manager]: Activating controllers: [ servo_position_controller ]
-[ros2_control_node-2] [INFO] [1761901967.587960047] [servo_position_controller]: activate successful
-[ros2_control_node-2] [INFO] [1761901967.589590343] [controller_manager]: Successfully switched controllers!
-[spawner-16] [INFO] [1761901967.628001293] [spawner_servo_position_controller]: [92mConfigured and activated [1mservo_position_controller[0m
-[ros2_control_node-2] [WARN] [1761901967.915957711] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 28.287113 ms (missed cycles : 2).
-[INFO] [spawner-16]: process has finished cleanly [pid 26496]
-[spawner-17] [INFO] [1761901968.267690046] [spawner_battery_state_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
-[ros2_control_node-2] [INFO] [1761901968.968148466] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:366 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761901970.148405865] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.736118 ms (missed cycles : 2).
-[ros2_control_node-2] [INFO] [1761901970.788117964] [controller_manager]: Loading controller : 'battery_state_broadcaster' of type 'battery_state_broadcaster/BatteryStateBroadcaster'
-[ros2_control_node-2] [INFO] [1761901970.790704453] [controller_manager]: Loading controller 'battery_state_broadcaster'
-[ros2_control_node-2] [INFO] [1761901970.811835708] [controller_manager]: Controller 'battery_state_broadcaster' node arguments: --ros-args --params-file /tmp/launch_params_eeymekgr --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
-[spawner-17] [INFO] [1761901970.911071420] [spawner_battery_state_broadcaster]: [94mLoaded [1mbattery_state_broadcaster[0m
-[ros2_control_node-2] [INFO] [1761901970.995068635] [controller_manager]: Configuring controller: 'battery_state_broadcaster'
-[ros2_control_node-2] [INFO] [1761901971.013666975] [controller_manager]: Activating controllers: [ battery_state_broadcaster ]
-[ros2_control_node-2] [INFO] [1761901971.028276587] [controller_manager]: Successfully switched controllers!
-[spawner-17] [INFO] [1761901971.065710862] [spawner_battery_state_broadcaster]: [92mConfigured and activated [1mbattery_state_broadcaster[0m
-[INFO] [spawner-17]: process has finished cleanly [pid 26497]
-[spawner-15] [INFO] [1761901971.714756178] [spawner_ir_front_right_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
-[ros2_control_node-2] [INFO] [1761901973.274129143] [controller_manager]: Loading controller : 'ir_front_right_broadcaster' of type 'range_sensor_broadcaster/RangeSensorBroadcaster'
-[ros2_control_node-2] [INFO] [1761901973.274184388] [controller_manager]: Loading controller 'ir_front_right_broadcaster'
-[ros2_control_node-2] [INFO] [1761901973.274543167] [controller_manager]: Controller 'ir_front_right_broadcaster' node arguments: --ros-args --params-file /tmp/launch_params_eeymekgr --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
-[spawner-15] [INFO] [1761901973.311247267] [spawner_ir_front_right_broadcaster]: [94mLoaded [1mir_front_right_broadcaster[0m
-[ros2_control_node-2] [INFO] [1761901973.395722714] [controller_manager]: Configuring controller: 'ir_front_right_broadcaster'
-[ros2_control_node-2] [INFO] [1761901973.426550213] [controller_manager]: Activating controllers: [ ir_front_right_broadcaster ]
-[ros2_control_node-2] [INFO] [1761901973.430245964] [controller_manager]: Successfully switched controllers!
-[spawner-15] [INFO] [1761901973.473177922] [spawner_ir_front_right_broadcaster]: [92mConfigured and activated [1mir_front_right_broadcaster[0m
-[INFO] [spawner-15]: process has finished cleanly [pid 26495]
-[spawner-14] [INFO] [1761901974.111730487] [spawner_ir_front_center_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
-[ros2_control_node-2] [INFO] [1761901976.371141568] [controller_manager]: Loading controller : 'ir_front_center_broadcaster' of type 'range_sensor_broadcaster/RangeSensorBroadcaster'
-[ros2_control_node-2] [INFO] [1761901976.371202411] [controller_manager]: Loading controller 'ir_front_center_broadcaster'
-[ros2_control_node-2] [INFO] [1761901976.378605030] [controller_manager]: Controller 'ir_front_center_broadcaster' node arguments: --ros-args --params-file /tmp/launch_params_eeymekgr --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
-[spawner-14] [INFO] [1761901976.516598838] [spawner_ir_front_center_broadcaster]: [94mLoaded [1mir_front_center_broadcaster[0m
-[ros2_control_node-2] [INFO] [1761901976.520522745] [controller_manager]: Configuring controller: 'ir_front_center_broadcaster'
-[ros2_control_node-2] [INFO] [1761901976.543406944] [controller_manager]: Activating controllers: [ ir_front_center_broadcaster ]
-[ros2_control_node-2] [INFO] [1761901976.548425781] [controller_manager]: Successfully switched controllers!
-[spawner-14] [INFO] [1761901976.575550367] [spawner_ir_front_center_broadcaster]: [92mConfigured and activated [1mir_front_center_broadcaster[0m
-[INFO] [spawner-14]: process has finished cleanly [pid 26494]
-[spawner-11] [INFO] [1761901977.298586171] [spawner_mecanum_velocity_controller]: waiting for service /controller_manager/list_controllers to become available...
-[ros2_control_node-2] [INFO] [1761901977.804185998] [controller_manager]: Loading controller : 'mecanum_velocity_controller' of type 'velocity_controllers/JointGroupVelocityController'
-[ros2_control_node-2] [INFO] [1761901977.804250055] [controller_manager]: Loading controller 'mecanum_velocity_controller'
-[ros2_control_node-2] [INFO] [1761901977.808343008] [controller_manager]: Controller 'mecanum_velocity_controller' node arguments: --ros-args --params-file /tmp/launch_params_eeymekgr --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
-[spawner-11] [INFO] [1761901977.871249865] [spawner_mecanum_velocity_controller]: [94mLoaded [1mmecanum_velocity_controller[0m
-[ros2_control_node-2] [INFO] [1761901977.874743363] [controller_manager]: Configuring controller: 'mecanum_velocity_controller'
-[ros2_control_node-2] [INFO] [1761901977.876528066] [mecanum_velocity_controller]: configure successful
-[ros2_control_node-2] [INFO] [1761901977.894507844] [controller_manager]: Activating controllers: [ mecanum_velocity_controller ]
-[ros2_control_node-2] [INFO] [1761901977.908100255] [mecanum_velocity_controller]: activate successful
-[ros2_control_node-2] [INFO] [1761901977.908643590] [controller_manager]: Successfully switched controllers!
-[spawner-11] [INFO] [1761901977.934509993] [spawner_mecanum_velocity_controller]: [92mConfigured and activated [1mmecanum_velocity_controller[0m
-[INFO] [spawner-11]: process has finished cleanly [pid 26491]
-[ros2_control_node-2] [INFO] [1761901978.948340002] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:377 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [INFO] [1761901988.968782791] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:388 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761901990.952173594] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.498315 ms (missed cycles : 2).
-[ros2_control_node-2] [INFO] [1761901999.028457465] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:399 Scartati:0 Err:0 Coda↑:0
-[ros2_control_node-2] [WARN] [1761901999.048140935] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto:  ↓:0
-[ros2_control_node-2] [INFO] [1761902009.108689231] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:410 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902012.985866020] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 38.193059 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902018.670440774] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.764959 ms (missed cycles : 2).
-[ros2_control_node-2] [INFO] [1761902019.108431548] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:420 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902028.210234880] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.558840 ms (missed cycles : 2).
-[ros2_control_node-2] [INFO] [1761902029.128619300] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:431 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902030.368200357] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: I
-[ros2_control_node-2] [WARN] [1761902030.389262543] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: MU,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
-[ros2_control_node-2] [INFO] [1761902039.129213136] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:442 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [INFO] [1761902049.148385777] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:453 Scartati:0 Err:0 Coda�
-[ros2_control_node-2] [WARN] [1761902049.168044122] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: ��:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902055.987923803] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 0,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
-[ros2_control_node-2] [INFO] [1761902059.168839905] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:464 Scartati:0 Err:0 Coda↑:0 ↓:0
-[rosbridge_websocket-6] [INFO] [1761902067.542569528] [rosbridge_websocket]: Calling services in new thread
-[rosbridge_websocket-6] [INFO] [1761902067.544128397] [rosbridge_websocket]: Sending action goals in new thread
-[rosbridge_websocket-6] [INFO] [1761902067.546760587] [rosbridge_websocket]: Client connected. 1 clients total.
-[rosbridge_websocket-6] [INFO] [1761902067.783675673] [rosbridge_websocket]: [Client e39bd06b-8675-49b7-930e-e7858d248562] Subscribed to /image_raw/compressed
-[rosbridge_websocket-6] [INFO] [1761902067.788667747] [rosbridge_websocket]: [Client e39bd06b-8675-49b7-930e-e7858d248562] Subscribed to /battery_state_broadcaster/battery_state_throttled
-[rosbridge_websocket-6] [INFO] [1761902067.792754488] [rosbridge_websocket]: [Client e39bd06b-8675-49b7-930e-e7858d248562] Subscribed to /rosout_text
-[ros2_control_node-2] [INFO] [1761902069.227800878] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:474 Scar
-[ros2_control_node-2] [WARN] [1761902069.248529831] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: tati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [INFO] [1761902079.207872429] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:485 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [INFO] [1761902089.247878581] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:496 Scartati:0 Err:0 Coda↑:0 ↓:0
-[rosbridge_websocket-6] [INFO] [1761902090.282843034] [rosbridge_websocket]: Calling services in new thread
-[rosbridge_websocket-6] [INFO] [1761902090.284123070] [rosbridge_websocket]: Sending action goals in new thread
-[rosbridge_websocket-6] [INFO] [1761902090.286865425] [rosbridge_websocket]: Client connected. 2 clients total.
-[rosbridge_websocket-6] [INFO] [1761902090.333046005] [rosbridge_websocket]: [Client e39bd06b-8675-49b7-930e-e7858d248562] Unsubscribed from /rosout_text
-[rosbridge_websocket-6] [INFO] [1761902090.334806999] [rosbridge_websocket]: [Client 7c738b5c-a1b3-49eb-b2dd-674639bfa3c1] Subscribed to /image_raw/compressed
-[rosbridge_websocket-6] [INFO] [1761902090.380537725] [rosbridge_websocket]: [Client 7c738b5c-a1b3-49eb-b2dd-674639bfa3c1] Subscribed to /battery_state_broadcaster/battery_state_throttled
-[rosbridge_websocket-6] [ERROR] [1761902090.399927159] [rosbridge_websocket]: [Client 7c738b5c-a1b3-49eb-b2dd-674639bfa3c1] [id: subscribe:/rosout:3] subscribe: Tried to register topic /rosout with type std_msgs/msg/String but it is already established with type rcl_interfaces/msg/Log
-[ros2_control_node-2] [WARN] [1761902092.767906157] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
-[rosbridge_websocket-6] [INFO] [1761902097.552564302] [rosbridge_websocket]: Client disconnected. 1 clients total.
-[rosbridge_websocket-6] [INFO] [1761902097.554688091] [rosbridge_websocket]: Client disconnected. 0 clients total.
-[rosbridge_websocket-6] [INFO] [1761902097.867482882] [rosbridge_websocket]: Calling services in new thread
-[rosbridge_websocket-6] [INFO] [1761902097.869925568] [rosbridge_websocket]: Sending action goals in new thread
-[rosbridge_websocket-6] [INFO] [1761902097.872956889] [rosbridge_websocket]: Client connected. 1 clients total.
-[rosbridge_websocket-6] [INFO] [1761902097.901098878] [rosbridge_websocket]: [Client 4cfa3c73-5589-464f-9418-260acbd00593] Subscribed to /image_raw/compressed
-[rosbridge_websocket-6] [INFO] [1761902097.905674934] [rosbridge_websocket]: [Client 4cfa3c73-5589-464f-9418-260acbd00593] Subscribed to /battery_state_broadcaster/battery_state_throttled
-[rosbridge_websocket-6] [ERROR] [1761902097.907166907] [rosbridge_websocket]: [Client 4cfa3c73-5589-464f-9418-260acbd00593] [id: subscribe:/rosout:3] subscribe: Tried to register topic /rosout with type std_msgs/msg/String but it is already established with type rcl_interfaces/msg/Log
-[ros2_control_node-2] [INFO] [1761902099.228159241] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:507 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [INFO] [1761902109.247864670] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:518 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [INFO] [1761902119.267885330] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:528 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902128.856203222] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 28.534051 ms (missed cycles : 2).
-[ros2_control_node-2] [INFO] [1761902129.208651431] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:539 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902131.674115617] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 26.446201 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902133.528081956] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
-[ros2_control_node-2] [INFO] [1761902139.219271160] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:550 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902145.767888975] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 0,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
-[ros2_control_node-2] [WARN] [1761902148.068599892] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 40.928595 ms (missed cycles : 3).
-[ros2_control_node-2] [INFO] [1761902149.187976293] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:561 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902154.967974653] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 0,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
-[ros2_control_node-2] [INFO] [1761902159.227926739] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:572 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902159.411067212] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.333135 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902163.970781521] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.108270 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902165.712583802] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.913941 ms (missed cycles : 2).
-[ros2_control_node-2] [INFO] [1761902169.207904779] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:582 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902169.291708057] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.038087 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902178.008824180] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.152285 ms (missed cycles : 2).
-[ros2_control_node-2] [INFO] [1761902179.207892433] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:593 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902184.604795493] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 37.125712 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902188.543897570] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 56.227874 ms (missed cycles : 3).
-[ros2_control_node-2] [INFO] [1761902189.187887130] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:604 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902194.325163487] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 57.493679 ms (missed cycles : 3).
-[ros2_control_node-2] [INFO] [1761902199.147919976] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:615 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902199.493977550] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 66.307889 ms (missed cycles : 4).
-[ros2_control_node-2] [WARN] [1761902200.552371001] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.701399 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902202.089527144] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.858145 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902203.113300646] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 25.628813 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902203.907922194] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
-[ros2_control_node-2] [WARN] [1761902208.289475776] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.803261 ms (missed cycles : 2).
-[ros2_control_node-2] [INFO] [1761902209.147899870] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:626 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902209.388249460] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.578836 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902210.835727809] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 48.038292 ms (missed cycles : 3).
-[ros2_control_node-2] [INFO] [1761902219.149417137] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:636 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902221.175842941] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 28.159986 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902222.773460365] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 25.790352 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902224.001968829] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 34.298634 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902227.492074201] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.404531 ms (missed cycles : 2).
-[ros2_control_node-2] [INFO] [1761902229.207931630] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:647 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902231.488544858] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: ,0.0000,0.0000,0.0000
-[ros2_control_node-2] [WARN] [1761902233.169931841] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 42.259443 ms (missed cycles : 3).
-[ros2_control_node-2] [WARN] [1761902234.357572589] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 29.903107 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902238.095349150] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 27.680027 ms (missed cycles : 2).
-[ros2_control_node-2] [INFO] [1761902239.207897879] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:658 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902242.274003093] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 26.331465 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902243.767806648] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: ,0.0000,0.0000
-[ros2_control_node-2] [WARN] [1761902244.280979143] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 32.524115 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902245.533599606] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 25.928851 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902246.728422242] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 40.753033 ms (missed cycles : 3).
-[ros2_control_node-2] [WARN] [1761902247.866629817] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 218.960115 ms (missed cycles : 11).
-[ros2_control_node-2] [INFO] [1761902249.187901718] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:669 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902251.967949912] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
-[rosbridge_websocket-6] [INFO] [1761902252.141735548] [rosbridge_websocket]: Client disconnected. 0 clients total.
-[rosbridge_websocket-6] [INFO] [1761902252.735070723] [rosbridge_websocket]: Calling services in new thread
-[rosbridge_websocket-6] [INFO] [1761902252.736821370] [rosbridge_websocket]: Sending action goals in new thread
-[rosbridge_websocket-6] [INFO] [1761902252.739603591] [rosbridge_websocket]: Client connected. 1 clients total.
-[rosbridge_websocket-6] [INFO] [1761902252.822339271] [rosbridge_websocket]: [Client 03162f3b-3b1a-4adf-8e41-5db72805155f] Subscribed to /image_raw/compressed
-[rosbridge_websocket-6] [INFO] [1761902252.836817144] [rosbridge_websocket]: [Client 03162f3b-3b1a-4adf-8e41-5db72805155f] Subscribed to /battery_state_broadcaster/battery_state_throttled
-[rosbridge_websocket-6] [ERROR] [1761902252.874878230] [rosbridge_websocket]: [Client 03162f3b-3b1a-4adf-8e41-5db72805155f] [id: subscribe:/rosout:3] subscribe: Tried to register topic /rosout with type std_msgs/msg/String but it is already established with type rcl_interfaces/msg/Log
-[ros2_control_node-2] [WARN] [1761902257.469071575] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.401404 ms (missed cycles : 2).
-[ros2_control_node-2] [INFO] [1761902259.247907815] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:680 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902266.307867235] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: .0000,0.0000,0.0000,0.0000,0.0000,0.0000
-[ros2_control_node-2] [WARN] [1761902268.952453291] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 64.782263 ms (missed cycles : 4).
-[ros2_control_node-2] [INFO] [1761902269.207909162] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:690 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902272.635586533] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 27.914576 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902278.335185309] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 47.515000 ms (missed cycles : 3).
-[ros2_control_node-2] [INFO] [1761902279.227904839] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:701 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902279.350201670] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.528162 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902285.312930671] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 85.260203 ms (missed cycles : 5).
-[ros2_control_node-2] [INFO] [1761902289.187989755] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:712 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902292.051318389] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.649243 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902293.790309139] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.638245 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902295.039367743] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 31.698031 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902296.344858200] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 37.188414 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902297.520816507] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 113.145226 ms (missed cycles : 6).
-[ros2_control_node-2] [INFO] [1761902299.207936478] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:723 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902299.835192882] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 27.522983 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902303.003189772] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 35.520018 ms (missed cycles : 2).
-[ros2_control_node-2] [INFO] [1761902309.227901300] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:734 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902310.771701157] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.029924 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902312.508962698] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 61.293280 ms (missed cycles : 4).
-[ros2_control_node-2] [WARN] [1761902314.316221339] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 48.551733 ms (missed cycles : 3).
-[ros2_control_node-2] [INFO] [1761902319.188325121] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:744 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902326.272946882] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 25.277392 ms (missed cycles : 2).
-[ros2_control_node-2] [INFO] [1761902329.187891939] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:755 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [INFO] [1761902339.210645178] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:766 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902346.189461658] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.776899 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902347.411478518] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.807852 ms (missed cycles : 2).
-[ros2_control_node-2] [INFO] [1761902349.248759223] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:777 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902356.087433138] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 59.749041 ms (missed cycles : 3).
-[ros2_control_node-2] [INFO] [1761902359.407901257] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:788 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [INFO] [1761902369.428176449] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:798 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902378.490308745] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 62.637696 ms (missed cycles : 4).
-[ros2_control_node-2] [INFO] [1761902379.449219793] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:809 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902379.871567615] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.886051 ms (missed cycles : 2).
-[ros2_control_node-2] [INFO] [1761902389.447885260] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:820 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902394.152631347] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 64.962502 ms (missed cycles : 4).
-[ros2_control_node-2] [WARN] [1761902398.147961191] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: .0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
-[ros2_control_node-2] [INFO] [1761902399.448274800] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:831 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902407.266537029] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 58.867137 ms (missed cycles : 3).
-[ros2_control_node-2] [WARN] [1761902409.472176096] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.507015 ms (missed cycles : 2).
-[ros2_control_node-2] [INFO] [1761902409.489523414] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:842 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902414.508130262] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
-[ros2_control_node-2] [INFO] [1761902419.507877741] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:852 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902424.191336414] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.664393 ms (missed cycles : 2).
-[ros2_control_node-2] [INFO] [1761902429.567904888] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:863 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902429.675751800] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 28.080983 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902431.112235819] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.565485 ms (missed cycles : 2).
-[ros2_control_node-2] [INFO] [1761902439.527900779] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:874 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902440.595203837] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 27.532986 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902444.225305892] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 37.634128 ms (missed cycles : 2).
-[ros2_control_node-2] [INFO] [1761902449.507858274] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:885 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [INFO] [1761902459.467929705] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:896 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [INFO] [1761902469.447910462] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:906 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902474.687981415] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 60.309237 ms (missed cycles : 4).
-[ros2_control_node-2] [WARN] [1761902476.070132040] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.462078 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902477.504254428] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 36.569253 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902478.831523175] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 143.850535 ms (missed cycles : 8).
-[ros2_control_node-2] [INFO] [1761902479.468769418] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:917 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [INFO] [1761902489.467897692] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:928 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [INFO] [1761902499.527912170] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:939 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902506.453358061] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 25.686688 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902508.792076273] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.548590 ms (missed cycles : 2).
-[ros2_control_node-2] [INFO] [1761902509.489615297] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:950 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902510.399442917] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 26.960604 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902511.442117696] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 34.448798 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902512.540309881] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 52.639978 ms (missed cycles : 3).
-[ros2_control_node-2] [WARN] [1761902516.785150128] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 37.132572 ms (missed cycles : 2).
-[ros2_control_node-2] [INFO] [1761902519.548188516] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:960 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902519.764833757] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 57.165417 ms (missed cycles : 3).
-[ros2_control_node-2] [WARN] [1761902522.137458975] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 29.772885 ms (missed cycles : 2).
-[ros2_control_node-2] [INFO] [1761902529.587891527] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:971 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [INFO] [1761902539.607924734] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:982 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902543.148392311] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.389731 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902544.488274277] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.603671 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902546.192625046] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.954914 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902548.567748410] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.076703 ms (missed cycles : 2).
-[ros2_control_node-2] [INFO] [1761902549.607893959] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:993 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902556.407882630] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 00,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
-[ros2_control_node-2] [WARN] [1761902558.708253895] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.584382 ms (missed cycles : 2).
-[ros2_control_node-2] [INFO] [1761902559.607891149] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1004 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902566.254538938] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 26.869905 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902567.627804968] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: IM
-[ros2_control_node-2] [WARN] [1761902567.647988068] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: U,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000,0.0000
-[ros2_control_node-2] [WARN] [1761902568.667891516] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: 00,0.0000,0.0000
-[ros2_control_node-2] [INFO] [1761902569.808129745] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1014 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902570.982148827] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 54.479278 ms (missed cycles : 3).
-[ros2_control_node-2] [WARN] [1761902572.818741223] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 31.071498 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902574.010470313] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.798745 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902576.951360778] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.687899 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902578.329497411] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.491336 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902579.332460462] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.791036 ms (missed cycles : 2).
-[ros2_control_node-2] [INFO] [1761902579.670897071] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1025 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902580.380742681] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 310.426627 ms (missed cycles : 16).
-[ros2_control_node-2] [WARN] [1761902581.472830621] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.527216 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902582.528535051] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 34.943906 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902583.990495328] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.240457 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902585.020501444] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 38.231936 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902586.212635173] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 130.695525 ms (missed cycles : 7).
-[ekf_node-5] [ERROR] [1761902586.015095181] [ekf_filter_node]: Failed to meet update rate! Took 0.26459153099999999093seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902587.219430403] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 148.640735 ms (missed cycles : 8).
-[ros2_control_node-2] [WARN] [1761902588.303539649] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 435.863582 ms (missed cycles : 22).
-[ros2_control_node-2] [WARN] [1761902589.453104057] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 142.583063 ms (missed cycles : 8).
-[ros2_control_node-2] [WARN] [1761902590.958414587] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 590.737916 ms (missed cycles : 30).
-[ros2_control_node-2] [WARN] [1761902592.089489007] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 381.811211 ms (missed cycles : 20).
-[ros2_control_node-2] [WARN] [1761902593.363770422] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1256.094128 ms (missed cycles : 63).
-[ros2_control_node-2] [INFO] [1761902594.438531254] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1036 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902595.855122616] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 2480.492881 ms (missed cycles : 125).
-[ekf_node-5] [ERROR] [1761902596.665986878] [ekf_filter_node]: Failed to meet update rate! Took 0.44812937600000002369seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902597.639899992] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1772.224407 ms (missed cycles : 89).
-[ekf_node-5] [ERROR] [1761902597.708806750] [ekf_filter_node]: Failed to meet update rate! Took 0.27256541899999997547seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902599.710681401] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1083.005220 ms (missed cycles : 55).
-[ekf_node-5] [ERROR] [1761902600.853317098] [ekf_filter_node]: Failed to meet update rate! Took 0.41480394999999997685seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902601.038006358] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1307.822955 ms (missed cycles : 66).
-[ekf_node-5] [ERROR] [1761902601.535992541] [ekf_filter_node]: Failed to meet update rate! Took 0.02795036500000000132seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902602.062140230] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 152.622848 ms (missed cycles : 8).
-[ekf_node-5] [ERROR] [1761902602.372413222] [ekf_filter_node]: Failed to meet update rate! Took 0.020684333999999998666seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902602.930066736] [ekf_filter_node]: Failed to meet update rate! Took 0.051165025000000002864seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902603.284689279] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 417.013475 ms (missed cycles : 21).
-[ekf_node-5] [ERROR] [1761902603.261232955] [ekf_filter_node]: Failed to meet update rate! Took 0.062545780999999994743seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902603.680408709] [ekf_filter_node]: Failed to meet update rate! Took 0.020587421000000001581seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902603.756079830] [ekf_filter_node]: Failed to meet update rate! Took 0.022056101000000001566seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902604.236194272] [ekf_filter_node]: Failed to meet update rate! Took 0.25275742499999998003seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902604.383238764] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 478.580126 ms (missed cycles : 24).
-[ekf_node-5] [ERROR] [1761902604.739553981] [ekf_filter_node]: Failed to meet update rate! Took 0.026398097999999998314seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902606.082689843] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1312.829170 ms (missed cycles : 66).
-[ekf_node-5] [ERROR] [1761902607.106844217] [ekf_filter_node]: Failed to meet update rate! Took 0.74296959100000004028seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902607.113892967] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1026.218653 ms (missed cycles : 52).
-[ekf_node-5] [ERROR] [1761902607.865765179] [ekf_filter_node]: Failed to meet update rate! Took 0.04632271000000000305seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902608.140899924] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 444.216413 ms (missed cycles : 23).
-[ekf_node-5] [ERROR] [1761902608.241801200] [ekf_filter_node]: Failed to meet update rate! Took 0.079293373999999999802seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902608.516069986] [ekf_filter_node]: Failed to meet update rate! Took 0.038793602000000003416seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902608.794296482] [ekf_filter_node]: Failed to meet update rate! Took 0.075279320999999996267seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902609.175869005] [ekf_filter_node]: Failed to meet update rate! Took 0.02714022199999999857seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902609.364464402] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 346.712210 ms (missed cycles : 18).
-[ekf_node-5] [ERROR] [1761902609.635355565] [ekf_filter_node]: Failed to meet update rate! Took 0.12525810800000000689seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902610.209237862] [ekf_filter_node]: Failed to meet update rate! Took 0.20504452500000000525seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902610.534497612] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 323.971895 ms (missed cycles : 17).
-[ekf_node-5] [ERROR] [1761902610.556374390] [ekf_filter_node]: Failed to meet update rate! Took 0.072448244999999994453seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902611.723872831] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 716.173538 ms (missed cycles : 36).
-[ekf_node-5] [ERROR] [1761902611.683542396] [ekf_filter_node]: Failed to meet update rate! Took 0.21133943399999999269seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902613.061037084] [ekf_filter_node]: Failed to meet update rate! Took 0.14653673200000000287seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902613.103491280] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 975.816722 ms (missed cycles : 49).
-[ekf_node-5] [ERROR] [1761902613.598158578] [ekf_filter_node]: Failed to meet update rate! Took 0.12788480699999998924seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902614.774979605] [ekf_filter_node]: Failed to meet update rate! Took 0.26063801899999999856seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902614.735616674] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 997.545950 ms (missed cycles : 50).
-[ekf_node-5] [ERROR] [1761902615.420489344] [ekf_filter_node]: Failed to meet update rate! Took 0.081090263999999995237seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902615.595164458] [ekf_filter_node]: Failed to meet update rate! Took 0.06577874599999999905seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902615.942967797] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 332.107551 ms (missed cycles : 17).
-[ekf_node-5] [ERROR] [1761902616.060833697] [ekf_filter_node]: Failed to meet update rate! Took 0.050353907000000003302seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902616.340301684] [ekf_filter_node]: Failed to meet update rate! Took 0.036326789999999997693seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902617.035698249] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 548.021988 ms (missed cycles : 28).
-[ekf_node-5] [ERROR] [1761902617.838199701] [ekf_filter_node]: Failed to meet update rate! Took 0.24658280399999998878seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902618.012502093] [ekf_filter_node]: Failed to meet update rate! Took 0.091219003000000006831seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902618.370531964] [ekf_filter_node]: Failed to meet update rate! Took 0.26820336000000000176seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902618.425685048] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 478.003115 ms (missed cycles : 24).
-[ros2_control_node-2] [WARN] [1761902619.876207169] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1448.531868 ms (missed cycles : 73).
-[ekf_node-5] [ERROR] [1761902619.542189844] [ekf_filter_node]: Failed to meet update rate! Took 0.077337556000000001744seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902621.427999025] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1532.957754 ms (missed cycles : 77).
-[ekf_node-5] [ERROR] [1761902621.941532354] [ekf_filter_node]: Failed to meet update rate! Took 0.25428722900000000351seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902622.357216088] [ekf_filter_node]: Failed to meet update rate! Took 0.043820883999999997449seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902622.825358794] [ekf_filter_node]: Failed to meet update rate! Took 0.25073867599999999367seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902622.922714345] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 552.753810 ms (missed cycles : 28).
-[ros2_control_node-2] [WARN] [1761902624.006607635] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1078.931720 ms (missed cycles : 54).
-[ekf_node-5] [ERROR] [1761902624.521056708] [ekf_filter_node]: Failed to meet update rate! Took 0.13788713899999999191seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902625.324392104] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1316.717125 ms (missed cycles : 66).
-[ros2_control_node-2] [INFO] [1761902625.438837853] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1047 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ekf_node-5] [ERROR] [1761902625.500257345] [ekf_filter_node]: Failed to meet update rate! Took 0.040342986999999996822seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902626.088358225] [ekf_filter_node]: Failed to meet update rate! Took 0.1162979410000000019seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902627.436814807] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1509.141421 ms (missed cycles : 76).
-[ekf_node-5] [ERROR] [1761902628.807156155] [ekf_filter_node]: Failed to meet update rate! Took 0.71962642200000004333seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902629.729232507] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 2281.552189 ms (missed cycles : 115).
-[ekf_node-5] [ERROR] [1761902630.704576337] [ekf_filter_node]: Failed to meet update rate! Took 0.28744535900000001138seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902631.163975074] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 456.265598 ms (missed cycles : 23).
-[ekf_node-5] [ERROR] [1761902631.596118284] [ekf_filter_node]: Failed to meet update rate! Took 0.45856051799999997254seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902632.744969108] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 789.583733 ms (missed cycles : 40).
-[ekf_node-5] [ERROR] [1761902633.199317256] [ekf_filter_node]: Failed to meet update rate! Took 0.13255276099999999118seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902633.825355923] [ekf_filter_node]: Failed to meet update rate! Took 0.10900477699999999714seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902633.986189543] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 345.911868 ms (missed cycles : 18).
-[ekf_node-5] [ERROR] [1761902634.405922823] [ekf_filter_node]: Failed to meet update rate! Took 0.037488135999999998293seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902635.080443947] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 612.762348 ms (missed cycles : 31).
-[ekf_node-5] [ERROR] [1761902635.645677276] [ekf_filter_node]: Failed to meet update rate! Took 0.44446124799999997546seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902637.174375361] [ekf_filter_node]: Failed to meet update rate! Took 0.54097519900000001769seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902637.328807052] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1481.132251 ms (missed cycles : 75).
-[ros2_control_node-2] [WARN] [1761902638.693044064] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1338.641586 ms (missed cycles : 67).
-[ekf_node-5] [ERROR] [1761902639.279582213] [ekf_filter_node]: Failed to meet update rate! Took 0.42702793999999999475seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902640.522830472] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1755.337106 ms (missed cycles : 88).
-[ekf_node-5] [ERROR] [1761902642.552068574] [ekf_filter_node]: Failed to meet update rate! Took 0.97939287299999999714seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902642.603810629] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 2150.808746 ms (missed cycles : 108).
-[ekf_node-5] [ERROR] [1761902642.739188204] [ekf_filter_node]: Failed to meet update rate! Took 0.071180260999999994675seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902642.999174579] [ekf_filter_node]: Failed to meet update rate! Took 0.11579409499999999966seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902643.419967631] [ekf_filter_node]: Failed to meet update rate! Took 0.15629502600000000356seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902643.667568095] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 199.891364 ms (missed cycles : 10).
-[ros2_control_node-2] [WARN] [1761902644.780431418] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 652.756951 ms (missed cycles : 33).
-[ekf_node-5] [ERROR] [1761902645.119814313] [ekf_filter_node]: Failed to meet update rate! Took 0.037434362999999998278seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902646.172979224] [ekf_filter_node]: Failed to meet update rate! Took 0.34399534500000000792seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902646.286231165] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 953.142457 ms (missed cycles : 48).
-[ekf_node-5] [ERROR] [1761902646.641803853] [ekf_filter_node]: Failed to meet update rate! Took 0.19656327600000000899seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902647.357388679] [ekf_filter_node]: Failed to meet update rate! Took 0.19716515400000000913seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902648.715665010] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1503.276710 ms (missed cycles : 76).
-[ekf_node-5] [ERROR] [1761902648.976703765] [ekf_filter_node]: Failed to meet update rate! Took 0.14977418000000000675seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902649.636575128] [ekf_filter_node]: Failed to meet update rate! Took 0.11430890999999999968seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902650.056882707] [ekf_filter_node]: Failed to meet update rate! Took 0.12807757799999999748seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902650.077730019] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 387.213617 ms (missed cycles : 20).
-[ekf_node-5] [ERROR] [1761902650.399593469] [ekf_filter_node]: Failed to meet update rate! Took 0.061319001999999997454seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902650.950128306] [ekf_filter_node]: Failed to meet update rate! Took 0.21822440400000001071seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902651.456257792] [ekf_filter_node]: Failed to meet update rate! Took 0.040593410000000003379seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902651.465951510] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1038.275255 ms (missed cycles : 52).
-[ekf_node-5] [ERROR] [1761902652.048925534] [ekf_filter_node]: Failed to meet update rate! Took 0.040864871999999996532seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902652.576499532] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 484.019883 ms (missed cycles : 25).
-[ekf_node-5] [ERROR] [1761902652.741206159] [ekf_filter_node]: Failed to meet update rate! Took 0.1046225429999999984seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902653.096836562] [ekf_filter_node]: Failed to meet update rate! Took 0.034257828999999996589seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902653.731765489] [ekf_filter_node]: Failed to meet update rate! Took 0.086078405999999996201seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902653.889435162] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 395.843655 ms (missed cycles : 20).
-[ekf_node-5] [ERROR] [1761902654.068759852] [ekf_filter_node]: Failed to meet update rate! Took 0.060607221000000002786seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902657.051994617] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 2240.265277 ms (missed cycles : 113).
-[ekf_node-5] [ERROR] [1761902657.627204320] [ekf_filter_node]: Failed to meet update rate! Took 1.3105347169999999046seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902658.249572333] [ekf_filter_node]: Failed to meet update rate! Took 0.10145944899999999322seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902658.284219797] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 391.669563 ms (missed cycles : 20).
-[ekf_node-5] [ERROR] [1761902658.691138312] [ekf_filter_node]: Failed to meet update rate! Took 0.24327528600000000725seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902659.154464403] [ekf_filter_node]: Failed to meet update rate! Took 0.091653414000000002493seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902659.786813579] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 677.331282 ms (missed cycles : 34).
-[ekf_node-5] [ERROR] [1761902660.203404903] [ekf_filter_node]: Failed to meet update rate! Took 0.22858749600000000113seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902660.390267522] [ekf_filter_node]: Failed to meet update rate! Took 0.087679365999999994696seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902660.796166024] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 86.233570 ms (missed cycles : 5).
-[ros2_control_node-2] [INFO] [1761902660.867982092] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1058 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [INFO] [1761902661.987927431] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1069 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902662.026126856] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 32.826263 ms (missed cycles : 2).
-[ros2_control_node-2] [INFO] [1761902662.987890408] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1079 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902663.134034492] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.759884 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902663.327775482] [controller_manager.hardware_component.system.MecanumSystem]: Pacchetto con prefisso sconosciuto: BA
-[ros2_control_node-2] [WARN] [1761902664.202328462] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 27.514309 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902665.515130425] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 26.087378 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902666.570511460] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.173156 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902667.858959192] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 27.934306 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1761902668.876234515] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 28.565848 ms (missed cycles : 2).
-[ros2_control_node-2] [INFO] [1761902669.755526389] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1123 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902670.199104280] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.497523 ms (missed cycles : 2).
-[ekf_node-5] [ERROR] [1761902670.651450823] [ekf_filter_node]: Failed to meet update rate! Took 0.099826686999999997285seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902671.211417711] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 43.745535 ms (missed cycles : 3).
-[ekf_node-5] [ERROR] [1761902672.623962183] [ekf_filter_node]: Failed to meet update rate! Took 0.4047600980000000126seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902672.650686575] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1407.834175 ms (missed cycles : 71).
-[ekf_node-5] [ERROR] [1761902674.565314041] [ekf_filter_node]: Failed to meet update rate! Took 0.33963630500000002721seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902674.740403476] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1184.828048 ms (missed cycles : 60).
-[ekf_node-5] [ERROR] [1761902676.129213197] [ekf_filter_node]: Failed to meet update rate! Took 0.37440265799999999929seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902676.714696667] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1097.894879 ms (missed cycles : 55).
-[ekf_node-5] [ERROR] [1761902677.509195375] [ekf_filter_node]: Failed to meet update rate! Took 0.24740374800000000666seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902677.825262672] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1170.386353 ms (missed cycles : 59).
-[ekf_node-5] [ERROR] [1761902678.318946707] [ekf_filter_node]: Failed to meet update rate! Took 0.080925804000000003957seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902678.877720032] [ekf_filter_node]: Failed to meet update rate! Took 0.20117408100000000459seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902678.916102233] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 388.425785 ms (missed cycles : 20).
-[ekf_node-5] [ERROR] [1761902679.344775113] [ekf_filter_node]: Failed to meet update rate! Took 0.079026848999999996237seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902680.146937772] [ekf_filter_node]: Failed to meet update rate! Took 0.10433682800000000646seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902680.437057219] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1037.715512 ms (missed cycles : 52).
-[ros2_control_node-2] [WARN] [1761902682.073943965] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1646.265242 ms (missed cycles : 83).
-[ekf_node-5] [ERROR] [1761902682.060169012] [ekf_filter_node]: Failed to meet update rate! Took 0.98237315199999997173seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902683.103646872] [ekf_filter_node]: Failed to meet update rate! Took 0.22268216800000001365seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902683.471234687] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 563.538519 ms (missed cycles : 29).
-[ekf_node-5] [ERROR] [1761902683.611418675] [ekf_filter_node]: Failed to meet update rate! Took 0.097640905999999999532seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902684.532035461] [ekf_filter_node]: Failed to meet update rate! Took 0.20678671500000000982seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902684.627897150] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 460.221682 ms (missed cycles : 24).
-[ekf_node-5] [ERROR] [1761902685.202937421] [ekf_filter_node]: Failed to meet update rate! Took 0.046725452000000000652seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902685.960256389] [ekf_filter_node]: Failed to meet update rate! Took 0.35515992899999998533seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902685.986277977] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 518.602937 ms (missed cycles : 26).
-[ekf_node-5] [ERROR] [1761902686.368063168] [ekf_filter_node]: Failed to meet update rate! Took 0.1049235359999999978seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902687.207439521] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 495.606028 ms (missed cycles : 25).
-[ekf_node-5] [ERROR] [1761902687.212450977] [ekf_filter_node]: Failed to meet update rate! Took 0.12189128800000000041seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902688.134992935] [ekf_filter_node]: Failed to meet update rate! Took 0.42838282700000002157seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902689.756056900] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1544.909583 ms (missed cycles : 78).
-[ekf_node-5] [ERROR] [1761902690.620912658] [ekf_filter_node]: Failed to meet update rate! Took 1.5875893969999999022seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902691.389565403] [ekf_filter_node]: Failed to meet update rate! Took 0.073480971000000006033seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902690.861511901] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1074.092118 ms (missed cycles : 54).
-[ros2_control_node-2] [WARN] [1761902692.743613049] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1111.743784 ms (missed cycles : 56).
-[ekf_node-5] [ERROR] [1761902693.337413195] [ekf_filter_node]: Failed to meet update rate! Took 0.62110282900000002293seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902694.213766035] [ekf_filter_node]: Failed to meet update rate! Took 0.073239913000000003707seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902694.400519947] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1832.843829 ms (missed cycles : 92).
-[ekf_node-5] [ERROR] [1761902695.733576096] [ekf_filter_node]: Failed to meet update rate! Took 0.13022886699999999816seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902696.095577504] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1687.895374 ms (missed cycles : 85).
-[ekf_node-5] [ERROR] [1761902696.939375263] [ekf_filter_node]: Failed to meet update rate! Took 0.055600072999999999857seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902697.422260343] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 513.009427 ms (missed cycles : 26).
-[ekf_node-5] [ERROR] [1761902697.646674249] [ekf_filter_node]: Failed to meet update rate! Took 0.05005625300000000194seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902698.282652580] [ekf_filter_node]: Failed to meet update rate! Took 0.19343868000000000174seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902698.936373078] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 686.585497 ms (missed cycles : 35).
-[ekf_node-5] [ERROR] [1761902699.346000979] [ekf_filter_node]: Failed to meet update rate! Took 0.11836774199999999801seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902699.681183516] [ekf_filter_node]: Failed to meet update rate! Took 0.12277196899999999469seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902700.133790964] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 446.104664 ms (missed cycles : 23).
-[ekf_node-5] [ERROR] [1761902700.866921618] [ekf_filter_node]: Failed to meet update rate! Took 0.31177902600000001465seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902701.342390576] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1194.714744 ms (missed cycles : 60).
-[ekf_node-5] [ERROR] [1761902702.391913110] [ekf_filter_node]: Failed to meet update rate! Took 0.17704280399999999807seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902703.484710591] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1137.033852 ms (missed cycles : 57).
-[ekf_node-5] [ERROR] [1761902703.460676103] [ekf_filter_node]: Failed to meet update rate! Took 0.37056448199999997284seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902704.508539609] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 992.765593 ms (missed cycles : 50).
-[ekf_node-5] [ERROR] [1761902704.751747165] [ekf_filter_node]: Failed to meet update rate! Took 0.19536774800000000774seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902706.444765883] [ekf_filter_node]: Failed to meet update rate! Took 0.19077157200000000037seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902706.581615832] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1196.493122 ms (missed cycles : 60).
-[ros2_control_node-2] [WARN] [1761902708.048486716] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1492.241262 ms (missed cycles : 75).
-[ekf_node-5] [ERROR] [1761902708.122541534] [ekf_filter_node]: Failed to meet update rate! Took 0.17510307399999999745seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902708.619395027] [ekf_filter_node]: Failed to meet update rate! Took 0.26076262700000002459seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902709.236237892] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 627.557168 ms (missed cycles : 32).
-[ros2_control_node-2] [WARN] [1761902710.612096213] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1348.699124 ms (missed cycles : 68).
-[ros2_control_node-2] [INFO] [1761902711.152784880] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1133 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ekf_node-5] [ERROR] [1761902710.090250299] [ekf_filter_node]: Failed to meet update rate! Took 0.45807899099999999093seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902712.919740369] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 2312.063690 ms (missed cycles : 116).
-[ekf_node-5] [ERROR] [1761902714.611813829] [ekf_filter_node]: Failed to meet update rate! Took 1.0588772420000001073seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902715.253969472] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 2326.284368 ms (missed cycles : 117).
-[ros2_control_node-2] [WARN] [1761902717.050557825] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1781.788836 ms (missed cycles : 90).
-[ros2_control_node-2] [WARN] [1761902718.740667950] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1672.985403 ms (missed cycles : 84).
-[ekf_node-5] [ERROR] [1761902718.143186482] [ekf_filter_node]: Failed to meet update rate! Took 1.1493780529999999551seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902720.241703346] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 934.017901 ms (missed cycles : 47).
-[ekf_node-5] [ERROR] [1761902721.363574612] [ekf_filter_node]: Failed to meet update rate! Took 0.80667177599999995152seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902722.459182717] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 2209.249980 ms (missed cycles : 111).
-[ekf_node-5] [ERROR] [1761902722.677236747] [ekf_filter_node]: Failed to meet update rate! Took 0.17532682399999999223seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902723.929083385] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1438.824912 ms (missed cycles : 72).
-[ekf_node-5] [ERROR] [1761902724.100469343] [ekf_filter_node]: Failed to meet update rate! Took 0.51081823599999998109seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902725.209676363] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1301.998253 ms (missed cycles : 66).
-[ekf_node-5] [ERROR] [1761902725.474956460] [ekf_filter_node]: Failed to meet update rate! Took 0.13771688300000001215seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902726.741429360] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1513.748258 ms (missed cycles : 76).
-[ekf_node-5] [ERROR] [1761902726.779343658] [ekf_filter_node]: Failed to meet update rate! Took 0.044873971999999998084seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902727.616417066] [ekf_filter_node]: Failed to meet update rate! Took 0.092658871000000003759seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902728.365668563] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 714.132810 ms (missed cycles : 36).
-[ekf_node-5] [ERROR] [1761902728.452408736] [ekf_filter_node]: Failed to meet update rate! Took 0.089153340999999997063seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902728.634955931] [ekf_filter_node]: Failed to meet update rate! Took 0.022534411000000000719seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902729.195489082] [ekf_filter_node]: Failed to meet update rate! Took 0.10682444400000000451seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902729.446289567] [ekf_filter_node]: Failed to meet update rate! Took 0.021280696000000001722seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902729.440692740] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 229.974077 ms (missed cycles : 12).
-[ekf_node-5] [ERROR] [1761902729.890260673] [ekf_filter_node]: Failed to meet update rate! Took 0.041839895000000001946seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902730.649521481] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 637.144696 ms (missed cycles : 32).
-[ekf_node-5] [ERROR] [1761902730.634279309] [ekf_filter_node]: Failed to meet update rate! Took 0.11576540899999999967seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902731.277603149] [ekf_filter_node]: Failed to meet update rate! Took 0.059815612999999996646seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902732.035298232] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 667.613873 ms (missed cycles : 34).
-[ekf_node-5] [ERROR] [1761902732.271575471] [ekf_filter_node]: Failed to meet update rate! Took 0.19065860300000000982seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902733.476936777] [ekf_filter_node]: Failed to meet update rate! Took 0.75071951699999994734seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902733.844911579] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1117.233180 ms (missed cycles : 56).
-[ekf_node-5] [ERROR] [1761902734.763058435] [ekf_filter_node]: Failed to meet update rate! Took 0.15764026400000000216seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902735.018767104] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1168.487627 ms (missed cycles : 59).
-[ekf_node-5] [ERROR] [1761902735.827605252] [ekf_filter_node]: Failed to meet update rate! Took 0.13170047100000001339seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902736.367990493] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1340.316324 ms (missed cycles : 68).
-[ekf_node-5] [ERROR] [1761902737.207203342] [ekf_filter_node]: Failed to meet update rate! Took 0.63579916599999997118seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902737.647412114] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1259.727110 ms (missed cycles : 63).
-[ros2_control_node-2] [WARN] [1761902739.125059584] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1477.376593 ms (missed cycles : 74).
-[ekf_node-5] [ERROR] [1761902739.295274094] [ekf_filter_node]: Failed to meet update rate! Took 0.42705561300000000058seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902739.905939411] [ekf_filter_node]: Failed to meet update rate! Took 0.25026481699999997277seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902740.704637668] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 996.961557 ms (missed cycles : 50).
-[ekf_node-5] [ERROR] [1761902740.998375693] [ekf_filter_node]: Failed to meet update rate! Took 0.056455848000000002918seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902741.942312139] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1234.629363 ms (missed cycles : 62).
-[ekf_node-5] [ERROR] [1761902741.958152366] [ekf_filter_node]: Failed to meet update rate! Took 0.59350551699999998245seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902744.341297743] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 2393.616060 ms (missed cycles : 120).
-[ekf_node-5] [ERROR] [1761902744.926533325] [ekf_filter_node]: Failed to meet update rate! Took 0.85346757500000003382seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902745.686904276] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 524.876303 ms (missed cycles : 27).
-[ekf_node-5] [ERROR] [1761902745.851042873] [ekf_filter_node]: Failed to meet update rate! Took 0.23254455800000001231seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902747.082053295] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1414.372538 ms (missed cycles : 71).
-[ekf_node-5] [ERROR] [1761902747.232537510] [ekf_filter_node]: Failed to meet update rate! Took 0.2103991460000000091seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902748.190279650] [ekf_filter_node]: Failed to meet update rate! Took 0.15595393599999998746seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902749.336495611] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1628.819598 ms (missed cycles : 82).
-[ekf_node-5] [ERROR] [1761902749.907247049] [ekf_filter_node]: Failed to meet update rate! Took 0.6369743599999999617seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902750.642208694] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1294.530296 ms (missed cycles : 65).
-[ekf_node-5] [ERROR] [1761902751.451402537] [ekf_filter_node]: Failed to meet update rate! Took 0.32980283300000001745seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902751.837906610] [ekf_filter_node]: Failed to meet update rate! Took 0.08030555300000000174seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902752.022721233] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 849.040084 ms (missed cycles : 43).
-[ekf_node-5] [ERROR] [1761902752.994810902] [ekf_filter_node]: Failed to meet update rate! Took 0.27229711899999997637seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902753.729993114] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 935.628470 ms (missed cycles : 47).
-[ekf_node-5] [ERROR] [1761902753.971602100] [ekf_filter_node]: Failed to meet update rate! Took 0.11115032900000000604seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902754.877021422] [ekf_filter_node]: Failed to meet update rate! Took 0.11223345099999999797seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902754.946515579] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 458.833357 ms (missed cycles : 23).
-[ros2_control_node-2] [INFO] [1761902755.457056645] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,UART|Tx:1144 Scartati:0 Err:0 Coda↑:0 ↓:0
-[ros2_control_node-2] [WARN] [1761902756.062175575] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1114.490948 ms (missed cycles : 56).
-[ekf_node-5] [ERROR] [1761902756.374605205] [ekf_filter_node]: Failed to meet update rate! Took 0.24534553000000000611seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902757.445735110] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1377.201682 ms (missed cycles : 69).
-[ekf_node-5] [ERROR] [1761902758.534307503] [ekf_filter_node]: Failed to meet update rate! Took 0.72170592899999996828seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902758.916802969] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1469.126854 ms (missed cycles : 74).
-[ros2_control_node-2] [WARN] [1761902765.649842160] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 6722.151566 ms (missed cycles : 337).
-[ekf_node-5] [ERROR] [1761902765.645591557] [ekf_filter_node]: Failed to meet update rate! Took 1.83230133499999992seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902767.732741333] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 2064.173988 ms (missed cycles : 104).
-[ekf_node-5] [ERROR] [1761902768.138757609] [ekf_filter_node]: Failed to meet update rate! Took 0.39378590099999999374seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902770.681463445] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 2933.773597 ms (missed cycles : 147).
-[ekf_node-5] [ERROR] [1761902772.762876365] [ekf_filter_node]: Failed to meet update rate! Took 1.0974553760000000935seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ekf_node-5] [ERROR] [1761902773.796299661] [ekf_filter_node]: Failed to meet update rate! Took 0.11406130000000000435seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
-[ros2_control_node-2] [WARN] [1761902773.256573095] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 2568.897123 ms (missed cycles : 129).
-[ros2_control_node-2] [WARN] [1761902774.415157881] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 1147.480804 ms (missed cycles : 58).
-[ekf_node-5] [ERROR] [1761902774.647842849] [ekf_filter_node]: Failed to meet update rate! Took 0.049690025999999998252seconds. Try decreasing the rate, limiting sensor output frequency, or limiting the number of sensors.
+[INFO] [robot_state_publisher-1]: process started with pid [64924]
+[INFO] [ros2_control_node-2]: process started with pid [64925]
+[INFO] [mecanum_cmd_node-3]: process started with pid [64926]
+[INFO] [mecanum_odom_node-4]: process started with pid [64927]
+[INFO] [calibration_node-5]: process started with pid [64928]
+[INFO] [ekf_node-6]: process started with pid [64929]
+[INFO] [rosbridge_websocket-7]: process started with pid [64930]
+[INFO] [node-8]: process started with pid [64931]
+[INFO] [throttle-9]: process started with pid [64932]
+[INFO] [v4l2_camera_node-10]: process started with pid [64933]
+[INFO] [rosout_relay_node-11]: process started with pid [64934]
+[INFO] [estop_manager_node-12]: process started with pid [64935]
+[mecanum_cmd_node-3] [INFO] [1770244481.836133567] [mecanum_cmd_node]: 📂 Correzione 'rettilineo' caricata da config/correction_rettilineo.yaml
+[mecanum_cmd_node-3] [WARN] [1770244481.836316659] [mecanum_cmd_node]: ⚠️ File config/correction_strafe.yaml non trovato. Correzione 'strafe' impostata a zero.
+[mecanum_cmd_node-3] [WARN] [1770244481.836354234] [mecanum_cmd_node]: ⚠️ File config/correction_rotazione.yaml non trovato. Correzione 'rotazione' impostata a zero.
+[mecanum_cmd_node-3] [INFO] [1770244481.836373993] [mecanum_cmd_node]: ✅ Correzione totale combinata con pesi: rettilineo=0.33, strafe=0.33, rotazione=0.34
+[mecanum_cmd_node-3] [INFO] [1770244481.836392659] [mecanum_cmd_node]: 🔎 Offset ruote finali (unità: rad/s):
+[mecanum_cmd_node-3] [INFO] [1770244481.836402755] [mecanum_cmd_node]: FL: 2.1064
+[mecanum_cmd_node-3] [INFO] [1770244481.836414609] [mecanum_cmd_node]: FR: 2.1064
+[mecanum_cmd_node-3] [INFO] [1770244481.836424406] [mecanum_cmd_node]: RL: 2.1064
+[mecanum_cmd_node-3] [INFO] [1770244481.836433969] [mecanum_cmd_node]: RR: 2.1064
+[mecanum_cmd_node-3] [INFO] [1770244481.865735538] [mecanum_cmd_node]: mecanum_cmd_node: pubblicazione comandi su /mecanum_velocity_controller/commands
+[rosout_relay_node-11] [INFO] [1770244481.868894138] [rosout_relay]: Nodo rosout_relay avviato
+[mecanum_odom_node-4] [INFO] [1770244481.945001120] [mecanum_odom_node]: mecanum_odom_node avviato
+[robot_state_publisher-1] [INFO] [1770244481.992796609] [robot_state_publisher]: Robot initialized
+[calibration_node-5] [INFO] [1770244482.162047438] [calibration_node]: ✅ Nodo di calibrazione avviato.
+[ros2_control_node-2] [INFO] [1770244482.329933076] [controller_manager]: Using Steady (Monotonic) clock for triggering controller manager cycles.
+[ros2_control_node-2] [INFO] [1770244482.396550012] [controller_manager]: Subscribing to '/robot_description' topic for robot description.
+[ros2_control_node-2] [INFO] [1770244482.472686461] [controller_manager]: update rate is 50 Hz
+[ros2_control_node-2] [INFO] [1770244482.472761677] [controller_manager]: Overruns handling is : enabled
+[ros2_control_node-2] [INFO] [1770244482.472785236] [controller_manager]: Spawning controller_manager RT thread with scheduler priority: 50
+[ros2_control_node-2] [INFO] [1770244482.473407513] [controller_manager]: Received robot description from topic.
+[ros2_control_node-2] [WARN] [1770244482.473528890] [controller_manager]: Could not enable FIFO RT scheduling policy: with error number <1>(Operation not permitted). See [https://control.ros.org/master/doc/ros2_control/controller_manager/doc/userdoc.html] for details on how to enable realtime scheduling.
+[ros2_control_node-2] [INFO] [1770244482.509167907] [controller_manager]: Loading hardware 'MecanumSystem' 
+[ros2_control_node-2] [INFO] [1770244482.524209300] [controller_manager]: Loaded hardware 'MecanumSystem' from plugin 'mecanum_hardware/MecanumSystem'
+[ros2_control_node-2] [INFO] [1770244482.524832904] [controller_manager]: Initialize hardware 'MecanumSystem' 
+[ros2_control_node-2] [WARN] [1770244482.598389438] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.023179 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1770244482.610513386] [controller_manager.hardware_component.system.MecanumSystem]: Init OK (mock=false, serial=/dev/ttyUSB0, baud=1000000)
+[ros2_control_node-2] [INFO] [1770244482.610654374] [controller_manager]: Successful initialization of hardware 'MecanumSystem'
+[ros2_control_node-2] [INFO] [1770244482.611773704] [resource_manager]: 'configure' hardware 'MecanumSystem' 
+[ros2_control_node-2] [INFO] [1770244482.611810880] [resource_manager]: Successful 'configure' of hardware 'MecanumSystem'
+[ros2_control_node-2] [INFO] [1770244482.611829870] [resource_manager]: 'activate' hardware 'MecanumSystem' 
+[ros2_control_node-2] [INFO] [1770244482.616998863] [controller_manager.hardware_component.system.MecanumSystem]: Porta seriale /dev/ttyUSB0 aperta a 1000000 baud
+[ros2_control_node-2] [INFO] [1770244482.618287407] [MecanumSystem]: MecanumSystem attivato: thread reader+writer avviati
+[ros2_control_node-2] [INFO] [1770244482.618334585] [resource_manager]: Successful 'activate' of hardware 'MecanumSystem'
+[ros2_control_node-2] [INFO] [1770244482.619108711] [controller_manager]: Registering statistics for : MecanumSystem
+[ros2_control_node-2] [INFO] [1770244482.619385450] [controller_manager]: Resource Manager has been successfully initialized. Starting Controller Manager services...
+[v4l2_camera_node-10] [INFO] [1770244482.749591130] [v4l2_camera]: Driver: uvcvideo
+[v4l2_camera_node-10] [INFO] [1770244482.749831204] [v4l2_camera]: Version: 396811
+[v4l2_camera_node-10] [INFO] [1770244482.749853499] [v4l2_camera]: Device: Integrated Camera: Integrated C
+[v4l2_camera_node-10] [INFO] [1770244482.749864340] [v4l2_camera]: Location: usb-0000:00:14.0-10
+[v4l2_camera_node-10] [INFO] [1770244482.749873809] [v4l2_camera]: Capabilities:
+[v4l2_camera_node-10] [INFO] [1770244482.749883867] [v4l2_camera]:   Read/write: NO
+[v4l2_camera_node-10] [INFO] [1770244482.749893145] [v4l2_camera]:   Streaming: YES
+[v4l2_camera_node-10] [INFO] [1770244482.749909734] [v4l2_camera]: Current pixel format: YUYV @ 640x480
+[v4l2_camera_node-10] [INFO] [1770244482.750088829] [v4l2_camera]: Available pixel formats: 
+[v4l2_camera_node-10] [INFO] [1770244482.750109244] [v4l2_camera]:   YUYV - YUYV 4:2:2
+[v4l2_camera_node-10] [INFO] [1770244482.750120462] [v4l2_camera]:   MJPG - Motion-JPEG
+[v4l2_camera_node-10] [INFO] [1770244482.750130509] [v4l2_camera]: Available controls: 
+[v4l2_camera_node-10] [INFO] [1770244482.750147127] [v4l2_camera]:   Brightness (1) = 128
+[v4l2_camera_node-10] [INFO] [1770244482.750161860] [v4l2_camera]:   Contrast (1) = 32
+[v4l2_camera_node-10] [INFO] [1770244482.750176993] [v4l2_camera]:   Saturation (1) = 64
+[v4l2_camera_node-10] [INFO] [1770244482.750191217] [v4l2_camera]:   Hue (1) = 0
+[v4l2_camera_node-10] [INFO] [1770244482.750207439] [v4l2_camera]:   White Balance, Automatic (2) = 1
+[v4l2_camera_node-10] [INFO] [1770244482.750221545] [v4l2_camera]:   Gamma (1) = 120
+[v4l2_camera_node-10] [INFO] [1770244482.750251135] [v4l2_camera]:   Power Line Frequency (3) = 1
+[v4l2_camera_node-10] [INFO] [1770244482.752039999] [v4l2_camera]:   White Balance Temperature (1) = 4000 [inactive]
+[v4l2_camera_node-10] [INFO] [1770244482.752134192] [v4l2_camera]:   Sharpness (1) = 2
+[v4l2_camera_node-10] [INFO] [1770244482.752166966] [v4l2_camera]:   Backlight Compensation (1) = 1
+[v4l2_camera_node-10] [ERROR] [1770244482.752198439] [v4l2_camera]: Failed getting value for control 10092545: Permission denied (13); returning 0!
+[v4l2_camera_node-10] [INFO] [1770244482.752249281] [v4l2_camera]:   Camera Controls (6) = 0
+[v4l2_camera_node-10] [INFO] [1770244482.752272907] [v4l2_camera]:   Auto Exposure (3) = 3
+[v4l2_camera_node-10] [INFO] [1770244482.754561327] [v4l2_camera]:   Exposure Time, Absolute (1) = 156 [inactive]
+[v4l2_camera_node-10] [INFO] [1770244482.754679909] [v4l2_camera]:   Exposure, Dynamic Framerate (2) = 0
+[v4l2_camera_node-10] [WARN] [1770244482.759512697] [v4l2_camera]: Control type not currently supported: 6, for control: Camera Controls
+[v4l2_camera_node-10] [INFO] [1770244482.760802224] [v4l2_camera]: Starting camera
+[node-8] Serving static files from: /home/ws/src/mecanum_base/web
+[v4l2_camera_node-10] [WARN] [1770244483.032255988] [v4l2_camera]: Image encoding not the same as requested output, performing possibly slow conversion: yuv422_yuy2 => rgb8
+[node-8] Web server attivo su http://localhost:8000
+[v4l2_camera_node-10] [INFO] [1770244483.070956744] [v4l2_camera]: using default calibration URL
+[v4l2_camera_node-10] [INFO] [1770244483.071503992] [v4l2_camera]: camera calibration URL: file:///home/ws/.ros/camera_info/integrated_camera:_integrated_c.yaml
+[v4l2_camera_node-10] [ERROR] [1770244483.072720682] [camera_calibration_parsers]: Unable to open camera calibration file [/home/ws/.ros/camera_info/integrated_camera:_integrated_c.yaml]
+[v4l2_camera_node-10] [WARN] [1770244483.073968087] [v4l2_camera]: Camera calibration file /home/ws/.ros/camera_info/integrated_camera:_integrated_c.yaml not found
+[rosbridge_websocket-7] [INFO] [1770244483.559987649] [rosbridge_websocket]: Rosbridge WebSocket server started on port 9091
+[INFO] [spawner-13]: process started with pid [65126]
+[INFO] [spawner-14]: process started with pid [65127]
+[INFO] [spawner-15]: process started with pid [65128]
+[INFO] [spawner-16]: process started with pid [65129]
+[INFO] [spawner-17]: process started with pid [65130]
+[INFO] [spawner-18]: process started with pid [65131]
+[INFO] [spawner-19]: process started with pid [65132]
+[INFO] [spawner-20]: process started with pid [65133]
+[INFO] [spawner-21]: process started with pid [65134]
+[ros2_control_node-2] [INFO] [1770244486.801170847] [controller_manager]: Loading controller : 'imu_broadcaster' of type 'imu_sensor_broadcaster/IMUSensorBroadcaster'
+[ros2_control_node-2] [INFO] [1770244486.801270034] [controller_manager]: Loading controller 'imu_broadcaster'
+[ros2_control_node-2] [INFO] [1770244486.817976353] [controller_manager]: Controller 'imu_broadcaster' node arguments: --ros-args --params-file /tmp/launch_params_vmz01d16 --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
+[spawner-15] [INFO] [1770244487.028888230] [spawner_imu_broadcaster]: Loaded imu_broadcaster
+[ros2_control_node-2] [INFO] [1770244487.115853792] [controller_manager]: Configuring controller: 'imu_broadcaster'
+[ros2_control_node-2] [INFO] [1770244487.144073495] [controller_manager]: Activating controllers: [ imu_broadcaster ]
+[ros2_control_node-2] [INFO] [1770244487.157732901] [controller_manager]: Successfully switched controllers!
+[spawner-15] [INFO] [1770244487.180095370] [spawner_imu_broadcaster]: Configured and activated imu_broadcaster
+[INFO] [spawner-15]: process has finished cleanly [pid 65128]
+[spawner-18] [INFO] [1770244487.504285897] [spawner_ir_front_right_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
+[ros2_control_node-2] [INFO] [1770244487.767183807] [controller_manager]: Loading controller : 'ir_front_right_broadcaster' of type 'range_sensor_broadcaster/RangeSensorBroadcaster'
+[ros2_control_node-2] [INFO] [1770244487.767721263] [controller_manager]: Loading controller 'ir_front_right_broadcaster'
+[ros2_control_node-2] [INFO] [1770244487.777376178] [controller_manager]: Controller 'ir_front_right_broadcaster' node arguments: --ros-args --params-file /tmp/launch_params_vmz01d16 --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
+[spawner-18] [INFO] [1770244487.900097881] [spawner_ir_front_right_broadcaster]: Loaded ir_front_right_broadcaster
+[ros2_control_node-2] [INFO] [1770244487.984936106] [controller_manager]: Configuring controller: 'ir_front_right_broadcaster'
+[ros2_control_node-2] [INFO] [1770244488.002235800] [controller_manager]: Activating controllers: [ ir_front_right_broadcaster ]
+[ros2_control_node-2] [INFO] [1770244488.017637233] [controller_manager]: Successfully switched controllers!
+[spawner-18] [INFO] [1770244488.042892183] [spawner_ir_front_right_broadcaster]: Configured and activated ir_front_right_broadcaster
+[INFO] [spawner-18]: process has finished cleanly [pid 65131]
+[spawner-16] [INFO] [1770244488.343071970] [spawner_ir_front_left_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
+[ros2_control_node-2] [INFO] [1770244488.615897440] [controller_manager]: Loading controller : 'ir_front_left_broadcaster' of type 'range_sensor_broadcaster/RangeSensorBroadcaster'
+[ros2_control_node-2] [INFO] [1770244488.617526363] [controller_manager]: Loading controller 'ir_front_left_broadcaster'
+[ros2_control_node-2] [INFO] [1770244488.622018604] [controller_manager]: Controller 'ir_front_left_broadcaster' node arguments: --ros-args --params-file /tmp/launch_params_vmz01d16 --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
+[spawner-16] [INFO] [1770244488.700441351] [spawner_ir_front_left_broadcaster]: Loaded ir_front_left_broadcaster
+[ros2_control_node-2] [INFO] [1770244488.705307439] [controller_manager]: Configuring controller: 'ir_front_left_broadcaster'
+[ros2_control_node-2] [INFO] [1770244488.721074504] [controller_manager]: Activating controllers: [ ir_front_left_broadcaster ]
+[ros2_control_node-2] [INFO] [1770244488.737664087] [controller_manager]: Successfully switched controllers!
+[spawner-16] [INFO] [1770244488.760498745] [spawner_ir_front_left_broadcaster]: Configured and activated ir_front_left_broadcaster
+[INFO] [spawner-16]: process has finished cleanly [pid 65129]
+[spawner-19] [INFO] [1770244489.358985321] [spawner_servo_position_controller]: waiting for service /controller_manager/list_controllers to become available...
+[ros2_control_node-2] [INFO] [1770244490.371752960] [controller_manager]: Loading controller : 'servo_position_controller' of type 'position_controllers/JointGroupPositionController'
+[ros2_control_node-2] [INFO] [1770244490.371872042] [controller_manager]: Loading controller 'servo_position_controller'
+[ros2_control_node-2] [INFO] [1770244490.379347817] [controller_manager]: Controller 'servo_position_controller' node arguments: --ros-args --params-file /tmp/launch_params_vmz01d16 --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
+[spawner-19] [INFO] [1770244490.441162829] [spawner_servo_position_controller]: Loaded servo_position_controller
+[ros2_control_node-2] [INFO] [1770244490.445580224] [controller_manager]: Configuring controller: 'servo_position_controller'
+[ros2_control_node-2] [INFO] [1770244490.452321809] [servo_position_controller]: configure successful
+[ros2_control_node-2] [INFO] [1770244490.462683991] [controller_manager]: Activating controllers: [ servo_position_controller ]
+[ros2_control_node-2] [INFO] [1770244490.477623261] [servo_position_controller]: activate successful
+[ros2_control_node-2] [INFO] [1770244490.477760480] [controller_manager]: Successfully switched controllers!
+[spawner-19] [INFO] [1770244490.500742631] [spawner_servo_position_controller]: Configured and activated servo_position_controller
+[INFO] [spawner-19]: process has finished cleanly [pid 65132]
+[spawner-14] [INFO] [1770244490.772290926] [spawner_mecanum_velocity_controller]: waiting for service /controller_manager/list_controllers to become available...
+[ros2_control_node-2] [INFO] [1770244491.044067609] [controller_manager]: Loading controller : 'mecanum_velocity_controller' of type 'velocity_controllers/JointGroupVelocityController'
+[ros2_control_node-2] [INFO] [1770244491.044682774] [controller_manager]: Loading controller 'mecanum_velocity_controller'
+[ros2_control_node-2] [INFO] [1770244491.059412438] [controller_manager]: Controller 'mecanum_velocity_controller' node arguments: --ros-args --params-file /tmp/launch_params_vmz01d16 --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
+[spawner-14] [INFO] [1770244491.160264677] [spawner_mecanum_velocity_controller]: Loaded mecanum_velocity_controller
+[ros2_control_node-2] [INFO] [1770244491.163751520] [controller_manager]: Configuring controller: 'mecanum_velocity_controller'
+[ros2_control_node-2] [INFO] [1770244491.166341473] [mecanum_velocity_controller]: configure successful
+[ros2_control_node-2] [INFO] [1770244491.189491807] [controller_manager]: Activating controllers: [ mecanum_velocity_controller ]
+[ros2_control_node-2] [INFO] [1770244491.197616208] [mecanum_velocity_controller]: activate successful
+[ros2_control_node-2] [INFO] [1770244491.197837617] [controller_manager]: Successfully switched controllers!
+[spawner-14] [INFO] [1770244491.220454095] [spawner_mecanum_velocity_controller]: Configured and activated mecanum_velocity_controller
+[INFO] [spawner-14]: process has finished cleanly [pid 65127]
+[spawner-21] [INFO] [1770244491.494871387] [spawner_estop_state_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
+[ros2_control_node-2] [INFO] [1770244491.755991484] [controller_manager]: Loading controller : 'estop_state_broadcaster' of type 'mecanum_base/EstopStateBroadcaster'
+[ros2_control_node-2] [INFO] [1770244491.756771575] [controller_manager]: Loading controller 'estop_state_broadcaster'
+[ros2_control_node-2] [INFO] [1770244491.763309467] [controller_manager]: Controller 'estop_state_broadcaster' node arguments: --ros-args --params-file /tmp/launch_params_vmz01d16 --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
+[spawner-21] [INFO] [1770244491.839777313] [spawner_estop_state_broadcaster]: Loaded estop_state_broadcaster
+[ros2_control_node-2] [INFO] [1770244491.845753515] [controller_manager]: Configuring controller: 'estop_state_broadcaster'
+[ros2_control_node-2] [INFO] [1770244491.941877220] [controller_manager]: Activating controllers: [ estop_state_broadcaster ]
+[ros2_control_node-2] [INFO] [1770244491.964907201] [controller_manager]: Successfully switched controllers!
+[spawner-21] [INFO] [1770244491.986171135] [spawner_estop_state_broadcaster]: Configured and activated estop_state_broadcaster
+[INFO] [spawner-21]: process has finished cleanly [pid 65134]
+[spawner-13] [INFO] [1770244492.332046777] [spawner_joint_state_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
+[ros2_control_node-2] [INFO] [1770244492.615123178] [controller_manager]: Loading controller : 'joint_state_broadcaster' of type 'joint_state_broadcaster/JointStateBroadcaster'
+[ros2_control_node-2] [INFO] [1770244492.616370079] [controller_manager]: Loading controller 'joint_state_broadcaster'
+[ros2_control_node-2] [INFO] [1770244492.637433531] [controller_manager]: Controller 'joint_state_broadcaster' node arguments: --ros-args --params-file /tmp/launch_params_vmz01d16 --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
+[spawner-13] [INFO] [1770244492.699684536] [spawner_joint_state_broadcaster]: Loaded joint_state_broadcaster
+[ros2_control_node-2] [INFO] [1770244492.703258544] [controller_manager]: Configuring controller: 'joint_state_broadcaster'
+[ros2_control_node-2] [INFO] [1770244492.703448078] [joint_state_broadcaster]: 'joints' or 'interfaces' parameter is empty. All available state interfaces will be published
+[ros2_control_node-2] [INFO] [1770244492.742384855] [controller_manager]: Activating controllers: [ joint_state_broadcaster ]
+[ros2_control_node-2] [INFO] [1770244492.757896225] [controller_manager]: Successfully switched controllers!
+[spawner-13] [INFO] [1770244492.781902219] [spawner_joint_state_broadcaster]: Configured and activated joint_state_broadcaster
+[INFO] [spawner-13]: process has finished cleanly [pid 65126]
+[spawner-20] [INFO] [1770244493.006138092] [spawner_battery_state_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
+[ros2_control_node-2] [INFO] [1770244496.273417354] [controller_manager]: Loading controller : 'battery_state_broadcaster' of type 'battery_state_broadcaster/BatteryStateBroadcaster'
+[ros2_control_node-2] [INFO] [1770244496.273580986] [controller_manager]: Loading controller 'battery_state_broadcaster'
+[ros2_control_node-2] [INFO] [1770244496.282120937] [controller_manager]: Controller 'battery_state_broadcaster' node arguments: --ros-args --params-file /tmp/launch_params_vmz01d16 --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
+[spawner-20] [INFO] [1770244496.360851927] [spawner_battery_state_broadcaster]: Loaded battery_state_broadcaster
+[ros2_control_node-2] [INFO] [1770244496.364907974] [controller_manager]: Configuring controller: 'battery_state_broadcaster'
+[ros2_control_node-2] [INFO] [1770244496.381723346] [controller_manager]: Activating controllers: [ battery_state_broadcaster ]
+[ros2_control_node-2] [INFO] [1770244496.397939515] [controller_manager]: Successfully switched controllers!
+[spawner-20] [INFO] [1770244496.420376504] [spawner_battery_state_broadcaster]: Configured and activated battery_state_broadcaster
+[INFO] [spawner-20]: process has finished cleanly [pid 65133]
+[spawner-17] [INFO] [1770244497.456219326] [spawner_ir_front_center_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
+[ros2_control_node-2] [INFO] [1770244498.598521266] [controller_manager]: Loading controller : 'ir_front_center_broadcaster' of type 'range_sensor_broadcaster/RangeSensorBroadcaster'
+[ros2_control_node-2] [INFO] [1770244498.599130282] [controller_manager]: Loading controller 'ir_front_center_broadcaster'
+[ros2_control_node-2] [INFO] [1770244498.599818540] [controller_manager]: Controller 'ir_front_center_broadcaster' node arguments: --ros-args --params-file /tmp/launch_params_vmz01d16 --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
+[spawner-17] [INFO] [1770244498.659710147] [spawner_ir_front_center_broadcaster]: Loaded ir_front_center_broadcaster
+[ros2_control_node-2] [INFO] [1770244498.746887245] [controller_manager]: Configuring controller: 'ir_front_center_broadcaster'
+[ros2_control_node-2] [INFO] [1770244498.761586394] [controller_manager]: Activating controllers: [ ir_front_center_broadcaster ]
+[ros2_control_node-2] [INFO] [1770244498.777833158] [controller_manager]: Successfully switched controllers!
+[spawner-17] [INFO] [1770244498.799881994] [spawner_ir_front_center_broadcaster]: Configured and activated ir_front_center_broadcaster
+[INFO] [spawner-17]: process has finished cleanly [pid 65130]
+[rosbridge_websocket-7] [INFO] [1770244506.345494258] [rosbridge_websocket]: Calling services in new thread
+[rosbridge_websocket-7] [INFO] [1770244506.347085473] [rosbridge_websocket]: Sending action goals in new thread
+[rosbridge_websocket-7] [INFO] [1770244506.349481121] [rosbridge_websocket]: Client connected. 1 clients total.
+[rosbridge_websocket-7] [INFO] [1770244506.782764374] [rosbridge_websocket]: [Client 83ba9482-96af-4464-b6d8-1a5f02462b6d] Subscribed to /image_raw/compressed
+[rosbridge_websocket-7] [INFO] [1770244506.797018191] [rosbridge_websocket]: [Client 83ba9482-96af-4464-b6d8-1a5f02462b6d] Subscribed to /battery_state_broadcaster/battery_state_throttled
+[ros2_control_node-2] [WARN] [1770244569.482118716] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.751812 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1770244569.518159568] [controller_manager]: Overrun might occur, Total time : 20222.789 us (Expected < 20000.000 us) --> Read time : 322.963 us, Update time : 19752.425 us, Write time : 147.401 us
+[ros2_control_node-2] [WARN] [1770244570.560693635] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 43.326587 ms (missed cycles : 3).
+[ros2_control_node-2] [WARN] [1770244622.625986901] [controller_manager]: Overrun might occur, Total time : 27343.607 us (Expected < 20000.000 us) --> Read time : 25275.673 us, Update time : 2037.370 us, Write time : 30.564 us
+[ros2_control_node-2] [WARN] [1770244622.631247053] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 33.877558 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1770244624.250622799] [controller_manager]: Overrun might occur, Total time : 33178.747 us (Expected < 20000.000 us) --> Read time : 131.306 us, Update time : 33025.853 us, Write time : 21.588 us
+[ros2_control_node-2] [WARN] [1770244624.251488369] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 34.120941 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1770244631.282658377] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 25.291090 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1770244637.312729474] [controller_manager]: Overrun might occur, Total time : 38647.059 us (Expected < 20000.000 us) --> Read time : 101.310 us, Update time : 38523.476 us, Write time : 22.273 us
+[ros2_control_node-2] [WARN] [1770244637.312894780] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 75.528661 ms (missed cycles : 4).
+[ros2_control_node-2] [WARN] [1770244638.359967919] [controller_manager]: Overrun might occur, Total time : 22433.630 us (Expected < 20000.000 us) --> Read time : 148.860 us, Update time : 367.096 us, Write time : 21917.674 us
+[ros2_control_node-2] [WARN] [1770244638.361695932] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.321795 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1770244639.918623682] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.257429 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1770244644.777536449] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.169186 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1770244646.031182039] [controller_manager]: Overrun might occur, Total time : 33079.115 us (Expected < 20000.000 us) --> Read time : 15102.886 us, Update time : 17934.369 us, Write time : 41.860 us
+[ros2_control_node-2] [WARN] [1770244646.032183894] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 34.817552 ms (missed cycles : 2).
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+[rosout_relay_node-11] [INFO] [1770244667.843826776] [rclcpp]: signal_handler(signum=2)
+[mecanum_odom_node-4] [INFO] [1770244667.843860765] [rclcpp]: signal_handler(signum=2)
+[ERROR] [node-8]: process has died [pid 64931, exit code -2, cmd 'node server.js'].
+[throttle-9] [INFO] [1770244667.843858600] [rclcpp]: signal_handler(signum=2)
+[ekf_node-6] [INFO] [1770244667.844023952] [rclcpp]: signal_handler(signum=2)
+[calibration_node-5] [INFO] [1770244667.844201594] [rclcpp]: signal_handler(signum=2)
+[mecanum_cmd_node-3] [INFO] [1770244667.844278383] [rclcpp]: signal_handler(signum=2)
+[ros2_control_node-2] [INFO] [1770244667.844736765] [rclcpp]: signal_handler(signum=2)
+[ros2_control_node-2] [INFO] [1770244667.844860336] [controller_manager]: Shutdown request received....
+[ros2_control_node-2] [INFO] [1770244667.844963173] [controller_manager]: Shutting down all controllers in the controller manager.
+[ros2_control_node-2] [INFO] [1770244667.845045749] [controller_manager]: Deactivating controller 'estop_state_broadcaster'
+[ros2_control_node-2] [INFO] [1770244667.845291285] [controller_manager]: Shutting down controller 'estop_state_broadcaster'
+[ros2_control_node-2] [INFO] [1770244667.845685844] [controller_manager]: Deactivating controller 'mecanum_velocity_controller'
+[robot_state_publisher-1] [INFO] [1770244667.844817787] [rclcpp]: signal_handler(signum=2)
+[estop_manager_node-12] [INFO] [1770244667.847611930] [rclcpp]: signal_handler(signum=2)
+[ros2_control_node-2] [INFO] [1770244667.860361663] [controller_manager]: Shutting down controller 'mecanum_velocity_controller'
+[ros2_control_node-2] [INFO] [1770244667.866570080] [controller_manager]: Deactivating controller 'servo_position_controller'
+[ros2_control_node-2] [INFO] [1770244667.866722919] [controller_manager]: Shutting down controller 'servo_position_controller'
+[ros2_control_node-2] [INFO] [1770244667.866900785] [controller_manager]: Deactivating controller 'battery_state_broadcaster'
+[ros2_control_node-2] [INFO] [1770244667.866975119] [controller_manager]: Shutting down controller 'battery_state_broadcaster'
+[ros2_control_node-2] [INFO] [1770244667.867103188] [controller_manager]: Deactivating controller 'ir_front_left_broadcaster'
+[ros2_control_node-2] [INFO] [1770244667.867214387] [controller_manager]: Shutting down controller 'ir_front_left_broadcaster'
+[ros2_control_node-2] [INFO] [1770244667.867328890] [controller_manager]: Deactivating controller 'ir_front_center_broadcaster'
+[ros2_control_node-2] [INFO] [1770244667.873295523] [controller_manager]: Shutting down controller 'ir_front_center_broadcaster'
+[ros2_control_node-2] [INFO] [1770244667.873547800] [controller_manager]: Deactivating controller 'joint_state_broadcaster'
+[ros2_control_node-2] [INFO] [1770244667.873640138] [controller_manager]: Shutting down controller 'joint_state_broadcaster'
+[ros2_control_node-2] [INFO] [1770244667.873782327] [controller_manager]: Deactivating controller 'ir_front_right_broadcaster'
+[ros2_control_node-2] [INFO] [1770244667.873852233] [controller_manager]: Shutting down controller 'ir_front_right_broadcaster'
+[ros2_control_node-2] [INFO] [1770244667.873941183] [controller_manager]: Deactivating controller 'imu_broadcaster'
+[ros2_control_node-2] [INFO] [1770244667.874004639] [controller_manager]: Shutting down controller 'imu_broadcaster'
+[ros2_control_node-2] [INFO] [1770244667.874115439] [resource_manager]: 'deactivate' hardware 'MecanumSystem' 
+[ros2_control_node-2] [INFO] [1770244667.889895708] [controller_manager.hardware_component.system.MecanumSystem]: Porta seriale /dev/ttyUSB0 chiusa
+[ros2_control_node-2] [INFO] [1770244667.889982429] [MecanumSystem]: MecanumSystem disattivato: thread reader+writer chiusi
+[ros2_control_node-2] [INFO] [1770244667.890001457] [resource_manager]: Successful 'deactivate' of hardware 'MecanumSystem'
+[ros2_control_node-2] [INFO] [1770244667.890013848] [resource_manager]: 'shutdown' hardware 'MecanumSystem' 
+[ros2_control_node-2] [INFO] [1770244667.890024652] [resource_manager]: Successful 'shutdown' of hardware 'MecanumSystem'
+[ros2_control_node-2] [INFO] [1770244667.890124420] [controller_manager]: Shutting down the controller manager.
+[v4l2_camera_node-10] [INFO] [1770244667.857164115] [rclcpp]: signal_handler(signum=2)
+[rosbridge_websocket-7] registered capabilities (classes):
+[rosbridge_websocket-7]  - <class 'rosbridge_library.capabilities.advertise.Advertise'>
+[rosbridge_websocket-7]  - <class 'rosbridge_library.capabilities.publish.Publish'>
+[rosbridge_websocket-7]  - <class 'rosbridge_library.capabilities.subscribe.Subscribe'>
+[rosbridge_websocket-7]  - <class 'rosbridge_library.capabilities.defragmentation.Defragment'>
+[rosbridge_websocket-7]  - <class 'rosbridge_library.capabilities.advertise_service.AdvertiseService'>
+[rosbridge_websocket-7]  - <class 'rosbridge_library.capabilities.call_service.CallService'>
+[rosbridge_websocket-7]  - <class 'rosbridge_library.capabilities.service_response.ServiceResponse'>
+[rosbridge_websocket-7]  - <class 'rosbridge_library.capabilities.unadvertise_service.UnadvertiseService'>
+[rosbridge_websocket-7]  - <class 'rosbridge_library.capabilities.advertise_action.AdvertiseAction'>
+[rosbridge_websocket-7]  - <class 'rosbridge_library.capabilities.action_feedback.ActionFeedback'>
+[rosbridge_websocket-7]  - <class 'rosbridge_library.capabilities.action_result.ActionResult'>
+[rosbridge_websocket-7]  - <class 'rosbridge_library.capabilities.send_action_goal.SendActionGoal'>
+[rosbridge_websocket-7]  - <class 'rosbridge_library.capabilities.unadvertise_action.UnadvertiseAction'>
+[rosbridge_websocket-7] Exiting due to SIGINT
+[ros2_control_node-2] [ERROR] [1770244667.892219622] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!
+[ros2_control_node-2] [ERROR] [1770244667.892351826] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!
+[ros2_control_node-2] [INFO] [1770244668.062539370] [controller_manager.pal_statistics]: Async messages lost 0
+[ros2_control_node-2] [INFO] [1770244668.062591586] [controller_manager.pal_statistics]: publish_async_failures_ 0
+[ros2_control_node-2] [INFO] [1770244668.083098986] [controller_manager.pal_statistics]: Async messages lost 0
+[ros2_control_node-2] [INFO] [1770244668.083129925] [controller_manager.pal_statistics]: publish_async_failures_ 0
+[INFO] [robot_state_publisher-1]: process has finished cleanly [pid 64924]
+[INFO] [throttle-9]: process has finished cleanly [pid 64932]
+[INFO] [mecanum_cmd_node-3]: process has finished cleanly [pid 64926]
+[INFO] [rosout_relay_node-11]: process has finished cleanly [pid 64934]
+[INFO] [mecanum_odom_node-4]: process has finished cleanly [pid 64927]
+[INFO] [estop_manager_node-12]: process has finished cleanly [pid 64935]
+[INFO] [calibration_node-5]: process has finished cleanly [pid 64928]
+[INFO] [ekf_node-6]: process has finished cleanly [pid 64929]
+[INFO] [v4l2_camera_node-10]: process has finished cleanly [pid 64933]
+[INFO] [rosbridge_websocket-7]: process has finished cleanly [pid 64930]
+[INFO] [ros2_control_node-2]: process has finished cleanly [pid 64925]
