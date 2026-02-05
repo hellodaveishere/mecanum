@@ -1,252 +1,262 @@
-[INFO] [launch]: All log files can be found below /home/ws/.ros/log/2026-02-04-22-34-41-327843-dave-computer-64919
+[INFO] [launch]: All log files can be found below /home/ws/.ros/log/2026-02-05-12-10-47-241298-dave-computer-139502
 [INFO] [launch]: Default logging verbosity is set to INFO
-[INFO] [robot_state_publisher-1]: process started with pid [64924]
-[INFO] [ros2_control_node-2]: process started with pid [64925]
-[INFO] [mecanum_cmd_node-3]: process started with pid [64926]
-[INFO] [mecanum_odom_node-4]: process started with pid [64927]
-[INFO] [calibration_node-5]: process started with pid [64928]
-[INFO] [ekf_node-6]: process started with pid [64929]
-[INFO] [rosbridge_websocket-7]: process started with pid [64930]
-[INFO] [node-8]: process started with pid [64931]
-[INFO] [throttle-9]: process started with pid [64932]
-[INFO] [v4l2_camera_node-10]: process started with pid [64933]
-[INFO] [rosout_relay_node-11]: process started with pid [64934]
-[INFO] [estop_manager_node-12]: process started with pid [64935]
-[mecanum_cmd_node-3] [INFO] [1770244481.836133567] [mecanum_cmd_node]: 📂 Correzione 'rettilineo' caricata da config/correction_rettilineo.yaml
-[mecanum_cmd_node-3] [WARN] [1770244481.836316659] [mecanum_cmd_node]: ⚠️ File config/correction_strafe.yaml non trovato. Correzione 'strafe' impostata a zero.
-[mecanum_cmd_node-3] [WARN] [1770244481.836354234] [mecanum_cmd_node]: ⚠️ File config/correction_rotazione.yaml non trovato. Correzione 'rotazione' impostata a zero.
-[mecanum_cmd_node-3] [INFO] [1770244481.836373993] [mecanum_cmd_node]: ✅ Correzione totale combinata con pesi: rettilineo=0.33, strafe=0.33, rotazione=0.34
-[mecanum_cmd_node-3] [INFO] [1770244481.836392659] [mecanum_cmd_node]: 🔎 Offset ruote finali (unità: rad/s):
-[mecanum_cmd_node-3] [INFO] [1770244481.836402755] [mecanum_cmd_node]: FL: 2.1064
-[mecanum_cmd_node-3] [INFO] [1770244481.836414609] [mecanum_cmd_node]: FR: 2.1064
-[mecanum_cmd_node-3] [INFO] [1770244481.836424406] [mecanum_cmd_node]: RL: 2.1064
-[mecanum_cmd_node-3] [INFO] [1770244481.836433969] [mecanum_cmd_node]: RR: 2.1064
-[mecanum_cmd_node-3] [INFO] [1770244481.865735538] [mecanum_cmd_node]: mecanum_cmd_node: pubblicazione comandi su /mecanum_velocity_controller/commands
-[rosout_relay_node-11] [INFO] [1770244481.868894138] [rosout_relay]: Nodo rosout_relay avviato
-[mecanum_odom_node-4] [INFO] [1770244481.945001120] [mecanum_odom_node]: mecanum_odom_node avviato
-[robot_state_publisher-1] [INFO] [1770244481.992796609] [robot_state_publisher]: Robot initialized
-[calibration_node-5] [INFO] [1770244482.162047438] [calibration_node]: ✅ Nodo di calibrazione avviato.
-[ros2_control_node-2] [INFO] [1770244482.329933076] [controller_manager]: Using Steady (Monotonic) clock for triggering controller manager cycles.
-[ros2_control_node-2] [INFO] [1770244482.396550012] [controller_manager]: Subscribing to '/robot_description' topic for robot description.
-[ros2_control_node-2] [INFO] [1770244482.472686461] [controller_manager]: update rate is 50 Hz
-[ros2_control_node-2] [INFO] [1770244482.472761677] [controller_manager]: Overruns handling is : enabled
-[ros2_control_node-2] [INFO] [1770244482.472785236] [controller_manager]: Spawning controller_manager RT thread with scheduler priority: 50
-[ros2_control_node-2] [INFO] [1770244482.473407513] [controller_manager]: Received robot description from topic.
-[ros2_control_node-2] [WARN] [1770244482.473528890] [controller_manager]: Could not enable FIFO RT scheduling policy: with error number <1>(Operation not permitted). See [https://control.ros.org/master/doc/ros2_control/controller_manager/doc/userdoc.html] for details on how to enable realtime scheduling.
-[ros2_control_node-2] [INFO] [1770244482.509167907] [controller_manager]: Loading hardware 'MecanumSystem' 
-[ros2_control_node-2] [INFO] [1770244482.524209300] [controller_manager]: Loaded hardware 'MecanumSystem' from plugin 'mecanum_hardware/MecanumSystem'
-[ros2_control_node-2] [INFO] [1770244482.524832904] [controller_manager]: Initialize hardware 'MecanumSystem' 
-[ros2_control_node-2] [WARN] [1770244482.598389438] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.023179 ms (missed cycles : 2).
-[ros2_control_node-2] [INFO] [1770244482.610513386] [controller_manager.hardware_component.system.MecanumSystem]: Init OK (mock=false, serial=/dev/ttyUSB0, baud=1000000)
-[ros2_control_node-2] [INFO] [1770244482.610654374] [controller_manager]: Successful initialization of hardware 'MecanumSystem'
-[ros2_control_node-2] [INFO] [1770244482.611773704] [resource_manager]: 'configure' hardware 'MecanumSystem' 
-[ros2_control_node-2] [INFO] [1770244482.611810880] [resource_manager]: Successful 'configure' of hardware 'MecanumSystem'
-[ros2_control_node-2] [INFO] [1770244482.611829870] [resource_manager]: 'activate' hardware 'MecanumSystem' 
-[ros2_control_node-2] [INFO] [1770244482.616998863] [controller_manager.hardware_component.system.MecanumSystem]: Porta seriale /dev/ttyUSB0 aperta a 1000000 baud
-[ros2_control_node-2] [INFO] [1770244482.618287407] [MecanumSystem]: MecanumSystem attivato: thread reader+writer avviati
-[ros2_control_node-2] [INFO] [1770244482.618334585] [resource_manager]: Successful 'activate' of hardware 'MecanumSystem'
-[ros2_control_node-2] [INFO] [1770244482.619108711] [controller_manager]: Registering statistics for : MecanumSystem
-[ros2_control_node-2] [INFO] [1770244482.619385450] [controller_manager]: Resource Manager has been successfully initialized. Starting Controller Manager services...
-[v4l2_camera_node-10] [INFO] [1770244482.749591130] [v4l2_camera]: Driver: uvcvideo
-[v4l2_camera_node-10] [INFO] [1770244482.749831204] [v4l2_camera]: Version: 396811
-[v4l2_camera_node-10] [INFO] [1770244482.749853499] [v4l2_camera]: Device: Integrated Camera: Integrated C
-[v4l2_camera_node-10] [INFO] [1770244482.749864340] [v4l2_camera]: Location: usb-0000:00:14.0-10
-[v4l2_camera_node-10] [INFO] [1770244482.749873809] [v4l2_camera]: Capabilities:
-[v4l2_camera_node-10] [INFO] [1770244482.749883867] [v4l2_camera]:   Read/write: NO
-[v4l2_camera_node-10] [INFO] [1770244482.749893145] [v4l2_camera]:   Streaming: YES
-[v4l2_camera_node-10] [INFO] [1770244482.749909734] [v4l2_camera]: Current pixel format: YUYV @ 640x480
-[v4l2_camera_node-10] [INFO] [1770244482.750088829] [v4l2_camera]: Available pixel formats: 
-[v4l2_camera_node-10] [INFO] [1770244482.750109244] [v4l2_camera]:   YUYV - YUYV 4:2:2
-[v4l2_camera_node-10] [INFO] [1770244482.750120462] [v4l2_camera]:   MJPG - Motion-JPEG
-[v4l2_camera_node-10] [INFO] [1770244482.750130509] [v4l2_camera]: Available controls: 
-[v4l2_camera_node-10] [INFO] [1770244482.750147127] [v4l2_camera]:   Brightness (1) = 128
-[v4l2_camera_node-10] [INFO] [1770244482.750161860] [v4l2_camera]:   Contrast (1) = 32
-[v4l2_camera_node-10] [INFO] [1770244482.750176993] [v4l2_camera]:   Saturation (1) = 64
-[v4l2_camera_node-10] [INFO] [1770244482.750191217] [v4l2_camera]:   Hue (1) = 0
-[v4l2_camera_node-10] [INFO] [1770244482.750207439] [v4l2_camera]:   White Balance, Automatic (2) = 1
-[v4l2_camera_node-10] [INFO] [1770244482.750221545] [v4l2_camera]:   Gamma (1) = 120
-[v4l2_camera_node-10] [INFO] [1770244482.750251135] [v4l2_camera]:   Power Line Frequency (3) = 1
-[v4l2_camera_node-10] [INFO] [1770244482.752039999] [v4l2_camera]:   White Balance Temperature (1) = 4000 [inactive]
-[v4l2_camera_node-10] [INFO] [1770244482.752134192] [v4l2_camera]:   Sharpness (1) = 2
-[v4l2_camera_node-10] [INFO] [1770244482.752166966] [v4l2_camera]:   Backlight Compensation (1) = 1
-[v4l2_camera_node-10] [ERROR] [1770244482.752198439] [v4l2_camera]: Failed getting value for control 10092545: Permission denied (13); returning 0!
-[v4l2_camera_node-10] [INFO] [1770244482.752249281] [v4l2_camera]:   Camera Controls (6) = 0
-[v4l2_camera_node-10] [INFO] [1770244482.752272907] [v4l2_camera]:   Auto Exposure (3) = 3
-[v4l2_camera_node-10] [INFO] [1770244482.754561327] [v4l2_camera]:   Exposure Time, Absolute (1) = 156 [inactive]
-[v4l2_camera_node-10] [INFO] [1770244482.754679909] [v4l2_camera]:   Exposure, Dynamic Framerate (2) = 0
-[v4l2_camera_node-10] [WARN] [1770244482.759512697] [v4l2_camera]: Control type not currently supported: 6, for control: Camera Controls
-[v4l2_camera_node-10] [INFO] [1770244482.760802224] [v4l2_camera]: Starting camera
+[INFO] [robot_state_publisher-1]: process started with pid [139513]
+[INFO] [ros2_control_node-2]: process started with pid [139514]
+[INFO] [mecanum_cmd_node-3]: process started with pid [139515]
+[INFO] [mecanum_odom_node-4]: process started with pid [139516]
+[INFO] [calibration_node-5]: process started with pid [139517]
+[INFO] [ekf_node-6]: process started with pid [139518]
+[INFO] [rosbridge_websocket-7]: process started with pid [139519]
+[INFO] [node-8]: process started with pid [139520]
+[INFO] [throttle-9]: process started with pid [139521]
+[INFO] [v4l2_camera_node-10]: process started with pid [139522]
+[INFO] [rosout_relay_node-11]: process started with pid [139523]
+[INFO] [estop_manager_node-12]: process started with pid [139524]
+[mecanum_cmd_node-3] [INFO] [1770293447.706048751] [mecanum_cmd_node]: 📂 Correzione 'rettilineo' caricata da config/correction_rettilineo.yaml
+[mecanum_cmd_node-3] [WARN] [1770293447.707197874] [mecanum_cmd_node]: ⚠️ File config/correction_strafe.yaml non trovato. Correzione 'strafe' impostata a zero.
+[mecanum_cmd_node-3] [WARN] [1770293447.707254604] [mecanum_cmd_node]: ⚠️ File config/correction_rotazione.yaml non trovato. Correzione 'rotazione' impostata a zero.
+[mecanum_cmd_node-3] [INFO] [1770293447.707289881] [mecanum_cmd_node]: ✅ Correzione totale combinata con pesi: rettilineo=0.33, strafe=0.33, rotazione=0.34
+[mecanum_cmd_node-3] [INFO] [1770293447.707316383] [mecanum_cmd_node]: 🔎 Offset ruote finali (unità: rad/s):
+[mecanum_cmd_node-3] [INFO] [1770293447.707328035] [mecanum_cmd_node]: FL: 2.1064
+[mecanum_cmd_node-3] [INFO] [1770293447.707339950] [mecanum_cmd_node]: FR: 2.1064
+[mecanum_cmd_node-3] [INFO] [1770293447.707354737] [mecanum_cmd_node]: RL: 2.1064
+[mecanum_cmd_node-3] [INFO] [1770293447.707367062] [mecanum_cmd_node]: RR: 2.1064
+[mecanum_cmd_node-3] [INFO] [1770293447.718039917] [mecanum_cmd_node]: mecanum_cmd_node: pubblicazione comandi su /mecanum_velocity_controller/commands
+[robot_state_publisher-1] [INFO] [1770293447.734246080] [robot_state_publisher]: Robot initialized
+[rosout_relay_node-11] [INFO] [1770293447.799990704] [rosout_relay]: Nodo rosout_relay avviato
+[ros2_control_node-2] [INFO] [1770293447.821484474] [controller_manager]: Using Steady (Monotonic) clock for triggering controller manager cycles.
+[ros2_control_node-2] [INFO] [1770293447.837361608] [controller_manager]: Subscribing to '/robot_description' topic for robot description.
+[ros2_control_node-2] [INFO] [1770293447.851502399] [controller_manager]: update rate is 50 Hz
+[ros2_control_node-2] [INFO] [1770293447.851937485] [controller_manager]: Overruns handling is : enabled
+[ros2_control_node-2] [INFO] [1770293447.852493194] [controller_manager]: Spawning controller_manager RT thread with scheduler priority: 50
+[ros2_control_node-2] [WARN] [1770293447.852944909] [controller_manager]: Could not enable FIFO RT scheduling policy: with error number <1>(Operation not permitted). See [https://control.ros.org/master/doc/ros2_control/controller_manager/doc/userdoc.html] for details on how to enable realtime scheduling.
+[calibration_node-5] [INFO] [1770293448.015039041] [calibration_node]: ✅ Nodo di calibrazione avviato.
+[ros2_control_node-2] [INFO] [1770293448.049950438] [controller_manager]: Received robot description from topic.
+[mecanum_odom_node-4] [INFO] [1770293448.059989461] [mecanum_odom_node]: mecanum_odom_node avviato
+[ros2_control_node-2] [INFO] [1770293448.076752391] [controller_manager]: Loading hardware 'MecanumSystem' 
+[ros2_control_node-2] [INFO] [1770293448.087764146] [controller_manager]: Loaded hardware 'MecanumSystem' from plugin 'mecanum_hardware/MecanumSystem'
+[ros2_control_node-2] [INFO] [1770293448.092291836] [controller_manager]: Initialize hardware 'MecanumSystem' 
+[ros2_control_node-2] [INFO] [1770293448.175277763] [controller_manager.hardware_component.system.MecanumSystem]: Init OK (mock=false, serial=/dev/ttyUSB0, baud=1000000)
+[ros2_control_node-2] [INFO] [1770293448.175476449] [controller_manager]: Successful initialization of hardware 'MecanumSystem'
+[ros2_control_node-2] [INFO] [1770293448.177083275] [resource_manager]: 'configure' hardware 'MecanumSystem' 
+[ros2_control_node-2] [INFO] [1770293448.177117139] [resource_manager]: Successful 'configure' of hardware 'MecanumSystem'
+[ros2_control_node-2] [INFO] [1770293448.177135310] [resource_manager]: 'activate' hardware 'MecanumSystem' 
+[ros2_control_node-2] [INFO] [1770293448.179010285] [controller_manager.hardware_component.system.MecanumSystem]: Porta seriale /dev/ttyUSB0 aperta a 1000000 baud
+[ros2_control_node-2] [INFO] [1770293448.182299980] [MecanumSystem]: MecanumSystem attivato: thread reader+writer avviati
+[ros2_control_node-2] [INFO] [1770293448.182335004] [resource_manager]: Successful 'activate' of hardware 'MecanumSystem'
+[ros2_control_node-2] [INFO] [1770293448.182464651] [controller_manager]: Registering statistics for : MecanumSystem
+[ros2_control_node-2] [INFO] [1770293448.182708928] [controller_manager]: Resource Manager has been successfully initialized. Starting Controller Manager services...
+[v4l2_camera_node-10] [INFO] [1770293448.442982476] [v4l2_camera]: Driver: uvcvideo
+[v4l2_camera_node-10] [INFO] [1770293448.443245590] [v4l2_camera]: Version: 396811
+[v4l2_camera_node-10] [INFO] [1770293448.443270027] [v4l2_camera]: Device: Integrated Camera: Integrated C
+[v4l2_camera_node-10] [INFO] [1770293448.443285814] [v4l2_camera]: Location: usb-0000:00:14.0-10
+[v4l2_camera_node-10] [INFO] [1770293448.443296128] [v4l2_camera]: Capabilities:
+[v4l2_camera_node-10] [INFO] [1770293448.443305738] [v4l2_camera]:   Read/write: NO
+[v4l2_camera_node-10] [INFO] [1770293448.443315268] [v4l2_camera]:   Streaming: YES
+[v4l2_camera_node-10] [INFO] [1770293448.443332703] [v4l2_camera]: Current pixel format: YUYV @ 640x480
+[v4l2_camera_node-10] [INFO] [1770293448.443497205] [v4l2_camera]: Available pixel formats: 
+[v4l2_camera_node-10] [INFO] [1770293448.443525345] [v4l2_camera]:   YUYV - YUYV 4:2:2
+[v4l2_camera_node-10] [INFO] [1770293448.443540656] [v4l2_camera]:   MJPG - Motion-JPEG
+[v4l2_camera_node-10] [INFO] [1770293448.443552326] [v4l2_camera]: Available controls: 
+[v4l2_camera_node-10] [INFO] [1770293448.443574017] [v4l2_camera]:   Brightness (1) = 128
+[v4l2_camera_node-10] [INFO] [1770293448.443591179] [v4l2_camera]:   Contrast (1) = 32
+[v4l2_camera_node-10] [INFO] [1770293448.443606584] [v4l2_camera]:   Saturation (1) = 64
+[v4l2_camera_node-10] [INFO] [1770293448.443623237] [v4l2_camera]:   Hue (1) = 0
+[v4l2_camera_node-10] [INFO] [1770293448.443637454] [v4l2_camera]:   White Balance, Automatic (2) = 1
+[v4l2_camera_node-10] [INFO] [1770293448.443652714] [v4l2_camera]:   Gamma (1) = 120
+[v4l2_camera_node-10] [INFO] [1770293448.443672541] [v4l2_camera]:   Power Line Frequency (3) = 1
+[v4l2_camera_node-10] [INFO] [1770293448.444472278] [v4l2_camera]:   White Balance Temperature (1) = 4000 [inactive]
+[v4l2_camera_node-10] [INFO] [1770293448.444581911] [v4l2_camera]:   Sharpness (1) = 2
+[v4l2_camera_node-10] [INFO] [1770293448.444624210] [v4l2_camera]:   Backlight Compensation (1) = 1
+[v4l2_camera_node-10] [ERROR] [1770293448.444651098] [v4l2_camera]: Failed getting value for control 10092545: Permission denied (13); returning 0!
+[v4l2_camera_node-10] [INFO] [1770293448.444911897] [v4l2_camera]:   Camera Controls (6) = 0
+[v4l2_camera_node-10] [INFO] [1770293448.445292143] [v4l2_camera]:   Auto Exposure (3) = 3
+[v4l2_camera_node-10] [INFO] [1770293448.446202432] [v4l2_camera]:   Exposure Time, Absolute (1) = 156 [inactive]
+[v4l2_camera_node-10] [INFO] [1770293448.446271829] [v4l2_camera]:   Exposure, Dynamic Framerate (2) = 0
+[v4l2_camera_node-10] [WARN] [1770293448.453320432] [v4l2_camera]: Control type not currently supported: 6, for control: Camera Controls
+[v4l2_camera_node-10] [INFO] [1770293448.454960329] [v4l2_camera]: Starting camera
 [node-8] Serving static files from: /home/ws/src/mecanum_base/web
-[v4l2_camera_node-10] [WARN] [1770244483.032255988] [v4l2_camera]: Image encoding not the same as requested output, performing possibly slow conversion: yuv422_yuy2 => rgb8
 [node-8] Web server attivo su http://localhost:8000
-[v4l2_camera_node-10] [INFO] [1770244483.070956744] [v4l2_camera]: using default calibration URL
-[v4l2_camera_node-10] [INFO] [1770244483.071503992] [v4l2_camera]: camera calibration URL: file:///home/ws/.ros/camera_info/integrated_camera:_integrated_c.yaml
-[v4l2_camera_node-10] [ERROR] [1770244483.072720682] [camera_calibration_parsers]: Unable to open camera calibration file [/home/ws/.ros/camera_info/integrated_camera:_integrated_c.yaml]
-[v4l2_camera_node-10] [WARN] [1770244483.073968087] [v4l2_camera]: Camera calibration file /home/ws/.ros/camera_info/integrated_camera:_integrated_c.yaml not found
-[rosbridge_websocket-7] [INFO] [1770244483.559987649] [rosbridge_websocket]: Rosbridge WebSocket server started on port 9091
-[INFO] [spawner-13]: process started with pid [65126]
-[INFO] [spawner-14]: process started with pid [65127]
-[INFO] [spawner-15]: process started with pid [65128]
-[INFO] [spawner-16]: process started with pid [65129]
-[INFO] [spawner-17]: process started with pid [65130]
-[INFO] [spawner-18]: process started with pid [65131]
-[INFO] [spawner-19]: process started with pid [65132]
-[INFO] [spawner-20]: process started with pid [65133]
-[INFO] [spawner-21]: process started with pid [65134]
-[ros2_control_node-2] [INFO] [1770244486.801170847] [controller_manager]: Loading controller : 'imu_broadcaster' of type 'imu_sensor_broadcaster/IMUSensorBroadcaster'
-[ros2_control_node-2] [INFO] [1770244486.801270034] [controller_manager]: Loading controller 'imu_broadcaster'
-[ros2_control_node-2] [INFO] [1770244486.817976353] [controller_manager]: Controller 'imu_broadcaster' node arguments: --ros-args --params-file /tmp/launch_params_vmz01d16 --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
-[spawner-15] [INFO] [1770244487.028888230] [spawner_imu_broadcaster]: Loaded imu_broadcaster
-[ros2_control_node-2] [INFO] [1770244487.115853792] [controller_manager]: Configuring controller: 'imu_broadcaster'
-[ros2_control_node-2] [INFO] [1770244487.144073495] [controller_manager]: Activating controllers: [ imu_broadcaster ]
-[ros2_control_node-2] [INFO] [1770244487.157732901] [controller_manager]: Successfully switched controllers!
-[spawner-15] [INFO] [1770244487.180095370] [spawner_imu_broadcaster]: Configured and activated imu_broadcaster
-[INFO] [spawner-15]: process has finished cleanly [pid 65128]
-[spawner-18] [INFO] [1770244487.504285897] [spawner_ir_front_right_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
-[ros2_control_node-2] [INFO] [1770244487.767183807] [controller_manager]: Loading controller : 'ir_front_right_broadcaster' of type 'range_sensor_broadcaster/RangeSensorBroadcaster'
-[ros2_control_node-2] [INFO] [1770244487.767721263] [controller_manager]: Loading controller 'ir_front_right_broadcaster'
-[ros2_control_node-2] [INFO] [1770244487.777376178] [controller_manager]: Controller 'ir_front_right_broadcaster' node arguments: --ros-args --params-file /tmp/launch_params_vmz01d16 --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
-[spawner-18] [INFO] [1770244487.900097881] [spawner_ir_front_right_broadcaster]: Loaded ir_front_right_broadcaster
-[ros2_control_node-2] [INFO] [1770244487.984936106] [controller_manager]: Configuring controller: 'ir_front_right_broadcaster'
-[ros2_control_node-2] [INFO] [1770244488.002235800] [controller_manager]: Activating controllers: [ ir_front_right_broadcaster ]
-[ros2_control_node-2] [INFO] [1770244488.017637233] [controller_manager]: Successfully switched controllers!
-[spawner-18] [INFO] [1770244488.042892183] [spawner_ir_front_right_broadcaster]: Configured and activated ir_front_right_broadcaster
-[INFO] [spawner-18]: process has finished cleanly [pid 65131]
-[spawner-16] [INFO] [1770244488.343071970] [spawner_ir_front_left_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
-[ros2_control_node-2] [INFO] [1770244488.615897440] [controller_manager]: Loading controller : 'ir_front_left_broadcaster' of type 'range_sensor_broadcaster/RangeSensorBroadcaster'
-[ros2_control_node-2] [INFO] [1770244488.617526363] [controller_manager]: Loading controller 'ir_front_left_broadcaster'
-[ros2_control_node-2] [INFO] [1770244488.622018604] [controller_manager]: Controller 'ir_front_left_broadcaster' node arguments: --ros-args --params-file /tmp/launch_params_vmz01d16 --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
-[spawner-16] [INFO] [1770244488.700441351] [spawner_ir_front_left_broadcaster]: Loaded ir_front_left_broadcaster
-[ros2_control_node-2] [INFO] [1770244488.705307439] [controller_manager]: Configuring controller: 'ir_front_left_broadcaster'
-[ros2_control_node-2] [INFO] [1770244488.721074504] [controller_manager]: Activating controllers: [ ir_front_left_broadcaster ]
-[ros2_control_node-2] [INFO] [1770244488.737664087] [controller_manager]: Successfully switched controllers!
-[spawner-16] [INFO] [1770244488.760498745] [spawner_ir_front_left_broadcaster]: Configured and activated ir_front_left_broadcaster
-[INFO] [spawner-16]: process has finished cleanly [pid 65129]
-[spawner-19] [INFO] [1770244489.358985321] [spawner_servo_position_controller]: waiting for service /controller_manager/list_controllers to become available...
-[ros2_control_node-2] [INFO] [1770244490.371752960] [controller_manager]: Loading controller : 'servo_position_controller' of type 'position_controllers/JointGroupPositionController'
-[ros2_control_node-2] [INFO] [1770244490.371872042] [controller_manager]: Loading controller 'servo_position_controller'
-[ros2_control_node-2] [INFO] [1770244490.379347817] [controller_manager]: Controller 'servo_position_controller' node arguments: --ros-args --params-file /tmp/launch_params_vmz01d16 --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
-[spawner-19] [INFO] [1770244490.441162829] [spawner_servo_position_controller]: Loaded servo_position_controller
-[ros2_control_node-2] [INFO] [1770244490.445580224] [controller_manager]: Configuring controller: 'servo_position_controller'
-[ros2_control_node-2] [INFO] [1770244490.452321809] [servo_position_controller]: configure successful
-[ros2_control_node-2] [INFO] [1770244490.462683991] [controller_manager]: Activating controllers: [ servo_position_controller ]
-[ros2_control_node-2] [INFO] [1770244490.477623261] [servo_position_controller]: activate successful
-[ros2_control_node-2] [INFO] [1770244490.477760480] [controller_manager]: Successfully switched controllers!
-[spawner-19] [INFO] [1770244490.500742631] [spawner_servo_position_controller]: Configured and activated servo_position_controller
-[INFO] [spawner-19]: process has finished cleanly [pid 65132]
-[spawner-14] [INFO] [1770244490.772290926] [spawner_mecanum_velocity_controller]: waiting for service /controller_manager/list_controllers to become available...
-[ros2_control_node-2] [INFO] [1770244491.044067609] [controller_manager]: Loading controller : 'mecanum_velocity_controller' of type 'velocity_controllers/JointGroupVelocityController'
-[ros2_control_node-2] [INFO] [1770244491.044682774] [controller_manager]: Loading controller 'mecanum_velocity_controller'
-[ros2_control_node-2] [INFO] [1770244491.059412438] [controller_manager]: Controller 'mecanum_velocity_controller' node arguments: --ros-args --params-file /tmp/launch_params_vmz01d16 --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
-[spawner-14] [INFO] [1770244491.160264677] [spawner_mecanum_velocity_controller]: Loaded mecanum_velocity_controller
-[ros2_control_node-2] [INFO] [1770244491.163751520] [controller_manager]: Configuring controller: 'mecanum_velocity_controller'
-[ros2_control_node-2] [INFO] [1770244491.166341473] [mecanum_velocity_controller]: configure successful
-[ros2_control_node-2] [INFO] [1770244491.189491807] [controller_manager]: Activating controllers: [ mecanum_velocity_controller ]
-[ros2_control_node-2] [INFO] [1770244491.197616208] [mecanum_velocity_controller]: activate successful
-[ros2_control_node-2] [INFO] [1770244491.197837617] [controller_manager]: Successfully switched controllers!
-[spawner-14] [INFO] [1770244491.220454095] [spawner_mecanum_velocity_controller]: Configured and activated mecanum_velocity_controller
-[INFO] [spawner-14]: process has finished cleanly [pid 65127]
-[spawner-21] [INFO] [1770244491.494871387] [spawner_estop_state_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
-[ros2_control_node-2] [INFO] [1770244491.755991484] [controller_manager]: Loading controller : 'estop_state_broadcaster' of type 'mecanum_base/EstopStateBroadcaster'
-[ros2_control_node-2] [INFO] [1770244491.756771575] [controller_manager]: Loading controller 'estop_state_broadcaster'
-[ros2_control_node-2] [INFO] [1770244491.763309467] [controller_manager]: Controller 'estop_state_broadcaster' node arguments: --ros-args --params-file /tmp/launch_params_vmz01d16 --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
-[spawner-21] [INFO] [1770244491.839777313] [spawner_estop_state_broadcaster]: Loaded estop_state_broadcaster
-[ros2_control_node-2] [INFO] [1770244491.845753515] [controller_manager]: Configuring controller: 'estop_state_broadcaster'
-[ros2_control_node-2] [INFO] [1770244491.941877220] [controller_manager]: Activating controllers: [ estop_state_broadcaster ]
-[ros2_control_node-2] [INFO] [1770244491.964907201] [controller_manager]: Successfully switched controllers!
-[spawner-21] [INFO] [1770244491.986171135] [spawner_estop_state_broadcaster]: Configured and activated estop_state_broadcaster
-[INFO] [spawner-21]: process has finished cleanly [pid 65134]
-[spawner-13] [INFO] [1770244492.332046777] [spawner_joint_state_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
-[ros2_control_node-2] [INFO] [1770244492.615123178] [controller_manager]: Loading controller : 'joint_state_broadcaster' of type 'joint_state_broadcaster/JointStateBroadcaster'
-[ros2_control_node-2] [INFO] [1770244492.616370079] [controller_manager]: Loading controller 'joint_state_broadcaster'
-[ros2_control_node-2] [INFO] [1770244492.637433531] [controller_manager]: Controller 'joint_state_broadcaster' node arguments: --ros-args --params-file /tmp/launch_params_vmz01d16 --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
-[spawner-13] [INFO] [1770244492.699684536] [spawner_joint_state_broadcaster]: Loaded joint_state_broadcaster
-[ros2_control_node-2] [INFO] [1770244492.703258544] [controller_manager]: Configuring controller: 'joint_state_broadcaster'
-[ros2_control_node-2] [INFO] [1770244492.703448078] [joint_state_broadcaster]: 'joints' or 'interfaces' parameter is empty. All available state interfaces will be published
-[ros2_control_node-2] [INFO] [1770244492.742384855] [controller_manager]: Activating controllers: [ joint_state_broadcaster ]
-[ros2_control_node-2] [INFO] [1770244492.757896225] [controller_manager]: Successfully switched controllers!
-[spawner-13] [INFO] [1770244492.781902219] [spawner_joint_state_broadcaster]: Configured and activated joint_state_broadcaster
-[INFO] [spawner-13]: process has finished cleanly [pid 65126]
-[spawner-20] [INFO] [1770244493.006138092] [spawner_battery_state_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
-[ros2_control_node-2] [INFO] [1770244496.273417354] [controller_manager]: Loading controller : 'battery_state_broadcaster' of type 'battery_state_broadcaster/BatteryStateBroadcaster'
-[ros2_control_node-2] [INFO] [1770244496.273580986] [controller_manager]: Loading controller 'battery_state_broadcaster'
-[ros2_control_node-2] [INFO] [1770244496.282120937] [controller_manager]: Controller 'battery_state_broadcaster' node arguments: --ros-args --params-file /tmp/launch_params_vmz01d16 --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
-[spawner-20] [INFO] [1770244496.360851927] [spawner_battery_state_broadcaster]: Loaded battery_state_broadcaster
-[ros2_control_node-2] [INFO] [1770244496.364907974] [controller_manager]: Configuring controller: 'battery_state_broadcaster'
-[ros2_control_node-2] [INFO] [1770244496.381723346] [controller_manager]: Activating controllers: [ battery_state_broadcaster ]
-[ros2_control_node-2] [INFO] [1770244496.397939515] [controller_manager]: Successfully switched controllers!
-[spawner-20] [INFO] [1770244496.420376504] [spawner_battery_state_broadcaster]: Configured and activated battery_state_broadcaster
-[INFO] [spawner-20]: process has finished cleanly [pid 65133]
-[spawner-17] [INFO] [1770244497.456219326] [spawner_ir_front_center_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
-[ros2_control_node-2] [INFO] [1770244498.598521266] [controller_manager]: Loading controller : 'ir_front_center_broadcaster' of type 'range_sensor_broadcaster/RangeSensorBroadcaster'
-[ros2_control_node-2] [INFO] [1770244498.599130282] [controller_manager]: Loading controller 'ir_front_center_broadcaster'
-[ros2_control_node-2] [INFO] [1770244498.599818540] [controller_manager]: Controller 'ir_front_center_broadcaster' node arguments: --ros-args --params-file /tmp/launch_params_vmz01d16 --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
-[spawner-17] [INFO] [1770244498.659710147] [spawner_ir_front_center_broadcaster]: Loaded ir_front_center_broadcaster
-[ros2_control_node-2] [INFO] [1770244498.746887245] [controller_manager]: Configuring controller: 'ir_front_center_broadcaster'
-[ros2_control_node-2] [INFO] [1770244498.761586394] [controller_manager]: Activating controllers: [ ir_front_center_broadcaster ]
-[ros2_control_node-2] [INFO] [1770244498.777833158] [controller_manager]: Successfully switched controllers!
-[spawner-17] [INFO] [1770244498.799881994] [spawner_ir_front_center_broadcaster]: Configured and activated ir_front_center_broadcaster
-[INFO] [spawner-17]: process has finished cleanly [pid 65130]
-[rosbridge_websocket-7] [INFO] [1770244506.345494258] [rosbridge_websocket]: Calling services in new thread
-[rosbridge_websocket-7] [INFO] [1770244506.347085473] [rosbridge_websocket]: Sending action goals in new thread
-[rosbridge_websocket-7] [INFO] [1770244506.349481121] [rosbridge_websocket]: Client connected. 1 clients total.
-[rosbridge_websocket-7] [INFO] [1770244506.782764374] [rosbridge_websocket]: [Client 83ba9482-96af-4464-b6d8-1a5f02462b6d] Subscribed to /image_raw/compressed
-[rosbridge_websocket-7] [INFO] [1770244506.797018191] [rosbridge_websocket]: [Client 83ba9482-96af-4464-b6d8-1a5f02462b6d] Subscribed to /battery_state_broadcaster/battery_state_throttled
-[ros2_control_node-2] [WARN] [1770244569.482118716] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.751812 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1770244569.518159568] [controller_manager]: Overrun might occur, Total time : 20222.789 us (Expected < 20000.000 us) --> Read time : 322.963 us, Update time : 19752.425 us, Write time : 147.401 us
-[ros2_control_node-2] [WARN] [1770244570.560693635] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 43.326587 ms (missed cycles : 3).
-[ros2_control_node-2] [WARN] [1770244622.625986901] [controller_manager]: Overrun might occur, Total time : 27343.607 us (Expected < 20000.000 us) --> Read time : 25275.673 us, Update time : 2037.370 us, Write time : 30.564 us
-[ros2_control_node-2] [WARN] [1770244622.631247053] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 33.877558 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1770244624.250622799] [controller_manager]: Overrun might occur, Total time : 33178.747 us (Expected < 20000.000 us) --> Read time : 131.306 us, Update time : 33025.853 us, Write time : 21.588 us
-[ros2_control_node-2] [WARN] [1770244624.251488369] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 34.120941 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1770244631.282658377] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 25.291090 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1770244637.312729474] [controller_manager]: Overrun might occur, Total time : 38647.059 us (Expected < 20000.000 us) --> Read time : 101.310 us, Update time : 38523.476 us, Write time : 22.273 us
-[ros2_control_node-2] [WARN] [1770244637.312894780] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 75.528661 ms (missed cycles : 4).
-[ros2_control_node-2] [WARN] [1770244638.359967919] [controller_manager]: Overrun might occur, Total time : 22433.630 us (Expected < 20000.000 us) --> Read time : 148.860 us, Update time : 367.096 us, Write time : 21917.674 us
-[ros2_control_node-2] [WARN] [1770244638.361695932] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.321795 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1770244639.918623682] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 21.257429 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1770244644.777536449] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.169186 ms (missed cycles : 2).
-[ros2_control_node-2] [WARN] [1770244646.031182039] [controller_manager]: Overrun might occur, Total time : 33079.115 us (Expected < 20000.000 us) --> Read time : 15102.886 us, Update time : 17934.369 us, Write time : 41.860 us
-[ros2_control_node-2] [WARN] [1770244646.032183894] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 34.817552 ms (missed cycles : 2).
+[v4l2_camera_node-10] [WARN] [1770293448.723920063] [v4l2_camera]: Image encoding not the same as requested output, performing possibly slow conversion: yuv422_yuy2 => rgb8
+[v4l2_camera_node-10] [INFO] [1770293448.730217811] [v4l2_camera]: using default calibration URL
+[v4l2_camera_node-10] [INFO] [1770293448.730295452] [v4l2_camera]: camera calibration URL: file:///home/ws/.ros/camera_info/integrated_camera:_integrated_c.yaml
+[v4l2_camera_node-10] [ERROR] [1770293448.730760141] [camera_calibration_parsers]: Unable to open camera calibration file [/home/ws/.ros/camera_info/integrated_camera:_integrated_c.yaml]
+[v4l2_camera_node-10] [WARN] [1770293448.731135794] [v4l2_camera]: Camera calibration file /home/ws/.ros/camera_info/integrated_camera:_integrated_c.yaml not found
+[rosbridge_websocket-7] [INFO] [1770293449.141195984] [rosbridge_websocket]: Rosbridge WebSocket server started on port 9091
+[INFO] [spawner-13]: process started with pid [139712]
+[INFO] [spawner-14]: process started with pid [139713]
+[INFO] [spawner-15]: process started with pid [139714]
+[INFO] [spawner-16]: process started with pid [139715]
+[INFO] [spawner-17]: process started with pid [139716]
+[INFO] [spawner-18]: process started with pid [139717]
+[INFO] [spawner-19]: process started with pid [139718]
+[INFO] [spawner-20]: process started with pid [139719]
+[INFO] [spawner-21]: process started with pid [139720]
+[spawner-18] [INFO] [1770293452.356044437] [spawner_ir_front_right_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
+[ros2_control_node-2] [INFO] [1770293452.371310506] [controller_manager]: Loading controller : 'ir_front_right_broadcaster' of type 'range_sensor_broadcaster/RangeSensorBroadcaster'
+[ros2_control_node-2] [INFO] [1770293452.371984928] [controller_manager]: Loading controller 'ir_front_right_broadcaster'
+[ros2_control_node-2] [INFO] [1770293452.383467628] [controller_manager]: Controller 'ir_front_right_broadcaster' node arguments: --ros-args --params-file /tmp/launch_params_f8blxy2r --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
+[spawner-18] [INFO] [1770293452.595640764] [spawner_ir_front_right_broadcaster]: Loaded ir_front_right_broadcaster
+[ros2_control_node-2] [INFO] [1770293452.609112491] [controller_manager]: Configuring controller: 'ir_front_right_broadcaster'
+[ros2_control_node-2] [INFO] [1770293452.707295802] [controller_manager]: Activating controllers: [ ir_front_right_broadcaster ]
+[ros2_control_node-2] [INFO] [1770293452.726040777] [controller_manager]: Successfully switched controllers!
+[spawner-18] [INFO] [1770293452.753522367] [spawner_ir_front_right_broadcaster]: Configured and activated ir_front_right_broadcaster
+[INFO] [spawner-18]: process has finished cleanly [pid 139717]
+[spawner-14] [INFO] [1770293453.369780745] [spawner_mecanum_velocity_controller]: waiting for service /controller_manager/list_controllers to become available...
+[ros2_control_node-2] [INFO] [1770293455.384323272] [controller_manager]: Loading controller : 'mecanum_velocity_controller' of type 'velocity_controllers/JointGroupVelocityController'
+[ros2_control_node-2] [INFO] [1770293455.384616296] [controller_manager]: Loading controller 'mecanum_velocity_controller'
+[ros2_control_node-2] [INFO] [1770293455.407383842] [controller_manager]: Controller 'mecanum_velocity_controller' node arguments: --ros-args --params-file /tmp/launch_params_f8blxy2r --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
+[spawner-14] [INFO] [1770293455.489417954] [spawner_mecanum_velocity_controller]: Loaded mecanum_velocity_controller
+[ros2_control_node-2] [INFO] [1770293455.492875290] [controller_manager]: Configuring controller: 'mecanum_velocity_controller'
+[ros2_control_node-2] [INFO] [1770293455.498317207] [mecanum_velocity_controller]: configure successful
+[ros2_control_node-2] [INFO] [1770293455.509636050] [controller_manager]: Activating controllers: [ mecanum_velocity_controller ]
+[ros2_control_node-2] [INFO] [1770293455.526012144] [mecanum_velocity_controller]: activate successful
+[ros2_control_node-2] [INFO] [1770293455.526177686] [controller_manager]: Successfully switched controllers!
+[spawner-14] [INFO] [1770293455.550080765] [spawner_mecanum_velocity_controller]: Configured and activated mecanum_velocity_controller
+[INFO] [spawner-14]: process has finished cleanly [pid 139713]
+[spawner-15] [INFO] [1770293456.214996301] [spawner_imu_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
+[ros2_control_node-2] [INFO] [1770293457.280338826] [controller_manager]: Loading controller : 'imu_broadcaster' of type 'imu_sensor_broadcaster/IMUSensorBroadcaster'
+[ros2_control_node-2] [INFO] [1770293457.281354397] [controller_manager]: Loading controller 'imu_broadcaster'
+[ros2_control_node-2] [INFO] [1770293457.288997059] [controller_manager]: Controller 'imu_broadcaster' node arguments: --ros-args --params-file /tmp/launch_params_f8blxy2r --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
+[spawner-15] [INFO] [1770293457.369412449] [spawner_imu_broadcaster]: Loaded imu_broadcaster
+[ros2_control_node-2] [INFO] [1770293457.372473232] [controller_manager]: Configuring controller: 'imu_broadcaster'
+[ros2_control_node-2] [INFO] [1770293457.389306246] [controller_manager]: Activating controllers: [ imu_broadcaster ]
+[ros2_control_node-2] [INFO] [1770293457.406025492] [controller_manager]: Successfully switched controllers!
+[spawner-15] [INFO] [1770293457.429571365] [spawner_imu_broadcaster]: Configured and activated imu_broadcaster
+[spawner-19] [INFO] [1770293457.648975778] [spawner_servo_position_controller]: waiting for service /controller_manager/list_controllers to become available...
+[INFO] [spawner-15]: process has finished cleanly [pid 139714]
+[ros2_control_node-2] [INFO] [1770293461.255755844] [controller_manager]: Loading controller : 'servo_position_controller' of type 'position_controllers/JointGroupPositionController'
+[ros2_control_node-2] [INFO] [1770293461.255945937] [controller_manager]: Loading controller 'servo_position_controller'
+[ros2_control_node-2] [INFO] [1770293461.261289246] [controller_manager]: Controller 'servo_position_controller' node arguments: --ros-args --params-file /tmp/launch_params_f8blxy2r --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
+[spawner-19] [INFO] [1770293461.370748691] [spawner_servo_position_controller]: Loaded servo_position_controller
+[ros2_control_node-2] [INFO] [1770293461.378242258] [controller_manager]: Configuring controller: 'servo_position_controller'
+[ros2_control_node-2] [INFO] [1770293461.380940438] [servo_position_controller]: configure successful
+[ros2_control_node-2] [INFO] [1770293461.390180641] [controller_manager]: Activating controllers: [ servo_position_controller ]
+[ros2_control_node-2] [INFO] [1770293461.405988913] [servo_position_controller]: activate successful
+[ros2_control_node-2] [INFO] [1770293461.406097335] [controller_manager]: Successfully switched controllers!
+[spawner-19] [INFO] [1770293461.428519131] [spawner_servo_position_controller]: Configured and activated servo_position_controller
+[INFO] [spawner-19]: process has finished cleanly [pid 139718]
+[spawner-20] [INFO] [1770293461.660576698] [spawner_battery_state_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
+[ros2_control_node-2] [INFO] [1770293463.505655680] [controller_manager]: Loading controller : 'battery_state_broadcaster' of type 'battery_state_broadcaster/BatteryStateBroadcaster'
+[ros2_control_node-2] [INFO] [1770293463.505780930] [controller_manager]: Loading controller 'battery_state_broadcaster'
+[ros2_control_node-2] [INFO] [1770293463.509104409] [controller_manager]: Controller 'battery_state_broadcaster' node arguments: --ros-args --params-file /tmp/launch_params_f8blxy2r --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
+[spawner-20] [INFO] [1770293463.591015503] [spawner_battery_state_broadcaster]: Loaded battery_state_broadcaster
+[ros2_control_node-2] [INFO] [1770293463.596686189] [controller_manager]: Configuring controller: 'battery_state_broadcaster'
+[ros2_control_node-2] [INFO] [1770293463.611769635] [controller_manager]: Activating controllers: [ battery_state_broadcaster ]
+[ros2_control_node-2] [INFO] [1770293463.626041514] [controller_manager]: Successfully switched controllers!
+[spawner-20] [INFO] [1770293463.650167119] [spawner_battery_state_broadcaster]: Configured and activated battery_state_broadcaster
+[INFO] [spawner-20]: process has finished cleanly [pid 139719]
+[spawner-17] [INFO] [1770293464.276354754] [spawner_ir_front_center_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
+[ros2_control_node-2] [INFO] [1770293464.539791611] [controller_manager]: Loading controller : 'ir_front_center_broadcaster' of type 'range_sensor_broadcaster/RangeSensorBroadcaster'
+[ros2_control_node-2] [INFO] [1770293464.540067906] [controller_manager]: Loading controller 'ir_front_center_broadcaster'
+[ros2_control_node-2] [INFO] [1770293464.542094011] [controller_manager]: Controller 'ir_front_center_broadcaster' node arguments: --ros-args --params-file /tmp/launch_params_f8blxy2r --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
+[spawner-17] [INFO] [1770293464.668452042] [spawner_ir_front_center_broadcaster]: Loaded ir_front_center_broadcaster
+[ros2_control_node-2] [INFO] [1770293464.671939055] [controller_manager]: Configuring controller: 'ir_front_center_broadcaster'
+[ros2_control_node-2] [INFO] [1770293464.689333715] [controller_manager]: Activating controllers: [ ir_front_center_broadcaster ]
+[ros2_control_node-2] [INFO] [1770293464.706126627] [controller_manager]: Successfully switched controllers!
+[spawner-17] [INFO] [1770293464.728260650] [spawner_ir_front_center_broadcaster]: Configured and activated ir_front_center_broadcaster
+[INFO] [spawner-17]: process has finished cleanly [pid 139716]
+[spawner-16] [INFO] [1770293464.992447058] [spawner_ir_front_left_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
+[ros2_control_node-2] [INFO] [1770293466.510403386] [controller_manager]: Loading controller : 'ir_front_left_broadcaster' of type 'range_sensor_broadcaster/RangeSensorBroadcaster'
+[ros2_control_node-2] [INFO] [1770293466.510542040] [controller_manager]: Loading controller 'ir_front_left_broadcaster'
+[ros2_control_node-2] [INFO] [1770293466.511183362] [controller_manager]: Controller 'ir_front_left_broadcaster' node arguments: --ros-args --params-file /tmp/launch_params_f8blxy2r --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
+[spawner-16] [INFO] [1770293466.608653441] [spawner_ir_front_left_broadcaster]: Loaded ir_front_left_broadcaster
+[ros2_control_node-2] [INFO] [1770293466.693113276] [controller_manager]: Configuring controller: 'ir_front_left_broadcaster'
+[ros2_control_node-2] [INFO] [1770293466.713381540] [controller_manager]: Activating controllers: [ ir_front_left_broadcaster ]
+[ros2_control_node-2] [INFO] [1770293466.727381916] [controller_manager]: Successfully switched controllers!
+[spawner-16] [INFO] [1770293466.753334626] [spawner_ir_front_left_broadcaster]: Configured and activated ir_front_left_broadcaster
+[INFO] [spawner-16]: process has finished cleanly [pid 139715]
+[spawner-21] [INFO] [1770293467.152881499] [spawner_estop_state_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
+[ros2_control_node-2] [INFO] [1770293471.674240452] [controller_manager]: Loading controller : 'estop_state_broadcaster' of type 'mecanum_base/EstopStateBroadcaster'
+[ros2_control_node-2] [INFO] [1770293471.674400665] [controller_manager]: Loading controller 'estop_state_broadcaster'
+[ros2_control_node-2] [INFO] [1770293471.682178390] [controller_manager]: Controller 'estop_state_broadcaster' node arguments: --ros-args --params-file /tmp/launch_params_f8blxy2r --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
+[spawner-21] [INFO] [1770293471.769176778] [spawner_estop_state_broadcaster]: Loaded estop_state_broadcaster
+[ros2_control_node-2] [INFO] [1770293471.774703811] [controller_manager]: Configuring controller: 'estop_state_broadcaster'
+[ros2_control_node-2] [INFO] [1770293471.789980604] [controller_manager]: Activating controllers: [ estop_state_broadcaster ]
+[ros2_control_node-2] [INFO] [1770293471.808612780] [controller_manager]: Successfully switched controllers!
+[spawner-21] [INFO] [1770293471.828809815] [spawner_estop_state_broadcaster]: Configured and activated estop_state_broadcaster
+[INFO] [spawner-21]: process has finished cleanly [pid 139720]
+[spawner-13] [INFO] [1770293472.104877063] [spawner_joint_state_broadcaster]: waiting for service /controller_manager/list_controllers to become available...
+[ros2_control_node-2] [INFO] [1770293472.361168841] [controller_manager]: Loading controller : 'joint_state_broadcaster' of type 'joint_state_broadcaster/JointStateBroadcaster'
+[ros2_control_node-2] [INFO] [1770293472.361315416] [controller_manager]: Loading controller 'joint_state_broadcaster'
+[ros2_control_node-2] [INFO] [1770293472.373071019] [controller_manager]: Controller 'joint_state_broadcaster' node arguments: --ros-args --params-file /tmp/launch_params_f8blxy2r --params-file /home/ws/install/mecanum_base/share/mecanum_base/config/controllers.yaml 
+[spawner-13] [INFO] [1770293472.468176331] [spawner_joint_state_broadcaster]: Loaded joint_state_broadcaster
+[ros2_control_node-2] [INFO] [1770293472.470997733] [controller_manager]: Configuring controller: 'joint_state_broadcaster'
+[ros2_control_node-2] [INFO] [1770293472.471207951] [joint_state_broadcaster]: 'joints' or 'interfaces' parameter is empty. All available state interfaces will be published
+[ros2_control_node-2] [INFO] [1770293472.489570018] [controller_manager]: Activating controllers: [ joint_state_broadcaster ]
+[ros2_control_node-2] [INFO] [1770293472.506447013] [controller_manager]: Successfully switched controllers!
+[spawner-13] [INFO] [1770293472.529624055] [spawner_joint_state_broadcaster]: Configured and activated joint_state_broadcaster
+[INFO] [spawner-13]: process has finished cleanly [pid 139712]
+[ros2_control_node-2] [INFO] [1770293473.626178697] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,Dispositivi I2C trovati: [60, 72]
+[ros2_control_node-2] [WARN] [1770293487.446632068] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.800455 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1770293643.152671095] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 26.827090 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1770293715.305936407] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,Dispositivi I2C trovati: [60, 72]
+[ros2_control_node-2] [WARN] [1770294075.089878602] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 24.049464 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1770294412.129345801] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.518055 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1770295407.406706235] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.875320 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1770295462.365938325] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,Dispositivi I2C trovati: [60, 72]
+[ros2_control_node-2] [WARN] [1770295479.816645996] [controller_manager]: Overrun might occur, Total time : 350693.956 us (Expected < 20000.000 us) --> Read time : 186.536 us, Update time : 350257.163 us, Write time : 250.257 us
+[ros2_control_node-2] [WARN] [1770295479.821750880] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 355.916556 ms (missed cycles : 18).
+[ros2_control_node-2] [WARN] [1770295497.790925383] [controller_manager]: Overrun might occur, Total time : 324979.985 us (Expected < 20000.000 us) --> Read time : 58.124 us, Update time : 324892.739 us, Write time : 29.122 us
+[ros2_control_node-2] [WARN] [1770295497.791064773] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 325.237289 ms (missed cycles : 17).
+[ros2_control_node-2] [INFO] [1770295619.125926647] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,Dispositivi I2C trovati: [60, 72]
+[ros2_control_node-2] [WARN] [1770296556.213282189] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 27.453614 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1770296646.467931212] [controller_manager]: Overrun might occur, Total time : 21806.776 us (Expected < 20000.000 us) --> Read time : 51.978 us, Update time : 21685.024 us, Write time : 69.774 us
+[ros2_control_node-2] [WARN] [1770296646.468347196] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.516114 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1770297001.567971322] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 22.135501 ms (missed cycles : 2).
+[ros2_control_node-2] [INFO] [1770297254.865932291] [controller_manager.hardware_component.system.MecanumSystem]: Pico log: LOG,Dispositivi I2C trovati: [60, 72]
+[ros2_control_node-2] [WARN] [1770297395.168976033] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 23.147060 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1770297669.426477747] [controller_manager]: Overrun might occur, Total time : 20272.414 us (Expected < 20000.000 us) --> Read time : 31.324 us, Update time : 20216.480 us, Write time : 24.610 us
+[ros2_control_node-2] [WARN] [1770297669.435498598] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 29.243999 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1770297910.326981187] [controller_manager]: Overrun might occur, Total time : 21057.956 us (Expected < 20000.000 us) --> Read time : 72.795 us, Update time : 20957.812 us, Write time : 27.349 us
+[ros2_control_node-2] [WARN] [1770297910.333130906] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 27.295588 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1770297943.706749786] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 20.920053 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1770297974.742496343] [controller_manager]: Overrun might occur, Total time : 36513.708 us (Expected < 20000.000 us) --> Read time : 1711.120 us, Update time : 29984.923 us, Write time : 4817.665 us
+[ros2_control_node-2] [WARN] [1770297974.774396011] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 68.565441 ms (missed cycles : 4).
+[ros2_control_node-2] [WARN] [1770298169.854284230] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 28.456886 ms (missed cycles : 2).
+[ros2_control_node-2] [WARN] [1770298447.308581611] [controller_manager]: Overrun might occur, Total time : 41929.461 us (Expected < 20000.000 us) --> Read time : 860.193 us, Update time : 32653.738 us, Write time : 8415.530 us
+[ros2_control_node-2] [WARN] [1770298447.321017621] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 55.189241 ms (missed cycles : 3).
+[ros2_control_node-2] [WARN] [1770298679.515360954] [controller_manager]: Overrun might occur, Total time : 26209.565 us (Expected < 20000.000 us) --> Read time : 9474.480 us, Update time : 16711.421 us, Write time : 23.664 us
+[ros2_control_node-2] [WARN] [1770298679.543096432] [controller_manager]: Overrun detected! The controller manager missed its desired rate of 50 Hz. The loop took 45.625950 ms (missed cycles : 3).
 [WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
-[rosout_relay_node-11] [INFO] [1770244667.843826776] [rclcpp]: signal_handler(signum=2)
-[mecanum_odom_node-4] [INFO] [1770244667.843860765] [rclcpp]: signal_handler(signum=2)
-[ERROR] [node-8]: process has died [pid 64931, exit code -2, cmd 'node server.js'].
-[throttle-9] [INFO] [1770244667.843858600] [rclcpp]: signal_handler(signum=2)
-[ekf_node-6] [INFO] [1770244667.844023952] [rclcpp]: signal_handler(signum=2)
-[calibration_node-5] [INFO] [1770244667.844201594] [rclcpp]: signal_handler(signum=2)
-[mecanum_cmd_node-3] [INFO] [1770244667.844278383] [rclcpp]: signal_handler(signum=2)
-[ros2_control_node-2] [INFO] [1770244667.844736765] [rclcpp]: signal_handler(signum=2)
-[ros2_control_node-2] [INFO] [1770244667.844860336] [controller_manager]: Shutdown request received....
-[ros2_control_node-2] [INFO] [1770244667.844963173] [controller_manager]: Shutting down all controllers in the controller manager.
-[ros2_control_node-2] [INFO] [1770244667.845045749] [controller_manager]: Deactivating controller 'estop_state_broadcaster'
-[ros2_control_node-2] [INFO] [1770244667.845291285] [controller_manager]: Shutting down controller 'estop_state_broadcaster'
-[ros2_control_node-2] [INFO] [1770244667.845685844] [controller_manager]: Deactivating controller 'mecanum_velocity_controller'
-[robot_state_publisher-1] [INFO] [1770244667.844817787] [rclcpp]: signal_handler(signum=2)
-[estop_manager_node-12] [INFO] [1770244667.847611930] [rclcpp]: signal_handler(signum=2)
-[ros2_control_node-2] [INFO] [1770244667.860361663] [controller_manager]: Shutting down controller 'mecanum_velocity_controller'
-[ros2_control_node-2] [INFO] [1770244667.866570080] [controller_manager]: Deactivating controller 'servo_position_controller'
-[ros2_control_node-2] [INFO] [1770244667.866722919] [controller_manager]: Shutting down controller 'servo_position_controller'
-[ros2_control_node-2] [INFO] [1770244667.866900785] [controller_manager]: Deactivating controller 'battery_state_broadcaster'
-[ros2_control_node-2] [INFO] [1770244667.866975119] [controller_manager]: Shutting down controller 'battery_state_broadcaster'
-[ros2_control_node-2] [INFO] [1770244667.867103188] [controller_manager]: Deactivating controller 'ir_front_left_broadcaster'
-[ros2_control_node-2] [INFO] [1770244667.867214387] [controller_manager]: Shutting down controller 'ir_front_left_broadcaster'
-[ros2_control_node-2] [INFO] [1770244667.867328890] [controller_manager]: Deactivating controller 'ir_front_center_broadcaster'
-[ros2_control_node-2] [INFO] [1770244667.873295523] [controller_manager]: Shutting down controller 'ir_front_center_broadcaster'
-[ros2_control_node-2] [INFO] [1770244667.873547800] [controller_manager]: Deactivating controller 'joint_state_broadcaster'
-[ros2_control_node-2] [INFO] [1770244667.873640138] [controller_manager]: Shutting down controller 'joint_state_broadcaster'
-[ros2_control_node-2] [INFO] [1770244667.873782327] [controller_manager]: Deactivating controller 'ir_front_right_broadcaster'
-[ros2_control_node-2] [INFO] [1770244667.873852233] [controller_manager]: Shutting down controller 'ir_front_right_broadcaster'
-[ros2_control_node-2] [INFO] [1770244667.873941183] [controller_manager]: Deactivating controller 'imu_broadcaster'
-[ros2_control_node-2] [INFO] [1770244667.874004639] [controller_manager]: Shutting down controller 'imu_broadcaster'
-[ros2_control_node-2] [INFO] [1770244667.874115439] [resource_manager]: 'deactivate' hardware 'MecanumSystem' 
-[ros2_control_node-2] [INFO] [1770244667.889895708] [controller_manager.hardware_component.system.MecanumSystem]: Porta seriale /dev/ttyUSB0 chiusa
-[ros2_control_node-2] [INFO] [1770244667.889982429] [MecanumSystem]: MecanumSystem disattivato: thread reader+writer chiusi
-[ros2_control_node-2] [INFO] [1770244667.890001457] [resource_manager]: Successful 'deactivate' of hardware 'MecanumSystem'
-[ros2_control_node-2] [INFO] [1770244667.890013848] [resource_manager]: 'shutdown' hardware 'MecanumSystem' 
-[ros2_control_node-2] [INFO] [1770244667.890024652] [resource_manager]: Successful 'shutdown' of hardware 'MecanumSystem'
-[ros2_control_node-2] [INFO] [1770244667.890124420] [controller_manager]: Shutting down the controller manager.
-[v4l2_camera_node-10] [INFO] [1770244667.857164115] [rclcpp]: signal_handler(signum=2)
+[mecanum_cmd_node-3] [INFO] [1770298681.566302346] [rclcpp]: signal_handler(signum=2)
+[mecanum_odom_node-4] [INFO] [1770298681.566556523] [rclcpp]: signal_handler(signum=2)
+[robot_state_publisher-1] [INFO] [1770298681.567000854] [rclcpp]: signal_handler(signum=2)
+[estop_manager_node-12] [INFO] [1770298681.568903089] [rclcpp]: signal_handler(signum=2)
+[throttle-9] [INFO] [1770298681.569282890] [rclcpp]: signal_handler(signum=2)
+[ekf_node-6] [INFO] [1770298681.569319897] [rclcpp]: signal_handler(signum=2)
+[v4l2_camera_node-10] [INFO] [1770298681.566089676] [rclcpp]: signal_handler(signum=2)
+[calibration_node-5] [INFO] [1770298681.569741708] [rclcpp]: signal_handler(signum=2)
+[ros2_control_node-2] [INFO] [1770298681.567262320] [rclcpp]: signal_handler(signum=2)
+[ros2_control_node-2] [INFO] [1770298681.574853421] [controller_manager]: Shutdown request received....
+[ros2_control_node-2] [INFO] [1770298681.575211749] [controller_manager]: Shutting down all controllers in the controller manager.
+[ros2_control_node-2] [INFO] [1770298681.575400321] [controller_manager]: Deactivating controller 'estop_state_broadcaster'
+[ros2_control_node-2] [INFO] [1770298681.575963928] [controller_manager]: Shutting down controller 'estop_state_broadcaster'
+[ros2_control_node-2] [INFO] [1770298681.589053608] [controller_manager]: Deactivating controller 'ir_front_left_broadcaster'
+[ros2_control_node-2] [INFO] [1770298681.589367315] [controller_manager]: Shutting down controller 'ir_front_left_broadcaster'
+[ros2_control_node-2] [INFO] [1770298681.592286340] [controller_manager]: Deactivating controller 'battery_state_broadcaster'
+[ros2_control_node-2] [INFO] [1770298681.592576415] [controller_manager]: Shutting down controller 'battery_state_broadcaster'
+[ros2_control_node-2] [INFO] [1770298681.599524224] [controller_manager]: Deactivating controller 'servo_position_controller'
+[ros2_control_node-2] [INFO] [1770298681.600793100] [controller_manager]: Shutting down controller 'servo_position_controller'
+[ros2_control_node-2] [INFO] [1770298681.603510132] [controller_manager]: Deactivating controller 'mecanum_velocity_controller'
+[ros2_control_node-2] [INFO] [1770298681.604467487] [controller_manager]: Shutting down controller 'mecanum_velocity_controller'
+[ros2_control_node-2] [INFO] [1770298681.606313458] [controller_manager]: Deactivating controller 'joint_state_broadcaster'
+[ros2_control_node-2] [INFO] [1770298681.607914819] [controller_manager]: Shutting down controller 'joint_state_broadcaster'
+[ros2_control_node-2] [INFO] [1770298681.609744504] [controller_manager]: Deactivating controller 'ir_front_center_broadcaster'
+[ros2_control_node-2] [INFO] [1770298681.610473477] [controller_manager]: Shutting down controller 'ir_front_center_broadcaster'
+[ros2_control_node-2] [INFO] [1770298681.610936424] [controller_manager]: Deactivating controller 'imu_broadcaster'
+[ros2_control_node-2] [INFO] [1770298681.611163706] [controller_manager]: Shutting down controller 'imu_broadcaster'
+[ros2_control_node-2] [INFO] [1770298681.611480010] [controller_manager]: Deactivating controller 'ir_front_right_broadcaster'
+[ros2_control_node-2] [INFO] [1770298681.611689428] [controller_manager]: Shutting down controller 'ir_front_right_broadcaster'
+[ros2_control_node-2] [INFO] [1770298681.612122096] [resource_manager]: 'deactivate' hardware 'MecanumSystem' 
+[ros2_control_node-2] [INFO] [1770298681.619024399] [controller_manager.hardware_component.system.MecanumSystem]: Porta seriale /dev/ttyUSB0 chiusa
+[ros2_control_node-2] [INFO] [1770298681.619377952] [MecanumSystem]: MecanumSystem disattivato: thread reader+writer chiusi
+[ros2_control_node-2] [INFO] [1770298681.619451508] [resource_manager]: Successful 'deactivate' of hardware 'MecanumSystem'
+[ros2_control_node-2] [INFO] [1770298681.619495127] [resource_manager]: 'shutdown' hardware 'MecanumSystem' 
+[ros2_control_node-2] [INFO] [1770298681.619538958] [resource_manager]: Successful 'shutdown' of hardware 'MecanumSystem'
+[ros2_control_node-2] [INFO] [1770298681.623505161] [controller_manager]: Shutting down the controller manager.
+[ros2_control_node-2] [ERROR] [1770298681.625528847] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!
+[rosout_relay_node-11] [INFO] [1770298681.576964333] [rclcpp]: signal_handler(signum=2)
 [rosbridge_websocket-7] registered capabilities (classes):
 [rosbridge_websocket-7]  - <class 'rosbridge_library.capabilities.advertise.Advertise'>
 [rosbridge_websocket-7]  - <class 'rosbridge_library.capabilities.publish.Publish'>
@@ -262,20 +272,20 @@
 [rosbridge_websocket-7]  - <class 'rosbridge_library.capabilities.send_action_goal.SendActionGoal'>
 [rosbridge_websocket-7]  - <class 'rosbridge_library.capabilities.unadvertise_action.UnadvertiseAction'>
 [rosbridge_websocket-7] Exiting due to SIGINT
-[ros2_control_node-2] [ERROR] [1770244667.892219622] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!
-[ros2_control_node-2] [ERROR] [1770244667.892351826] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!
-[ros2_control_node-2] [INFO] [1770244668.062539370] [controller_manager.pal_statistics]: Async messages lost 0
-[ros2_control_node-2] [INFO] [1770244668.062591586] [controller_manager.pal_statistics]: publish_async_failures_ 0
-[ros2_control_node-2] [INFO] [1770244668.083098986] [controller_manager.pal_statistics]: Async messages lost 0
-[ros2_control_node-2] [INFO] [1770244668.083129925] [controller_manager.pal_statistics]: publish_async_failures_ 0
-[INFO] [robot_state_publisher-1]: process has finished cleanly [pid 64924]
-[INFO] [throttle-9]: process has finished cleanly [pid 64932]
-[INFO] [mecanum_cmd_node-3]: process has finished cleanly [pid 64926]
-[INFO] [rosout_relay_node-11]: process has finished cleanly [pid 64934]
-[INFO] [mecanum_odom_node-4]: process has finished cleanly [pid 64927]
-[INFO] [estop_manager_node-12]: process has finished cleanly [pid 64935]
-[INFO] [calibration_node-5]: process has finished cleanly [pid 64928]
-[INFO] [ekf_node-6]: process has finished cleanly [pid 64929]
-[INFO] [v4l2_camera_node-10]: process has finished cleanly [pid 64933]
-[INFO] [rosbridge_websocket-7]: process has finished cleanly [pid 64930]
-[INFO] [ros2_control_node-2]: process has finished cleanly [pid 64925]
+[ros2_control_node-2] [ERROR] [1770298681.633448895] [controller_manager.pal_statistics]: Exception in publisher thread: context cannot be slept with because it's invalid!. Aborting!
+[ERROR] [node-8]: process has died [pid 139520, exit code -2, cmd 'node server.js'].
+[ros2_control_node-2] [INFO] [1770298681.787586108] [controller_manager.pal_statistics]: Async messages lost 0
+[ros2_control_node-2] [INFO] [1770298681.787615741] [controller_manager.pal_statistics]: publish_async_failures_ 0
+[ros2_control_node-2] [INFO] [1770298681.796129548] [controller_manager.pal_statistics]: Async messages lost 0
+[ros2_control_node-2] [INFO] [1770298681.796166288] [controller_manager.pal_statistics]: publish_async_failures_ 0
+[INFO] [mecanum_cmd_node-3]: process has finished cleanly [pid 139515]
+[INFO] [estop_manager_node-12]: process has finished cleanly [pid 139524]
+[INFO] [calibration_node-5]: process has finished cleanly [pid 139517]
+[INFO] [robot_state_publisher-1]: process has finished cleanly [pid 139513]
+[INFO] [rosout_relay_node-11]: process has finished cleanly [pid 139523]
+[INFO] [mecanum_odom_node-4]: process has finished cleanly [pid 139516]
+[INFO] [throttle-9]: process has finished cleanly [pid 139521]
+[INFO] [v4l2_camera_node-10]: process has finished cleanly [pid 139522]
+[INFO] [ekf_node-6]: process has finished cleanly [pid 139518]
+[INFO] [rosbridge_websocket-7]: process has finished cleanly [pid 139519]
+[INFO] [ros2_control_node-2]: process has finished cleanly [pid 139514]

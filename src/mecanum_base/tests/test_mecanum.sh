@@ -10,7 +10,7 @@ set -euo pipefail
 
 TOPIC="/mecanum_velocity_controller/commands"
 MSG_TYPE="std_msgs/msg/Float64MultiArray"
-RATE=5   # Hz
+RATE=50   # Hz
 
 send_cmd() {
     local duration="$1"; shift

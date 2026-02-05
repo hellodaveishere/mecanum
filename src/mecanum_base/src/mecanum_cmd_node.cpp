@@ -16,12 +16,20 @@ public:
   MecanumCmdNode() : Node("mecanum_cmd_node")
   {
     // Parametri fisici dichiarati qui sono indipendenti da quelli nel file URDF/Xarco
-    r_ = declare_parameter<double>("wheel_radius", 0.0235);
-    L_ = declare_parameter<double>("L", 0.7);
-    W_ = declare_parameter<double>("W", 0.7);
-    max_vx_ = declare_parameter<double>("max_vx", 0.33);
-    max_vy_ = declare_parameter<double>("max_vy", 0.33);
+    r_ = declare_parameter<double>("wheel_radius", 0.0235); //[m]
+    L_ = declare_parameter<double>("L", 0.07);  // [m] distanza dal centro alla ruota
+    W_ = declare_parameter<double>("W", 0.07);  // [m] distanza dal centro alla ruota
+
+    // ω_min = 0.75 rad/s e ω_max = 13.94 rad/s - quelli della ruota (non del motore/encoder)
+    // max_vx_ = max_vy_ = ω_max * r_
+    max_vx_ = declare_parameter<double>("max_vx", 0.33); // [m/s]
+    max_vy_ = declare_parameter<double>("max_vy", 0.33); // [m/s]
+
+    // 𝑣_tang = ω_max⁡ * r_    # velocità tangenziale
+    // ω_z = v_tang / W_   # velocità angolare
+    // w_z = 0.328 / 0.07 = 4.7 rad/s
     max_wz_ = declare_parameter<double>("max_wz", 4.7);
+
     wheel_correction_ = declare_parameter<std::vector<double>>("wheel_correction", {1.0, 1.0, 1.0, 1.0});
     
     controller_topic_ = declare_parameter<std::string>("controller_cmd_topic", "/mecanum_velocity_controller/commands");

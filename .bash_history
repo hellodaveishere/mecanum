@@ -1,41 +1,3 @@
-sudo apt install -y   gstreamer1.0-tools   gstreamer1.0-plugins-base   gstreamer1.0-plugins-good   gstreamer1.0-plugins-bad   gstreamer1.0-plugins-ugly   v4l-utils
-ros2 run image_tools cam2image --ros-args -p use_compressed:=true -p video_device:=/dev/video0 -p backend:=v4l2
-ros2 run image_tools cam2image --ros-args -p use_compressed:=true -p video_device:=/dev/video0 -p backend:=v4l2
-ros2 run image_tools cam2image --ros-args -p use_compressed:=true -p video_device:=/dev/video0 -p backend:=v4l2
-ros2 run image_tools cam2image --ros-args -p use_compressed:=true -p video_device:=/dev/video0 
-ros2 run image_tools cam2image --ros-args -p use_compressed:=true -p video_device:=/dev/video0 -p backend:=v4l2
-ros2 run image_tools cam2image   --ros-args   -p use_compressed:=true   -p video_device:=/dev/video0   -r image:=/camera/image_raw
-ros2 run image_tools cam2image   --ros-args   -p use_compressed:=true   -p video_device:=/dev/video0   -r image:=/camera/image_raw
-sudo apt install ros-jazzy-compressed-image-transport
-sudo apt install ros-jazzy-compressed-image-transport
-ros2 run image_tools cam2image   --ros-args   -p use_compressed:=true   -p video_device:=/dev/video0   -r image:=/camera/image_raw
-history| grep image
-ros2 run image_tools cam2image --ros-args -p use_compressed:=true
-ros2 run v4l2_camera v4l2_camera_node   --ros-args   -p video_device:=/dev/video0   -r image_raw:=/camera/image_raw
-clear
-sudo apt update
-sudo apt install ros-jazzy-v4l2-camera
-ros2 run v4l2_camera v4l2_camera_node   --ros-args   -p video_device:=/dev/video0   -r image_raw:=/camera/image_raw
-ros2 run v4l2_camera v4l2_camera_node   --ros-args   -p video_device:=/dev/video0   -r image_raw:=/camera/image_raw
-colcon build --packages-select mecanum_base --symlink-install
-source install/setup.bash  
-ros2 launch mecanum_base bringup.launch.py > log.txt
-colcon build --packages-select mecanum_base --symlink-install
-source install/setup.bash  
-ros2 launch mecanum_base bringup.launch.py > log.txt
-ros2 launch mecanum_base bringup.launch.py > log.txt
-ros2 topic list
-ros2 topic list
-ros2 topic list
-ros2 topic list
-ros2 topic list
-ros2 topic echo /battery_state_broadcaster/battery_state_throttled
-AA
-ros2 topic echo /battery_state_broadcaster/battery_state_throttled
-ros2 topic echo /battery_state_broadcaster/battery_state_throttled
-clear
-ros2 topic echo /battery_state_broadcaster/battery_state_throttled
-ros2 topic echo /battery_state_broadcaster/battery_state
 ros2 topic echo /battery_state_broadcaster/battery_state
 clear
 ros2 control list_controllers
@@ -498,3 +460,41 @@ history|grep rm
 rm -rf build/ install/ log/
 colcon build --packages-select mecanum_base --symlink-install
 source install/setup.bash 
+source install/setup.bash 
+ls
+cd src/mecanum_base/
+ls
+cd tests/
+ls
+ls
+./test_mecanum.sh 
+./test_mecanum.sh 
+./test_mecanum.sh 
+exit
+history
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py
+ros2 launch mecanum_base bringup.launch.py
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py
+ros2 launch mecanum_base bringup.launch.py
+ros2 launch mecanum_base bringup.launch.py
+ros2 launch mecanum_base bringup.launch.py
+ros2 launch mecanum_base bringup.launch.py >> log.txt
+ros2 launch mecanum_base bringup.launch.py >> log.txt
+ros2 launch mecanum_base bringup.launch.py > log.txt
+ros2 launch mecanum_base bringup.launch.py > log.txt
+ros2 launch mecanum_base bringup.launch.py > log.txt
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py > log.txt
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py > log.txt
+ros2 launch mecanum_base bringup.launch.py > log.txt
+ros2 launch mecanum_base bringup.launch.py > log.txt
+ros2 launch mecanum_base bringup.launch.py > log.txt
+ros2 launch mecanum_base bringup.launch.py > log.txt
+ros2 launch mecanum_base bringup.launch.py > log.txt
+exit
