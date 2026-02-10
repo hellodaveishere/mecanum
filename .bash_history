@@ -1,35 +1,3 @@
-ros2 topic echo /battery_state_broadcaster/battery_state
-clear
-ros2 control list_controllers
-ros2 control list_controllers
-clear
-clear
-ros2 control list_controllers
-ros2 control list_state_interfaces
-clear
-ros2 control list_hardware_interfaces
-ros2 topic echo /battery_state_broadcaster/battery_state_throttled
-ros2 topic echo /battery_state_broadcaster/battery_state_throttled
-ros2 topic echo /battery_state_broadcaster/battery_state_throttled
-ros2 node list
-ros2 run rqt_image_view rqt_image_view
-bg
-ros2 topic list
-ros2 run rqt_image_view rqt_image_view&
-ros2 run rqt_image_view rqt_image_view&
-ros2 topic list
-ros2 topic list | grep compre
-ros2 topic list | grep compre
-ros2 run rqt_image_view rqt_image_view&
-clear
-ros2 topic list | grep compre
-ros2 run rqt_image_view rqt_image_view&
-ros2 topic list | grep camera
-ros2 run rqt_image_view rqt_image_view
-ros2 topic list | grep comp
-ros2 topic list 
-ros2 run rqt_image_view rqt_image_view
-ros2 run rqt_image_view rqt_image_view&
 ros2 topic list | grep comp
 ros2 run rqt_image_view rqt_image_view&
 ros2 run rqt_image_view rqt_image_view&
@@ -496,5 +464,37 @@ ros2 launch mecanum_base bringup.launch.py > log.txt
 ros2 launch mecanum_base bringup.launch.py > log.txt
 ros2 launch mecanum_base bringup.launch.py > log.txt
 ros2 launch mecanum_base bringup.launch.py > log.txt
+ros2 launch mecanum_base bringup.launch.py > log.txt
+exit
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py > log.txt
+bg
+fg
+ros2 launch mecanum_base bringup.launch.py > log.txt
+bg
+exit
+source install/setup.bash 
+ros2 launch mecanum_base bringup.launch.py > log.txt
+bg
+ros2 topic pub /cmd_vel geometry_msgs/Twist "{linear: {x: 1.0, y: 0.0}, angular: {z: 0.0}}" -r 10
+ros2 topic pub /cmd_vel geometry_msgs/Twist "{linear: {x: 0.0, y: 0.0}, angular: {z: 0.0}}" -r 10
+fg
+history|grep colcon
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+ros
+ros
+ros2 launch mecanum_base bringup.launch.py > log.txt
+bg
+history|grep twist
+history|grep Twist
+ros2 topic pub /cmd_vel geometry_msgs/Twist "{linear: {x: 1.0, y: 0.0}, angular: {z: 0.0}}" -r 10
+ros2 topic pub /cmd_vel geometry_msgs/Twist "{linear: {x: 0.0, y: 0.0}, angular: {z: 0.0}}" -r 10
+ros2 topic pub /cmd_vel geometry_msgs/Twist "{linear: {x: -1.0, y: 0.0}, angular: {z: 0.0}}" -r 10
+ros2 topic pub /cmd_vel geometry_msgs/Twist "{linear: {x: 0.0, y: 0.0}, angular: {z: 0.0}}" -r 10
+ros2 topic pub /cmd_vel geometry_msgs/Twist "{linear: {x: -1.0, y: 0.0}, angular: {z: 0.0}}" -r 10
+cd src/mecanum_base/tests/
+./test_mecanum.sh 
+fg
 ros2 launch mecanum_base bringup.launch.py > log.txt
 exit

@@ -165,10 +165,7 @@
 
           <!-- Velocità -->
           <!-- max 0.25 m/s = max 10 rad/s * 2.5 cm raggio ruota -->
-          <label class="form-label d-flex justify-content-between">
-            <span>Velocità massima (m/s):</span> <strong id="max-speed-value">0.25</strong>
-          </label>
-          <input type="range" class="form-range mb-3" id="max-speed" min="0.01" max="0.25" step="0.01" value="0.25" />
+          <label class="form-label d-flex justify-content-between"> <span>Velocità massima (m/s):</span> <strong id="max-speed-value">0.25</strong> </label> <input type="range" class="form-range mb-3" id="max-speed" min="0.01" max="0.25" step="0.01" value="0.25" />
           <!-- Console -->
           <hr />
           <div class="form-check mb-2">
@@ -201,7 +198,7 @@
   <script>
     let ros;
     let rosUrl = localStorage.getItem('rosUrl') || 'ws://localhost:9091';
-    let maxSpeed = parseFloat(localStorage.getItem('maxSpeed')) || 1.0;
+    let maxSpeed = parseFloat(localStorage.getItem('maxSpeed')) || 0.25;
     let consoleEnabled = localStorage.getItem('consoleEnabled') === 'true';
     let consoleTopicName = localStorage.getItem('consoleTopicName') || '/rosout';
     let consoleMessageType = localStorage.getItem('consoleMessageType') || 'rcl_interfaces/msg/Log';
@@ -229,8 +226,8 @@
         customIpInput.value = rosUrl;
       }
 
-      maxSpeedSlider.value = maxSpeed.toFixed(2);
-      maxSpeedValue.textContent = maxSpeed.toFixed(2);
+      maxSpeedSlider.value = maxSpeed.toFixed(1);
+      maxSpeedValue.textContent = maxSpeed.toFixed(1);
       document.getElementById('enable-console').checked = consoleEnabled;
       document.getElementById('console-topic').value = consoleTopicName;
       document.getElementById('message-type').value = consoleMessageType;
@@ -240,7 +237,7 @@
     });
 
     maxSpeedSlider.addEventListener('input', () => {
-      maxSpeedValue.textContent = parseFloat(maxSpeedSlider.value).toFixed(2);
+      maxSpeedValue.textContent = parseFloat(maxSpeedSlider.value).toFixed(1);
     });
 
     rosIpSelect.addEventListener('change', () => {
@@ -321,27 +318,27 @@
       });
 
       const table = [
-        [12.60, 100], [12.40, 90], [12.20, 80], [12.00, 70],
-        [11.80, 60], [11.60, 50], [11.40, 40], [11.20, 30],
-        [11.00, 20], [10.80, 10], [10.50, 5], [9.60, 0]
-      ];
+            [12.60, 100], [12.40, 90], [12.20, 80], [12.00, 70],
+            [11.80, 60], [11.60, 50], [11.40, 40], [11.20, 30],
+            [11.00, 20], [10.80, 10], [10.50, 5], [9.60, 0]
+        ];
 
-      function voltageToPercent(voltage) {
-        // Fuori dai limiti della tabella
-        if (voltage >= table[0][0]) return table[0][1];
-        if (voltage <= table[table.length - 1][0]) return table[table.length - 1][1];
+        function voltageToPercent(voltage) {
+            // Fuori dai limiti della tabella
+            if (voltage >= table[0][0]) return table[0][1];
+            if (voltage <= table[table.length - 1][0]) return table[table.length - 1][1];
 
-        // Cerca i due punti tra cui interpolare
-        for (let i = 0; i < table.length - 1; i++) {
-          const [v1, p1] = table[i];
-          const [v2, p2] = table[i + 1];
+            // Cerca i due punti tra cui interpolare
+            for (let i = 0; i < table.length - 1; i++) {
+                const [v1, p1] = table[i];
+                const [v2, p2] = table[i + 1];
 
-          if (voltage <= v1 && voltage >= v2) {
-            const ratio = (voltage - v2) / (v1 - v2);
-            return p2 + ratio * (p1 - p2);
-          }
+                if (voltage <= v1 && voltage >= v2) {
+                    const ratio = (voltage - v2) / (v1 - v2);
+                    return p2 + ratio * (p1 - p2);
+                }
+            }
         }
-      }
 
       batteryTopic.subscribe((message) => {
         //const percent = Math.round(message.voltage / 11.7 * 100); // valore tra 0.0 e 1.0
@@ -387,62 +384,48 @@
           ? '🛑 Comando di stop inviato'
           : `📤 Comando inviato: vx=${currentLinear.toFixed(2)}, wz=${currentAngular.toFixed(2)}`;
 
-        console.log(status);
+        //console.log(status);
       }, 100); // 10 Hz
 
       // === Joystick robot ===
-      const DEADZONE = 0.05;   // 5% di corsa
-
       joystick.on('move', (evt, data) => {
         const nippleEl = document.querySelector('#joystick-zone .nipple');
         if (nippleEl) nippleEl.classList.add('active');
 
-        if (!data || !data.force || !data.angle) return;
+        if (data && data.vector) {
+          const rawX = data.vector.x;
+          const rawY = data.vector.y;
 
-        const force = data.force;          // 0..1
-        const angle = data.angle.radian;   // 0..2π
+          const linear = maxSpeed * rawY * -1;
+          const angular = maxSpeed * rawX;
 
-        // Deadzone sulla forza
-        let f = force < DEADZONE ? 0 : (force - DEADZONE) / (1 - DEADZONE);
+          const linearFiltered = Math.abs(linear) < deadZone * maxSpeed ? 0 : linear;
+          const angularFiltered = Math.abs(angular) < deadZone * maxSpeed ? 0 : angular;
 
-        // Polare → cartesiano
-        const vx = f * Math.cos(angle);    // -1..1
-        const vy = f * Math.sin(angle);    // -1..1
+          linearDisplay.textContent = linearFiltered.toFixed(2);
+          angularDisplay.textContent = angularFiltered.toFixed(2);
 
-        // Mappatura su robot (asse Y invertito)
-        const linear = maxSpeed * (-vy);
-        const angular = maxSpeed * (vx);
+          //console.log(`Joystick robot → Linear: ${linearFiltered}, Angular: ${angularFiltered}`);
 
-        currentLinear = linear;
-        currentAngular = angular;
-
-        linearDisplay.textContent = linear.toFixed(2);
-        angularDisplay.textContent = angular.toFixed(2);
-
-        console.log("force:", force.toFixed(3),
-          "angle:", angle.toFixed(3),
-          "vx:", vx.toFixed(3),
-          "vy:", vy.toFixed(3),
-          "linear:", linear.toFixed(3),
-          "angular:", angular.toFixed(3));
+          // 🔄 Aggiorna buffer per invio periodico
+          currentLinear = linearFiltered;
+          currentAngular = angularFiltered;
+        }
       });
 
-
-
       joystick.on('end', () => {
-        console.log("=== JOYSTICK END ===");
-        console.log("STOP → currentLinear = 0, currentAngular = 0");
-
         const nippleEl = document.querySelector('#joystick-zone .nipple');
         if (nippleEl) nippleEl.classList.remove('active');
 
         linearDisplay.textContent = '0.00';
         angularDisplay.textContent = '0.00';
 
+        console.log('Joystick robot → STOP');
+
+        // 🔄 Imposta buffer a zero per invio continuo di stop
         currentLinear = 0;
         currentAngular = 0;
       });
-
 
       // === ROS publisher per la telecamera ===
       const servoTopic = new ROSLIB.Topic({
@@ -450,8 +433,8 @@
         name: '/servo_position_controller/commands',
         messageType: 'std_msgs/Float64MultiArray'
       });
-
-
+      
+      
       const SERVO_PAN_MIN_DEG = 0.0  // [°]
       const SERVO_PAN_MAX_DEG = 180.0  // [°]
       const SERVO_TILT_MIN_DEG = 0.0  // [°]
@@ -459,7 +442,7 @@
 
       let currentPan = 0.5 * (SERVO_PAN_MAX_DEG - SERVO_PAN_MIN_DEG) * (Math.PI / 180);
       let currentTilt = 0;
-
+      
 
 
       // === Timer per invio continuo dei comandi telecamera (10 Hz) ===
@@ -490,18 +473,18 @@
           const tilt = rawY * 1;
 
           const panFiltered =
-            Math.abs(pan) < deadZone
-              ? 0
-              : (Number(pan.toFixed(2)) + 1) * 0.5 * (SERVO_PAN_MAX_DEG - SERVO_PAN_MIN_DEG) * (Math.PI / 180);
+              Math.abs(pan) < deadZone
+                ? 0
+                : (Number(pan.toFixed(2)) + 1) * 0.5 * (SERVO_PAN_MAX_DEG - SERVO_PAN_MIN_DEG) * (Math.PI / 180);
 
           const tiltFiltered =
-            Math.abs(tilt) < deadZone || tilt < 0
-              ? 0
-              : SERVO_TILT_MIN_DEG * (Math.PI / 180) + (Math.abs(Number(tilt.toFixed(2))) * (SERVO_TILT_MAX_DEG - SERVO_TILT_MIN_DEG)) * (Math.PI / 180);
+              Math.abs(tilt) < deadZone || tilt < 0
+                ? 0
+                : SERVO_TILT_MIN_DEG* (Math.PI / 180) + (Math.abs(Number(tilt.toFixed(2))) * (SERVO_TILT_MAX_DEG - SERVO_TILT_MIN_DEG)) * (Math.PI / 180);
 
-
-
-          console.log(`Joystick pan/tilt → Pan: ${panFiltered} (${Number(pan.toFixed(2))}), Tilt: ${tiltFiltered} (${Number(tilt.toFixed(2))})`);
+          
+          
+          console.log(`Joystick pan/tilt → Pan: ${panFiltered } (${Number(pan.toFixed(2))}), Tilt: ${tiltFiltered} (${Number(tilt.toFixed(2))})`);
 
           // 🔄 Aggiorna buffer per invio continuo
           currentPan = panFiltered;
