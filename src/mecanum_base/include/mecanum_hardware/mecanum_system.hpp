@@ -27,10 +27,10 @@ namespace mecanum_hardware
     // 📦 Stato per ciascuna ruota (posizione, velocità e comando)
     struct JointState
     {
-        double pos_rad = 0.0;   // posizione letta dall’hardware
-        double vel_rad_s = 0.0; // velocità letta dall’hardware
-        double effort = 0.0;    // eventuale sforzo (se presente)
-        double cmd_vel = 0.0;   // comando di velocità da ROS2 Control
+        double pos_rad = 0.0;   // posizione cumulativa letta dall’hardware (rad)
+        double vel_rad_s = 0.0; // velocità filtrata letta dall’hardware (rad/s)
+        double effort = 0.0;    // eventuale sforzo (se il microcontrollore lo invia)
+        double cmd_vel = 0.0;   // comando di velocità ricevuto da ros2_control
     };
 
     // 📦 Stato IMU (orientamento, velocità angolare, accelerazione lineare)
@@ -54,15 +54,15 @@ namespace mecanum_hardware
     // 📦 Stato dei servomotori (in radianti)
     struct ServoState
     {
-        double pan_position = 90 * M_PI / 180.0;  // Posizione del servo pan
-        double tilt_position = 0.0; // Posizione del servo tilt
+        double pan_position = 90 * M_PI / 180.0; // Posizione del servo pan
+        double tilt_position = 0.0;              // Posizione del servo tilt
     };
 
     // 📦 Comandi desiderati per i servomotori (in radianti)
     struct ServoCommand
     {
         double pan_position = 90 * M_PI / 180.0; // Comando di posizione per il servo pan
-        double tilt_position = 0.0; // Comando di posizione per il servo tilt
+        double tilt_position = 0.0;              // Comando di posizione per il servo tilt
     };
 
     // Struttura per raggruppare lo stato della batteria
@@ -119,13 +119,13 @@ namespace mecanum_hardware
 
         // ⚙️ Parametri cinematici e logici
         double wheel_radius_{0.025}; // Raggio ruota [m]
-        double L_{0.15};            // Metà lunghezza telaio [m]
-        double W_{0.15};            // Metà larghezza telaio [m]
-        bool mock_{false};          // true = simulazione, false = hardware reale
-        double accel_limit_{25.0};  // Limite accelerazione [rad/s²] (solo mock)
+        double L_{0.15};             // Metà lunghezza telaio [m]
+        double W_{0.15};             // Metà larghezza telaio [m]
+        bool mock_{false};           // true = simulazione, false = hardware reale
+        double accel_limit_{25.0};   // Limite accelerazione [rad/s²] (solo mock)
 
         // ⚙️ Parametri encoder
-        int ticks_per_rev_{12};         // Tick per giro encoder (lato motore)
+        int ticks_per_rev_{12};           // Tick per giro encoder (lato motore)
         double gear_ratio_{90.0};         // Rapporto di trasmissione
         double ticks_per_wheel_rev_{0.0}; // Tick per giro ruota = encoder * rapporto
 

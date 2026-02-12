@@ -19,7 +19,7 @@
 #include <string>
 #include <unistd.h> // read()
 #include <mutex>
-#include <poll.h>   // <-- necessario per poll(), struct pollfd, POLLOUT
+#include <poll.h> // <-- necessario per poll(), struct pollfd, POLLOUT
 
 namespace mecanum_hardware
 {
@@ -603,36 +603,23 @@ namespace mecanum_hardware
 
       // 4) Dispatch in base al prefisso del pacchetto.
       //    Usiamo rfind(...,0) per verificare che la stringa inizi con il prefisso.
-      if (line.rfind("ENC", 0) == 0)
+      //
+      if (line.rfind("ENC", 0) == 0) // rfind("ENC", 0) == 0 → la stringa inizia con "ENC"
       {
-        // --- gestione pacchetto ENC (encoder) ---
-        double prev_pos[4];
-        for (int i = 0; i < 4; ++i)
-          prev_pos[i] = joints_[i].pos_rad;
-
         try
         {
+          // Delego il parsing alla funzione dedicata.
+          // Se il pacchetto è ben formato, aggiornerà:
+          //   joints_[i].pos_rad
+          //   joints_[i].vel_rad_s
           parse_encoder_packet_(line);
-
-          if (dt > 0.0)
-          {
-            for (int i = 0; i < 4; ++i)
-            {
-              const double dpos = joints_[i].pos_rad - prev_pos[i];
-              joints_[i].vel_rad_s = dpos / dt;
-            }
-          }
-          else
-          {
-            RCLCPP_WARN(this->get_logger(),
-                        "Velocità non aggiornata: dt=%.6f", dt);
-          }
         }
         catch (const std::exception &e)
         {
-          RCLCPP_WARN(this->get_logger(),
-                      "Pacchetto ENC malformato, scartato. Errore: %s | Riga: '%s'",
-                      e.what(), line.c_str());
+          // In caso di eccezioni non gestite (es. std::bad_alloc, ecc.),
+          // logghiamo un warning per non far crashare il nodo.
+          // logger_ NON è accessibile → usare get_logger() 
+          RCLCPP_WARN( rclcpp::get_logger("MecanumSystem"), "Eccezione durante il parsing ENC: %s", e.what() );
         }
       }
 
@@ -920,37 +907,120 @@ namespace mecanum_hardware
 
   // ================== PARSING PACCHETTI ==================
   //
-  // Parsing pacchetto encoder: "ENC,dl_fl,dl_fr,dl_rl,dl_rr"
-  //
+  /**
+   * @brief Parsing del pacchetto encoder proveniente dal microcontrollore.
+   *
+   * Formato atteso della stringa "line":
+   *
+   *   ENC,pos_fl,pos_fr,pos_rl,pos_rr,vel_fl,vel_fr,vel_rl,vel_rr
+   *
+   * Dove:
+   *   - pos_xx = posizione cumulativa encoder (in tick, lato microcontrollore)
+   *   - vel_xx = velocità filtrata (in rad/s, lato microcontrollore)
+   *
+   * Obiettivo:
+   *   - Aggiornare joints_[i].pos_rad e joints_[i].vel_rad_s
+   *     in modo coerente con ros2_control:
+   *       pos_rad   → posizione cumulativa in radianti
+   *       vel_rad_s → velocità in radianti/secondo
+   *
+   * NOTE:
+   *   - Se in futuro il microcontrollore invierà posizioni già in radianti,
+   *     basterà impostare k = 1.0 invece di 2π / ticks_per_wheel_rev_.
+   */
   void MecanumSystem::parse_encoder_packet_(const std::string &line)
   {
+    // Creiamo uno stringstream per "spezzare" la riga sugli ','.
     std::stringstream ss(line);
     std::string token;
 
-    // Scarta il prefisso "ENC"
-    std::getline(ss, token, ',');
-
-    int deltas[4] = {0, 0, 0, 0};
-    for (int i = 0; i < 4 && std::getline(ss, token, ','); ++i)
+    // 1) Scartiamo il prefisso "ENC"
+    //    Esempio: "ENC,123,124,..." → qui leggiamo "ENC" e lo ignoriamo.
+    if (!std::getline(ss, token, ','))
     {
-      deltas[i] = std::stoi(token);
+      RCLCPP_WARN( rclcpp::get_logger("MecanumSystem"), "Pacchetto ENC vuoto o malformato (manca prefisso)" );
+      return;
     }
 
-    // Applica inversioni
-    deltas[0] *= inv_fl_;
-    deltas[1] *= inv_fr_;
-    deltas[2] *= inv_rl_;
-    deltas[3] *= inv_rr_;
+    double pos[4];
+    double vel[4];
 
-    // Tick → radianti
+    // 2) Parsing delle POSIZIONI (pos_fl, pos_fr, pos_rl, pos_rr)
+    for (int i = 0; i < 4; ++i)
+    {
+      if (!std::getline(ss, token, ','))
+      {
+        // Se non riusciamo a leggere abbastanza campi, il pacchetto è incompleto.
+        RCLCPP_WARN( rclcpp::get_logger("MecanumSystem"), "Pacchetto ENC incompleto (posizione %d)", i );
+
+        return;
+      }
+
+      try
+      {
+        pos[i] = std::stod(token); // converte stringa → double
+      }
+      catch (const std::exception &e)
+      {
+        RCLCPP_WARN(rclcpp::get_logger("MecanumSystem"), "Errore conversione posizione ENC[%d]: '%s'", i, token.c_str());
+        return;
+      }
+    }
+
+    // 3) Parsing delle VELOCITÀ (vel_fl, vel_fr, vel_rl, vel_rr)
+    for (int i = 0; i < 4; ++i)
+    {
+      if (!std::getline(ss, token, ','))
+      {
+        RCLCPP_WARN(rclcpp::get_logger("MecanumSystem"), "Pacchetto ENC incompleto (velocità %d)", i);
+        return;
+      }
+
+      try
+      {
+        vel[i] = std::stod(token); // velocità già in rad/s
+      }
+      catch (const std::exception &e)
+      {
+        RCLCPP_WARN(rclcpp::get_logger("MecanumSystem"), "Errore conversione velocità ENC[%d]: '%s'", i, token.c_str());
+        return;
+      }
+    }
+
+    // 4) Applichiamo eventuali inversioni di segno
+    //    (utile se i motori sono montati in verso opposto o gli encoder contano al contrario).
+    pos[0] *= inv_fl_;
+    vel[0] *= inv_fl_;
+    pos[1] *= inv_fr_;
+    vel[1] *= inv_fr_;
+    pos[2] *= inv_rl_;
+    vel[2] *= inv_rl_;
+    pos[3] *= inv_rr_;
+    vel[3] *= inv_rr_;
+
+    // 5) Conversione da tick → radianti.
+    //
+    //    ticks_per_wheel_rev_ = tick per un giro completo di ruota.
+    //    2π rad = 1 giro → fattore di conversione:
+    //
+    //      rad = tick * (2π / ticks_per_wheel_rev_)
+    //
+    //    Se il microcontrollore invia già posizioni in radianti,
+    //    imposta semplicemente:
+    //
+    //      const double k = 1.0;
+    //
     const double k = 2.0 * M_PI / ticks_per_wheel_rev_;
-    double dth[4];
-    for (int i = 0; i < 4; ++i)
-      dth[i] = k * deltas[i];
 
-    // Aggiorna posizione e velocità (vel calcolata nel read con dt)
+    // 6) Aggiorniamo lo stato dei giunti usato da ros2_control
     for (int i = 0; i < 4; ++i)
-      joints_[i].pos_rad += dth[i];
+    {
+      // Posizione cumulativa in radianti
+      joints_[i].pos_rad = pos[i] * k;
+
+      // Velocità in rad/s (già filtrata dal microcontrollore)
+      joints_[i].vel_rad_s = vel[i];
+    }
   }
 
   //
