@@ -108,6 +108,11 @@ namespace mecanum_hardware
         hardware_interface::HardwareInfo info_;
 
     private:
+        // Usato per calcolare frequenza fra due messaggi ricevuti via UART
+        std::unordered_map<std::string, rclcpp::Time> last_stamp_;
+        std::unordered_map<std::string, bool> first_stamp_;
+
+
         // Stato E-STOP hardware (1.0 = attivo, 0.0 = non attivo)
         double estop_active_state_{0.0};
 
@@ -156,7 +161,7 @@ namespace mecanum_hardware
 
         // 📡 Gestione seriale diretta
         std::string serial_port_{"/dev/ttyUSB0"}; // Porta seriale
-        int baudrate_{115200};                    // Baudrate
+        int baudrate_{1000000};                    // Baudrate
         int serial_fd_{-1};                       // File descriptor seriale
         std::mutex serial_mutex_;                 // Protezione accesso concorrente
 

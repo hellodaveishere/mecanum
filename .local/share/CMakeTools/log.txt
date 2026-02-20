@@ -1,56 +1,59 @@
-2026-02-12T20:15:58.230Z [info] [bookmarks] Loaded 0 bookmarks
-2026-02-12T20:16:00.583Z [info] [proc] Executing command: /usr/bin/cmake --version
-2026-02-12T20:16:00.754Z [debug] [proc]   with environment: {"HOSTNAME":"dave-computer","HOME":"/home/ws","ROS_DISTRO":"jazzy","PATH":"/vscode/vscode-server/bin/linux-x64/bdd88df003631aaa0bcbe057cb0a940b80a476fa/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin","DISPLAY":":0","LANG":"C.UTF-8","ROS_DOMAIN_ID":"42","SHELL":"/bin/bash","ROS_AUTOMATIC_DISCOVERY_RANGE":"LOCALHOST","LC_ALL":"C.UTF-8","PWD":"/vscode/vscode-server/bin/linux-x64/bdd88df003631aaa0bcbe057cb0a940b80a476fa","VSCODE_CWD":"/vscode/vscode-server/bin/linux-x64/bdd88df003631aaa0bcbe057cb0a940b80a476fa","VSCODE_NLS_CONFIG":"{\"userLocale\":\"en\",\"osLocale\":\"en\",\"resolvedLanguage\":\"en\",\"defaultMessagesFile\":\"/vscode/vscode-server/bin/linux-x64/bdd88df003631aaa0bcbe057cb0a940b80a476fa/out/nls.messages.json\",\"locale\":\"en\",\"availableLanguages\":{}}","VSCODE_HANDLES_SIGPIPE":"true","VSCODE_ESM_ENTRYPOINT":"vs/workbench/api/node/extensionHostProcess","VSCODE_HANDLES_UNCAUGHT_ERRORS":"true","REMOTE_CONTAINERS_IPC":"/tmp/vscode-remote-containers-ipc-80615ace-5c09-41d8-85d8-24713a3d1ae8.sock","REMOTE_CONTAINERS_SOCKETS":"[\"/tmp/vscode-ssh-auth-80615ace-5c09-41d8-85d8-24713a3d1ae8.sock\",\"/home/ws/.gnupg/S.gpg-agent\"]","SHLVL":"1","_":"/usr/bin/cat","SSH_AUTH_SOCK":"/tmp/vscode-ssh-auth-80615ace-5c09-41d8-85d8-24713a3d1ae8.sock","REMOTE_CONTAINERS":"true","BROWSER":"/vscode/vscode-server/bin/linux-x64/bdd88df003631aaa0bcbe057cb0a940b80a476fa/bin/helpers/browser.sh","VSCODE_RECONNECTION_GRACE_TIME":"10800000","ELECTRON_RUN_AS_NODE":"1","VSCODE_IPC_HOOK_CLI":"/tmp/vscode-ipc-23e86d5a-4c5c-46d8-a35c-090d22406521.sock","APPLICATION_INSIGHTS_NO_STATSBEAT":"true","VSCODE_L10N_BUNDLE_LOCATION":""}
-2026-02-12T20:16:04.079Z [info] [proc] Executing command: /usr/bin/cmake -E capabilities
-2026-02-12T20:16:04.081Z [debug] [proc]   with environment: {"HOSTNAME":"dave-computer","HOME":"/home/ws","ROS_DISTRO":"jazzy","PATH":"/vscode/vscode-server/bin/linux-x64/bdd88df003631aaa0bcbe057cb0a940b80a476fa/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin","DISPLAY":":0","LANG":"C.UTF-8","ROS_DOMAIN_ID":"42","SHELL":"/bin/bash","ROS_AUTOMATIC_DISCOVERY_RANGE":"LOCALHOST","LC_ALL":"C.UTF-8","PWD":"/vscode/vscode-server/bin/linux-x64/bdd88df003631aaa0bcbe057cb0a940b80a476fa","VSCODE_CWD":"/vscode/vscode-server/bin/linux-x64/bdd88df003631aaa0bcbe057cb0a940b80a476fa","VSCODE_NLS_CONFIG":"{\"userLocale\":\"en\",\"osLocale\":\"en\",\"resolvedLanguage\":\"en\",\"defaultMessagesFile\":\"/vscode/vscode-server/bin/linux-x64/bdd88df003631aaa0bcbe057cb0a940b80a476fa/out/nls.messages.json\",\"locale\":\"en\",\"availableLanguages\":{}}","VSCODE_HANDLES_SIGPIPE":"true","VSCODE_ESM_ENTRYPOINT":"vs/workbench/api/node/extensionHostProcess","VSCODE_HANDLES_UNCAUGHT_ERRORS":"true","REMOTE_CONTAINERS_IPC":"/tmp/vscode-remote-containers-ipc-80615ace-5c09-41d8-85d8-24713a3d1ae8.sock","REMOTE_CONTAINERS_SOCKETS":"[\"/tmp/vscode-ssh-auth-80615ace-5c09-41d8-85d8-24713a3d1ae8.sock\",\"/home/ws/.gnupg/S.gpg-agent\"]","SHLVL":"1","_":"/usr/bin/cat","SSH_AUTH_SOCK":"/tmp/vscode-ssh-auth-80615ace-5c09-41d8-85d8-24713a3d1ae8.sock","REMOTE_CONTAINERS":"true","BROWSER":"/vscode/vscode-server/bin/linux-x64/bdd88df003631aaa0bcbe057cb0a940b80a476fa/bin/helpers/browser.sh","VSCODE_RECONNECTION_GRACE_TIME":"10800000","ELECTRON_RUN_AS_NODE":"1","VSCODE_IPC_HOOK_CLI":"/tmp/vscode-ipc-23e86d5a-4c5c-46d8-a35c-090d22406521.sock","APPLICATION_INSIGHTS_NO_STATSBEAT":"true","VSCODE_L10N_BUNDLE_LOCATION":""}
-2026-02-12T20:16:07.752Z [debug] [main] Safe constructing new CMakeProject instance
-2026-02-12T20:16:07.754Z [debug] [variant] Constructing VariantManager
-2026-02-12T20:16:07.756Z [debug] [main] Constructing new CMakeProject instance
-2026-02-12T20:16:07.757Z [debug] [main] Starting CMake Tools second-phase init
-2026-02-12T20:16:08.583Z [debug] [kit] Reading kits file /home/ws/.local/share/CMakeTools/cmake-tools-kits.json
-2026-02-12T20:16:11.085Z [info] [kit] Successfully loaded 1 kits from /home/ws/.local/share/CMakeTools/cmake-tools-kits.json
-2026-02-12T20:16:12.254Z [debug] [kit] Not reading non-existent kits file: /home/ws/.vscode/cmake-kits.json
-2026-02-12T20:16:14.751Z [info] [variant] Loaded new set of variants
-2026-02-12T20:16:14.762Z [debug] [main] CMakeProject instance initialization complete.
-2026-02-12T20:16:16.599Z [debug] [extension] Configuring workspace on open /home/ws
-2026-02-12T20:16:16.635Z [debug] [kitsController] Start selection of kits. Found 4 kits.
-2026-02-12T20:16:16.636Z [debug] [kitsController] Opening kit selection QuickPick
-2026-02-12T20:16:22.523Z [debug] [kitsController] Rescanning for kits
-2026-02-12T20:16:22.523Z [debug] [kit] Scanning for Kits on system
-2026-02-12T20:16:22.603Z [debug] [kit] Scanning directory /vscode/vscode-server/bin/linux-x64/bdd88df003631aaa0bcbe057cb0a940b80a476fa/bin/remote-cli for compilers
-2026-02-12T20:16:22.604Z [debug] [kit] Scanning directory /usr/local/sbin for compilers
-2026-02-12T20:16:22.606Z [debug] [kit] Scanning directory /usr/local/bin for compilers
-2026-02-12T20:16:22.606Z [debug] [kit] Scanning directory /usr/sbin for compilers
-2026-02-12T20:16:22.607Z [debug] [kit] Scanning directory /usr/bin for compilers
-2026-02-12T20:16:22.658Z [debug] [kit] Scanning directory /bin for compilers
-2026-02-12T20:16:22.659Z [debug] [kit] Scanning directory /sbin for compilers
-2026-02-12T20:16:22.660Z [debug] [kit] Skipping scan of not existing path undefined\msys64\mingw32\bin
-2026-02-12T20:16:22.660Z [debug] [kit] Found 0 kits in directory undefined\msys64\mingw32\bin
-2026-02-12T20:16:22.661Z [debug] [kit] Skipping scan of not existing path undefined\LLVM\bin
-2026-02-12T20:16:22.661Z [debug] [kit] Found 0 kits in directory undefined\LLVM\bin
-2026-02-12T20:16:22.668Z [debug] [kit] Skipping scan of not existing path undefined\msys64\mingw64\bin
-2026-02-12T20:16:22.669Z [debug] [kit] Found 0 kits in directory undefined\msys64\mingw64\bin
-2026-02-12T20:16:22.669Z [debug] [kit] Skipping scan of not existing path undefined\msys64\clang32\bin
-2026-02-12T20:16:22.669Z [debug] [kit] Found 0 kits in directory undefined\msys64\clang32\bin
-2026-02-12T20:16:22.670Z [debug] [kit] Skipping scan of not existing path undefined\msys64\clang64\bin
-2026-02-12T20:16:22.670Z [debug] [kit] Found 0 kits in directory undefined\msys64\clang64\bin
-2026-02-12T20:16:22.671Z [debug] [kit] Skipping scan of not existing path undefined\msys64\clangarm64\bin
-2026-02-12T20:16:22.671Z [debug] [kit] Found 0 kits in directory undefined\msys64\clangarm64\bin
-2026-02-12T20:16:22.671Z [debug] [kit] Skipping scan of not existing path undefined\msys64\ucrt64\bin
-2026-02-12T20:16:22.672Z [debug] [kit] Found 0 kits in directory undefined\msys64\ucrt64\bin
-2026-02-12T20:16:22.859Z [debug] [kit] Found 0 kits in directory /vscode/vscode-server/bin/linux-x64/bdd88df003631aaa0bcbe057cb0a940b80a476fa/bin/remote-cli
-2026-02-12T20:16:22.860Z [debug] [kit] Found 0 kits in directory /usr/local/sbin
-2026-02-12T20:16:22.861Z [debug] [kit] Found 0 kits in directory /usr/local/bin
-2026-02-12T20:16:22.914Z [debug] [kit] Found 0 kits in directory /usr/sbin
-2026-02-12T20:16:22.943Z [debug] [kit] Found 0 kits in directory /sbin
-2026-02-12T20:16:23.014Z [debug] [kit] Testing GCC binary: /bin/c89-gcc
-2026-02-12T20:16:23.017Z [info] [proc] Executing command: /bin/c89-gcc -v
-2026-02-12T20:16:23.150Z [debug] [kit] Testing GCC binary: /bin/c99-gcc
-2026-02-12T20:16:23.151Z [info] [proc] Executing command: /bin/c99-gcc -v
-2026-02-12T20:16:23.308Z [debug] [kit] Testing GCC binary: /bin/gcc
-2026-02-12T20:16:23.309Z [info] [proc] Executing command: /bin/gcc -v
-2026-02-12T20:16:23.374Z [debug] [kit] Testing GCC binary: /bin/gcc-13
-2026-02-12T20:16:23.390Z [info] [proc] Executing command: /bin/gcc-13 -v
+2026-02-20T07:11:19.249Z [info] [bookmarks] Loaded 0 bookmarks
+2026-02-20T07:11:32.064Z [info] [proc] Executing command: /usr/bin/cmake --version
+2026-02-20T07:11:32.065Z [debug] [proc]   with environment: {"HOSTNAME":"dave-computer","HOME":"/home/ws","ROS_DISTRO":"jazzy","PATH":"/vscode/vscode-server/bin/linux-x64/b6a47e94e326b5c209d118cf0f994d6065585705/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin","DISPLAY":":0","LANG":"C.UTF-8","ROS_DOMAIN_ID":"42","SHELL":"/bin/bash","ROS_AUTOMATIC_DISCOVERY_RANGE":"LOCALHOST","LC_ALL":"C.UTF-8","PWD":"/vscode/vscode-server/bin/linux-x64/b6a47e94e326b5c209d118cf0f994d6065585705","VSCODE_CWD":"/vscode/vscode-server/bin/linux-x64/b6a47e94e326b5c209d118cf0f994d6065585705","VSCODE_NLS_CONFIG":"{\"userLocale\":\"en\",\"osLocale\":\"en\",\"resolvedLanguage\":\"en\",\"defaultMessagesFile\":\"/vscode/vscode-server/bin/linux-x64/b6a47e94e326b5c209d118cf0f994d6065585705/out/nls.messages.json\",\"locale\":\"en\",\"availableLanguages\":{}}","VSCODE_HANDLES_SIGPIPE":"true","VSCODE_ESM_ENTRYPOINT":"vs/workbench/api/node/extensionHostProcess","VSCODE_HANDLES_UNCAUGHT_ERRORS":"true","REMOTE_CONTAINERS_IPC":"/tmp/vscode-remote-containers-ipc-ab73e61f-8e1c-4961-93aa-7c8527da152c.sock","REMOTE_CONTAINERS_SOCKETS":"[\"/tmp/vscode-ssh-auth-ab73e61f-8e1c-4961-93aa-7c8527da152c.sock\",\"/home/ws/.gnupg/S.gpg-agent\"]","SHLVL":"1","_":"/usr/bin/cat","SSH_AUTH_SOCK":"/tmp/vscode-ssh-auth-ab73e61f-8e1c-4961-93aa-7c8527da152c.sock","REMOTE_CONTAINERS":"true","BROWSER":"/vscode/vscode-server/bin/linux-x64/b6a47e94e326b5c209d118cf0f994d6065585705/bin/helpers/browser.sh","VSCODE_RECONNECTION_GRACE_TIME":"10800000","ELECTRON_RUN_AS_NODE":"1","VSCODE_IPC_HOOK_CLI":"/tmp/vscode-ipc-ad1c31df-4083-453d-a17e-5d6d6d984981.sock","APPLICATION_INSIGHTS_NO_STATSBEAT":"true","VSCODE_L10N_BUNDLE_LOCATION":""}
+2026-02-20T07:11:37.833Z [info] [proc] Executing command: /usr/bin/cmake -E capabilities
+2026-02-20T07:11:37.833Z [debug] [proc]   with environment: {"HOSTNAME":"dave-computer","HOME":"/home/ws","ROS_DISTRO":"jazzy","PATH":"/vscode/vscode-server/bin/linux-x64/b6a47e94e326b5c209d118cf0f994d6065585705/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin","DISPLAY":":0","LANG":"C.UTF-8","ROS_DOMAIN_ID":"42","SHELL":"/bin/bash","ROS_AUTOMATIC_DISCOVERY_RANGE":"LOCALHOST","LC_ALL":"C.UTF-8","PWD":"/vscode/vscode-server/bin/linux-x64/b6a47e94e326b5c209d118cf0f994d6065585705","VSCODE_CWD":"/vscode/vscode-server/bin/linux-x64/b6a47e94e326b5c209d118cf0f994d6065585705","VSCODE_NLS_CONFIG":"{\"userLocale\":\"en\",\"osLocale\":\"en\",\"resolvedLanguage\":\"en\",\"defaultMessagesFile\":\"/vscode/vscode-server/bin/linux-x64/b6a47e94e326b5c209d118cf0f994d6065585705/out/nls.messages.json\",\"locale\":\"en\",\"availableLanguages\":{}}","VSCODE_HANDLES_SIGPIPE":"true","VSCODE_ESM_ENTRYPOINT":"vs/workbench/api/node/extensionHostProcess","VSCODE_HANDLES_UNCAUGHT_ERRORS":"true","REMOTE_CONTAINERS_IPC":"/tmp/vscode-remote-containers-ipc-ab73e61f-8e1c-4961-93aa-7c8527da152c.sock","REMOTE_CONTAINERS_SOCKETS":"[\"/tmp/vscode-ssh-auth-ab73e61f-8e1c-4961-93aa-7c8527da152c.sock\",\"/home/ws/.gnupg/S.gpg-agent\"]","SHLVL":"1","_":"/usr/bin/cat","SSH_AUTH_SOCK":"/tmp/vscode-ssh-auth-ab73e61f-8e1c-4961-93aa-7c8527da152c.sock","REMOTE_CONTAINERS":"true","BROWSER":"/vscode/vscode-server/bin/linux-x64/b6a47e94e326b5c209d118cf0f994d6065585705/bin/helpers/browser.sh","VSCODE_RECONNECTION_GRACE_TIME":"10800000","ELECTRON_RUN_AS_NODE":"1","VSCODE_IPC_HOOK_CLI":"/tmp/vscode-ipc-ad1c31df-4083-453d-a17e-5d6d6d984981.sock","APPLICATION_INSIGHTS_NO_STATSBEAT":"true","VSCODE_L10N_BUNDLE_LOCATION":""}
+2026-02-20T07:11:49.197Z [debug] [main] Safe constructing new CMakeProject instance
+2026-02-20T07:11:49.204Z [debug] [variant] Constructing VariantManager
+2026-02-20T07:11:49.210Z [debug] [main] Constructing new CMakeProject instance
+2026-02-20T07:11:49.213Z [debug] [main] Starting CMake Tools second-phase init
+2026-02-20T07:11:51.987Z [debug] [kit] Reading kits file /home/ws/.local/share/CMakeTools/cmake-tools-kits.json
+2026-02-20T07:11:52.749Z [info] [kit] Successfully loaded 1 kits from /home/ws/.local/share/CMakeTools/cmake-tools-kits.json
+2026-02-20T07:11:55.459Z [debug] [kit] Not reading non-existent kits file: /home/ws/.vscode/cmake-kits.json
+2026-02-20T07:11:56.116Z [info] [variant] Loaded new set of variants
+2026-02-20T07:11:56.118Z [debug] [main] CMakeProject instance initialization complete.
+2026-02-20T07:12:03.950Z [debug] [main] Not starting CMake driver: no kit selected
+2026-02-20T07:12:07.208Z [debug] [extension] Configuring workspace on open /home/ws
+2026-02-20T07:12:07.353Z [debug] [kitsController] Start selection of kits. Found 4 kits.
+2026-02-20T07:12:07.354Z [debug] [kitsController] Opening kit selection QuickPick
+2026-02-20T08:51:14.371Z [debug] [kitsController] User cancelled Kit selection
+2026-02-19T09:56:25.412Z [debug] [main] Not starting CMake driver: no kit selected
+2026-02-19T09:56:27.427Z [debug] [main] Not starting CMake driver: no kit selected
+2026-02-19T09:56:36.341Z [debug] [main] Not starting CMake driver: no kit selected
+2026-02-19T09:56:38.021Z [debug] [main] Not starting CMake driver: no kit selected
+2026-02-19T09:58:26.304Z [debug] [main] Not starting CMake driver: no kit selected
+2026-02-19T09:58:28.404Z [debug] [main] Not starting CMake driver: no kit selected
+2026-02-19T09:58:32.259Z [debug] [main] Not starting CMake driver: no kit selected
+2026-02-19T10:10:34.735Z [debug] [main] Not starting CMake driver: no kit selected
+2026-02-19T10:10:36.514Z [debug] [main] Not starting CMake driver: no kit selected
+2026-02-19T10:10:38.448Z [debug] [main] Not starting CMake driver: no kit selected
+2026-02-19T10:10:44.791Z [debug] [main] Not starting CMake driver: no kit selected
+2026-02-19T10:10:45.888Z [debug] [main] Not starting CMake driver: no kit selected
+2026-02-19T10:11:51.859Z [debug] [main] Not starting CMake driver: no kit selected
+2026-02-19T10:11:53.471Z [debug] [main] Not starting CMake driver: no kit selected
+2026-02-19T10:12:02.422Z [debug] [main] Not starting CMake driver: no kit selected
+2026-02-19T10:12:08.686Z [debug] [main] Not starting CMake driver: no kit selected
+2026-02-19T10:12:18.141Z [debug] [main] Not starting CMake driver: no kit selected
+2026-02-19T10:12:23.041Z [debug] [main] Not starting CMake driver: no kit selected
+2026-02-19T10:12:29.902Z [debug] [main] Not starting CMake driver: no kit selected
+2026-02-19T10:13:26.983Z [debug] [main] Not starting CMake driver: no kit selected
+2026-02-19T10:13:32.667Z [debug] [main] Not starting CMake driver: no kit selected
+2026-02-19T10:13:44.628Z [debug] [main] Not starting CMake driver: no kit selected
+2026-02-19T10:13:47.632Z [debug] [main] Not starting CMake driver: no kit selected
+2026-02-19T10:13:51.294Z [debug] [main] Not starting CMake driver: no kit selected
+2026-02-19T10:14:00.897Z [debug] [main] Not starting CMake driver: no kit selected
+2026-02-19T10:14:02.540Z [debug] [main] Not starting CMake driver: no kit selected
+2026-02-19T10:17:35.926Z [debug] [main] Not starting CMake driver: no kit selected
+2026-02-19T10:17:40.162Z [debug] [main] Not starting CMake driver: no kit selected
+2026-02-19T10:19:25.672Z [debug] [main] Not starting CMake driver: no kit selected
+2026-02-19T10:19:28.091Z [debug] [main] Not starting CMake driver: no kit selected
+2026-02-19T10:20:45.501Z [debug] [main] Not starting CMake driver: no kit selected
+2026-02-19T10:20:50.974Z [debug] [main] Not starting CMake driver: no kit selected
+2026-02-19T10:20:57.402Z [debug] [main] Not starting CMake driver: no kit selected
+2026-02-19T10:20:58.749Z [debug] [main] Not starting CMake driver: no kit selected
+2026-02-19T10:22:13.550Z [debug] [main] Not starting CMake driver: no kit selected
+2026-02-19T10:28:45.911Z [debug] [main] Not starting CMake driver: no kit selected
+fo] [proc] Executing command: /bin/gcc-13 -v
 2026-02-12T20:16:23.749Z [debug] [kit] Testing GCC binary: /bin/x86_64-linux-gnu-gcc
 2026-02-12T20:16:23.750Z [info] [proc] Executing command: /bin/x86_64-linux-gnu-gcc -v
 2026-02-12T20:16:23.766Z [debug] [kit] Testing GCC binary: /bin/x86_64-linux-gnu-gcc-13
