@@ -1,0 +1,420 @@
+###############################################
+# NAV2 PARAMS - VERSIONE COMPLETA E COMMENTATA
+# Robot: 25.5 cm x 15 cm (footprint rettangolare)
+# Base frame: base_footprint (coerente con URDF)
+###############################################
+
+amcl:
+  ros__parameters:
+    # Rumore odometrico (se la posa "balla", aumenta leggermente)
+    alpha1: 0.2
+    alpha2: 0.2
+    alpha3: 0.2
+    alpha4: 0.2
+    alpha5: 0.2
+
+    # Frame TF (DEVONO essere coerenti con URDF e costmap)
+    base_frame_id: "base_footprint"
+    global_frame_id: "map"
+    odom_frame_id: "odom"
+
+    # Laser
+    scan_topic: "scan"
+    laser_model_type: "likelihood_field"
+    laser_min_range: -1.0
+    laser_max_range: -1.0
+    laser_likelihood_max_dist: 2.0
+
+    # Modello di misura (se la localizzazione è instabile, ritoccare questi)
+    z_hit: 0.8
+    z_rand: 0.15
+    z_short: 0.05
+    z_max: 0.05
+    sigma_hit: 0.2
+    lambda_short: 0.1
+
+    # Particelle (aumenta max_particles per più precisione)
+    min_particles: 500
+    max_particles: 2000
+    pf_err: 0.05
+    pf_z: 0.99
+
+    # Modello di moto per robot mecanum
+    robot_model_type: "nav2_amcl::OmniMotionModel"
+
+    # Frequenze
+    update_min_d: 0.05
+    update_min_a: 0.05
+    resample_interval: 1
+
+    # Beam skipping (lasciato off finché tutto è stabile)
+    do_beamskip: false
+
+    max_beams: 60
+    save_pose_rate: 0.5
+    tf_broadcast: true
+    transform_tolerance: 1.0
+
+
+###############################################
+# GLOBAL COSTMAP
+###############################################
+
+global_costmap:
+  global_costmap:
+    ros__parameters:
+      use_sim_time: false
+
+      global_frame: map
+      robot_base_frame: base_footprint
+
+      resolution: 0.05
+      track_unknown_space: true
+
+      # Footprint robot (25.5 x 15 cm)
+      footprint: [
+        [ 0.1275,  0.075 ],
+        [ 0.1275, -0.075 ],
+        [ -0.1275, -0.075 ],
+        [ -0.1275,  0.075 ]
+      ]
+
+      update_frequency: 5.0
+      publish_frequency: 5.0
+
+      plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
+
+      static_layer:
+        plugin: "nav2_costmap_2d::StaticLayer"
+        map_subscribe_transient_local: true
+
+      obstacle_layer:
+        plugin: "nav2_costmap_2d::ObstacleLayer"
+        observation_sources: scan
+        scan:
+          topic: /scan
+          data_type: "LaserScan"
+          raytrace_min_range: 0.20
+          obstacle_min_range: 0.20
+          raytrace_max_range: 5.0
+          obstacle_max_range: 5.0
+          clearing: true
+          marking: true
+
+      inflation_layer:
+        plugin: "nav2_costmap_2d::InflationLayer"
+        inflation_radius: 0.8
+        cost_scaling_factor: 2.5
+
+      always_send_full_costmap: true
+
+
+###############################################
+# LOCAL COSTMAP
+###############################################
+
+local_costmap:
+  local_costmap:
+    ros__parameters:
+      use_sim_time: false
+
+      global_frame: odom
+      robot_base_frame: base_footprint
+
+      rolling_window: true
+      width: 5.0
+      height: 5.0
+      resolution: 0.05
+
+      footprint: [
+        [ 0.1275,  0.075 ],
+        [ 0.1275, -0.075 ],
+        [ -0.1275, -0.075 ],
+        [ -0.1275,  0.075 ]
+      ]
+
+      update_frequency: 10.0
+      publish_frequency: 5.0
+
+      plugins: ["obstacle_layer", "denoise_layer", "inflation_layer"]
+
+      obstacle_layer:
+        plugin: "nav2_costmap_2d::ObstacleLayer"
+        observation_sources: scan
+        scan:
+          topic: /scan
+          data_type: "LaserScan"
+          raytrace_min_range: 0.20
+          obstacle_min_range: 0.20
+          raytrace_max_range: 5.0
+          obstacle_max_range: 5.0
+          clearing: true
+          marking: true
+
+      denoise_layer:
+        plugin: "nav2_costmap_2d::DenoiseLayer"
+        minimal_group_size: 2
+        group_connectivity_type: 8
+
+      inflation_layer:
+        plugin: "nav2_costmap_2d::InflationLayer"
+        inflation_radius: 0.8
+        cost_scaling_factor: 2.5
+
+      always_send_full_costmap: true
+
+
+###############################################
+# PLANNER SERVER (SMAC HYBRID OMNI)
+###############################################
+
+planner_server:
+  ros__parameters:
+    expected_planner_frequency: 20.0
+    planner_plugins: ["GridBased"]
+
+    GridBased:
+      plugin: "nav2_smac_planner/SmacPlannerHybrid"
+      tolerance: 0.1
+      allow_unknown: true
+      motion_model_for_search: "OMNI"
+      angle_quantization_bins: 72
+      minimum_turning_radius: 0.0
+      cost_travel_multiplier: 2.0
+      smooth_path: true
+
+
+###############################################
+# SMOOTHER SERVER
+###############################################
+
+smoother_server:
+  ros__parameters:
+    smoother_plugins: ["simple_smoother"]
+
+    simple_smoother:
+      plugin: "nav2_smoother::SimpleSmoother"
+      tolerance: 0.01
+      max_its: 1000
+      do_refinement: true
+
+
+###############################################
+# BEHAVIOR SERVER
+###############################################
+
+behavior_server:
+  ros__parameters:
+    local_costmap_topic: local_costmap/costmap_raw
+    global_costmap_topic: global_costmap/costmap_raw
+    local_footprint_topic: local_costmap/published_footprint
+    global_footprint_topic: global_costmap/published_footprint
+
+    cycle_frequency: 10.0
+
+    behavior_plugins: ["spin", "backup", "drive_on_heading", "assisted_teleop", "wait"]
+
+    spin:
+      plugin: "nav2_behaviors::Spin"
+    backup:
+      plugin: "nav2_behaviors::BackUp"
+    drive_on_heading:
+      plugin: "nav2_behaviors::DriveOnHeading"
+    wait:
+      plugin: "nav2_behaviors::Wait"
+    assisted_teleop:
+      plugin: "nav2_behaviors::AssistedTeleop"
+
+    local_frame: odom
+    global_frame: map
+    robot_base_frame: base_footprint
+
+    transform_tolerance: 0.1
+    simulate_ahead_time: 2.0
+
+    max_rotational_vel: 0.5
+    min_rotational_vel: 0.1
+    rotational_acc_lim: 3.2
+
+
+###############################################
+# WAYPOINT FOLLOWER
+###############################################
+
+waypoint_follower:
+  ros__parameters:
+    loop_rate: 5
+    stop_on_failure: false
+    action_server_result_timeout: 900.0
+
+    waypoint_task_executor_plugin: "wait_at_waypoint"
+
+    wait_at_waypoint:
+      plugin: "nav2_waypoint_follower::WaitAtWaypoint"
+      enabled: true
+      waypoint_pause_duration: 10
+
+
+###############################################
+# VELOCITY SMOOTHER
+###############################################
+
+velocity_smoother:
+  ros__parameters:
+    smoothing_frequency: 20.0
+    scale_velocities: false
+    feedback: "OPEN_LOOP"
+
+    max_velocity: [0.5, 0.5, 1.5]
+    min_velocity: [-0.5, -0.5, -1.5]
+
+    max_accel: [0.3, 0.3, 3.2]
+    max_decel: [-0.5, -0.5, -3.2]
+
+    odom_topic: "odometry/filtered"
+    odom_duration: 0.1
+
+    deadband_velocity: [0.0, 0.0, 0.0]
+    velocity_timeout: 1.0
+
+
+###############################################
+# COLLISION MONITOR
+###############################################
+
+collision_monitor:
+  ros__parameters:
+    base_frame_id: "base_footprint"
+    odom_frame_id: "odom"
+
+    cmd_vel_in_topic: "cmd_vel_smoothed"
+    cmd_vel_out_topic: "cmd_vel"
+    state_topic: "collision_monitor_state"
+
+    transform_tolerance: 0.2
+    source_timeout: 1.0
+    base_shift_correction: true
+    stop_pub_timeout: 2.0
+
+    polygons: ["FootprintApproach"]
+
+    FootprintApproach:
+      type: "polygon"
+      action_type: "approach"
+      footprint_topic: "/local_costmap/published_footprint"
+      time_before_collision: 1.2
+      simulation_time_step: 0.1
+      min_points: 6
+      visualize: false
+      enabled: true
+
+    observation_sources: ["scan"]
+
+    scan:
+      type: "scan"
+      topic: "scan"
+      min_height: 0.15
+      max_height: 2.0
+      enabled: true
+
+
+###############################################
+# SLAM TOOLBOX
+###############################################
+
+slam_toolbox:
+  ros__parameters:
+    solver_plugin: solver_plugins::CeresSolver
+    ceres_linear_solver: SPARSE_NORMAL_CHOLESKY
+    ceres_preconditioner: SCHUR_JACOBI
+    ceres_trust_strategy: LEVENBERG_MARQUARDT
+    ceres_dogleg_type: TRADITIONAL_DOGLEG
+    ceres_loss_function: None
+
+    odom_frame: odom
+    map_frame: map
+    base_frame: base_footprint
+    scan_topic: /scan
+
+    mode: mapping
+    use_map_saver: true
+
+    transform_publish_period: 0.02
+    transform_timeout: 0.2
+    tf_buffer_duration: 30.0
+
+    map_update_interval: 5.0
+    resolution: 0.05
+    max_laser_range: 20.0
+
+    minimum_time_interval: 0.5
+    throttle_scans: 1
+
+    minimum_travel_distance: 0.2
+    minimum_travel_heading: 0.2
+
+    scan_buffer_size: 10
+    scan_buffer_maximum_scan_distance: 10.0
+
+    do_loop_closing: true
+    loop_search_maximum_distance: 3.0
+    loop_match_minimum_chain_size: 10
+    loop_match_maximum_variance_coarse: 3.0
+    loop_match_minimum_response_coarse: 0.35
+    loop_match_minimum_response_fine: 0.45
+
+    correlation_search_space_dimension: 0.5
+    correlation_search_space_resolution: 0.01
+    correlation_search_space_smear_deviation: 0.1
+
+    loop_search_space_dimension: 8.0
+    loop_search_space_resolution: 0.05
+    loop_search_space_smear_deviation: 0.03
+
+    distance_variance_penalty: 0.5
+    angle_variance_penalty: 1.0
+    fine_search_angle_offset: 0.00349
+    coarse_search_angle_offset: 0.349
+    coarse_angle_resolution: 0.0349
+    minimum_angle_penalty: 0.9
+    minimum_distance_penalty: 0.5
+    use_response_expansion: true
+
+    debug_logging: false
+    stack_size_to_use: 40000000
+    enable_interactive_mode: true
+
+
+###############################################
+# MAP SAVER
+###############################################
+
+map_saver:
+  ros__parameters:
+    save_map_timeout: 5.0
+    free_thresh_default: 0.25
+    occupied_thresh_default: 0.65
+    map_subscribe_transient_local: true
+    output_map_format: "png"
+    output_map_file_name: "mappa"
+
+
+###############################################
+# MAP SERVER
+###############################################
+
+map_server:
+  ros__parameters:
+    yaml_filename: "/home/utente/maps/mappa.yaml"
+    frame_id: "map"
+    topic_name: "map"
+    transient_local: true
+
+
+###############################################
+# BEHAVIOR TREE NAVIGATOR
+###############################################
+
+bt_navigator:
+  ros__parameters:
+    bt_xml_filename: "bt_xml/navigate.xml"

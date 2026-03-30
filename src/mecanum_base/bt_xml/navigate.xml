@@ -1,0 +1,34 @@
+<root main_tree_to_execute="MainTree">
+
+  <!--
+    Behavior Tree standard per Nav2:
+    - calcola il percorso
+    - segue il percorso
+    - esegue recovery se necessario
+  -->
+
+  <BehaviorTree ID="MainTree">
+
+    <PipelineSequence name="NavigateWithRecovery">
+
+      <!-- Pianifica un percorso verso il goal -->
+      <ComputePathToPose goal="{goal}" path="{path}"/>
+
+      <!-- Segue il percorso -->
+      <FollowPath path="{path}"/>
+
+      <!-- Recovery automatiche -->
+      <RecoveryNode number_of_retries="3">
+
+        <ClearCostmap name="ClearLocalCostmap"/>
+        <ClearCostmap name="ClearGlobalCostmap"/>
+        <Spin name="SpinRecovery"/>
+        <Wait name="WaitRecovery" wait_duration="2"/>
+
+      </RecoveryNode>
+
+    </PipelineSequence>
+
+  </BehaviorTree>
+
+</root>
