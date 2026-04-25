@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Gestione Script</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    .script-box {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+    }
+
+    button {
+      margin-right: 10px;
+      margin-bottom: 5px;
+      padding: 6px 12px;
+    }
+
+    .log-window {
+      background: #f4f4f4;
+      padding: 10px;
+      height: 200px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      border-radius: 4px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Gestione Script</h1>
+
+  <p>
+    Questa pagina permette di avviare, fermare e visualizzare il log di più script Python
+    gestiti dal server Node.js.  
+    Il log può essere attivato/disattivato tramite checkbox e scorre automaticamente.
+  </p>
+
+  <div id="scripts"></div>
+
+  <script>
+    // Lista degli script (coerente con server.js)
+    const SCRIPT_NAMES = ["script1", "script2", "script3"];
+
+    // Stato log: inizializzato dinamicamente per evitare errori futuri
+    const logEnabled = {};
+    SCRIPT_NAMES.forEach(name => { logEnabled[name] = false; });
+
+    function renderScripts() {
+      const container = document.getElementById("scripts");
+
+      SCRIPT_NAMES.forEach(name => {
+        const box = document.createElement("div");
+        box.className = "script-box";
+
+        box.innerHTML = `
+          <h3>${name}</h3>
+
+          <button onclick="startScript('${name}')">Start</button>
+          <button onclick="stopScript('${name}')">Stop</button>
+
+          <label>
+            <input type="checkbox" id="chk-${name}" onchange="toggleLog('${name}')">
+            Mostra log
+          </label>
+
+          <pre id="log-${name}" class="log-window"></pre>
+        `;
+
+        container.appendChild(box);
+      });
+    }
+
+    function startScript(name) {
+      fetch(`/start/${name}`, { method: "POST" })
+        .then(r => r.text())
+        .then(msg => alert(msg))
+        .catch(err => alert("Errore nello start: " + err));
+    }
+
+    function stopScript(name) {
+      fetch(`/stop/${name}`, { method: "POST" })
+        .then(r => r.text())
+        .then(msg => alert(msg))
+        .catch(err => alert("Errore nello stop: " + err));
+    }
+
+    function toggleLog(name) {
+      const checked = document.getElementById(`chk-${name}`).checked;
+      logEnabled[name] = checked;
+
+      const logWindow = document.getElementById(`log-${name}`);
+      logWindow.style.display = checked ? "block" : "none";
+    }
+
+    setInterval(() => {
+      SCRIPT_NAMES.forEach(name => {
+        if (logEnabled[name]) {
+          fetch(`/log/${name}`)
+            .then(r => r.text())
+            .then(text => {
+              const logWindow = document.getElementById(`log-${name}`);
+              logWindow.textContent = text;
+              logWindow.scrollTop = logWindow.scrollHeight;
+            })
+            .catch(() => {
+              // opzionale: puoi mostrare un messaggio di errore nel log
+            });
+        }
+      });
+    }, 1000);
+
+    renderScripts();
+  </script>
+
+</body>
+</html>
