@@ -1,16 +1,3 @@
-ros2 launch mecanum_base bringup.launch.py > log.txt
-colcon build --packages-select mecanum_base --symlink-install
-source install/setup.bash  
-ros2 launch mecanum_base bringup.launch.py > log.txt
-ros2 run image_tools cam2image --ros-args -p use_compressed:=true
-colcon build --packages-select mecanum_base --symlink-install
-source install/setup.bash  
-ros2 launch mecanum_base bringup.launch.py > log.txt
-clear
-sudo apt install ros-jazzy-compressed-image-transport
-ros2 launch mecanum_base bringup.launch.py > log.txt
-ros2 run image_tools cam2image --ros-args -p use_compressed:=true -p video_device:=/dev/video0
-ros2 run image_tools cam2image --ros-args -p use_compressed:=true -p video_device:=/dev/video0
 B
 [200~ros2 run image_tools cam2image --ros-args -p use_compressed:=true -p video_device:=/dev/video0 -p backend:=v4l2
 ~
@@ -498,3 +485,16 @@ source install/setup.
 source install/setup.bash 
 ros2 launch mecanum_base bringup.launch.py
 exit
+ls
+history
+colcon build --packages-select mecanum_base --symlink-install
+source install/setup.bash 
+colcon build --packages-select mecanum_base --symlink-install
+ros2 pkg list | grep nav2_msgs
+sudo apt install ros-jazzy-nav2-msgs
+apt-get update
+sudo apt update
+sudo apt install ros-jazzy-nav2-msgs
+clear
+colcon build --packages-select mecanum_base --symlink-install
+ls

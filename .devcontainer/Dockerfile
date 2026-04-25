@@ -31,6 +31,7 @@ RUN apt-get update && apt-get install -y \
     ros-jazzy-topic-tools \
     ros-jazzy-compressed-image-transport \
     ros-jazzy-v4l2-camera \
+    ros-jazzy-nav2-msgs \
     nodejs \
     npm \
     && rm -rf /var/lib/apt/lists/*
