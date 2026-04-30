@@ -1,57 +1,3 @@
-ros2 run rqt_image_view rqt_image_view&
-ros2 topic list | grep comp
-ros2 topic list
-ros2 topic list
-ros2 run rqt_image_view rqt_image_view
-ros2 run rqt_image_view rqt_image_view
-ros2 run rqt_image_view rqt_image_view
-ros2 run rqt_image_view rqt_image_view
-ros2 run rqt_gui rqt_gui
-ros2 topic echo /camera/image_raw/compressed
-ros2 topic echo /camera/image_raw/compressed
-ros2 run rqt_gui rqt_gui
-rqt_image_view
-ros2 run rqt_gui rqt_image_view
-ros2 run rqt_gui rqt_image_view
-ros2 run rqt_image_view rqt_image_view
-ros2 run rqt_gui rqt_gui
-ros2 topic list
-ros2 topic echo image_raw/compressed
-ros2 run rqt_gui rqt_gui
-ros2 run rqt_image_view rqt_image_view
-ros2 topic list
-ros2 run rqt_image_view rqt_image_view
-ros2 run rqt_image_view rqt_image_view
-ros2 run rqt_image_view rqt_image_view
-ros2 topic list
-ros2 topic list
-ros2 topic list
-ros2 run rqt_image_view rqt_image_view
-ros2 run rqt_image_view rqt_image_view
-ros2 topic list
-ros2 run rqt_image_view rqt_image_view
-ros2 topic list
-source install/setup.bash 
-ros2 run rqt_image_view rqt_image_view
-ros2 topic info /camera/image_raw/compressed
-colcon build --packages-select mecanum_base --symlink-install
-colcon build --packages-select mecanum_base --symlink-install
-source install/setup.bash 
-ros2 launch mecanum_base bringup.launch.py 
-colcon build --packages-select mecanum_base --symlink-install
-source install/setup.bash 
-ros2 launch mecanum_base bringup.launch.py 
-ros2 topic echo /rosout_string 
-ros2 topic echo /rosout_string 
-ros2 topic info /rosout_string 
-history|grep fetch
-git pull origin main
-git status
-git status
-git cherry-pick --continue
-clear
-git status
-git checkout --theirs src/mecanum_base/web/calibration_interface.html
 git add src/mecanum_base/web/calibration_interface.html
 git cherry-pick --continue
 git config --global core.editor "code --wait"
@@ -498,3 +444,57 @@ source install/setup.bash
 cd src/mecanum_base/tests/
 ./test_mecanum.sh 
 ./test_mecanum.sh 
+ls
+cd src/
+ls
+cd mecanum_base/webserver/
+node server.js 
+node server.js 
+node server.js 
+node server.js 
+node server.js 
+node server.js 
+date
+date
+node server.js 
+node server.js 
+node server.js 
+node server.js 
+ls
+cd src/mecanum_base/webserver/
+clear
+node server.js 
+node server.js 
+node server.js 
+node server.js 
+node server.js 
+hoostory| grep launch
+history| grep launch
+node server.js 
+node server.js 
+node server.js 
+hoostory| grep source
+history| grep source
+cd ..
+cd ..
+cd ..
+cd install/
+pwd
+ls
+cd ..
+ls
+cd src/mecanum_base/webserver/
+node server.js 
+cd ..
+cd web/scripts/
+ls a
+ls -al
+chmod +x start_mecanum.sh
+ls -al
+cd ..
+cd ..
+cd webserver/
+node server.js 
+node server.js 
+node server.js 
+node server.js 

@@ -76,11 +76,14 @@ def generate_launch_description():
     # =========================
     # 🌐 Web server Node.js per interfaccia web
     # =========================
-    webserver_node = ExecuteProcess(
-        cmd=['node', 'server.js'],
-        cwd=webserver_path,
-        output='screen'
-    )
+    
+    # NOTA: lanciato separatamente
+    
+    #webserver_node = ExecuteProcess(
+    #    cmd=['node', 'server.js'],
+    #    cwd=webserver_path,
+    #    output='screen'
+    #)
     
     # =========================
     # Nodo che limitare la frequenza (specificata in Hz) dei messaggi pubblicati su un topic ROS 2 
@@ -294,7 +297,7 @@ def generate_launch_description():
         rviz_node,
         # sllidar_launch,  # 👉 decommenta se vuoi avviare anche il LiDAR
         rosbridge_server_node,
-        webserver_node,
+        # webserver_node,  # 👉 lanciato separatamente
         throttle_node_for_battery_status,
         v4l2_camera_node,
         rosout_reply_node,

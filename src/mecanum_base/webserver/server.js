@@ -30,6 +30,7 @@ const SCRIPTS_DIR = path.join(WEB_DIR, 'scripts');
 
 // Whitelist degli script gestibili
 const scripts = {
+  start_mecanum: "start_mecanum.sh",
   script1: "script1.py",
   script2: "script2.py",
   script3: "script3.py"
@@ -40,7 +41,9 @@ const running = {};
 
 console.log("Serving static files from:", WEB_DIR);
 
+// per avere index automatico (index.html)
 //app.use(express.static(WEB_DIR));
+
 // Disattiviamo l'index automatico (index.html)
 app.use(express.static(WEB_DIR, { index: false }));
 
@@ -85,12 +88,27 @@ app.post('/start/:name', (req, res) => {
   // Reset log
   fs.writeFileSync(logFile, "");
 
-  // Avvio processo Python
-  const child = spawn("python3", ["-u", scriptPath], {
+  // Determina se è script Python o Bash
+  let cmd, args;
+
+  if (scriptPath.endsWith(".py")) {
+    cmd = "python3";
+    args = ["-u", scriptPath];
+  } else if (scriptPath.endsWith(".sh")) {
+    cmd = "bash";
+    args = [scriptPath];
+  } else {
+    return res.status(400).send("Tipo di script non supportato");
+  }
+
+  // Avvio processo
+  const child = spawn(cmd, args, {
     cwd: SCRIPTS_DIR,
     shell: false,
     detached: true
   });
+
+
 
   running[name] = {
     process: child,
@@ -149,6 +167,7 @@ app.get('/log/:name', (req, res) => {
     return res.send("Nessun log disponibile");
   }
 
+  res.setHeader("Cache-Control", "no-store");
   res.type("text/plain").send(fs.readFileSync(logFile, "utf8"));
 });
 

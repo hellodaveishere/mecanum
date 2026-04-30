@@ -4,122 +4,222 @@
   <meta charset="UTF-8">
   <title>Gestione Script</title>
 
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <script src="js/bootstrap.bundle.min.js"></script>
+
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-    }
-
-    .script-box {
-      border: 1px solid #ccc;
-      padding: 10px;
-      margin-bottom: 15px;
-      border-radius: 6px;
-    }
-
-    button {
-      margin-right: 10px;
-      margin-bottom: 5px;
-      padding: 6px 12px;
-    }
-
-    .log-window {
-      background: #f4f4f4;
-      padding: 10px;
-      height: 200px;
+    /* Log window personalizzata */
+    #logWindow {
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: 4px;
+      height: 250px;
       overflow-y: auto;
       white-space: pre-wrap;
-      border-radius: 4px;
       display: none;
+      padding: 10px;
     }
   </style>
 </head>
-<body>
 
-  <h1>Gestione Script</h1>
+<body class="bg-light">
 
-  <p>
-    Questa pagina permette di avviare, fermare e visualizzare il log di più script Python
-    gestiti dal server Node.js.  
-    Il log può essere attivato/disattivato tramite checkbox e scorre automaticamente.
+<div class="container py-4">
+
+  <h1 class="mb-4">Gestione lauch file di ROS2 e Script</h1>
+
+  <!--
+  <p class="text-muted">
+    Seleziona un launch file ROS2 o uno script dal menu a tendina.  
   </p>
+  -->
 
-  <div id="scripts"></div>
+  <!-- ============================================================
+       SELEZIONE SCRIPT
+       ============================================================ -->
+  <div class="mb-3">
+    <label for="scriptSelect" class="form-label fw-bold">Seleziona un launch file ROS2 o uno script:</label>
+    <select id="scriptSelect" class="form-select w-auto" onchange="onScriptChange()">
+      <option value="start_mecanum">start_mecanum</option>
+      <option value="script1">script1</option>
+      <option value="script2">script2</option>
+      <option value="script3">script3</option>
+    </select>
+  </div>
 
-  <script>
-    // Lista degli script (coerente con server.js)
-    const SCRIPT_NAMES = ["script1", "script2", "script3"];
+  <!-- ============================================================
+       STATO SCRIPT
+       ============================================================ -->
+  <div id="status" class="fw-bold mb-3 text-danger">
+    Stato: sconosciuto
+  </div>
 
-    // Stato log: inizializzato dinamicamente per evitare errori futuri
-    const logEnabled = {};
-    SCRIPT_NAMES.forEach(name => { logEnabled[name] = false; });
+  <!-- ============================================================
+       PULSANTI START / STOP
+       ============================================================ -->
+  <div class="mb-3">
+    <button class="btn btn-success me-2" onclick="startScript()">Start</button>
+    <button class="btn btn-danger" onclick="stopScript()">Stop</button>
+  </div>
 
-    function renderScripts() {
-      const container = document.getElementById("scripts");
+  <!-- ============================================================
+       CHECKBOX LOG
+       ============================================================ -->
+  <div class="form-check mb-3">
+    <input class="form-check-input" type="checkbox" id="chkLog" onchange="toggleLog()">
+    <label class="form-check-label" for="chkLog">
+      Mostra log
+    </label>
+  </div>
 
-      SCRIPT_NAMES.forEach(name => {
-        const box = document.createElement("div");
-        box.className = "script-box";
+  <!-- ============================================================
+       FINESTRA LOG
+       ============================================================ -->
+  <div id="logWindow"></div>
 
-        box.innerHTML = `
-          <h3>${name}</h3>
+  <!-- ============================================================
+       BOTTONE ROS2 GUI — SEMPRE IN BASSO A SINISTRA
+       ============================================================ -->
+  <div class="mt-5">
+    <button class="btn btn-primary" onclick="openRos2Gui()">
+      Apri ROS2 GUI
+    </button>
+  </div>
 
-          <button onclick="startScript('${name}')">Start</button>
-          <button onclick="stopScript('${name}')">Stop</button>
+</div> <!-- container -->
 
-          <label>
-            <input type="checkbox" id="chk-${name}" onchange="toggleLog('${name}')">
-            Mostra log
-          </label>
+<script>
+  // ============================================================
+  // CONFIGURAZIONE
+  // ============================================================
 
-          <pre id="log-${name}" class="log-window"></pre>
-        `;
+  let logEnabled = false;
+  let logInterval = null;
 
-        container.appendChild(box);
+  function getSelectedScript() {
+    return document.getElementById("scriptSelect").value;
+  }
+
+  // ============================================================
+  // STATO UI
+  // ============================================================
+
+  function setStatus(running, pid = null) {
+    const el = document.getElementById("status");
+
+    if (running) {
+      el.textContent = pid
+        ? `Stato: IN ESECUZIONE (PID ${pid})`
+        : `Stato: IN ESECUZIONE`;
+      el.classList.remove("text-danger");
+      el.classList.add("text-success");
+    } else {
+      el.textContent = "Stato: FERMO";
+      el.classList.remove("text-success");
+      el.classList.add("text-danger");
+    }
+  }
+
+  function onScriptChange() {
+    setStatus(false);
+    document.getElementById("logWindow").textContent = "";
+  }
+
+  // ============================================================
+  // START SCRIPT
+  // ============================================================
+
+  function startScript() {
+    const name = getSelectedScript();
+
+    fetch(`/start/${name}`, { method: "POST" })
+      .then(r => r.text())
+      .then(msg => {
+        const match = msg.match(/PID\s+(\d+)/);
+        if (match) setStatus(true, match[1]);
+        else setStatus(true);
+      })
+      .catch(err => {
+        console.error("Errore nello start:", err);
+        setStatus(false);
       });
-    }
+  }
 
-    function startScript(name) {
-      fetch(`/start/${name}`, { method: "POST" })
+  // ============================================================
+  // STOP SCRIPT
+  // ============================================================
+
+  function stopScript() {
+    const name = getSelectedScript();
+
+    fetch(`/stop/${name}`, { method: "POST" })
+      .then(r => r.text())
+      .then(msg => setStatus(false))
+      .catch(err => console.error("Errore nello stop:", err));
+  }
+
+  // ============================================================
+  // LOG — polling attivo SOLO quando abilitato
+  // ============================================================
+
+  function isAtBottom(el) {
+    return el.scrollTop + el.clientHeight >= el.scrollHeight - 5;
+  }
+
+  function startLogPolling() {
+    if (logInterval !== null) return;
+
+    logInterval = setInterval(() => {
+      const name = getSelectedScript();
+      const logWindow = document.getElementById("logWindow");
+
+      const userWasAtBottom = isAtBottom(logWindow);
+
+      fetch(`/log/${name}`)
         .then(r => r.text())
-        .then(msg => alert(msg))
-        .catch(err => alert("Errore nello start: " + err));
-    }
-
-    function stopScript(name) {
-      fetch(`/stop/${name}`, { method: "POST" })
-        .then(r => r.text())
-        .then(msg => alert(msg))
-        .catch(err => alert("Errore nello stop: " + err));
-    }
-
-    function toggleLog(name) {
-      const checked = document.getElementById(`chk-${name}`).checked;
-      logEnabled[name] = checked;
-
-      const logWindow = document.getElementById(`log-${name}`);
-      logWindow.style.display = checked ? "block" : "none";
-    }
-
-    setInterval(() => {
-      SCRIPT_NAMES.forEach(name => {
-        if (logEnabled[name]) {
-          fetch(`/log/${name}`)
-            .then(r => r.text())
-            .then(text => {
-              const logWindow = document.getElementById(`log-${name}`);
-              logWindow.textContent = text;
-              logWindow.scrollTop = logWindow.scrollHeight;
-            })
-            .catch(() => {
-              // opzionale: puoi mostrare un messaggio di errore nel log
-            });
-        }
-      });
+        .then(text => {
+          logWindow.textContent = text;
+          if (userWasAtBottom) logWindow.scrollTop = logWindow.scrollHeight;
+        })
+        .catch(err => console.error("Errore log:", err));
     }, 1000);
+  }
 
-    renderScripts();
-  </script>
+  function stopLogPolling() {
+    if (logInterval !== null) {
+      clearInterval(logInterval);
+      logInterval = null;
+    }
+  }
+
+  function toggleLog() {
+    logEnabled = document.getElementById("chkLog").checked;
+    const logWindow = document.getElementById("logWindow");
+
+    logWindow.style.display = logEnabled ? "block" : "none";
+
+    if (logEnabled) startLogPolling();
+    else stopLogPolling();
+  }
+
+  // ============================================================
+  // APRI ROS2 GUI
+  // ============================================================
+
+  function openRos2Gui() {
+    window.open("ros2_gui.html", "_blank");
+  }
+
+  // ============================================================
+  // INIZIALIZZAZIONE
+  // ============================================================
+
+  window.addEventListener("load", () => {
+    setStatus(false);
+    toggleLog(); // sincronizza checkbox ↔ polling
+  });
+</script>
 
 </body>
 </html>

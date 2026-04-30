@@ -26,7 +26,7 @@ sudo apt install rpi-imager
 1. Avvia **Raspberry Pi Imager**
 2. Seleziona:
    - **Device → Raspberry Pi 5**
-   - **OS → Ubuntu Server 24.04 LTS (64‑bit)**
+   - **OS → Ubuntu Server 24.04 LTS (64‑bit)**  (Per compatibilità con ROS2!!!!!)
    - **Storage → microSD**
 3. Clicca sull’icona dell’**ingranaggio** e imposta:
    - **Enable SSH**
@@ -70,6 +70,8 @@ ssh nomeutente@IP_del_Raspberry
 # 6. Aggiornare il sistema
 ```bash
 sudo apt update && sudo apt upgrade -y
+
+NOTA: non fa l'upgrade dell'OS
 ```
 
 ---
