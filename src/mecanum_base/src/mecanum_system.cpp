@@ -877,18 +877,34 @@ namespace mecanum_hardware
                       joints_[2].cmd_vel, joints_[3].cmd_vel,
                       servo_command_.pan_position, servo_command_.tilt_position);
 
-    // 4️⃣ Invio del comando sulla seriale:
-    // Riduciamo la frequenza di invio a 10 Hz (1 ogni 5 cicli).
-    static int cycle_counter = 0;
-    cycle_counter = (cycle_counter + 1) % 5; // contatore ciclico 0–4
-    if (cycle_counter == 0)
+    // 4️⃣ Frequenza di invio: riduci la chiamata effettiva a 10 Hz (ogni 5 cicli)
+  static int cycle_counter = 0;
+  cycle_counter = (cycle_counter + 1) % 5; // contatore ciclico 0–4
+
+  if (cycle_counter == 0)
+  {
+    // Capacità massima della coda di trasmissione.
+    constexpr size_t MAX_TXQUEUE_SIZE = 10;
+
+    // Inserisci il comando nella txqueue in modo NON BLOCCANTE per il ciclo real-time.
     {
-      if (!send_command_(csv))
+      std::unique_lock<std::mutex> lk(txmutex);
+
+      if (txqueue.size() >= MAX_TXQUEUE_SIZE)
       {
-        RCLCPP_ERROR(this->get_logger(), "write(): errore invio comando seriale");
-        return hardware_interface::return_type::ERROR;
+        // Politica: scarta il più vecchio per fare spazio al comando più recente.
+        txqueue.pop();
+        RCLCPP_WARN(this->get_logger(),
+                    "txqueue piena (>%zu): scartato comando più vecchio per inserire il nuovo",
+                    MAX_TXQUEUE_SIZE);
       }
-    }
+
+      txqueue.push(csv);
+    } // rilascio txmutex qui
+
+    // Notifica il writer thread (non-blocking, veloce)
+    wxcv_.notify_one();
+  }
 
     // 5️⃣ Logging (opzionale):
     // Possiamo loggare il comando inviato solo se è diverso dall’ultimo loggato.
