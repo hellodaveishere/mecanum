@@ -1,16 +1,3 @@
-ros2 run rqt_image_view rqt_image_view&
-ros2 topic list | grep comp
-ros2 topic list
-ros2 topic list
-ros2 run rqt_image_view rqt_image_view
-ros2 run rqt_image_view rqt_image_view
-ros2 run rqt_image_view rqt_image_view
-ros2 run rqt_image_view rqt_image_view
-ros2 run rqt_gui rqt_gui
-ros2 topic echo /camera/image_raw/compressed
-ros2 topic echo /camera/image_raw/compressed
-ros2 run rqt_gui rqt_gui
-rqt_image_view
 ros2 run rqt_gui rqt_image_view
 ros2 run rqt_gui rqt_image_view
 ros2 run rqt_image_view rqt_image_view
@@ -496,5 +483,18 @@ ros2 launch mecanum_base bringup.launch.py > log.txt
 exit
 source install/setup.bash 
 cd src/mecanum_base/tests/
+./test_mecanum.sh 
+./test_mecanum.sh 
+cd src/mecanum_base/tests/
+ls
+./test_mecanum.sh 
+more test_mecanum.sh 
+./test_mecanum.sh 
+sudo apt install bc
+ls
+history
+./test_mecanum.sh 
+sudo apt install bc
+more test_mecanum.sh 
 ./test_mecanum.sh 
 ./test_mecanum.sh 
