@@ -1,8 +1,3 @@
-git add src/mecanum_base/web/calibration_interface.html
-git cherry-pick --continue
-git config --global core.editor "code --wait"
-git cherry-pick --continue
-git status
 git status
 git status
 source install/setup.bash 
@@ -497,4 +492,9 @@ cd webserver/
 node server.js 
 node server.js 
 node server.js 
+node server.js 
+ps -o pid,pgid,cmd | grep ros2
+ps -o pid,pgid,cmd | grep ros2
+ps -o pid,pgid,cmd | grep ros2
+cd src/mecanum_base/webserver/
 node server.js 

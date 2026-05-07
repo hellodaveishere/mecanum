@@ -1,3 +1,7 @@
+"nmcli dev wifi show-password" shows the Wi-Fi name and password.
+
+
+=====
 Sì, i passi sono coerenti e supportati dalla documentazione ufficiale di **NetworkManager**, **nmcli** e **Netplan**:  
 - `nmcli` è lo strumento CLI ufficiale per gestire connessioni, hotspot e condivisione (`ipv4.method shared`) con NetworkManager.  
 - Netplan supporta esplicitamente `renderer: NetworkManager` per delegare tutta la rete a NetworkManager.  
@@ -75,6 +79,268 @@ NOTA: non fa l'upgrade dell'OS
 ```
 
 ---
+
+```markdown
+# Passare a NetworkManager su Ubuntu Server 24.04 LTS (Noble) in modo sicuro
+
+Questa procedura è pensata per **Ubuntu Server 24.04 LTS (64‑bit)**, dove il renderer predefinito è **systemd-networkd** tramite **Netplan**.  
+L’obiettivo è:
+
+- usare **NetworkManager** come renderer principale
+- **non perdere la connettività**, soprattutto se sei in SSH
+- evitare modifiche pericolose a `systemd-networkd`  
+
+Le indicazioni sono allineate alla documentazione Netplan/Ubuntu e alla struttura di networking di Ubuntu 24.04.   [Ubuntu Manpage Repository](https://manpages.ubuntu.com/manpages/noble/man5/netplan.5.html)  [server.hk](https://server.hk/blog/ubuntu-networking-internals-netplan-networkmanager-and-kernel-interfaces/)  
+
+---
+
+## 0. Prima di iniziare
+
+- Se sei collegato via **SSH**, pianifica un accesso alternativo (console, IPMI, ecc.).
+- Esegui un backup dei file in `/etc/netplan/`:
+
+```bash
+sudo cp -a /etc/netplan /etc/netplan.backup.$(date +%F)
+```
+
+---
+
+## 1. Installare NetworkManager
+
+Su Ubuntu Server 24.04, NetworkManager non è installato di default.
+
+```bash
+sudo apt update
+sudo apt install -y network-manager
+```
+
+> NetworkManager è uno dei due renderer supportati da Netplan (insieme a systemd-networkd).   [Ubuntu Manpage Repository](https://manpages.ubuntu.com/manpages/noble/man5/netplan.5.html)  [server.hk](https://server.hk/blog/ubuntu-networking-internals-netplan-networkmanager-and-kernel-interfaces/)  
+
+---
+
+## 2. Identificare il file Netplan attivo
+
+I file possono chiamarsi, ad esempio:
+
+- `00-installer-config.yaml`
+- `50-cloud-init.yaml`
+- `01-netcfg.yaml`
+
+Elenca i file:
+
+```bash
+ls /etc/netplan
+```
+
+Scegli il file principale (di solito quello con numero più alto o quello che contiene la tua interfaccia, es. `eth0`, `ens3`, `enp1s0`, ecc.) e aprilo:
+
+```bash
+sudo nano /etc/netplan/00-installer-config.yaml
+# oppure
+sudo nano /etc/netplan/50-cloud-init.yaml
+```
+
+---
+
+## 3. Impostare NetworkManager come renderer
+
+Nel file scelto, assicurati che la struttura sia simile a:
+
+```yaml
+network:
+  version: 2
+  renderer: NetworkManager
+  ethernets:
+    eth0:
+      dhcp4: true
+```
+
+Note importanti:
+
+- **Non rimuovere** la sezione `ethernets:` (o `wifis:` ecc.) se è già presente:  
+  mantieni IP statici, DHCP, DNS, gateway, ecc.  
+- Cambia solo il valore di `renderer:` in `NetworkManager`.  
+- Il nome dell’interfaccia (`eth0`, `ens3`, `enp0s3`, ecc.) deve corrispondere a quello reale (`ip a` per verificarlo).
+
+> Netplan usa `renderer` per decidere se usare systemd-networkd o NetworkManager come backend.   [Ubuntu Manpage Repository](https://manpages.ubuntu.com/manpages/noble/man5/netplan.5.html)  [server.hk](https://server.hk/blog/ubuntu-networking-internals-netplan-networkmanager-and-kernel-interfaces/)  
+
+---
+
+## 4. Applicare la configurazione in modo sicuro
+
+Se sei su un server (specie via SSH), usa **`netplan try`** invece di `netplan apply`:
+
+```bash
+sudo netplan try
+```
+
+- Il sistema applica la nuova configurazione.
+- Hai un timeout (es. 120 secondi) per confermare.
+- Se **confermi**, la configurazione resta.
+- Se **non confermi** (perché hai perso la connessione), Netplan **ripristina automaticamente** la configurazione precedente.
+
+> `netplan try` è il metodo raccomandato per evitare di bloccarsi fuori dal server quando si cambia renderer o IP.   [cr0x.net](https://cr0x.net/en/ubuntu-netplan-changes-not-applying/)  [Ubuntu Manpage Repository](https://manpages.ubuntu.com/manpages/noble/man5/netplan.5.html)  
+
+Se sei in locale (console) e vuoi applicare direttamente:
+
+```bash
+sudo netplan apply
+```
+
+---
+
+## 5. Verificare che NetworkManager gestisca la rete
+
+Dopo `netplan try`/`apply`, controlla:
+
+```bash
+nmcli device
+```
+
+Dovresti vedere la tua interfaccia (es. `eth0`) in stato `connected` o `connecting`.
+
+Controlla anche:
+
+```bash
+ip a
+ip route
+ping -c 3 1.1.1.1
+ping -c 3 google.com
+```
+
+Se:
+
+- hai IP corretto
+- hai route
+- risolvi DNS
+
+allora NetworkManager sta gestendo correttamente la rete.
+
+---
+
+## 6. Gestione di systemd-networkd
+
+### 6.1 Cosa NON fare
+
+**Sconsigliato** disabilitare brutalmente `systemd-networkd.service`:
+
+```bash
+# NON consigliato:
+sudo systemctl disable systemd-networkd
+sudo systemctl stop systemd-networkd
+```
+
+Questo può avere effetti collaterali su boot, DNS e servizi che si aspettano networkd.   [server.hk](https://server.hk/blog/ubuntu-networking-internals-netplan-networkmanager-and-kernel-interfaces/)  
+
+### 6.2 Cosa puoi fare in sicurezza
+
+Se vuoi evitare che il sistema aspetti networkd all’avvio, puoi disabilitare solo il servizio “wait-online”:
+
+```bash
+sudo systemctl disable systemd-networkd-wait-online.service
+```
+
+Questo riduce i tempi di boot senza interferire con Netplan/NetworkManager.
+
+---
+
+## 7. Riavvio e verifica finale
+
+Quando sei soddisfatto del funzionamento:
+
+```bash
+sudo reboot
+```
+
+Dopo il riavvio:
+
+```bash
+nmcli device
+ip a
+ip route
+ping -c 3 1.1.1.1
+ping -c 3 google.com
+```
+
+Se tutto è ok, la migrazione a NetworkManager è completata.
+
+---
+
+## 8. Come tornare indietro a systemd-networkd (rollback)
+
+Se vuoi ripristinare la situazione originale:
+
+1. Modifica di nuovo il file Netplan:
+
+```bash
+sudo nano /etc/netplan/<nomefile>.yaml
+```
+
+Rimetti:
+
+```yaml
+network:
+  version: 2
+  renderer: networkd
+  # ... resto invariato ...
+```
+
+2. Applica in modo sicuro:
+
+```bash
+sudo netplan try
+# oppure
+sudo netplan apply
+```
+
+3. (Opzionale) Se avevi disabilitato `systemd-networkd-wait-online.service` e vuoi ripristinarlo:
+
+```bash
+sudo systemctl enable systemd-networkd-wait-online.service
+```
+
+4. Riavvia:
+
+```bash
+sudo reboot
+```
+
+---
+
+## 9. Riepilogo rapido (comandi chiave)
+
+```bash
+# Backup
+sudo cp -a /etc/netplan /etc/netplan.backup.$(date +%F)
+
+# Installare NetworkManager
+sudo apt update
+sudo apt install -y network-manager
+
+# Modificare Netplan (esempio)
+sudo nano /etc/netplan/00-installer-config.yaml
+# -> renderer: NetworkManager
+
+# Applicare in modo sicuro
+sudo netplan try
+
+# Verifica
+nmcli device
+ip a
+ip route
+ping -c 3 1.1.1.1
+ping -c 3 google.com
+
+# (Opzionale) disabilitare solo il wait-online
+sudo systemctl disable systemd-networkd-wait-online.service
+```
+
+---
+
+Se vuoi, posso aggiungere una **sezione pronta-copia per IP statico** (es. server in LAN con IP fisso) usando NetworkManager via Netplan.  
+```
+
+=============== OLD =====================
 
 # 7. Installare e attivare NetworkManager
 
