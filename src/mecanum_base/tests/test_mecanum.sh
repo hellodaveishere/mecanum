@@ -12,10 +12,10 @@ if ! command -v ros2 >/dev/null 2>&1; then
 fi
 
 # Controllo bc (anche se ora non lo usiamo più direttamente, ma può servirti)
-if ! command -v bc >/dev/null 2>&1; then
-    echo "Errore: installa bc con: sudo apt install bc"
-    exit 1
-fi
+#if ! command -v bc >/dev/null 2>&1; then
+#    echo "Errore: installa bc con: sudo apt install bc"
+#    exit 1
+#fi
 
 TOPIC="/mecanum_velocity_controller/commands"
 MSG_TYPE="std_msgs/msg/Float64MultiArray"

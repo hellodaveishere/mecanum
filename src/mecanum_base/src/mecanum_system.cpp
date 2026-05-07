@@ -160,60 +160,105 @@ namespace mecanum_hardware
   // =============================
   void MecanumSystem::readerloop()
   {
+    RCLCPP_INFO(this->get_logger(), "📡 Reader thread avviato");
+
     char c;
     std::string buffer;
     bool inside = false;
 
-    // 🔄 Loop continuo finché running_reader_ è true
-    while (running_reader_)
+    // Per limitare log "coda vuota"
+    auto last_empty_log = std::chrono::steady_clock::now();
+
+    while (running_reader_.load())
     {
-      ssize_t n = ::read(serial_fd_, &c, 1); // Legge un byte dalla seriale
+      ssize_t n = ::read(serial_fd_, &c, 1);
+
       if (n > 0)
       {
+        // --- Byte valido ---
         if (c == '^')
         {
-          // Inizio messaggio → reset buffer
           buffer.clear();
           inside = true;
         }
         else if (c == '$' && inside)
         {
-          // Fine messaggio → inserisci in coda
+          // Messaggio completo → push + log
           {
             std::lock_guard<std::mutex> lk(rxmutex);
             rxqueue.push(buffer);
+            rxcv_.notify_one();
           }
-          rxcv_.notify_one(); // Notifica eventuali consumatori
+
+          //RCLCPP_INFO(this->get_logger(), "📨 Messaggio ricevuto: '%s'", buffer.c_str());
           inside = false;
         }
         else if (inside)
         {
-          // Accumula byte nel buffer
           buffer.push_back(c);
         }
+        else
+        {
+          RCLCPP_WARN(this->get_logger(),
+                      "⚠️ Carattere fuori messaggio ignorato: 0x%02X",
+                      (unsigned char)c);
+        }
       }
-      else
+      else if (n == 0)
       {
-        // Nessun dato disponibile → piccolo sleep per non saturare CPU
-        std::this_thread::sleep_for(std::chrono::milliseconds(2));
+        RCLCPP_WARN(this->get_logger(), "🔌 EOF sulla seriale: dispositivo chiuso");
+        break;
+      }
+      else // n == -1
+      {
+        if (errno == EAGAIN || errno == EWOULDBLOCK)
+        {
+          // Nessun dato → log limitato a 1 Hz
+          //auto now = std::chrono::steady_clock::now();
+          //if (now - last_empty_log > std::chrono::seconds(1))
+          //{
+          //  RCLCPP_INFO(this->get_logger(), "⏳ Nessun dato disponibile (EAGAIN)");
+          //  last_empty_log = now;
+          //}
+
+          std::this_thread::sleep_for(std::chrono::milliseconds(2));
+          continue;
+        }
+
+        if (errno == EINTR)
+        {
+          RCLCPP_WARN(this->get_logger(), "⏸️ read() interrotta da EINTR → retry");
+          continue;
+        }
+
+        RCLCPP_WARN(this->get_logger(),
+                    "❌ Errore read(): errno=%d (%s)",
+                    errno, strerror(errno));
+        break;
       }
     }
+
+    if (inside)
+    {
+      RCLCPP_WARN(this->get_logger(),
+                  "⚠️ Thread terminato con messaggio parziale scartato: '%s'",
+                  buffer.c_str());
+    }
+
+    RCLCPP_INFO(this->get_logger(), "🛑 Reader thread terminato");
   }
 
   std::optional<std::string> MecanumSystem::read_buffer_()
   {
-    // 🔒 Protegge la coda da accessi concorrenti
     std::lock_guard<std::mutex> lk(rxmutex);
 
     if (rxqueue.empty())
-    {
-      // Nessun messaggio disponibile → ritorna nullopt
       return std::nullopt;
-    }
 
-    // ✅ Estrae il messaggio più vecchio dalla coda
     auto msg = rxqueue.front();
     rxqueue.pop();
+
+    //RCLCPP_INFO(this->get_logger(), "📬 Messaggio estratto dalla coda: '%s'", msg.c_str());
     return msg;
   }
 
@@ -635,7 +680,6 @@ namespace mecanum_hardware
       // Update timestamp for this message type
       last_stamp_[msg_type] = time;
 
-
       // 4) Dispatch in base al prefisso del pacchetto.
       //    Usiamo rfind(...,0) per verificare che la stringa inizi con il prefisso.
       //
@@ -878,33 +922,33 @@ namespace mecanum_hardware
                       servo_command_.pan_position, servo_command_.tilt_position);
 
     // 4️⃣ Frequenza di invio: riduci la chiamata effettiva a 10 Hz (ogni 5 cicli)
-  static int cycle_counter = 0;
-  cycle_counter = (cycle_counter + 1) % 5; // contatore ciclico 0–4
+    static int cycle_counter = 0;
+    cycle_counter = (cycle_counter + 1) % 5; // contatore ciclico 0–4
 
-  if (cycle_counter == 0)
-  {
-    // Capacità massima della coda di trasmissione.
-    constexpr size_t MAX_TXQUEUE_SIZE = 10;
-
-    // Inserisci il comando nella txqueue in modo NON BLOCCANTE per il ciclo real-time.
+    if (cycle_counter == 0)
     {
-      std::unique_lock<std::mutex> lk(txmutex);
+      // Capacità massima della coda di trasmissione.
+      constexpr size_t MAX_TXQUEUE_SIZE = 10;
 
-      if (txqueue.size() >= MAX_TXQUEUE_SIZE)
+      // Inserisci il comando nella txqueue in modo NON BLOCCANTE per il ciclo real-time.
       {
-        // Politica: scarta il più vecchio per fare spazio al comando più recente.
-        txqueue.pop();
-        RCLCPP_WARN(this->get_logger(),
-                    "txqueue piena (>%zu): scartato comando più vecchio per inserire il nuovo",
-                    MAX_TXQUEUE_SIZE);
-      }
+        std::unique_lock<std::mutex> lk(txmutex);
 
-      txqueue.push(csv);
-    } // rilascio txmutex qui
+        if (txqueue.size() >= MAX_TXQUEUE_SIZE)
+        {
+          // Politica: scarta il più vecchio per fare spazio al comando più recente.
+          txqueue.pop();
+          RCLCPP_WARN(this->get_logger(),
+                      "txqueue piena (>%zu): scartato comando più vecchio per inserire il nuovo",
+                      MAX_TXQUEUE_SIZE);
+        }
 
-    // Notifica il writer thread (non-blocking, veloce)
-    wxcv_.notify_one();
-  }
+        txqueue.push(csv);
+      } // rilascio txmutex qui
+
+      // Notifica il writer thread (non-blocking, veloce)
+      wxcv_.notify_one();
+    }
 
     // 5️⃣ Logging (opzionale):
     // Possiamo loggare il comando inviato solo se è diverso dall’ultimo loggato.
