@@ -1,5 +1,3 @@
-ros2 run rqt_gui rqt_image_view
-ros2 run rqt_gui rqt_image_view
 ros2 run rqt_image_view rqt_image_view
 ros2 run rqt_gui rqt_gui
 ros2 topic list
@@ -498,3 +496,5 @@ sudo apt install bc
 more test_mecanum.sh 
 ./test_mecanum.sh 
 ./test_mecanum.sh 
+history
+colcon build --packages-select mecanum_base --symlink-install

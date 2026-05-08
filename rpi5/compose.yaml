@@ -21,10 +21,23 @@ services:
       PS1: "[ROS2-CONTAINER ros2-dev] \\u@\\h:\\w$ "
 
     volumes:
-      - .:/home/ws
+      #- .:/home/ws
+      - /home/dave/ws:/home/ws
       - /dev:/dev
       - /dev/dri:/dev/dri
       - ${HOME}/.ssh:/home/dave/.ssh
+
+    devices:
+      - /dev/gpiochip0
+      - /dev/gpiochip1
+      - /dev/gpiochip2
+      - /dev/gpiochip3
+      - /dev/gpiochip4
+
+    group_add:
+      - tty
+      - dialout
+      - gpio
 
     working_dir: /home/ws
     command: ["sleep", "infinity"]

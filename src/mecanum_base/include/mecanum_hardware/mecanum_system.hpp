@@ -160,7 +160,8 @@ namespace mecanum_hardware
         void apply_mock_dynamics_(double dt);
 
         // 📡 Gestione seriale diretta
-        std::string serial_port_{"/dev/ttyUSB0"}; // Porta seriale
+        //std::string serial_port_{"/dev/ttyUSB0"}; // Porta seriale tramite FTDI232
+        std::string serial_port_{"/dev/ttyAMA0"}; // Porta seriale diretta su UART0 (PL011) attiva su GPIO14/15 del rpi5
         int baudrate_{1000000};                    // Baudrate
         int serial_fd_{-1};                       // File descriptor seriale
         std::mutex serial_mutex_;                 // Protezione accesso concorrente

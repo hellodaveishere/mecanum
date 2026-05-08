@@ -1,5 +1,10 @@
+# ===>  DA RIMUOVERE su rpi5
 FROM osrf/ros:jazzy-desktop-noble
-ARG USERNAME=USERNAME
+# immagine ufficiale, ARM64, Ubuntu 24.04 su rpi5
+# ===> SOLO su Rpi5: FROM ros:jazzy-ros-base-noble  
+
+#ARG USERNAME=USERNAME
+ARG USERNAME=ws
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
@@ -16,7 +21,12 @@ RUN groupadd --gid $USER_GID $USERNAME \
 
 RUN usermod -a -G dialout $USERNAME
 
+# ===> SOLO su Rpi5: RUN groupadd -f gpio && usermod -a -G gpio $USERNAME
+# ===> SOLO su Rpi5: RUN usermod -a -G tty $USERNAME
+
 RUN apt-get update && apt-get install -y \
+    # solo se necessario su Rpi5:
+    #ros-jazzy-desktop \ 
     nlohmann-json3-dev ros-jazzy-serial-driver python3-serial \
     ros-jazzy-asio-cmake-module libserial-dev \
     ros-jazzy-diagnostic-updater libboost-all-dev\
@@ -41,13 +51,13 @@ RUN apt-get install -y python3-pip
 RUN apt-get install -y python3-serial
 
 RUN apt update && apt install -y \
-  gstreamer1.0-tools \
-  gstreamer1.0-plugins-base \
-  gstreamer1.0-plugins-good \
-  gstreamer1.0-plugins-bad \
-  gstreamer1.0-plugins-ugly \
-  v4l-utils && \
-  rm -rf /var/lib/apt/lists/*
+    gstreamer1.0-tools \
+    gstreamer1.0-plugins-base \
+    gstreamer1.0-plugins-good \
+    gstreamer1.0-plugins-bad \
+    gstreamer1.0-plugins-ugly \
+    v4l-utils && \
+    rm -rf /var/lib/apt/lists/*
 
 
 

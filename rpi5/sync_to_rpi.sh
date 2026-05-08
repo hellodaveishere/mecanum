@@ -1,115 +1,121 @@
 #!/bin/bash
 
 # ============================================================
-# 🔄 Sincronizza progetto ROS 2 dal laptop al Raspberry Pi 5
+# 🔄 Sincronizzazione automatizzata progetto ROS 2 → Raspberry Pi 5
+# ============================================================
+#
+# Questo script sincronizza in modo affidabile e non interattivo
+# (grazie all’autenticazione SSH tramite chiavi) il progetto ROS 2
+# sviluppato sul laptop verso il Raspberry Pi 5.
+#
+# ✔️ Funzionalità principali:
+#   • Mirror completo dei pacchetti ROS 2:
+#       - Sorgente:      ../src/
+#       - Destinazione:  /home/dave/ws/src/
+#       - Il Raspberry Pi 5 diventa una copia IDENTICA del laptop
+#
+#   • Mirror completo dei file Docker:
+#       - Sorgente:      ./ (directory rpi5)
+#       - Destinazione:  /home/dave/ros2-dev-container/
+#
+#   • Creazione directory remote solo se mancanti
+#
+#   • Gestione container ros2-dev:
+#       - Se NON attivo → chiedere all’utente se avviarlo
+#       - Se attivo → chiedere all’utente se riavviarlo
+#
+#   • Sincronizzazione tramite rsync:
+#       - Modalità archivio (-a)
+#       - Compressione (-z)
+#       - Sovrascrittura file vecchi
+#       - Eliminazione file obsoleti (--delete)
+#       - Nessuna richiesta di password (SSH con chiavi)
+#
 # ============================================================
 
-# 📘 ISTRUZIONI D'USO:
-# 1. Assicurati che il Raspberry Pi 5 sia acceso e connesso alla rete.
-# 2. Verifica che SSH sia attivo sul Raspberry Pi.
-# 3. Esegui questo script dal laptop:
-#    ./sync_to_rpi.sh
-#
-# Questo script copierà:
-# - I pacchetti ROS 2 mecanum_base/ e sllider_ros2/ da ~/ros2-dev-container/src/
-# - I file docker-compose.yaml, Dockerfile, start_ros2_container.sh e stop_ros2_container.sh da ~/ros2-dev-container/rpi5/
-# - Verso: /home/ws/src/ e /home/pi/ros2-dev-container/ sul Raspberry Pi 5
-# - Che è montato come volume nel container ros2-dev
-#
-# 📁 STRUTTURA DELLE CARTELLE
-
-# 💻 Laptop (ambiente di sviluppo)
-# ~/ros2-dev-container/
-# ├── src/                         # Codice ROS 2 sviluppato
-# │   ├── mecanum_base/
-# │   └── sllider_ros2/
-# └── rpi5/                        # Configurazione per Raspberry Pi 5
-#     ├── docker-compose.yaml
-#     ├── Dockerfile
-#     ├── start_ros2_container.sh
-#     ├── stop_ros2_container.sh
-#     └── sync_to_rpi.sh           # Questo script
-
-# 🍓 Raspberry Pi 5 (ambiente di esecuzione)
-# IP: 192.168.1.42
-# /home/ws/src/                    # Volume montato nel container ros2-dev
-# ├── mecanum_base/
-# └── sllider_ros2/
-# /home/pi/ros2-dev-container/     # Contiene i file di configurazione Docker
-# ============================================================
 
 # 📍 Parametri fissi
-RPI_USER="pi"
-RPI_HOST="192.168.188.41"
+RPI_USER="dave"
+RPI_HOST="192.168.188.51"
+#RPI_HOST="10.42.0.1"
 RPI="$RPI_USER@$RPI_HOST"
 
 SRC_DIR="../src"
 RPI5_DIR="."
-TARGET_DIR="/home/pi/ws/src"
-DOCKER_TARGET_DIR="/home/pi/ros2-dev-container"
+TARGET_DIR="/home/dave/ws/src"
+DOCKER_TARGET_DIR="/home/dave/ros2-dev-container"
 
 PACKAGES=("mecanum_base" "sllidar_ros2")
-DOCKER_FILES=("docker-compose.yaml" "Dockerfile" "start_ros2_container.sh" "stop_ros2_container.sh")
+DOCKER_FILES=("compose.yaml" "Dockerfile" "start_ros2_container.sh" "stop_ros2_container.sh")
 
-# 📦 Copia dei file Docker e degli script di gestione container
-# Questi file sono necessari per costruire e controllare il container ros2-dev sul Raspberry Pi
-for file in "${DOCKER_FILES[@]}"; do
-  if [[ -f "$RPI5_DIR/$file" ]]; then
-    echo "📤 Copia del file: $file"
-    rsync -avz "$RPI5_DIR/$file" "$RPI:$DOCKER_TARGET_DIR/"
-  else
-    echo "⚠️ Attenzione: il file $file non esiste in $RPI5_DIR, salto..."
-  fi
-done
 
-# 🔍 Verifica se il container ros2-dev è attivo sul Raspberry Pi
-echo "🔎 Controllo stato del container ros2-dev su $RPI_HOST..."
+# ============================================================
+# 🛠️ Creazione directory remote (solo se mancanti)
+# ============================================================
+echo "📁 Verifica directory remote..."
+
+ssh "$RPI" "mkdir -p $TARGET_DIR"
+ssh "$RPI" "mkdir -p $DOCKER_TARGET_DIR"
+
+
+# ============================================================
+# 📦 Mirror file Docker (sovrascrive + elimina file obsoleti)
+# ============================================================
+echo "📤 Mirror file Docker verso $DOCKER_TARGET_DIR..."
+
+rsync -az --delete "$RPI5_DIR/" "$RPI:$DOCKER_TARGET_DIR/" \
+  --include="compose.yaml" \
+  --include="Dockerfile" \
+  --include="start_ros2_container.sh" \
+  --include="stop_ros2_container.sh" \
+  --exclude="*" 
+
+
+# ============================================================
+# 🔍 Controllo stato container ros2-dev (con conferma utente)
+# ============================================================
+echo "🔎 Controllo container ros2-dev su $RPI_HOST..."
+
 CONTAINER_STATUS=$(ssh "$RPI" docker ps --filter "name=ros2-dev" --filter "status=running" --format "{{.Names}}")
 
 if [[ "$CONTAINER_STATUS" != "ros2-dev" ]]; then
-  echo "⚠️ Il container ros2-dev non è attivo su $RPI_HOST."
+  echo "⚠️ Il container ros2-dev NON è attivo."
   read -p "👉 Vuoi avviarlo ora? [s/N]: " choice
   if [[ "$choice" =~ ^[Ss]$ ]]; then
     echo "🚀 Avvio del container ros2-dev..."
-    ssh "$RPI" 'cd ~/ros2-dev-container && ./start_ros2_container.sh'
+    ssh "$RPI" "cd $DOCKER_TARGET_DIR && ./start_ros2_container.sh"
     sleep 3
   else
-    echo "✅ Il container ros2-dev non è attivo."
+    echo "⏭️ Container lasciato spento."
   fi
 else
-  echo "✅ Il container ros2-dev è attivo."
-
-  # ⚠️ I file Docker e gli script sono stati aggiornati, ma il container è già in esecuzione.
-  # Per applicare le modifiche, è necessario riavviarlo.
-  read -p "🔄 Vuoi riavviare il container per applicare le modifiche? [s/N]: " restart_choice
+  echo "✅ Container ros2-dev attivo."
+  read -p "🔄 Vuoi riavviarlo per applicare le modifiche? [s/N]: " restart_choice
   if [[ "$restart_choice" =~ ^[Ss]$ ]]; then
     echo "🛑 Arresto del container ros2-dev..."
-    ssh "$RPI" 'cd ~/ros2-dev-container && ./stop_ros2_container.sh'
+    ssh "$RPI" "cd $DOCKER_TARGET_DIR && ./stop_ros2_container.sh"
     sleep 2
     echo "🚀 Riavvio del container ros2-dev..."
-    ssh "$RPI" 'cd ~/ros2-dev-container && ./start_ros2_container.sh'
+    ssh "$RPI" "cd $DOCKER_TARGET_DIR && ./start_ros2_container.sh"
     sleep 3
   else
-    echo "⏭️ Il container continuerà a funzionare con la configurazione precedente."
+    echo "⏭️ Container lasciato in esecuzione senza riavvio."
   fi
 fi
 
-# 🔁 Sincronizzazione dei pacchetti ROS 2
+
+# ============================================================
+# 🔁 Mirror pacchetti ROS 2 (RPi5 = copia perfetta del laptop)
+# ============================================================
+echo "📤 Mirror pacchetti ROS 2 verso $TARGET_DIR..."
+
 for pkg in "${PACKAGES[@]}"; do
   if [[ -d "$SRC_DIR/$pkg" ]]; then
-    echo "📤 Copia del pacchetto: $pkg"
-
-    # rsync -avz --delete:
-    # -a : modalità archivio (mantiene permessi, timestamp, simboli, ecc.)
-    # -v : verbose (mostra i file copiati)
-    # -z : comprime i dati durante il trasferimento
-    # --delete : elimina sul Raspberry Pi i file che non esistono più sul laptop
-    # ⚠️ Attenzione: --delete rimuove i file obsoleti sul dispositivo remoto!
-    # Questo comando garantisce che la cartella di destinazione sia una copia esatta di quella locale.
-    rsync -avz --delete "$SRC_DIR/$pkg/" "$RPI:$TARGET_DIR/$pkg/"
+    echo "   → $pkg"
+    rsync -az --delete "$SRC_DIR/$pkg/" "$RPI:$TARGET_DIR/$pkg/"
   else
-    echo "⚠️ Attenzione: la cartella $pkg non esiste in $SRC_DIR, salto..."
+    echo "⚠️ Pacchetto mancante: $pkg (skippato)"
   fi
 done
 
-echo "✅ Sincronizzazione completata."
+echo "✅ Sincronizzazione completata (RPi5 = copia perfetta del laptop)."
