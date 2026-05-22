@@ -123,6 +123,49 @@ test_pid_manual() {
     read -rp "Velocità target (rad/s) [default 5]: " speed
     speed=${speed:-5}
 
+    ###############################################################
+    # 🔥 PATCH LOW-SPEED: se |speed| < 3 rad/s usa PID speciale
+    ###############################################################
+    abs_speed=$(python3 - <<EOF
+import sys
+print(abs(float("$speed")))
+EOF
+)
+
+    if python3 - <<EOF >/dev/null 2>&1
+import sys
+sys.exit(0 if float("$abs_speed") < 3.0 else 1)
+EOF
+    then
+        echo -e "\n>>> Modalità LOW-SPEED attiva (|speed| < 3 rad/s)"
+        echo "    - Ziegler–Nichols DISABILITATO"
+        echo "    - Ricerca oscillazioni DISABILITATA"
+        echo "    - Verranno suggeriti guadagni morbidi:"
+        echo "        Kp = 1.0"
+        echo "        Ki = 0.05"
+        echo "        Kd = 0.0"
+        echo
+
+        local Kp_final="1.0"
+        local Ki_final="0.05"
+        local Kd_final="0.0"
+
+        echo -e "\n=== RISULTATI PER VELOCITÀ ${speed} rad/s ==="
+        echo "Metodo: LOW-SPEED"
+        echo
+        echo "Parametri PID suggeriti:"
+        echo "  Kp = $Kp_final"
+        echo "  Ki = $Ki_final"
+        echo "  Kd = $Kd_final"
+
+        # Log finale low-speed
+        local LOG_FILE="pid_tuning_log.txt"
+        echo "MODE=LOW-SPEED SPEED=${speed} Kp=${Kp_final} Ki=${Ki_final} Kd=${Kd_final}" >> "$LOG_FILE"
+
+        echo -e "\n>>> Imposta questi valori sul microcontrollore."
+        return
+    fi
+
     read -rp "Durata step (s) [default 3]: " TEST_DURATION
     TEST_DURATION=${TEST_DURATION:-3}
 
@@ -140,6 +183,15 @@ test_pid_manual() {
     local Ku_found=0
     local Tu=0
     local mode=""
+
+    # Limiti massimi per Ki e Kd (clamp)
+    local KI_MAX=5.0
+    local KD_MAX=1.0
+
+    # File di log
+    local LOG_FILE="pid_tuning_log.txt"
+    echo -e "\n>>> Log tuning in: $LOG_FILE"
+    echo "=== NEW SESSION motor=${motor_sel} speed=${speed} ===" >> "$LOG_FILE"
 
     echo -e "\n>>> Ricerca automatica a ${speed} rad/s"
     echo "    Modalità assistente umano:"
@@ -185,6 +237,9 @@ test_pid_manual() {
 
         echo ">>> Risultato analisi: $result"
 
+        # Log del test
+        echo "TEST Kp=${Kp} speed=${speed} RESULT=${result}" >> "$LOG_FILE"
+
         ########################################
         # Caso 1 — Oscillazione stabile → ZN
         ########################################
@@ -200,7 +255,7 @@ test_pid_manual() {
         ########################################
         if echo "$result" | grep -q "UNSTABLE_OSCILLATION"; then
 
-            # 🔥 PATCH DEFINITIVA: step fine solo da Kp >= 1.0
+            # step fine solo da Kp >= 1.0
             is_high_kp=$(python3 - <<EOF
 Kp = float("$Kp")
 print("YES" if Kp >= 1.0 else "NO")
@@ -267,6 +322,7 @@ EOF
         then
             echo ">>> ERRORE: Kp troppo alto senza oscillazioni né steady-state"
             send_cmd 1 0 0 0 0
+            echo "ABORT Kp=${Kp} speed=${speed}" >> "$LOG_FILE"
             return
         fi
     done
@@ -284,11 +340,19 @@ print(0.6 * float("$Ku_found"))
 EOF
 )
         Ki_final=$(python3 - <<EOF
-print(2 * float("$Kp_final") / float("$Tu"))
+Kp = float("$Kp_final")
+Tu = float("$Tu")
+Ki = 2 * Kp / Tu
+KI_MAX = float("$KI_MAX")
+print(KI_MAX if Ki > KI_MAX else Ki)
 EOF
 )
         Kd_final=$(python3 - <<EOF
-print(float("$Kp_final") * float("$Tu") / 8)
+Kp = float("$Kp_final")
+Tu = float("$Tu")
+Kd = Kp * Tu / 8.0
+KD_MAX = float("$KD_MAX")
+print(KD_MAX if Kd > KD_MAX else Kd)
 EOF
 )
 
@@ -297,11 +361,17 @@ EOF
         Kp_final="$Kp"
 
         Ki_final=$(python3 - <<EOF
-print(float("$Kp_final") / 5)
+Kp = float("$Kp_final")
+Ki = Kp / 5.0
+KI_MAX = float("$KI_MAX")
+print(KI_MAX if Ki > KI_MAX else Ki)
 EOF
 )
         Kd_final=$(python3 - <<EOF
-print(float("$Kp_final") / 50)
+Kp = float("$Kp_final")
+Kd = Kp / 50.0
+KD_MAX = float("$KD_MAX")
+print(KD_MAX if Kd > KD_MAX else Kd)
 EOF
 )
     fi
@@ -317,12 +387,13 @@ EOF
     echo "  Ki = $Ki_final"
     echo "  Kd = $Kd_final"
 
+    # Log finale
+    echo "FINAL MODE=${mode} SPEED=${speed} Kp=${Kp_final} Ki=${Ki_final} Kd=${Kd_final}" >> "$LOG_FILE"
+
     send_cmd 1 0 0 0 0
 
     echo -e "\n>>> Imposta questi valori sul microcontrollore."
 }
-
-
 
 ###############################################
 # 🔧 TEST PID AUTOMATICO SU VELOCITÀ -13 → +13 rad/s
@@ -345,7 +416,6 @@ test_pid_sweep_single_motor() {
     esac
 
     # Sweep: -13..-1, 1..13
-    #SPEEDS=$(printf "%s\n" $(seq -13 -1) $(seq 1 13))
     SPEEDS=$(seq -13 -1 && seq 1 13)
     TEST_DURATION=2
 
@@ -418,40 +488,45 @@ EOF
     echo -e "\n==================== REPORT FINALE ====================\n"
 
     # Header velocità
-    printf "Motor |"
+    printf -- "Motor |"
     for S in $SPEEDS; do
-        printf " %4d" "$S"
+        printf -- " %4d" "$S"
     done
-    printf "\n"
-    printf "--------------------------------------------------------\n"
+    printf -- "\n"
 
-    # Funzione interna per colorare senza rompere printf
+    # Separatore allineato alle colonne
+    printf -- "------+"
+    for S in $SPEEDS; do
+        printf -- "-----"
+    done
+    printf -- "\n"
+
+    # "Colorize" senza colori, ma larghezza fissa
     colorize() {
         local text="$1"
         case "$text" in
-            OK)  echo -e "\e[32mOK \e[0m"  ;;   # aggiungo spazio per larghezza fissa
-            ACC) echo -e "\e[33mACC\e[0m" ;;
-            NOK) echo -e "\e[31mNOK\e[0m" ;;
-            *)   echo " ?? " ;;
+            OK)  echo "OK"  ;;
+            ACC) echo "ACC" ;;
+            NOK) echo "NOK" ;;
+            *)   echo "??"  ;;
         esac
     }
 
     # Riga classi
-    printf "%4s  |" "$M"
+    printf -- "%4s  |" "$M"
     for S in $SPEEDS; do
         RAW="${RESULT["$M,$S"]}"
         CELL=$(colorize "$RAW")
-        printf " %s" "$CELL"
+        printf -- " %4s" "$CELL"
     done
-    printf "\n"
-
+    printf -- "\n"
 
     # Riga errori percentuali (valori assoluti, 1 decimale)
-    printf "err%% |"
+    printf -- "err%% |"
     for S in $SPEEDS; do
         E="${ERROR["$M,$S"]}"
         if [ -z "$E" ]; then
-            CELL=" -"
+            CELL="-"
         else
             CELL=$(python3 - <<EOF
 e = float("$E")
@@ -459,10 +534,11 @@ print(f"{abs(e):.1f}")
 EOF
 )
         fi
-        printf " %4s" "$CELL"
+        printf -- " %4s" "$CELL"
     done
-    printf "\n"
+    printf -- "\n"
 }
+
 
 
 
