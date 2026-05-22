@@ -56,6 +56,7 @@ RUN apt update && apt install -y \
     gstreamer1.0-plugins-good \
     gstreamer1.0-plugins-bad \
     gstreamer1.0-plugins-ugly \
+    bc \
     v4l-utils && \
     rm -rf /var/lib/apt/lists/*
 

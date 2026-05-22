@@ -664,13 +664,13 @@ namespace mecanum_hardware
         double dt_ms = dt * 1000.0;
         double freq = 1.0 / dt;
 
-        RCLCPP_INFO(
-            this->get_logger(),
-            "[%ld ms] UART %s   dt=%.2f ms   f=%.2f Hz",
-            ms,
-            msg_type.c_str(),
-            dt_ms,
-            freq);
+        //RCLCPP_INFO(
+        //    this->get_logger(),
+        //    "[%ld ms] UART %s   dt=%.2f ms   f=%.2f Hz",
+        //    ms,
+        //    msg_type.c_str(),
+        //    dt_ms,
+        //    freq);
       }
       else
       {

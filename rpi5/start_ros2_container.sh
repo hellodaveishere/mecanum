@@ -65,7 +65,7 @@ if $RUN_LAUNCH; then
 fi
 
 # ============================================================
-# Controllo modifiche a Dockerfile / docker-compose.yml
+# Controllo modifiche a Dockerfile / docker-compose.yaml
 # ============================================================
 
 BUILD_STAMP=".last_build"
@@ -78,8 +78,8 @@ else
         echo "⚠️  Dockerfile è stato modificato dopo l'ultimo build."
         NEED_REBUILD=true
     fi
-    if [[ docker-compose.yml -nt "$BUILD_STAMP" ]]; then
-        echo "⚠️  docker-compose.yml è stato modificato dopo l'ultimo build."
+    if [[ docker-compose.yaml -nt "$BUILD_STAMP" ]]; then
+        echo "⚠️  docker-compose.yaml è stato modificato dopo l'ultimo build."
         NEED_REBUILD=true
     fi
 fi

@@ -46,7 +46,8 @@ TARGET_DIR="/home/dave/ws/src"
 DOCKER_TARGET_DIR="/home/dave/ros2-dev-container"
 
 PACKAGES=("mecanum_base" "sllidar_ros2")
-DOCKER_FILES=("compose.yaml" "Dockerfile" "start_ros2_container.sh" "stop_ros2_container.sh")
+#TODO non usato: 
+DOCKER_FILES=("docker-compose.yaml" "Dockerfile" "start_ros2_container.sh" "stop_ros2_container.sh")
 
 
 # ============================================================
@@ -64,7 +65,7 @@ ssh "$RPI" "mkdir -p $DOCKER_TARGET_DIR"
 echo "📤 Mirror file Docker verso $DOCKER_TARGET_DIR..."
 
 rsync -az --delete "$RPI5_DIR/" "$RPI:$DOCKER_TARGET_DIR/" \
-  --include="compose.yaml" \
+  --include="docker-compose.yaml" \
   --include="Dockerfile" \
   --include="start_ros2_container.sh" \
   --include="stop_ros2_container.sh" \
