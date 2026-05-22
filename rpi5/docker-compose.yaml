@@ -16,8 +16,9 @@ services:
     ipc: host
 
     environment:
-      ROS_AUTOMATIC_DISCOVERY_RANGE: LOCALHOST
+      ROS_AUTOMATIC_DISCOVERY_RANGE: SUBNET
       ROS_DOMAIN_ID: "42"
+      RMW_IMPLEMENTATION: rmw_cyclonedds_cpp
       PS1: "[ROS2-CONTAINER ros2-dev] \\u@\\h:\\w$ "
 
     volumes:
@@ -38,6 +39,13 @@ services:
       - tty
       - dialout
       - gpio
+
+    cap_add:
+      - SYS_NICE
+      
+    ulimits:
+      rtprio: 99
+
 
     working_dir: /home/ws
     command: ["sleep", "infinity"]

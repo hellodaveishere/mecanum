@@ -296,7 +296,7 @@ def generate_launch_description():
         rosbridge_server_node,
         webserver_node,
         throttle_node_for_battery_status,
-        v4l2_camera_node,
+        # v4l2_camera_node, # 👉 decommenta se vuoi avviare anche la telecamera
         rosout_reply_node,
         estop_manager_node
     ])
