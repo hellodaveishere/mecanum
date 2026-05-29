@@ -166,6 +166,13 @@ namespace mecanum_hardware
         int serial_fd_{-1};                       // File descriptor seriale
         std::mutex serial_mutex_;                 // Protezione accesso concorrente
 
+        // --- UART timeout monitoring ---
+        rclcpp::Time last_uart_rx_time_{0, 0, RCL_ROS_TIME};   // timestamp ultimo pacchetto ricevuto
+        double uart_timeout_sec_ = 1.0;                        // timeout di silenzio UART (default 1s)
+        bool uart_warned_ = false;                             // evita spam del warning durante il silenzio
+
+
+
         // 🔒 Mutex per la scrittura sulla seriale
         // Protegge accessi concorrenti al file descriptor durante le operazioni di write()
         std::mutex serialmutex;

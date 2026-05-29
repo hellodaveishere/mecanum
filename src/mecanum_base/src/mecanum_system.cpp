@@ -630,15 +630,34 @@ namespace mecanum_hardware
     // 3) Legge un buffer dalla seriale (può contenere più pacchetti separati da '\n').
     auto buffer = read_buffer_();
 
-    // 3.1) Se non arriva nulla in questo ciclo, semplicemente ritorna OK.
+    // 3.1) Se non arriva nulla in questo ciclo, controlla il timeout UART e poi ritorna OK.
     //      (Può capitare per jitter o rate diversi tra MCU e PC)
     if (!buffer || buffer->empty())
     {
+      if (last_uart_rx_time_.nanoseconds() > 0)
+      {
+        double silence = (time - last_uart_rx_time_).seconds();
+
+        if (silence > uart_timeout_sec_ && !uart_warned_)
+        {
+          RCLCPP_WARN(
+              this->get_logger(),
+              "No sensor data published! Missing UART connectivity?");
+          uart_warned_ = true;
+        }
+      }
+
       return hardware_interface::return_type::OK;
     }
 
+
     // 3.2) Suddividi il buffer in righe
     std::stringstream ss(buffer.value()); // estrai la stringa dall’optional
+
+    // Abbiamo ricevuto almeno un pacchetto in questo ciclo → aggiorna timestamp UART
+    last_uart_rx_time_ = time;
+    uart_warned_ = false;   // resetta il flag: la comunicazione è ripresa
+
     std::string line;
     while (std::getline(ss, line, '\n'))
     {
