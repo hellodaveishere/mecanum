@@ -607,6 +607,14 @@ namespace mecanum_hardware
       warned_[type] = false;   // reset warning quando il sensore riprende
   }
 
+
+  void MecanumSystem::register_framing_error(const rclcpp::Time& t)
+  {
+      framing_errors_++;
+      last_framing_error_ = t;
+      framing_warned_ = false;   // resetta anti-spam
+  }
+
   void MecanumSystem::check_sensor_timeouts(const rclcpp::Time& now)
   {
       // --- Timeout sensori ---
@@ -683,13 +691,6 @@ namespace mecanum_hardware
           framing_errors_ = 0;
           framing_warned_ = false;
       }
-  }
-
-  void MecanumSystem::register_framing_error(const rclcpp::Time& t)
-  {
-      framing_errors_++;
-      last_framing_error_ = t;
-      framing_warned_ = false;   // resetta anti-spam
   }
 
   // ================== READ ==================
