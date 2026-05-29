@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <mutex>
 #include <cmath>
+#include <unordered_map>   // necessario per mappe timeout/timestamp
 
 // ROS 2 Control
 #include "hardware_interface/system_interface.hpp"
@@ -166,13 +167,7 @@ namespace mecanum_hardware
         int serial_fd_{-1};                       // File descriptor seriale
         std::mutex serial_mutex_;                 // Protezione accesso concorrente
 
-        // --- UART timeout monitoring ---
-        rclcpp::Time last_uart_rx_time_{0, 0, RCL_ROS_TIME};   // timestamp ultimo pacchetto ricevuto
-        double uart_timeout_sec_ = 1.0;                        // timeout di silenzio UART (default 1s)
-        bool uart_warned_ = false;                             // evita spam del warning durante il silenzio
-
-
-
+     
         // 🔒 Mutex per la scrittura sulla seriale
         // Protegge accessi concorrenti al file descriptor durante le operazioni di write()
         std::mutex serialmutex;
@@ -190,6 +185,54 @@ namespace mecanum_hardware
         std::queue<std::string> txqueue;          // Buffer FIFO dei comandi da inviare
         std::mutex txmutex;                       // Protegge la coda di trasmissione
         std::condition_variable wxcv_;            // Notifica quando c’è un nuovo comando da inviare
+
+        /////////////////////////////////
+        // enum dei sensori monitorati
+        enum class SensorType {
+            UART_GLOBAL,   // assenza totale di pacchetti UART
+            ENC,           // encoder
+            IMU,           // imu
+            IRS,           // sensori IR
+            SERVO,         // pan/tilt
+            BAT,           // batteria
+            EMR            // emergency stop
+        };
+        
+        // timestamp ultimo aggiornamento per ogni sensore
+        std::unordered_map<SensorType, rclcpp::Time> last_update_;
+        
+        // timeout per ogni sensore
+        std::unordered_map<SensorType, double> timeout_sec_ = {
+            {SensorType::UART_GLOBAL, 1.0},
+            {SensorType::ENC,         0.5},
+            {SensorType::IMU,         0.2},
+            {SensorType::IRS,         0.5},
+            {SensorType::SERVO,       0.5},
+            {SensorType::BAT,         5.0},
+            {SensorType::EMR,         2.0}
+        };
+        
+        // flag anti‑spam per ogni sensore
+        std::unordered_map<SensorType, bool> warned_;
+
+        // variabili per errori di framing UART
+        int framing_errors_ = 0;
+        rclcpp::Time last_framing_error_{0,0,RCL_ROS_TIME};
+        double framing_window_sec_ = 2.0;
+        bool framing_warned_ = false;
+        
+        // variabili per controllo dt ros2_control
+        double dt_warn_threshold_ = 0.050;   // 50 ms
+        double dt_error_threshold_ = 0.200;  // 200 ms
+        bool dt_warned_ = false;
+        bool dt_error_warned_ = false;
+        
+        // dichiarazioni delle due funzioni helper
+        void update_sensor_timestamp(SensorType type, const rclcpp::Time& t);
+        void register_framing_error(const rclcpp::Time& t);
+        
+        void check_sensor_timeouts(const rclcpp::Time& now);
+        ///////////////////////
 
         // 🔌 Funzioni di supporto per la seriale
         bool open_serial();

@@ -600,6 +600,98 @@ namespace mecanum_hardware
     return hardware_interface::CallbackReturn::SUCCESS;
   }
 
+  // Definizione delle delle due funzioni helper per monitorare il possibile timout dell'arrivo dei dati dei sensori
+  void MecanumSystem::update_sensor_timestamp(SensorType type, const rclcpp::Time& t)
+  {
+      last_update_[type] = t;
+      warned_[type] = false;   // reset warning quando il sensore riprende
+  }
+
+  void MecanumSystem::check_sensor_timeouts(const rclcpp::Time& now)
+  {
+      // --- Timeout sensori ---
+      for (const auto& kv : timeout_sec_)
+      {
+          SensorType type = kv.first;
+          double timeout = kv.second;
+
+          if (last_update_.find(type) == last_update_.end())
+              continue; // mai ricevuto nulla
+
+          double silence = (now - last_update_[type]).seconds();
+
+          if (silence > timeout && !warned_[type])
+          {
+              switch (type)
+              {
+                  case SensorType::UART_GLOBAL:
+                      RCLCPP_WARN(this->get_logger(),
+                          "No sensor data published! Missing UART connectivity?");
+                      break;
+
+                  case SensorType::ENC:
+                      RCLCPP_WARN(this->get_logger(),
+                          "ENC timeout: no encoder data for %.2f s", silence);
+                      break;
+
+                  case SensorType::IMU:
+                      RCLCPP_WARN(this->get_logger(),
+                          "IMU timeout: no IMU data for %.2f s", silence);
+                      break;
+
+                  case SensorType::IRS:
+                      RCLCPP_WARN(this->get_logger(),
+                          "IRS timeout: no IR sensor data for %.2f s", silence);
+                      break;
+
+                  case SensorType::SERVO:
+                      RCLCPP_WARN(this->get_logger(),
+                          "SERVO timeout: no servo feedback for %.2f s", silence);
+                      break;
+
+                  case SensorType::BAT:
+                      RCLCPP_WARN(this->get_logger(),
+                          "BAT timeout: no battery telemetry for %.2f s", silence);
+                      break;
+
+                  case SensorType::EMR:
+                      RCLCPP_WARN(this->get_logger(),
+                          "EMR timeout: no emergency-stop updates for %.2f s", silence);
+                      break;
+              }
+
+              warned_[type] = true;
+          }
+      }
+
+      // --- Timeout errori di framing UART ---
+      if (framing_errors_ > 10 && !framing_warned_)
+      {
+          double dt = (now - last_framing_error_).seconds();
+          if (dt < framing_window_sec_)
+          {
+              RCLCPP_WARN(this->get_logger(),
+                  "High UART framing error rate: %d errors in last %.1f s. Noise or wrong baud?",
+                  framing_errors_, framing_window_sec_);
+              framing_warned_ = true;
+          }
+      }
+
+      // Reset finestra errori
+      if ((now - last_framing_error_).seconds() > framing_window_sec_)
+      {
+          framing_errors_ = 0;
+          framing_warned_ = false;
+      }
+  }
+
+  void MecanumSystem::register_framing_error(const rclcpp::Time& t)
+  {
+      framing_errors_++;
+      last_framing_error_ = t;
+      framing_warned_ = false;   // resetta anti-spam
+  }
+
   // ================== READ ==================
   //
   // Legge i pacchetti dalla seriale e aggiorna encoder + IMU.
@@ -610,6 +702,24 @@ namespace mecanum_hardware
     // 1) Tempo trascorso dall’ultimo ciclo (fornito da ros2_control).
     //    Serve per calcolare la velocità media come dpos/dt.
     const double dt = period.seconds();
+
+    // controllo jitter/overload
+    if (dt > dt_error_threshold_ && !dt_error_warned_) {
+        RCLCPP_ERROR(this->get_logger(),
+            "ros2_control loop too slow: dt=%.3f s (CPU overload?)", dt);
+        dt_error_warned_ = true;
+    }
+    else if (dt > dt_warn_threshold_ && !dt_warned_) {
+        RCLCPP_WARN(this->get_logger(),
+            "ros2_control loop jitter: dt=%.3f s", dt);
+        dt_warned_ = true;
+    }
+
+    if (dt <= dt_warn_threshold_) {
+        dt_warned_ = false;
+        dt_error_warned_ = false;
+    }
+    ////////////////
 
     // 1.1) Sanity check: evita divisioni per zero o valori non sensati.
     if (dt <= 0.0)
@@ -634,29 +744,14 @@ namespace mecanum_hardware
     //      (Può capitare per jitter o rate diversi tra MCU e PC)
     if (!buffer || buffer->empty())
     {
-      if (last_uart_rx_time_.nanoseconds() > 0)
-      {
-        double silence = (time - last_uart_rx_time_).seconds();
-
-        if (silence > uart_timeout_sec_ && !uart_warned_)
-        {
-          RCLCPP_WARN(
-              this->get_logger(),
-              "No sensor data published! Missing UART connectivity?");
-          uart_warned_ = true;
-        }
-      }
-
-      return hardware_interface::return_type::OK;
+        check_sensor_timeouts(time);
+        return hardware_interface::return_type::OK;
     }
-
 
     // 3.2) Suddividi il buffer in righe
     std::stringstream ss(buffer.value()); // estrai la stringa dall’optional
 
-    // Abbiamo ricevuto almeno un pacchetto in questo ciclo → aggiorna timestamp UART
-    last_uart_rx_time_ = time;
-    uart_warned_ = false;   // resetta il flag: la comunicazione è ripresa
+    update_sensor_timestamp(SensorType::UART_GLOBAL, time);
 
     std::string line;
     while (std::getline(ss, line, '\n'))
@@ -706,6 +801,8 @@ namespace mecanum_hardware
       {
         try
         {
+          update_sensor_timestamp(SensorType::ENC, time);
+
           // Delego il parsing alla funzione dedicata.
           // Se il pacchetto è ben formato, aggiornerà:
           //   joints_[i].pos_rad
@@ -714,6 +811,8 @@ namespace mecanum_hardware
         }
         catch (const std::exception &e)
         {
+          register_framing_error(time);
+
           // In caso di eccezioni non gestite (es. std::bad_alloc, ecc.),
           // logghiamo un warning per non far crashare il nodo.
           // logger_ NON è accessibile → usare get_logger()
@@ -726,10 +825,14 @@ namespace mecanum_hardware
         // --- gestione pacchetto IMU ---
         try
         {
+          update_sensor_timestamp(SensorType::IMU, time);
+
           parse_imu_packet_(line);
         }
         catch (const std::exception &e)
         {
+          register_framing_error(time);
+
           RCLCPP_WARN(this->get_logger(),
                       "Pacchetto IMU malformato, scartato. Errore: %s | Riga: '%s'",
                       e.what(), line.c_str());
@@ -740,6 +843,8 @@ namespace mecanum_hardware
         // 📦 Parsing dei dati IR: formato atteso "IRS,ir_left,ir_center,ir_right"
         try
         {
+          update_sensor_timestamp(SensorType::IRS, time);
+
           std::vector<std::string> tokens;
           std::stringstream ss_ir(line);
           std::string item;
@@ -766,6 +871,8 @@ namespace mecanum_hardware
         }
         catch (const std::exception &e)
         {
+          register_framing_error(time);
+
           RCLCPP_WARN(rclcpp::get_logger("MecanumSystem"),
                       "Pacchetto IR SENSORS malformato, scartato. Errore: %s | Riga: '%s'",
                       e.what(), line.c_str());
@@ -775,6 +882,8 @@ namespace mecanum_hardware
       {
         try
         {
+          update_sensor_timestamp(SensorType::SERVO, time);
+
           std::vector<std::string> tokens;
           std::stringstream ss_ser(line);
           std::string item;
@@ -800,6 +909,8 @@ namespace mecanum_hardware
         }
         catch (const std::exception &e)
         {
+          register_framing_error(time);
+
           RCLCPP_WARN(rclcpp::get_logger("MecanumSystem"),
                       "Pacchetto SERVO malformato, scartato. Errore: %s | Riga: '%s'",
                       e.what(), line.c_str());
@@ -809,6 +920,8 @@ namespace mecanum_hardware
       {
         try
         {
+          update_sensor_timestamp(SensorType::BAT, time);
+
           std::istringstream ss_bat(line);
           std::string token;
           std::vector<std::string> fields;
@@ -827,6 +940,8 @@ namespace mecanum_hardware
         }
         catch (const std::exception &e)
         {
+          register_framing_error(time);
+
           RCLCPP_WARN(this->get_logger(),
                       "Pacchetto BAT malformato, scartato. Errore: %s | Riga: '%s'",
                       e.what(), line.c_str());
@@ -840,37 +955,53 @@ namespace mecanum_hardware
       // Verifica se la riga ricevuta inizia con il prefisso "EMR:" (Emergency Stop)
       else if (line.rfind("EMR", 0) == 0)
       {
-        std::string value = line.substr(4);
-        value.erase(std::remove_if(value.begin(), value.end(), ::isspace), value.end());
+        try{
+          update_sensor_timestamp(SensorType::EMR, time);
 
-        bool new_state = (value == "true");
-        estop_active_state_ = new_state ? 1.0 : 0.0;
+          std::string value = line.substr(4);
+          value.erase(std::remove_if(value.begin(), value.end(), ::isspace), value.end());
 
-        // Stampa log solo se cambia stato
-        static bool last_state = false;
-        if (new_state != last_state)
+          bool new_state = (value == "true");
+          estop_active_state_ = new_state ? 1.0 : 0.0;
+
+          // Stampa log solo se cambia stato
+          static bool last_state = false;
+          if (new_state != last_state)
+          {
+            if (new_state)
+            {
+              RCLCPP_WARN_STREAM(rclcpp::get_logger("MecanumSystem"),
+                                "Emergency stop ATTIVO (EMR: " << value << ")");
+            }
+            else
+            {
+              RCLCPP_INFO_STREAM(rclcpp::get_logger("MecanumSystem"),
+                                "Emergency stop DISATTIVO (EMR: " << value << ")");
+            }
+            last_state = new_state;
+          }
+        }
+        catch (const std::exception &e)
         {
-          if (new_state)
-          {
-            RCLCPP_WARN_STREAM(rclcpp::get_logger("MecanumSystem"),
-                               "Emergency stop ATTIVO (EMR: " << value << ")");
-          }
-          else
-          {
-            RCLCPP_INFO_STREAM(rclcpp::get_logger("MecanumSystem"),
-                               "Emergency stop DISATTIVO (EMR: " << value << ")");
-          }
-          last_state = new_state;
+          register_framing_error(time);
+
+          RCLCPP_WARN(this->get_logger(),
+                      "Pacchetto EMR malformato, scartato. Errore: %s | Riga: '%s'",
+                      e.what(), line.c_str());
         }
       }
       else
       {
         // 6) Prefisso sconosciuto: il pacchetto non appartiene ai formati attesi.
         //    Lo segnaliamo ma non è un errore critico (potrebbe essere rumore o debug lato MCU).
+        register_framing_error(time);
+
         RCLCPP_WARN(this->get_logger(),
                     "Pacchetto con prefisso sconosciuto: %s", line.c_str());
       }
     } // fine while getline
+
+    check_sensor_timeouts(time);
 
     // 7) Concludi regolarmente: anche se non è arrivato nulla o si è scartato un pacchetto,
     //    il ciclo di controllo continua senza disattivare l'hardware.
