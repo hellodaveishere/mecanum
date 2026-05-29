@@ -22,6 +22,19 @@
 // Messaggi standard IMU
 #include "sensor_msgs/msg/imu.hpp"
 
+// per avere hash di default negli enum class e usare unordered_map
+namespace std {
+template <>
+struct hash<MecanumSystem::SensorType>
+{
+    size_t operator()(const MecanumSystem::SensorType& t) const noexcept
+    {
+        return static_cast<size_t>(t);
+    }
+};
+}
+
+
 namespace mecanum_hardware
 {
 
