@@ -600,13 +600,12 @@ namespace mecanum_hardware
     return hardware_interface::CallbackReturn::SUCCESS;
   }
 
-  // Definizione delle delle due funzioni helper per monitorare il possibile timout dell'arrivo dei dati dei sensori
+  // Definizione delle delle tre funzioni helper per monitorare il possibile timout dell'arrivo dei dati dei sensori
   void MecanumSystem::update_sensor_timestamp(SensorType type, const rclcpp::Time& t)
   {
       last_update_[type] = t;
       warned_[type] = false;   // reset warning quando il sensore riprende
   }
-
 
   void MecanumSystem::register_framing_error(const rclcpp::Time& t)
   {

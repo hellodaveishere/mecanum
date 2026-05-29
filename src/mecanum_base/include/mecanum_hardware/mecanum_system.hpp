@@ -227,7 +227,7 @@ namespace mecanum_hardware
         bool dt_warned_ = false;
         bool dt_error_warned_ = false;
         
-        // dichiarazioni delle due funzioni helper
+        // dichiarazioni delle tre funzioni helper
         void update_sensor_timestamp(SensorType type, const rclcpp::Time& t);
         void register_framing_error(const rclcpp::Time& t);
         
