@@ -23,6 +23,9 @@
 #include "sensor_msgs/msg/imu.hpp"
 
 // per avere hash di default negli enum class e usare unordered_map
+// In C++20, in termini di standard portabile, è più corretto considerare che 
+// non è garantito che std::hash sia definito per i tuoi enum class custom.
+// Alcune implementazioni standard library lo forniscono, altre no: lo standard non lo impone.
 namespace std {
 template <>
 struct hash<MecanumSystem::SensorType>
