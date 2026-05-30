@@ -1,0 +1,10 @@
+<library path="mecanum_base_system_state_broadcaster">
+  <class name="mecanum_base/SystemStateBroadcaster"
+         type="mecanum_base::SystemStateBroadcaster"
+         base_class_type="controller_interface::ControllerInterface">
+    <description>
+      Broadcaster ros2_control che pubblica lo stato di sistema del robot
+      sul topic /robot/system_state usando mecanum_base::msg::SystemState.
+    </description>
+  </class>
+</library>

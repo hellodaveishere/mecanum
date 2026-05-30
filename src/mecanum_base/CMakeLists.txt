@@ -50,6 +50,18 @@ ament_target_dependencies(mecanum_system
 )
 
 # ============================================================
+# GENERAZIONE MESSAGGIO PER SYSTEM STATUS
+# ============================================================
+set(msg_files
+  "msg/SystemState.msg"
+)
+
+rosidl_generate_interfaces(${PROJECT_NAME}
+  ${msg_files}
+)
+
+
+# ============================================================
 # LIBRERIA BROADCASTER ESTOP
 # ============================================================
 add_library(mecanum_base_estop_state_broadcaster SHARED
@@ -60,6 +72,18 @@ ament_target_dependencies(mecanum_base_estop_state_broadcaster
   rclcpp
   controller_interface
   std_msgs
+)
+
+# ============================================================
+# LIBRERIA BROADCASTER SYSTEM STATUS
+# ============================================================
+add_library(mecanum_base_system_state_broadcaster SHARED
+  src/system_state_broadcaster.cpp
+)
+target_compile_features(mecanum_base_system_state_broadcaster PUBLIC cxx_std_17)
+ament_target_dependencies(mecanum_base_system_state_broadcaster
+  rclcpp
+  controller_interface
 )
 
 
@@ -127,6 +151,7 @@ target_link_libraries(calibration_node "${cpp_typesupport_target}")
 set(ALL_TARGETS
   mecanum_system
   mecanum_base_estop_state_broadcaster
+  mecanum_base_system_state_broadcaster
   mecanum_cmd_node
   mecanum_odom_node
   calibration_node
@@ -148,6 +173,7 @@ pluginlib_export_plugin_description_file(hardware_interface mecanum_hardware_plu
 
 # Esporta il plugin broadcaster
 pluginlib_export_plugin_description_file(controller_interface estop_state_broadcaster_plugin.xml)
+pluginlib_export_plugin_description_file(controller_interface system_state_broadcaster_plugin.xml)
 
 
 # ============================================================
@@ -157,6 +183,7 @@ pluginlib_export_plugin_description_file(controller_interface estop_state_broadc
 install(TARGETS
   mecanum_system
   mecanum_base_estop_state_broadcaster
+  mecanum_base_system_state_broadcaster
   mecanum_cmd_node
   mecanum_odom_node
   rosout_relay_node
@@ -182,5 +209,8 @@ install(DIRECTORY urdf config launch rviz web webserver DESTINATION share/${PROJ
 # ============================================================
 # 9. MACRO FINALE PER IL PACCHETTO
 # ============================================================
+# Esporta le dipendenze necessarie per usare i messaggi generati
+ament_export_dependencies(rosidl_default_runtime)
+
 # Necessario per completare la configurazione del pacchetto ROS 2
 ament_package()

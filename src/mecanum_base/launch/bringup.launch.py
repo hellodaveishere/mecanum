@@ -132,6 +132,7 @@ def generate_launch_description():
         output="screen"
     )
 
+
     # =========================
     # 🎛️ Spawner dei controller e broadcaster
     # =========================
@@ -199,6 +200,15 @@ def generate_launch_description():
         output="screen"
     )
 
+    # Spawner per il broadcaster dello stato di sistema
+    spawner_system_state = Node(
+    package="controller_manager",
+    executable="spawner",
+    arguments=["system_state_broadcaster"],
+    output="screen"
+    )
+
+
     # ⏱️ Ritardo per dare tempo a ros2_control_node di inizializzarsi
     delayed_spawners = TimerAction(
         period=3.0,
@@ -211,7 +221,8 @@ def generate_launch_description():
             spawner_ir_front_right,
             spawner_servo_position,
             spawner_battery,  # ✅ Avvio sincronizzato del broadcaster batteria
-            spawner_estop
+            spawner_estop,
+            spawner_system_state
         ]
     )
 

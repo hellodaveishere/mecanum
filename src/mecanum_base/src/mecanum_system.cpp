@@ -514,6 +514,65 @@ namespace mecanum_hardware
 
     RCLCPP_DEBUG(rclcpp::get_logger("BatteryDebug"), "Exporting interface: percentage @ %p", &battery_state_.percentage);
 
+    // SYSTEM STATUS //
+    out.emplace_back(
+      hardware_interface::StateInterface(
+        "system_state", "robot_status", &system_state_.robot_status));
+
+    out.emplace_back(
+      hardware_interface::StateInterface(
+        "system_state", "motor_fl_status", &system_state_.motor_status[0]));
+    out.emplace_back(
+      hardware_interface::StateInterface(
+        "system_state", "motor_fr_status", &system_state_.motor_status[1]));
+    out.emplace_back(
+      hardware_interface::StateInterface(
+        "system_state", "motor_rl_status", &system_state_.motor_status[2]));
+    out.emplace_back(
+      hardware_interface::StateInterface(
+        "system_state", "motor_rr_status", &system_state_.motor_status[3]));
+
+    out.emplace_back(
+      hardware_interface::StateInterface(
+        "system_state", "encoder_fl_status", &system_state_.encoder_status[0]));
+    out.emplace_back(
+      hardware_interface::StateInterface(
+        "system_state", "encoder_fr_status", &system_state_.encoder_status[1]));
+    out.emplace_back(
+      hardware_interface::StateInterface(
+        "system_state", "encoder_rl_status", &system_state_.encoder_status[2]));
+    out.emplace_back(
+      hardware_interface::StateInterface(
+        "system_state", "encoder_rr_status", &system_state_.encoder_status[3]));
+
+    out.emplace_back(
+      hardware_interface::StateInterface(
+        "system_state", "servo_pan_status", &system_state_.servo_status[0]));
+    out.emplace_back(
+      hardware_interface::StateInterface(
+        "system_state", "servo_tilt_status", &system_state_.servo_status[1]));
+
+    out.emplace_back(
+      hardware_interface::StateInterface(
+        "system_state", "ir_fl_status", &system_state_.ir_status[0]));
+    out.emplace_back(
+      hardware_interface::StateInterface(
+        "system_state", "ir_fc_status", &system_state_.ir_status[1]));
+    out.emplace_back(
+      hardware_interface::StateInterface(
+        "system_state", "ir_fr_status", &system_state_.ir_status[2]));
+
+    out.emplace_back(
+      hardware_interface::StateInterface(
+        "system_state", "vacuum_status", &system_state_.vacuum_status));
+    out.emplace_back(
+      hardware_interface::StateInterface(
+        "system_state", "imu_status", &system_state_.imu_status));
+    out.emplace_back(
+      hardware_interface::StateInterface(
+        "system_state", "battery_status", &system_state_.battery_status));
+    /////////
+
     return out;
   }
 
@@ -983,6 +1042,44 @@ namespace mecanum_hardware
                       e.what(), line.c_str());
         }
       }
+      else if (line.rfind("STS", 0) == 0)
+      {
+          // ------------------------------------------------------------
+          // 📦 STS packet (1 Hz)
+          //
+          // Formato:
+          //   STS[,<tick>],
+          //     robot,
+          //     motor_fl,motor_fr,motor_rl,motor_rr,
+          //     enc_fl,enc_fr,enc_rl,enc_rr,
+          //     servo_pan,servo_tilt,
+          //     ir_fl,ir_fc,ir_fr,
+          //     vacuum,
+          //     imu,
+          //     battery
+          //
+          // NOTE:
+          //   - Frequenza: 1 Hz (accoppiato al pacchetto BAT)
+          //   - Ogni valore è un intero TaskStatus (0–5)
+          //   - Ordine fisso → parsing semplice lato ROS2
+          //   - Pacchetto leggero → nessun jitter
+          //   - Nessuna sovrapposizione con IMU/ENC/SER/IRS/EMR
+          // ------------------------------------------------------------
+          try
+          {
+              update_sensor_timestamp(SensorType::STS, time);
+              parse_sts_packet_(line);
+          }
+          catch (const std::exception &e)
+          {
+              register_framing_error(time);
+
+              RCLCPP_WARN(
+                  this->get_logger(),
+                  "Pacchetto STS malformato, scartato. Errore: %s | Riga: '%s'",
+                  e.what(), line.c_str());
+          }
+      }
       else if (line.rfind("LOG", 0) == 0)
       {
         RCLCPP_INFO(this->get_logger(),
@@ -1335,6 +1432,90 @@ namespace mecanum_hardware
     imu_state_.linear_accel[1] = values[8];
     imu_state_.linear_accel[2] = values[9];
   }
+  
+
+  void MecanumSystem::parse_sts_packet_(const std::string &line)
+  {
+      // ------------------------------------------------------------
+      // Parsing del pacchetto STS (System Status)
+      //
+      // Numero campi atteso = 18:
+      //   1  → "STS"
+      //   1  → robot_status
+      //   4  → motor_status[4]
+      //   4  → encoder_status[4]
+      //   2  → servo_status[2]
+      //   3  → ir_status[3]
+      //   1  → vacuum_status
+      //   1  → imu_status
+      //   1  → battery_status
+      //
+      // Ogni campo è un intero TaskStatus (0–5)
+      // ------------------------------------------------------------
+
+      std::vector<std::string> tokens;
+      std::stringstream ss(line);
+      std::string item;
+
+      while (std::getline(ss, item, ','))
+          tokens.push_back(item);
+
+      if (tokens.size() != 18)
+          throw std::runtime_error("Pacchetto STS malformato: numero errato di campi");
+
+      int idx = 1; // salta "STS"
+
+      // Funzione helper per conversione robusta
+      auto parse_int = [&](const std::string &s, const std::string &label) -> int {
+          try { return std::stoi(s); }
+          catch (...) { throw std::runtime_error("Campo STS non valido: " + label); }
+      };
+
+      // -------------------------
+      // Robot status
+      // -------------------------
+      system_state_.robot_status = parse_int(tokens[idx++], "robot");
+
+      // -------------------------
+      // Motori (4)
+      // -------------------------
+      for (int i=0;i<4;i++)
+          system_state_.motor_status[i] = parse_int(tokens[idx++], "motor");
+
+      // -------------------------
+      // Encoder (4)
+      // -------------------------
+      for (int i=0;i<4;i++)
+          system_state_.encoder_status[i] = parse_int(tokens[idx++], "encoder");
+
+      // -------------------------
+      // Servo (2)
+      // -------------------------
+      for (int i=0;i<2;i++)
+          system_state_.servo_status[i] = parse_int(tokens[idx++], "servo");
+
+      // -------------------------
+      // IR (3)
+      // -------------------------
+      for (int i=0;i<3;i++)
+          system_state_.ir_status[i] = parse_int(tokens[idx++], "ir");
+
+      // -------------------------
+      // Vacuum
+      // -------------------------
+      system_state_.vacuum_status = parse_int(tokens[idx++], "vacuum");
+
+      // -------------------------
+      // IMU
+      // -------------------------
+      system_state_.imu_status = parse_int(tokens[idx++], "imu");
+
+      // -------------------------
+      // Batteria
+      // -------------------------
+      system_state_.battery_status = parse_int(tokens[idx++], "battery");
+  }
+
 }
 
 #include "pluginlib/class_list_macros.hpp"

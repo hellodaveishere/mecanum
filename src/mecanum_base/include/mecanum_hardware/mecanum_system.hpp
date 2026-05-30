@@ -22,6 +22,9 @@
 // Messaggi standard IMU
 #include "sensor_msgs/msg/imu.hpp"
 
+// Messaggio personalizzato per system state
+#include "mecanum_base/msg/system_state.hpp"
+
 // per avere hash di default negli enum class e usare unordered_map
 // In C++20, in termini di standard portabile, è più corretto considerare che 
 // non è garantito che std::hash sia definito per i tuoi enum class custom.
@@ -93,6 +96,95 @@ namespace mecanum_hardware
         double percentage = 0.0; // Stato di carica in percentuale (0.0–1.0)
     };
 
+    // ============================================================================
+    //  SYSTEM STATE (ROS2 SIDE)
+    //  ---------------------------------------------------------------------------
+    //  Replica della struttura SystemState presente sul microcontrollore.
+    //
+    //  Obiettivo:
+    //    - Mantenere uno stato centralizzato di tutti i sottosistemi del robot
+    //    - Permettere health-check globali (robot OK / robot FAIL)
+    //    - Facilitare debug, diagnostica e pubblicazione ROS2
+    //    - Allineare MCU ↔ ROS2 con lo stesso protocollo STS
+    //
+    //  Ogni campo contiene un intero TaskStatus (0–5):
+    //    0 = UNKNOWN
+    //    1 = RUNNING
+    //    2 = FAILED
+    //    3 = DISABLED
+    //    4 = TIMEOUT
+    //    5 = ERROR
+    //
+    //  Frequenza aggiornamento: 1 Hz (tramite pacchetto STS)
+    // ============================================================================
+    struct SystemState
+    {
+        // Stato generale del robot (es. emergenza, fault globale, ecc.)
+        int robot_status = 0;
+
+        // Stato dei 4 motori (front-left, front-right, rear-left, rear-right)
+        int motor_status[4] = {0, 0, 0, 0};
+
+        // Stato dei 4 encoder (front-left, front-right, rear-left, rear-right)
+        int encoder_status[4] = {0, 0, 0, 0};
+
+        // Stato dei 2 servo (pan, tilt)
+        int servo_status[2] = {0, 0};
+
+        // Stato dei 3 sensori IR (front-left, front-center, front-right)
+        int ir_status[3] = {0, 0, 0};
+
+        // Stato sensore aspirazione / vacuum
+        int vacuum_status = 0;
+
+        // Stato IMU
+        int imu_status = 0;
+
+        // Stato monitor batteria
+        int battery_status = 0;
+
+        // ------------------------------------------------------------------------
+        //  Utility: verifica se TUTTI i sottosistemi sono OK
+        //  Utile per:
+        //    - diagnostica
+        //    - pannelli rqt
+        //    - logica di sicurezza
+        // ------------------------------------------------------------------------
+        bool all_ok() const
+        {
+            if (robot_status != 1)
+                return false;
+
+            for (int i = 0; i < 4; i++)
+                if (motor_status[i] != 1)
+                    return false;
+
+            for (int i = 0; i < 4; i++)
+                if (encoder_status[i] != 1)
+                    return false;
+
+            for (int i = 0; i < 2; i++)
+                if (servo_status[i] != 1)
+                    return false;
+
+            for (int i = 0; i < 3; i++)
+                if (ir_status[i] != 1)
+                    return false;
+
+            if (vacuum_status != 1)
+                return false;
+
+            if (imu_status != 1)
+                return false;
+
+            if (battery_status != 1)
+                return false;
+
+            return true;
+        }
+    };
+
+
     // 🔧 Classe principale del sistema hardware Mecanum
     //    Implementa l'interfaccia ROS 2 Control e comunica direttamente via seriale
     class MecanumSystem final : public hardware_interface::SystemInterface
@@ -128,6 +220,24 @@ namespace mecanum_hardware
         // Usato per calcolare frequenza fra due messaggi ricevuti via UART
         std::unordered_map<std::string, rclcpp::Time> last_stamp_;
         std::unordered_map<std::string, bool> first_stamp_;
+
+        // =========================================================================
+        //  SYSTEM STATE (AGGIORNATO DAL PACCHETTO STS)
+        //  ------------------------------------------------------------------------
+        //  Contiene lo stato di TUTTI i sottosistemi del robot:
+        //    - robot
+        //    - 4 motori
+        //    - 4 encoder
+        //    - 2 servo
+        //    - 3 IR
+        //    - vacuum
+        //    - IMU
+        //    - batteria
+        //
+        //  Viene aggiornato 1 Hz tramite parse_sts_packet_().
+        //  Permette health-check globali e diagnostica centralizzata.
+        // =========================================================================
+        SystemState system_state_;  // Stato completo del robot
 
 
         // Stato E-STOP hardware (1.0 = attivo, 0.0 = non attivo)
