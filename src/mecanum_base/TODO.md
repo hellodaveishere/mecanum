@@ -6,5 +6,6 @@ estop_state_broadcaster [active] [broadcaster]
 system_state_broadcaster [active] [broadcaster]
 
 poi 
+
 ros2 topic echo /robot/system_state
 
