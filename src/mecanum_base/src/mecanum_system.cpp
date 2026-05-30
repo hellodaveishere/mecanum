@@ -600,18 +600,54 @@ namespace mecanum_hardware
     return hardware_interface::CallbackReturn::SUCCESS;
   }
 
+  
   // Definizione delle delle tre funzioni helper per monitorare il possibile timout dell'arrivo dei dati dei sensori
+  std::string MecanumSystem::sensor_type_to_string(SensorType type) const
+  {
+      switch (type)
+      {
+          case SensorType::UART_GLOBAL: return "UART_GLOBAL";
+          case SensorType::ENC:         return "ENC";
+          case SensorType::IMU:         return "IMU";
+          case SensorType::IRS:         return "IRS";
+          case SensorType::SERVO:       return "SERVO";
+          case SensorType::BAT:         return "BAT";
+          case SensorType::EMR:         return "EMR";
+          default:                      return "UNKNOWN";
+      }
+  }
+
   void MecanumSystem::update_sensor_timestamp(SensorType type, const rclcpp::Time& t)
   {
+      // Se il sensore era in timeout → ora è ripristinato
+      if (warned_[type])
+      {
+          RCLCPP_INFO(
+              this->get_logger(),
+              "Data flow restored for sensor: %s",
+              sensor_type_to_string(type).c_str()
+          );
+      }
+
+      // Aggiorna timestamp e resetta warning
       last_update_[type] = t;
-      warned_[type] = false;   // reset warning quando il sensore riprende
+      warned_[type] = false;
   }
 
   void MecanumSystem::register_framing_error(const rclcpp::Time& t)
   {
+      // Se prima c’erano errori e ora non più → flusso ripristinato
+      if (framing_warned_)
+      {
+          RCLCPP_INFO(
+              this->get_logger(),
+              "UART framing stabilized: data flow restored"
+          );
+      }
+
       framing_errors_++;
       last_framing_error_ = t;
-      framing_warned_ = false;   // resetta anti-spam
+      framing_warned_ = false;   // reset anti-spam
   }
 
   void MecanumSystem::check_sensor_timeouts(const rclcpp::Time& now)
